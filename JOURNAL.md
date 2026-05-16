@@ -139,7 +139,13 @@ Le script `build.js` fait 6 choses dans l'ordre :
 - URL n8n : https://n8n.srv1161197.hstgr.cloud/workflow/ujrE1EVLlrEZL9yW
 - Noeud 1 "Notion - Outils modifie" : credential Notion configuré, event = "Page Updated in Database", poll toutes les minutes -- TEST OK
 - Noeud 2 "Declencher GitHub Actions" : credential GitHub Bearer Auth configuré (token "n8n - Base IA webhook"), header Accept OK
-- **Problème en cours :** champ "Specify Body" bloqué en mode expression. Le body `{"event_type":"notion-update"}` n'est pas envoyé correctement (erreur 422 GitHub). A reprendre à la prochaine session : ouvrir le noeud, corriger "Specify Body" en mode "Using Fields Below" avec champ `event_type` = `notion-update`, puis tester et activer le workflow.
+
+#### 14. Resolution du problème n8n -- body de la requete GitHub
+- **Problème :** le champ "Specify Body" dans n8n était bloqué en mode expression, envoyant le body incorrectement -> erreur 422 de GitHub
+- **Solution :** dans le noeud HTTP Request, choisir "Body Content Type = Raw", "Content Type = application/json", puis coller `{"event_type":"notion-update"}` directement dans le champ Body
+- **Test reussi :** execution manuelle -> n8n affiche "This is an item, but it's empty" avec coche verte
+- **Pourquoi "empty" = succes :** GitHub renvoie HTTP 204 No Content pour repository_dispatch. Le code 204 signifie "j'ai recu ta demande et je l'execute" -- pas de corps dans la reponse, ce qui est normal. N8n affiche un item vide parce qu'il n'y a rien a afficher.
+- **Prochaine etape :** activer le workflow (toggle ON dans n8n) puis tester le cycle complet
 
 ---
 
@@ -155,7 +161,8 @@ Le script `build.js` fait 6 choses dans l'ordre :
 - [x] Configurer GitHub Actions (deploy.yml)
 - [x] Activer GitHub Pages sur le repo
 - [x] Référencer le projet sur projets.duale.fr
-- [ ] Finaliser le workflow n8n (credentials + activation)
+- [x] Finaliser le workflow n8n (credentials + body corrigé, test reussi)
+- [ ] Activer le workflow n8n (toggle ON dans l'interface)
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Affiner la mise en page CSS
 
