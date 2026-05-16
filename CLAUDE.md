@@ -208,17 +208,16 @@ Base_IA/
 
 **Workflow :** "Notion -> GitHub Actions : Base IA"
 **URL :** https://n8n.srv1161197.hstgr.cloud/workflow/ujrE1EVLlrEZL9yW
-**Statut :** credentials configurés, body corrigé, testé avec succes -- A ACTIVER
+**Statut :** actif -- poll toutes les heures + webhook manuel disponible
 
-- Noeud 1 : Notion Trigger -- surveille la base Outils (ID: `b6a3c72949e546f89c6dfc990689298e`) toutes les minutes -- credential Notion OK, event = "Page Updated in Database"
-- Noeud 2 : HTTP Request POST vers `https://api.github.com/repos/RobinDuale/base_IA/dispatches`
-- Header : `Accept: application/vnd.github.v3+json`
+- Noeud 1 : Notion Trigger -- surveille la base Outils toutes les heures -- credential Notion OK
+- Noeud 2 : Webhook GET sur `/base-ia-refresh` -- URL publique : `https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh`
+- Noeud 3 : Repondre au webhook (JSON `{"status":"ok"}`)
+- Noeud 4 : HTTP Request POST vers `https://api.github.com/repos/RobinDuale/base_IA/dispatches`
 - Auth : Bearer Auth -- credential "Bearer Auth account" avec token GitHub `n8n - Base IA webhook`
-- Body : **Body Content Type = Raw**, **Content Type = application/json**, **Body = `{"event_type":"notion-update"}`**
-- Token GitHub utilisé : "n8n - Base IA webhook" (repo scope, classic PAT)
-- **Resolution body :** le mode "Using Fields Below" et "Using JSON" causaient une erreur 422 GitHub. Solution qui a fonctionné : Body Content Type = Raw, Content Type = application/json, puis coller le JSON directement dans le champ Body.
-- **Test reussi :** execution manuelle du noeud 2 -> reponse "This is an item, but it's empty" = SUCCES. GitHub renvoie HTTP 204 No Content pour repository_dispatch (corps vide = normal).
-- **Prochaine etape :** activer le workflow (toggle ON dans n8n) puis tester le cycle complet.
+- Body : Raw + application/json + `{"event_type":"notion-update"}`
+- **ATTENTION :** après chaque `update_workflow` via MCP, les credentials du noeud HTTP Request sont réinitialisés. Toujours vérifier dans l'interface n8n que le credential Bearer Auth est bien sélectionné.
+- **Resolution body (historique) :** le mode "Using Fields Below" et "Using JSON" causaient une erreur 422. Solution : Body Content Type = Raw, Content Type = application/json, JSON direct dans Body.
 
 ---
 
@@ -232,8 +231,11 @@ Base_IA/
 - [x] Activer GitHub Pages sur le repo (branche gh-pages)
 - [x] Référencer le projet sur projets.duale.fr
 - [x] Finaliser le workflow n8n (credentials + body corrigé, test reussi)
-- [ ] Activer le workflow n8n (toggle ON)
+- [x] Activer le workflow n8n (toggle ON) -- fait via MCP n8n
+- [x] Ajouter la navigation latérale sur les fiches outils
+- [x] Ajouter le bouton de mise à jour manuelle avec détection de fin de build
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
+- [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Mettre en page le site (CSS avancé)
 
 ---
@@ -249,3 +251,6 @@ Base_IA/
 | 2026-05-16 | n8n retenu comme relay entre Notion et GitHub Actions (hébergé sur serveur) |
 | 2026-05-16 | GitHub Pages activé sur branche gh-pages via gh CLI |
 | 2026-05-16 | n8n body corrigé : Raw + application/json + JSON direct dans le champ Body -- test OK (204 No Content) |
+| 2026-05-16 | n8n activé, poll réduit à toutes les heures, webhook manuel ajouté (`/webhook/base-ia-refresh`) |
+| 2026-05-16 | Barre de navigation latérale ajoutée sur les fiches outils (sticky desktop, tags mobile) |
+| 2026-05-16 | Bouton refresh avec polling de version.json pour détecter la fin de build |

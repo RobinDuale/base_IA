@@ -145,7 +145,26 @@ Le script `build.js` fait 6 choses dans l'ordre :
 - **Solution :** dans le noeud HTTP Request, choisir "Body Content Type = Raw", "Content Type = application/json", puis coller `{"event_type":"notion-update"}` directement dans le champ Body
 - **Test reussi :** execution manuelle -> n8n affiche "This is an item, but it's empty" avec coche verte
 - **Pourquoi "empty" = succes :** GitHub renvoie HTTP 204 No Content pour repository_dispatch. Le code 204 signifie "j'ai recu ta demande et je l'execute" -- pas de corps dans la reponse, ce qui est normal. N8n affiche un item vide parce qu'il n'y a rien a afficher.
-- **Prochaine etape :** activer le workflow (toggle ON dans n8n) puis tester le cycle complet
+
+#### 15. Activation du workflow n8n et ajustements
+- Workflow n8n activé (toggle ON) via le MCP n8n directement depuis Claude
+- Poll réduit de toutes les minutes à toutes les heures (suffisant, moins de charge serveur)
+- Outil "GitHub" ajouté dans la base Notion pour tester le cycle complet
+- Fiche Notion mise à jour pour y mentionner son rôle dans ce projet
+
+#### 16. Barre de navigation latérale sur les fiches outils
+- Ajout d'un bandeau gauche fixe sur toutes les pages de fiche outil
+- Liste tous les outils avec lien cliquable -- l'outil courant est mis en évidence en bleu
+- Sur mobile : la barre devient un bandeau de tags horizontaux cliquables au-dessus du contenu
+- Implémentation : `genererPageOutil()` reçoit maintenant la liste complète des outils en paramètre
+
+#### 17. Bouton de mise à jour manuelle du site
+- Ajout d'un bouton "Mettre à jour le site" dans le footer de toutes les pages
+- Clic -> appel du webhook n8n -> GitHub Actions reconstruit le site depuis Notion
+- Webhook n8n ajouté au workflow existant : `https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh`
+- Le build génère maintenant un fichier `dist/version.json` avec l'horodatage du build
+- Le bouton poll `version.json` toutes les 10 secondes apres le clic : quand le timestamp est plus récent que le clic, il affiche "Site mis à jour !" puis se remet en état normal après 4 secondes
+- Timeout de 5 minutes si le build ne répond pas
 
 ---
 
@@ -162,8 +181,11 @@ Le script `build.js` fait 6 choses dans l'ordre :
 - [x] Activer GitHub Pages sur le repo
 - [x] Référencer le projet sur projets.duale.fr
 - [x] Finaliser le workflow n8n (credentials + body corrigé, test reussi)
-- [ ] Activer le workflow n8n (toggle ON dans l'interface)
+- [x] Activer le workflow n8n (toggle ON) -- fait via MCP n8n
+- [x] Ajouter la navigation latérale sur les fiches outils
+- [x] Ajouter le bouton de mise à jour manuelle avec détection de fin de build
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
+- [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Affiner la mise en page CSS
 
 ---
