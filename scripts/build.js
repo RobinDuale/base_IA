@@ -187,7 +187,23 @@ function genererPageAccueil(outils) {
 
   <footer>
     <p>Données issues de Notion -- Mis à jour automatiquement</p>
+    <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
   </footer>
+
+  <script>
+    function rafraichirSite(btn) {
+      btn.disabled = true;
+      btn.textContent = "Mise à jour en cours...";
+      fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh")
+        .then(() => {
+          btn.textContent = "Mis à jour -- disponible dans 1-2 min";
+        })
+        .catch(() => {
+          btn.textContent = "Erreur -- réessaie dans un moment";
+          btn.disabled = false;
+        });
+    }
+  </script>
 
   <script>
     // Filtrage par catégorie au clic sur un bouton
@@ -275,7 +291,23 @@ function genererPageOutil(outil, outils) {
 
   <footer>
     <p>Données issues de Notion -- Mis à jour automatiquement</p>
+    <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
   </footer>
+
+  <script>
+    function rafraichirSite(btn) {
+      btn.disabled = true;
+      btn.textContent = "Mise à jour en cours...";
+      fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh")
+        .then(() => {
+          btn.textContent = "Mis à jour -- disponible dans 1-2 min";
+        })
+        .catch(() => {
+          btn.textContent = "Erreur -- réessaie dans un moment";
+          btn.disabled = false;
+        });
+    }
+  </script>
 </body>
 </html>`;
 }
