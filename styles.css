@@ -207,6 +207,17 @@ main {
 
 .lien-officiel:hover { text-decoration: underline; }
 
+.section-lien { border-color: var(--bleu); }
+
+.lien-officiel-section {
+  display: inline-block;
+  color: var(--bleu);
+  font-size: 0.95rem;
+  word-break: break-all;
+}
+
+.lien-officiel-section:hover { text-decoration: underline; }
+
 /* --- Mise en page fiche (barre laterale + contenu) --- */
 .mise-en-page {
   display: flex;
