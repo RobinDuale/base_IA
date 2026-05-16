@@ -421,6 +421,11 @@ function genererPageOutil(outil, outils) {
       ${section("Alternatives", outil.alternatives)}
       ${section("Notes personnelles", outil.notePersonnelles)}
       ${outil.tags ? `<section class="section"><h2>Tags</h2><p>${outil.tags}</p></section>` : ""}
+      ${outil.lienOfficiel ? `
+    <section class="section section-lien">
+      <h2>Lien officiel</h2>
+      <a class="lien-officiel-section" href="${outil.lienOfficiel}" target="_blank" rel="noopener noreferrer">${outil.lienOfficiel} →</a>
+    </section>` : ""}
     </main>
   </div>
 
