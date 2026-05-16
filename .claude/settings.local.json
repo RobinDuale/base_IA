@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo *)",
+      "mcp__793e605a-23c4-4fbf-bd73-5e690297168d__notion-search",
+      "mcp__793e605a-23c4-4fbf-bd73-5e690297168d__notion-fetch",
+      "Bash(npm install *)",
+      "Bash(NOTION_API_KEY=\"test\" node scripts/build.js)"
+    ]
+  }
+}

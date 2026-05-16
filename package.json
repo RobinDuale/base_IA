@@ -1,0 +1,11 @@
+{
+  "name": "base-ia",
+  "version": "1.0.0",
+  "description": "Site personnel sur les outils IA et No Code, alimenté par Notion",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15"
+  }
+}

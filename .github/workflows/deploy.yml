@@ -1,0 +1,54 @@
+# deploy.yml -- Workflow GitHub Actions
+# Ce fichier décrit les instructions automatiques que GitHub exécute
+# pour reconstruire et publier le site à chaque déclenchement.
+
+name: Build et déploiement
+
+on:
+  # Déclenchement manuel depuis l'interface GitHub (bouton "Run workflow")
+  workflow_dispatch:
+
+  # Déclenchement automatique à chaque push sur la branche main
+  push:
+    branches: [main]
+
+  # Déclenchement via webhook externe (Notion appellera cette URL)
+  repository_dispatch:
+    types: [notion-update]
+
+  # Déclenchement de secours toutes les heures (au cas où le webhook rate)
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Etape 1 : récupérer le code du repo
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      # Etape 2 : installer Node.js
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Etape 3 : installer les dépendances (le client Notion)
+      - name: Installer les dépendances
+        run: npm install
+
+      # Etape 4 : lancer le script qui lit Notion et génère le HTML
+      # La clé API est injectée depuis GitHub Secrets (jamais en clair)
+      - name: Générer le site
+        run: npm run build
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+
+      # Etape 5 : déployer le dossier dist/ sur GitHub Pages
+      - name: Déployer sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
