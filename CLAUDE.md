@@ -71,6 +71,10 @@ ia.duale.fr
 | Lien officiel | URL | — |
 | Notes personnelles | Texte | — |
 | Tags | Multi-sélection | CRM, Veille, Prospection, Workflow, Scraping, IA |
+| Complémentaire avec | Texte | — |
+| Exemples & Workflows | Texte | — |
+| Quand utiliser cet outil | Texte | — |
+| Rôle dans l'écosystème | Texte | — |
 
 ### Autres bases de données dans l'espace
 - **Cas d'usage** — ID: `5fa5a591-a14f-4605-b426-7dcc9e36989a`

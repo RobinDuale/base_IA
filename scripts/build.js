@@ -103,6 +103,10 @@ async function recupererOutils() {
         lienOfficiel: extraireTexte(p["Lien officiel"]),
         notePersonnelles: extraireTexte(p["Notes personnelles"]),
         tags: extraireTexte(p["Tags"]),
+        complementaireAvec: extraireTexte(p["Complémentaire avec"]),
+        exemplesWorkflows: extraireTexte(p["Exemples & Workflows"]),
+        quandUtiliser: extraireTexte(p["Quand utiliser cet outil"]),
+        roleEcosysteme: extraireTexte(p["Rôle dans l'écosystème"]),
       });
     }
 
@@ -404,11 +408,15 @@ function genererPageOutil(outil, outils) {
 
     <main class="fiche">
       ${section("Description", outil.description)}
+      ${section("Rôle dans l'écosystème", outil.roleEcosysteme)}
+      ${section("Quand utiliser cet outil", outil.quandUtiliser)}
       ${section("Avantages", outil.avantages)}
       ${section("Limites", outil.limites)}
       ${section("Cas d'usage", outil.casUsage)}
       ${section("Cas d'usage pour moi", outil.casUsagePourMoi)}
-      ${section("Modele économique", outil.modeleEconomique)}
+      ${section("Exemples & Workflows", outil.exemplesWorkflows)}
+      ${section("Complémentaire avec", outil.complementaireAvec)}
+      ${section("Modèle économique", outil.modeleEconomique)}
       ${section("Quand payer ?", outil.quandPayer)}
       ${section("Alternatives", outil.alternatives)}
       ${section("Notes personnelles", outil.notePersonnelles)}
