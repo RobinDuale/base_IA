@@ -192,16 +192,48 @@ function genererPageAccueil(outils) {
 
   <script>
     function rafraichirSite(btn) {
+      const cliqueLe = new Date().toISOString();
       btn.disabled = true;
-      btn.textContent = "Mise à jour en cours...";
+      btn.textContent = "Déclenchement en cours...";
+
       fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh")
         .then(() => {
-          btn.textContent = "Mis à jour -- disponible dans 1-2 min";
+          btn.textContent = "Build lancé -- vérification en cours...";
+          attendreMiseAJour(btn, cliqueLe);
         })
         .catch(() => {
           btn.textContent = "Erreur -- réessaie dans un moment";
           btn.disabled = false;
         });
+    }
+
+    function attendreMiseAJour(btn, cliqueLe) {
+      const TIMEOUT = 5 * 60 * 1000; // 5 minutes max
+      const INTERVALLE = 10 * 1000;  // vérification toutes les 10s
+      const debut = Date.now();
+
+      const interval = setInterval(() => {
+        if (Date.now() - debut > TIMEOUT) {
+          clearInterval(interval);
+          btn.textContent = "Délai dépassé -- réessaie";
+          btn.disabled = false;
+          return;
+        }
+
+        fetch(window.location.origin + "/version.json?t=" + Date.now())
+          .then((r) => r.json())
+          .then((data) => {
+            if (data.built_at > cliqueLe) {
+              clearInterval(interval);
+              btn.textContent = "Site mis à jour !";
+              setTimeout(() => {
+                btn.textContent = "Mettre à jour le site";
+                btn.disabled = false;
+              }, 4000);
+            }
+          })
+          .catch(() => {});
+      }, INTERVALLE);
     }
   </script>
 
@@ -296,16 +328,48 @@ function genererPageOutil(outil, outils) {
 
   <script>
     function rafraichirSite(btn) {
+      const cliqueLe = new Date().toISOString();
       btn.disabled = true;
-      btn.textContent = "Mise à jour en cours...";
+      btn.textContent = "Déclenchement en cours...";
+
       fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh")
         .then(() => {
-          btn.textContent = "Mis à jour -- disponible dans 1-2 min";
+          btn.textContent = "Build lancé -- vérification en cours...";
+          attendreMiseAJour(btn, cliqueLe);
         })
         .catch(() => {
           btn.textContent = "Erreur -- réessaie dans un moment";
           btn.disabled = false;
         });
+    }
+
+    function attendreMiseAJour(btn, cliqueLe) {
+      const TIMEOUT = 5 * 60 * 1000; // 5 minutes max
+      const INTERVALLE = 10 * 1000;  // vérification toutes les 10s
+      const debut = Date.now();
+
+      const interval = setInterval(() => {
+        if (Date.now() - debut > TIMEOUT) {
+          clearInterval(interval);
+          btn.textContent = "Délai dépassé -- réessaie";
+          btn.disabled = false;
+          return;
+        }
+
+        fetch(window.location.origin + "/version.json?t=" + Date.now())
+          .then((r) => r.json())
+          .then((data) => {
+            if (data.built_at > cliqueLe) {
+              clearInterval(interval);
+              btn.textContent = "Site mis à jour !";
+              setTimeout(() => {
+                btn.textContent = "Mettre à jour le site";
+                btn.disabled = false;
+              }, 4000);
+            }
+          })
+          .catch(() => {});
+      }, INTERVALLE);
     }
   </script>
 </body>
@@ -333,11 +397,17 @@ async function main() {
     const css = fs.readFileSync(path.join(__dirname, "..", "src", "styles.css"), "utf8");
     fs.writeFileSync(path.join(DIST_DIR, "styles.css"), css);
 
-    // 5. Générer la page d'accueil
+    // 5. Générer version.json (horodatage du build, utilisé par le bouton de refresh)
+    fs.writeFileSync(
+      path.join(DIST_DIR, "version.json"),
+      JSON.stringify({ built_at: new Date().toISOString() })
+    );
+
+    // 6. Générer la page d'accueil
     fs.writeFileSync(path.join(DIST_DIR, "index.html"), genererPageAccueil(outils));
     console.log("Page d'accueil générée.");
 
-    // 6. Générer une page par outil
+    // 7. Générer une page par outil
     for (const outil of outils) {
       fs.writeFileSync(
         path.join(DIST_DIR, "outils", `${outil.slug}.html`),
