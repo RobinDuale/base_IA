@@ -204,15 +204,33 @@ Base_IA/
         └── [slug].html     → fiche détaillée par outil
 ```
 
+## n8n -- Workflow Notion -> GitHub Actions
+
+**Workflow :** "Notion -> GitHub Actions : Base IA"
+**URL :** https://n8n.srv1161197.hstgr.cloud/workflow/ujrE1EVLlrEZL9yW
+**Statut :** créé, credentials configurés, body à corriger, pas encore activé
+
+- Noeud 1 : Notion Trigger -- surveille la base Outils (ID: `b6a3c72949e546f89c6dfc990689298e`) toutes les minutes -- credential Notion OK, event = "Page Updated in Database"
+- Noeud 2 : HTTP Request POST vers `https://api.github.com/repos/RobinDuale/base_IA/dispatches`
+- Header : `Accept: application/vnd.github.v3+json`
+- Auth : Bearer Auth -- credential "Bearer Auth account" avec token GitHub `n8n - Base IA webhook`
+- Body attendu : `{"event_type":"notion-update"}`
+- **Problème en cours :** le champ "Specify Body" est bloqué en mode expression (`{{ "string" }}`). Solution : ouvrir le noeud, cliquer sur "Specify Body", choisir "Using Fields Below", ajouter le champ `event_type` = `notion-update`. Ou choisir "Using JSON" et coller `{"event_type":"notion-update"}` dans le champ JSON body.
+- Token GitHub utilisé : "n8n - Base IA webhook" (repo scope, classic PAT)
+
+---
+
 ## Etapes du projet
 
 - [x] Créer la clé API Notion
 - [x] Structurer le projet (dossiers, fichiers de base)
 - [x] Ecrire le script Node.js qui lit Notion et génère le HTML
 - [x] Tester le build en local -- 4 outils récupérés et pages générées
-- [ ] Configurer GitHub Actions (build + deploy)
-- [ ] Activer GitHub Pages sur le repo
-- [ ] Configurer le webhook Notion -> GitHub Actions
+- [x] Configurer GitHub Actions (deploy.yml)
+- [x] Activer GitHub Pages sur le repo (branche gh-pages)
+- [x] Référencer le projet sur projets.duale.fr
+- [ ] Finaliser le workflow n8n (credentials + activation)
+- [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Mettre en page le site (CSS avancé)
 
 ---
@@ -221,7 +239,9 @@ Base_IA/
 
 | Date | Decision |
 |------|----------|
-| 2026-05-16 | Architecture retenue : GitHub Pages + GitHub Actions + webhook Notion |
+| 2026-05-16 | Architecture retenue : GitHub Pages + GitHub Actions + n8n (relay webhook) |
 | 2026-05-16 | Stack pédagogique : script Node.js simple, pas de framework |
 | 2026-05-16 | Sous-domaine retenu : ia.duale.fr -- CNAME déjà configuré vers robinduale.github.io |
 | 2026-05-16 | Base Notion "Outils" identifiée et structure mappée |
+| 2026-05-16 | n8n retenu comme relay entre Notion et GitHub Actions (hébergé sur serveur) |
+| 2026-05-16 | GitHub Pages activé sur branche gh-pages via gh CLI |

@@ -104,10 +104,42 @@ Le script `build.js` fait 6 choses dans l'ordre :
 - Résultat : 4 outils récupérés depuis Notion, 5 fichiers HTML générés
 - Site vérifié visuellement dans le navigateur -- affichage correct
 
-#### 8. Mise en place du CLAUDE.md
-- Fichier `CLAUDE.md` créé à la racine du projet
-- Contient : contexte, architecture, structure Notion, règles de travail, SEO/GEO, étapes
-- Mis à jour automatiquement par Claude à chaque décision structurante
+#### 8. Mise en place du CLAUDE.md et JOURNAL.md
+- Fichier `CLAUDE.md` créé : instructions pour Claude (architecture, règles, SEO/GEO)
+- Fichier `JOURNAL.md` créé : journal de bord humain (ce fichier)
+- Les deux sont mis à jour en continu à chaque étape
+
+#### 9. GitHub Actions -- workflow de déploiement
+- Fichier `.github/workflows/deploy.yml` créé
+- Le workflow se déclenche sur : push sur main, webhook externe, schedule horaire
+- Etapes du workflow : checkout -> install Node -> build -> deploy sur gh-pages
+- Problème rencontré : échec du déploiement par manque de permissions
+- Correction : ajout de `permissions: contents: write` dans le workflow
+- Résultat : branche `gh-pages` créée automatiquement par le workflow
+
+#### 10. Activation de GitHub Pages
+- GitHub Pages activé via l'API GitHub (gh CLI)
+- Source : branche `gh-pages`, dossier racine
+- Domaine personnalisé `ia.duale.fr` reconnu automatiquement
+- Certificat SSL en cours de génération (quelques minutes)
+
+#### 11. Premier push sur GitHub
+- Commit initial : tous les fichiers du projet poussés sur main
+- Le workflow GitHub Actions s'est déclenché automatiquement
+- Le site est maintenant accessible sur `ia.duale.fr`
+
+#### 12. Mise à jour de projets.duale.fr
+- Page `projets.duale.fr` mise à jour avec une carte "Base IA" pointant vers `ia.duale.fr`
+- Bloc "Prochain projet" conservé comme placeholder pour le futur
+- Repo `RobinDuale.github.io` cloné en local : `C:\Users\robin\ClaudeDevRepo\projets-duale`
+- `CLAUDE.md` créé pour ce repo également
+
+#### 13. Workflow n8n -- Notion vers GitHub Actions
+- Workflow créé dans n8n : "Notion -> GitHub Actions : Base IA"
+- URL n8n : https://n8n.srv1161197.hstgr.cloud/workflow/ujrE1EVLlrEZL9yW
+- Noeud 1 "Notion - Outils modifie" : credential Notion configuré, event = "Page Updated in Database", poll toutes les minutes -- TEST OK
+- Noeud 2 "Declencher GitHub Actions" : credential GitHub Bearer Auth configuré (token "n8n - Base IA webhook"), header Accept OK
+- **Problème en cours :** champ "Specify Body" bloqué en mode expression. Le body `{"event_type":"notion-update"}` n'est pas envoyé correctement (erreur 422 GitHub). A reprendre à la prochaine session : ouvrir le noeud, corriger "Specify Body" en mode "Using Fields Below" avec champ `event_type` = `notion-update`, puis tester et activer le workflow.
 
 ---
 
@@ -115,14 +147,16 @@ Le script `build.js` fait 6 choses dans l'ordre :
 
 - [x] Vérifier que Node.js est installé -- version 24.14.1
 - [x] Choisir le sous-domaine -- `ia.duale.fr`
-- [x] Configurer le DNS -- CNAME `ia.duale.fr` -> `robinduale.github.io` (déjà fait)
+- [x] Configurer le DNS -- CNAME `ia.duale.fr` -> `robinduale.github.io`
 - [x] Connecter l'intégration Notion à la page "Outils IA et No Code"
 - [x] Créer la structure du projet (dossiers et fichiers)
 - [x] Ecrire le script Node.js qui lit Notion et génère le HTML
 - [x] Tester le build en local -- 4 outils récupérés, pages vérifiées dans le navigateur
-- [ ] Configurer GitHub Actions (build + déploiement automatique)
-- [ ] Activer GitHub Pages sur le repo
-- [ ] Configurer le webhook Notion pour déclencher GitHub Actions
+- [x] Configurer GitHub Actions (deploy.yml)
+- [x] Activer GitHub Pages sur le repo
+- [x] Référencer le projet sur projets.duale.fr
+- [ ] Finaliser le workflow n8n (credentials + activation)
+- [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Affiner la mise en page CSS
 
 ---
@@ -151,3 +185,17 @@ Plutôt que de demander à GitHub "est-ce que Notion a changé ?" toutes les min
 on configure Notion pour qu'il envoie lui-même un signal quand une modification est faite.
 C'est plus efficace et plus rapide. C'est ça un webhook : une notification automatique d'un
 service vers un autre.
+
+### n8n comme relay
+n8n est un outil d'automatisation (comme Zapier ou Make) qu'on héberge soi-même.
+Dans ce projet, il joue le rôle de "traducteur" entre Notion et GitHub :
+- Il surveille la base Notion toutes les minutes
+- Quand il détecte un changement, il appelle l'API GitHub
+- GitHub Actions se déclenche et reconstruit le site
+Sans n8n, il faudrait un serveur dédié pour recevoir les webhooks -- n8n remplace ce serveur.
+
+### GitHub Pages et la branche gh-pages
+GitHub Pages sert les fichiers d'une branche spécifique du repo.
+Dans ce projet, on utilise la branche `gh-pages` qui est créée et mise à jour
+automatiquement par GitHub Actions à chaque build. On ne la touche jamais manuellement.
+La branche `main` contient le code source, la branche `gh-pages` contient le site généré.
