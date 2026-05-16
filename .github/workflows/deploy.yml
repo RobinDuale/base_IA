@@ -23,6 +23,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       # Etape 1 : récupérer le code du repo
