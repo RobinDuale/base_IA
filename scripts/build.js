@@ -411,13 +411,13 @@ function genererPageOutil(outil, outils) {
       ${section("Description", outil.description)}
       ${section("Rôle dans l'écosystème", outil.roleEcosysteme)}
       ${section("Quand utiliser cet outil", outil.quandUtiliser)}
+      ${section("Gratuité", outil.gratuite)}
       ${section("Avantages", outil.avantages)}
       ${section("Limites", outil.limites)}
       ${section("Cas d'usage", outil.casUsage)}
       ${section("Cas d'usage pour moi", outil.casUsagePourMoi)}
       ${section("Exemples & Workflows", outil.exemplesWorkflows)}
       ${section("Complémentaire avec", outil.complementaireAvec)}
-      ${section("Gratuité", outil.gratuite)}
       ${section("Modèle économique", outil.modeleEconomique)}
       ${section("Quand payer ?", outil.quandPayer)}
       ${section("Alternatives", outil.alternatives)}
