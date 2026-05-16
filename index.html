@@ -3,37 +3,43 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Base IA -- Outils IA et No Code</title>
-  <meta name="description" content="Ma base personnelle d'outils IA et No Code : fiches détaillées, cas d'usage, avantages et limites."/>
+  <title>Base IA -- Outils IA, No Code et LLMs</title>
+  <meta name="description" content="Ma base personnelle d'outils IA, No Code et LLMs : fiches détaillées, cas d'usage, avantages et limites."/>
   <link rel="stylesheet" href="styles.css"/>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 </head>
 <body>
   <header>
     <h1>Base IA</h1>
-    <p class="sous-titre">Mes outils IA et No Code</p>
+    <p class="sous-titre">Mes outils IA, No Code et LLMs</p>
   </header>
 
   <main>
-    <div class="filtres">
-      <button class="filtre actif" data-categorie="tous">Tous</button>
-      <button class="filtre" data-categorie="Automatisation">Automatisation</button>
+    <div class="onglets">
+      <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
+      <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
+    </div>
+
+    <div id="section-outils">
+      <div class="filtres">
+        <button class="filtre actif" data-categorie="tous">Tous</button>
+        <button class="filtre" data-categorie="Automatisation">Automatisation</button>
         <button class="filtre" data-categorie="Base de données">Base de données</button>
         <button class="filtre" data-categorie="Développement">Développement</button>
         <button class="filtre" data-categorie="Hébergement">Hébergement</button>
         <button class="filtre" data-categorie="IA">IA</button>
         <button class="filtre" data-categorie="Productivité">Productivité</button>
         <button class="filtre" data-categorie="Scraping">Scraping</button>
-    </div>
+      </div>
 
-    <div class="barre-actions">
-      <button class="btn-reorganiser" id="btnReorganiser" onclick="toggleReorganisation()">Réorganiser</button>
-      <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
-      <button class="btn-annuler" id="btnAnnuler" onclick="annulerReorganisation()" style="display:none">Annuler</button>
-    </div>
+      <div class="barre-actions">
+        <button class="btn-reorganiser" id="btnReorganiser" onclick="toggleReorganisation()">Réorganiser</button>
+        <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
+        <button class="btn-annuler" id="btnAnnuler" onclick="annulerReorganisation()" style="display:none">Annuler</button>
+      </div>
 
-    <div class="grille" id="grille">
-      
+      <div class="grille" id="grille">
+        
       <a class="carte" href="outils/notion.html" data-categorie="Productivité" data-notion-id="3625b86a-8bb4-8173-ad2a-f68bf67c3516">
         <div class="carte-header">
           <h2 class="carte-nom">Notion</h2>
@@ -132,6 +138,56 @@
         </div>
         <p class="carte-description">Plateforme de prospection augmentée par IA permettant d’enrichir des données, scorer des prospects et construire des workflows commerciaux intelligents.</p>
       </a>
+      </div>
+    </div>
+
+    <div id="section-llms" style="display:none">
+      <div class="grille">
+        
+      <a class="carte" href="llm/claude.html" data-categorie="IA">
+        <div class="carte-header">
+          <h2 class="carte-nom">Claude</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#8b5cf6">LLM</span>
+            <span class="badge" style="background:#22c55e">Débutant</span>
+          </div>
+        </div>
+        <p class="carte-description">LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très longs documents. Disponible en trois niveaux : Haiku (rapide), Sonnet (équilibré), Opus (puissant).</p>
+      </a>
+
+      <a class="carte" href="llm/chatgpt.html" data-categorie="IA">
+        <div class="carte-header">
+          <h2 class="carte-nom">ChatGPT</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#8b5cf6">LLM</span>
+            <span class="badge" style="background:#22c55e">Débutant</span>
+          </div>
+        </div>
+        <p class="carte-description">LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème très riche : Custom GPTs, plugins, Canvas, DALL-E pour les images.</p>
+      </a>
+
+      <a class="carte" href="llm/gemini.html" data-categorie="IA">
+        <div class="carte-header">
+          <h2 class="carte-nom">Gemini</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#8b5cf6">LLM</span>
+            <span class="badge" style="background:#22c55e">Débutant</span>
+          </div>
+        </div>
+        <p class="carte-description">LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre de contexte de 1 million de tokens. Très fort en multimodal (texte, images, audio, vidéo).</p>
+      </a>
+
+      <a class="carte" href="llm/perplexity.html" data-categorie="IA">
+        <div class="carte-header">
+          <h2 class="carte-nom">Perplexity</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#8b5cf6">LLM</span>
+            <span class="badge" style="background:#22c55e">Débutant</span>
+          </div>
+        </div>
+        <p class="carte-description">Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
+      </a>
+      </div>
     </div>
   </main>
 
@@ -141,11 +197,17 @@
   </footer>
 
   <script>
+    function afficherOnglet(btn, nom) {
+      document.querySelectorAll('.onglet').forEach(b => b.classList.remove('actif'));
+      btn.classList.add('actif');
+      document.getElementById('section-outils').style.display = nom === 'outils' ? '' : 'none';
+      document.getElementById('section-llms').style.display = nom === 'llms' ? '' : 'none';
+    }
+
     function rafraichirSite(btn) {
       const cliqueLe = new Date().toISOString();
       btn.disabled = true;
       btn.textContent = "Déclenchement en cours...";
-
       fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh")
         .then(() => {
           btn.textContent = "Build lancé -- vérification en cours...";
@@ -158,10 +220,9 @@
     }
 
     function attendreMiseAJour(btn, cliqueLe) {
-      const TIMEOUT = 5 * 60 * 1000; // 5 minutes max
-      const INTERVALLE = 10 * 1000;  // vérification toutes les 10s
+      const TIMEOUT = 5 * 60 * 1000;
+      const INTERVALLE = 10 * 1000;
       const debut = Date.now();
-
       const interval = setInterval(() => {
         if (Date.now() - debut > TIMEOUT) {
           clearInterval(interval);
@@ -169,17 +230,13 @@
           btn.disabled = false;
           return;
         }
-
         fetch(window.location.origin + "/version.json?t=" + Date.now())
           .then((r) => r.json())
           .then((data) => {
             if (data.built_at > cliqueLe) {
               clearInterval(interval);
               btn.textContent = "Site mis à jour !";
-              setTimeout(() => {
-                btn.textContent = "Mettre à jour le site";
-                btn.disabled = false;
-              }, 4000);
+              setTimeout(() => { btn.textContent = "Mettre à jour le site"; btn.disabled = false; }, 4000);
             }
           })
           .catch(() => {});
@@ -196,25 +253,16 @@
       const btnR = document.getElementById("btnReorganiser");
       const btnS = document.getElementById("btnSauvegarder");
       const btnA = document.getElementById("btnAnnuler");
-
-      // Mémoriser l'ordre initial pour pouvoir annuler
       ordreInitial = Array.from(grille.children).map(c => c.dataset.notionId);
-
       grille.classList.add("mode-reorganisation");
       btnR.style.display = "none";
       btnS.style.display = "";
       btnA.style.display = "";
-
-      sortable = new Sortable(grille, {
-        animation: 150,
-        ghostClass: "carte-ghost",
-        onEnd: () => {}
-      });
+      sortable = new Sortable(grille, { animation: 150, ghostClass: "carte-ghost", onEnd: () => {} });
     }
 
     function annulerReorganisation() {
       desactiverReorganisation();
-      // Remettre les cartes dans l'ordre initial
       const grille = document.getElementById("grille");
       ordreInitial.forEach(id => {
         const carte = grille.querySelector('[data-notion-id="' + id + '"]');
@@ -227,25 +275,18 @@
       const btnR = document.getElementById("btnReorganiser");
       const btnS = document.getElementById("btnSauvegarder");
       const btnA = document.getElementById("btnAnnuler");
-
       grille.classList.remove("mode-reorganisation");
       btnR.style.display = "";
       btnS.style.display = "none";
       btnA.style.display = "none";
-
       if (sortable) { sortable.destroy(); sortable = null; }
     }
 
     function sauvegarderOrdre(btn) {
       const grille = document.getElementById("grille");
-      const ordre = Array.from(grille.children).map((carte, index) => ({
-        id: carte.dataset.notionId,
-        ordre: index + 1
-      }));
-
+      const ordre = Array.from(grille.children).map((carte, index) => ({ id: carte.dataset.notionId, ordre: index + 1 }));
       btn.disabled = true;
       btn.textContent = "Sauvegarde en cours...";
-
       fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-reorder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -257,31 +298,20 @@
           document.getElementById("btnReorganiser").disabled = true;
           attendreMiseAJour(document.getElementById("btnReorganiser"), new Date().toISOString());
         })
-        .catch(() => {
-          btn.textContent = "Erreur -- réessaie";
-          btn.disabled = false;
-        });
+        .catch(() => { btn.textContent = "Erreur -- réessaie"; btn.disabled = false; });
     }
   </script>
 
   <script>
-    // Filtrage par catégorie au clic sur un bouton
     const filtres = document.querySelectorAll(".filtre");
-    const cartes = document.querySelectorAll(".carte");
-
+    const cartes = document.querySelectorAll("#section-outils .carte");
     filtres.forEach((btn) => {
       btn.addEventListener("click", () => {
         const categorie = btn.dataset.categorie;
-
         filtres.forEach((b) => b.classList.remove("actif"));
         btn.classList.add("actif");
-
         cartes.forEach((carte) => {
-          if (categorie === "tous" || carte.dataset.categorie === categorie) {
-            carte.style.display = "";
-          } else {
-            carte.style.display = "none";
-          }
+          carte.style.display = (categorie === "tous" || carte.dataset.categorie === categorie) ? "" : "none";
         });
       });
     });

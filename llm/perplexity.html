@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perplexity -- LLM -- Base IA</title>
+  <meta name="description" content="Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes."/>
+  <link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+  <header>
+    <a class="retour" href="../index.html">← Base IA</a>
+    <h1>Perplexity</h1>
+    <div class="badges">
+      <span class="badge" style="background:#8b5cf6">LLM</span>
+      <span class="badge" style="background:#22c55e">Débutant</span>
+    </div>
+    <a class="lien-officiel" href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+  </header>
+
+  <div class="mise-en-page">
+    <nav class="barre-laterale">
+      <p class="barre-laterale-titre">Tous les LLMs</p>
+      <a href="claude.html" class="">Claude</a>
+        <a href="chatgpt.html" class="">ChatGPT</a>
+        <a href="gemini.html" class="">Gemini</a>
+        <a href="perplexity.html" class="actif">Perplexity</a>
+    </nav>
+
+    <main class="fiche">
+      
+    <section class="section">
+      <h2>Description</h2>
+      <p>Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
+    </section>
+      
+      
+    <section class="section">
+      <h2>Quand utiliser cet outil</h2>
+      <p>Quand on cherche une réponse factuelle et sourcée sur un sujet récent ou technique. Remplace avantageusement Google pour les questions complexes qui nécessitent une synthèse, pas juste une liste de liens.</p>
+    </section>
+      
+    <section class="section">
+      <h2>Gratuité</h2>
+      <p>Recherches illimitées avec le modèle standard. Accès web en temps réel. 5 recherches Pro par jour (modèles avancés). Upload de fichiers non disponible en gratuit.</p>
+    </section>
+      
+    <section class="section">
+      <h2>Avantages</h2>
+      <p>Réponses sourcées et vérifiables -- chaque affirmation est liée à une source. Recherche web en temps réel. Interface épurée et rapide. Spaces pour organiser les recherches par thème. Pas d'hallucination sans source (ou presque).</p>
+    </section>
+      
+    <section class="section">
+      <h2>Limites</h2>
+      <p>Pas un LLM généraliste : limité à la recherche et au Q&A. Moins performant que Claude ou ChatGPT pour la rédaction longue, le code ou les tâches créatives. Hallucinations possibles malgré les citations de sources.</p>
+    </section>
+      
+      
+      
+      
+    <section class="section">
+      <h2>Complémentaire avec</h2>
+      <p>Notion (archiver les recherches), Airtable (structurer les données trouvées), n8n (automatiser des requêtes Perplexity via API).</p>
+    </section>
+      
+    <section class="section">
+      <h2>Modèle économique</h2>
+      <p>Freemium. Perplexity Pro à 20$/mois : modèles avancés au choix (GPT-4o, Claude, Gemini), recherches illimitées, upload de fichiers, Spaces collaboratifs.</p>
+    </section>
+      
+    <section class="section">
+      <h2>Quand payer ?</h2>
+      <p>Si on fait de la veille régulière et qu'on veut accéder aux meilleurs modèles avec upload de fichiers. Le gratuit couvre largement un usage occasionnel.</p>
+    </section>
+      
+    <section class="section">
+      <h2>Alternatives</h2>
+      <p>ChatGPT avec web (OpenAI), Gemini (Google), You.com, Phind (focus dev)</p>
+    </section>
+      
+      <section class="section"><h2>Tags</h2><p>IA, Veille</p></section>
+      
+    <section class="section section-lien">
+      <h2>Lien officiel</h2>
+      <a class="lien-officiel-section" href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer">https://www.perplexity.ai →</a>
+    </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>Données issues de Notion -- Mis à jour automatiquement</p>
+    <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
+  </footer>
+
+  <script>
+    function rafraichirSite(btn) {
+      const cliqueLe = new Date().toISOString();
+      btn.disabled = true;
+      btn.textContent = "Déclenchement en cours...";
+      fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh")
+        .then(() => {
+          btn.textContent = "Build lancé -- vérification en cours...";
+          attendreMiseAJour(btn, cliqueLe);
+        })
+        .catch(() => { btn.textContent = "Erreur -- réessaie dans un moment"; btn.disabled = false; });
+    }
+
+    function attendreMiseAJour(btn, cliqueLe) {
+      const TIMEOUT = 5 * 60 * 1000;
+      const INTERVALLE = 10 * 1000;
+      const debut = Date.now();
+      const interval = setInterval(() => {
+        if (Date.now() - debut > TIMEOUT) {
+          clearInterval(interval);
+          btn.textContent = "Délai dépassé -- réessaie";
+          btn.disabled = false;
+          return;
+        }
+        fetch(window.location.origin + "/version.json?t=" + Date.now())
+          .then((r) => r.json())
+          .then((data) => {
+            if (data.built_at > cliqueLe) {
+              clearInterval(interval);
+              btn.textContent = "Site mis à jour !";
+              setTimeout(() => { btn.textContent = "Mettre à jour le site"; btn.disabled = false; }, 4000);
+            }
+          })
+          .catch(() => {});
+      }, INTERVALLE);
+    }
+  </script>
+</body>
+</html>
