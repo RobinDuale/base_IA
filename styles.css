@@ -77,6 +77,32 @@ main {
 .filtre:hover { border-color: var(--bleu); color: var(--texte); }
 .filtre.actif { background: var(--bleu); border-color: var(--bleu); color: #fff; }
 
+/* --- Barre d'actions --- */
+.barre-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.btn-reorganiser,
+.btn-sauvegarder,
+.btn-annuler {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--bord);
+  background: var(--surface);
+  color: var(--gris);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.15s;
+}
+
+.btn-reorganiser:hover:not(:disabled) { border-color: var(--bleu); color: var(--texte); }
+.btn-sauvegarder { border-color: var(--bleu); color: var(--bleu); }
+.btn-sauvegarder:hover:not(:disabled) { background: var(--bleu); color: #fff; }
+.btn-annuler:hover { border-color: #ef4444; color: #ef4444; }
+.btn-reorganiser:disabled { opacity: 0.6; cursor: default; }
+
 /* --- Grille de cartes --- */
 .grille {
   display: grid;
@@ -100,6 +126,24 @@ main {
 .carte:hover {
   border-color: var(--bleu);
   transform: translateY(-2px);
+}
+
+/* Mode réorganisation */
+.mode-reorganisation .carte {
+  cursor: grab;
+  user-select: none;
+}
+
+.mode-reorganisation .carte:active { cursor: grabbing; }
+
+.carte-ghost {
+  opacity: 0.4;
+  background: var(--bleu);
+}
+
+.mode-reorganisation .carte:hover {
+  transform: none;
+  border-color: var(--bleu);
 }
 
 .carte-header {

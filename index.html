@@ -6,6 +6,7 @@
   <title>Base IA -- Outils IA et No Code</title>
   <meta name="description" content="Ma base personnelle d'outils IA et No Code : fiches détaillées, cas d'usage, avantages et limites."/>
   <link rel="stylesheet" href="styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 </head>
 <body>
   <header>
@@ -24,9 +25,15 @@
         <button class="filtre" data-categorie="Scraping">Scraping</button>
     </div>
 
+    <div class="barre-actions">
+      <button class="btn-reorganiser" id="btnReorganiser" onclick="toggleReorganisation()">Réorganiser</button>
+      <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
+      <button class="btn-annuler" id="btnAnnuler" onclick="annulerReorganisation()" style="display:none">Annuler</button>
+    </div>
+
     <div class="grille" id="grille">
       
-      <a class="carte" href="outils/airtable.html" data-categorie="Base de données">
+      <a class="carte" href="outils/airtable.html" data-categorie="Base de données" data-notion-id="3625b86a-8bb4-81aa-a9a8-ee4fe1f3f354">
         <div class="carte-header">
           <h2 class="carte-nom">Airtable</h2>
           <div class="carte-badges">
@@ -37,7 +44,7 @@
         <p class="carte-description">Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle. Il permet de structurer des informations, créer des vues, suivre des processus et collaborer sans coder.</p>
       </a>
 
-      <a class="carte" href="outils/apify.html" data-categorie="Scraping">
+      <a class="carte" href="outils/apify.html" data-categorie="Scraping" data-notion-id="3625b86a-8bb4-8146-9bf4-efd79fc5d4ee">
         <div class="carte-header">
           <h2 class="carte-nom">Apify</h2>
           <div class="carte-badges">
@@ -48,7 +55,7 @@
         <p class="carte-description">Apify est une plateforme de scraping et d’automatisation qui permet de récupérer automatiquement des données sur Internet via des robots appelés Actors.</p>
       </a>
 
-      <a class="carte" href="outils/github.html" data-categorie="Développement">
+      <a class="carte" href="outils/github.html" data-categorie="Développement" data-notion-id="3625b86a-8bb4-814e-a6f1-c12b1d2724ad">
         <div class="carte-header">
           <h2 class="carte-nom">GitHub</h2>
           <div class="carte-badges">
@@ -59,29 +66,7 @@
         <p class="carte-description">GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres développeurs et automatiser des tâches via GitHub Actions.</p>
       </a>
 
-      <a class="carte" href="outils/make.html" data-categorie="Automatisation">
-        <div class="carte-header">
-          <h2 class="carte-nom">Make</h2>
-          <div class="carte-badges">
-            <span class="badge" style="background:#f97316">Automatisation</span>
-            <span class="badge" style="background:#22c55e">Débutant</span>
-          </div>
-        </div>
-        <p class="carte-description">Plateforme no-code d’automatisation visuelle permettant de connecter des applications et créer des scénarios automatisés.</p>
-      </a>
-
-      <a class="carte" href="outils/n8n.html" data-categorie="Automatisation">
-        <div class="carte-header">
-          <h2 class="carte-nom">n8n</h2>
-          <div class="carte-badges">
-            <span class="badge" style="background:#f97316">Automatisation</span>
-            <span class="badge" style="background:#f97316">Intermédiaire</span>
-          </div>
-        </div>
-        <p class="carte-description">Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.</p>
-      </a>
-
-      <a class="carte" href="outils/netlify.html" data-categorie="Hébergement">
+      <a class="carte" href="outils/netlify.html" data-categorie="Hébergement" data-notion-id="3625b86a-8bb4-8105-8755-dc5b0b35eab3">
         <div class="carte-header">
           <h2 class="carte-nom">Netlify</h2>
           <div class="carte-badges">
@@ -92,7 +77,7 @@
         <p class="carte-description">Netlify est une plateforme d’hébergement et de déploiement de sites web modernes et d’applications front-end.</p>
       </a>
 
-      <a class="carte" href="outils/notion.html" data-categorie="Productivité">
+      <a class="carte" href="outils/notion.html" data-categorie="Productivité" data-notion-id="3625b86a-8bb4-8173-ad2a-f68bf67c3516">
         <div class="carte-header">
           <h2 class="carte-nom">Notion</h2>
           <div class="carte-badges">
@@ -101,6 +86,28 @@
           </div>
         </div>
         <p class="carte-description">Workspace tout-en-un pour notes, documentation, bases de données et organisation.</p>
+      </a>
+
+      <a class="carte" href="outils/make.html" data-categorie="Automatisation" data-notion-id="3625b86a-8bb4-8103-893a-ff300036ee78">
+        <div class="carte-header">
+          <h2 class="carte-nom">Make</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#f97316">Automatisation</span>
+            <span class="badge" style="background:#22c55e">Débutant</span>
+          </div>
+        </div>
+        <p class="carte-description">Plateforme no-code d’automatisation visuelle permettant de connecter des applications et créer des scénarios automatisés.</p>
+      </a>
+
+      <a class="carte" href="outils/n8n.html" data-categorie="Automatisation" data-notion-id="3625b86a-8bb4-81e3-9df2-ca05ef3a013f">
+        <div class="carte-header">
+          <h2 class="carte-nom">n8n</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#f97316">Automatisation</span>
+            <span class="badge" style="background:#f97316">Intermédiaire</span>
+          </div>
+        </div>
+        <p class="carte-description">Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.</p>
       </a>
     </div>
   </main>
@@ -154,6 +161,83 @@
           })
           .catch(() => {});
       }, INTERVALLE);
+    }
+  </script>
+
+  <script>
+    let sortable = null;
+    let ordreInitial = null;
+
+    function toggleReorganisation() {
+      const grille = document.getElementById("grille");
+      const btnR = document.getElementById("btnReorganiser");
+      const btnS = document.getElementById("btnSauvegarder");
+      const btnA = document.getElementById("btnAnnuler");
+
+      // Mémoriser l'ordre initial pour pouvoir annuler
+      ordreInitial = Array.from(grille.children).map(c => c.dataset.notionId);
+
+      grille.classList.add("mode-reorganisation");
+      btnR.style.display = "none";
+      btnS.style.display = "";
+      btnA.style.display = "";
+
+      sortable = new Sortable(grille, {
+        animation: 150,
+        ghostClass: "carte-ghost",
+        onEnd: () => {}
+      });
+    }
+
+    function annulerReorganisation() {
+      desactiverReorganisation();
+      // Remettre les cartes dans l'ordre initial
+      const grille = document.getElementById("grille");
+      ordreInitial.forEach(id => {
+        const carte = grille.querySelector('[data-notion-id="' + id + '"]');
+        if (carte) grille.appendChild(carte);
+      });
+    }
+
+    function desactiverReorganisation() {
+      const grille = document.getElementById("grille");
+      const btnR = document.getElementById("btnReorganiser");
+      const btnS = document.getElementById("btnSauvegarder");
+      const btnA = document.getElementById("btnAnnuler");
+
+      grille.classList.remove("mode-reorganisation");
+      btnR.style.display = "";
+      btnS.style.display = "none";
+      btnA.style.display = "none";
+
+      if (sortable) { sortable.destroy(); sortable = null; }
+    }
+
+    function sauvegarderOrdre(btn) {
+      const grille = document.getElementById("grille");
+      const ordre = Array.from(grille.children).map((carte, index) => ({
+        id: carte.dataset.notionId,
+        ordre: index + 1
+      }));
+
+      btn.disabled = true;
+      btn.textContent = "Sauvegarde en cours...";
+
+      fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-reorder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ordre })
+      })
+        .then(() => {
+          btn.textContent = "Sauvegardé -- build en cours...";
+          desactiverReorganisation();
+          document.getElementById("btnReorganiser").disabled = true;
+          attendreMiseAJour(document.getElementById("btnReorganiser"), new Date().toISOString());
+        })
+        .catch(() => {
+          btn.textContent = "Erreur -- réessaie";
+          btn.disabled = false;
+        });
     }
   </script>
 
