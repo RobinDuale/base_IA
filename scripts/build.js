@@ -107,6 +107,7 @@ async function recupererOutils() {
         exemplesWorkflows: extraireTexte(p["Exemples & Workflows"]),
         quandUtiliser: extraireTexte(p["Quand utiliser cet outil"]),
         roleEcosysteme: extraireTexte(p["Rôle dans l'écosystème"]),
+        gratuite: extraireTexte(p["Gratuité"]),
       });
     }
 
@@ -416,6 +417,7 @@ function genererPageOutil(outil, outils) {
       ${section("Cas d'usage pour moi", outil.casUsagePourMoi)}
       ${section("Exemples & Workflows", outil.exemplesWorkflows)}
       ${section("Complémentaire avec", outil.complementaireAvec)}
+      ${section("Gratuité", outil.gratuite)}
       ${section("Modèle économique", outil.modeleEconomique)}
       ${section("Quand payer ?", outil.quandPayer)}
       ${section("Alternatives", outil.alternatives)}

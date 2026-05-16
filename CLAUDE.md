@@ -75,6 +75,7 @@ ia.duale.fr
 | Exemples & Workflows | Texte | — |
 | Quand utiliser cet outil | Texte | — |
 | Rôle dans l'écosystème | Texte | — |
+| Gratuité | Texte | Périmètre de la version gratuite |
 
 ### Autres bases de données dans l'espace
 - **Cas d'usage** — ID: `5fa5a591-a14f-4605-b426-7dcc9e36989a`
