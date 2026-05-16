@@ -216,7 +216,7 @@ function genererPageAccueil(outils) {
 }
 
 // Page détail d'un outil
-function genererPageOutil(outil) {
+function genererPageOutil(outil, outils) {
   function section(titre, contenu) {
     if (!contenu) return "";
     return `
@@ -225,6 +225,13 @@ function genererPageOutil(outil) {
       <p>${contenu.replace(/\n/g, "<br/>")}</p>
     </section>`;
   }
+
+  const liensBarreLaterale = outils
+    .map(
+      (o) =>
+        `<a href="${o.slug}.html" class="${o.slug === outil.slug ? "actif" : ""}">${o.nom}</a>`
+    )
+    .join("\n        ");
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -237,7 +244,7 @@ function genererPageOutil(outil) {
 </head>
 <body>
   <header>
-    <a class="retour" href="../index.html">← Retour à la liste</a>
+    <a class="retour" href="../index.html">← Base IA</a>
     <h1>${outil.nom}</h1>
     <div class="badges">
       ${badgeCategorie(outil.categorie)}
@@ -246,18 +253,25 @@ function genererPageOutil(outil) {
     ${outil.lienOfficiel ? `<a class="lien-officiel" href="${outil.lienOfficiel}" target="_blank" rel="noopener noreferrer">Site officiel →</a>` : ""}
   </header>
 
-  <main class="fiche">
-    ${section("Description", outil.description)}
-    ${section("Avantages", outil.avantages)}
-    ${section("Limites", outil.limites)}
-    ${section("Cas d'usage", outil.casUsage)}
-    ${section("Cas d'usage pour moi", outil.casUsagePourMoi)}
-    ${section("Modele économique", outil.modeleEconomique)}
-    ${section("Quand payer ?", outil.quandPayer)}
-    ${section("Alternatives", outil.alternatives)}
-    ${section("Notes personnelles", outil.notePersonnelles)}
-    ${outil.tags ? `<section class="section"><h2>Tags</h2><p>${outil.tags}</p></section>` : ""}
-  </main>
+  <div class="mise-en-page">
+    <nav class="barre-laterale">
+      <p class="barre-laterale-titre">Tous les outils</p>
+      ${liensBarreLaterale}
+    </nav>
+
+    <main class="fiche">
+      ${section("Description", outil.description)}
+      ${section("Avantages", outil.avantages)}
+      ${section("Limites", outil.limites)}
+      ${section("Cas d'usage", outil.casUsage)}
+      ${section("Cas d'usage pour moi", outil.casUsagePourMoi)}
+      ${section("Modele économique", outil.modeleEconomique)}
+      ${section("Quand payer ?", outil.quandPayer)}
+      ${section("Alternatives", outil.alternatives)}
+      ${section("Notes personnelles", outil.notePersonnelles)}
+      ${outil.tags ? `<section class="section"><h2>Tags</h2><p>${outil.tags}</p></section>` : ""}
+    </main>
+  </div>
 
   <footer>
     <p>Données issues de Notion -- Mis à jour automatiquement</p>
@@ -295,7 +309,7 @@ async function main() {
     for (const outil of outils) {
       fs.writeFileSync(
         path.join(DIST_DIR, "outils", `${outil.slug}.html`),
-        genererPageOutil(outil)
+        genererPageOutil(outil, outils)
       );
     }
     console.log(`${outils.length} pages outils générées.`);
