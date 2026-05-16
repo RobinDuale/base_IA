@@ -158,6 +158,32 @@ Le script `build.js` fait 6 choses dans l'ordre :
 - Sur mobile : la barre devient un bandeau de tags horizontaux cliquables au-dessus du contenu
 - Implémentation : `genererPageOutil()` reçoit maintenant la liste complète des outils en paramètre
 
+#### 18. Réorganisation des cartes par glisser-déposer
+
+- Propriété "Ordre" (type number) ajoutée dans la base Notion Outils
+- Ordre initial défini : Airtable=1, Apify=2, GitHub=3, Netlify=4, Notion=5
+- `build.js` mis à jour :
+  - `extraireTexte()` gère maintenant le type "number" (retourne null si vide, pas une chaîne vide)
+  - `recupererOutils()` extrait le champ `ordre` et trie les outils par Ordre (nulls en dernier, puis par nom alphabétique)
+  - Les cartes ont maintenant un attribut `data-notion-id` pour identifier chaque outil côté client
+  - La page d'accueil inclut SortableJS (CDN) pour le drag & drop
+- Interface ajoutée sur la home :
+  - Bouton "Réorganiser" : active le mode glisser-déposer sur la grille
+  - En mode réorganisation : les cartes sont déplaçables, curseur "grab"
+  - Bouton "Sauvegarder l'ordre" : envoie le nouvel ordre au webhook n8n
+  - Bouton "Annuler" : remet les cartes dans l'ordre initial sans sauvegarder
+- Workflow n8n créé : "Reorder outils - Base IA" (ID: xRKkzmkpVcsjikNG)
+  - Webhook POST `/base-ia-reorder` : reçoit `{ordre: [{id, ordre}, ...]}`
+  - Code node : décompose le tableau en items individuels
+  - HTTP Request (Notion) : met à jour la propriété Ordre de chaque page
+  - HTTP Request (GitHub) : déclenche un rebuild (executeOnce pour ne lancer qu'un seul build)
+- **Credentials à configurer manuellement dans n8n** après chaque update du workflow :
+  - Noeud "Update Notion page" : sélectionner le credential Notion API existant
+  - Noeud "Trigger GitHub Actions" : sélectionner le credential Bearer Auth existant
+
+**Pourquoi cette architecture :**
+Notion est la source de vérité pour l'ordre des outils -- ainsi l'ordre est conservé entre les sessions et identique sur tous les appareils. Le site affiche toujours les outils dans l'ordre défini dans Notion. L'utilisateur réorganise via l'interface web, et l'ordre est persisté dans Notion automatiquement.
+
 #### 17. Bouton de mise à jour manuelle du site
 - Ajout d'un bouton "Mettre à jour le site" dans le footer de toutes les pages
 - Clic -> appel du webhook n8n -> GitHub Actions reconstruit le site depuis Notion
@@ -184,6 +210,8 @@ Le script `build.js` fait 6 choses dans l'ordre :
 - [x] Activer le workflow n8n (toggle ON) -- fait via MCP n8n
 - [x] Ajouter la navigation latérale sur les fiches outils
 - [x] Ajouter le bouton de mise à jour manuelle avec détection de fin de build
+- [x] Ajouter la réorganisation des cartes par glisser-déposer avec sauvegarde dans Notion
+- [ ] Configurer les credentials n8n sur le workflow "Reorder outils" (Notion + GitHub)
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Affiner la mise en page CSS

@@ -234,9 +234,29 @@ Base_IA/
 - [x] Activer le workflow n8n (toggle ON) -- fait via MCP n8n
 - [x] Ajouter la navigation latérale sur les fiches outils
 - [x] Ajouter le bouton de mise à jour manuelle avec détection de fin de build
+- [x] Réorganisation des cartes par glisser-déposer (SortableJS + webhook n8n reorder)
+- [ ] Configurer credentials n8n sur workflow "Reorder outils" (ID: xRKkzmkpVcsjikNG)
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Mettre en page le site (CSS avancé)
+
+---
+
+## n8n -- Workflow Reorder outils
+
+**Workflow :** "Reorder outils - Base IA"
+**ID :** xRKkzmkpVcsjikNG
+**URL :** https://n8n.srv1161197.hstgr.cloud/workflow/xRKkzmkpVcsjikNG
+**Webhook :** POST `https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-reorder`
+**Statut :** publié -- credentials a configurer manuellement
+
+Structure :
+1. Webhook POST `/base-ia-reorder` -- recoit `{ordre: [{id: "notion-page-id", ordre: 1}, ...]}`
+2. Code node "Split ordre items" -- decoupe le tableau en items individuels
+3. HTTP Request "Update Notion page" -- PATCH `/pages/{pageId}` avec `{properties: {Ordre: {number: N}}}` -- **credential notionApi a selectionner**
+4. HTTP Request "Trigger GitHub Actions" -- POST repository_dispatch (executeOnce) -- **credential Bearer Auth a selectionner**
+
+**ATTENTION (meme probleme que l'autre workflow) :** apres chaque update_workflow via MCP, les credentials sont reinitialises. Configurer manuellement dans l'interface n8n.
 
 ---
 

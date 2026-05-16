@@ -61,6 +61,9 @@ function extraireTexte(propriete) {
   if (propriete.type === "status") {
     return propriete.status ? propriete.status.name : "";
   }
+  if (propriete.type === "number") {
+    return propriete.number !== null && propriete.number !== undefined ? propriete.number : null;
+  }
   return "";
 }
 
@@ -76,7 +79,6 @@ async function recupererOutils() {
     const reponse = await notion.databases.query({
       database_id: NOTION_DATABASE_ID,
       start_cursor: curseur,
-      sorts: [{ property: "Nom", direction: "ascending" }],
     });
 
     for (const page of reponse.results) {
@@ -85,6 +87,7 @@ async function recupererOutils() {
         id: page.id,
         slug: slugifier(extraireTexte(p["Nom"])),
         nom: extraireTexte(p["Nom"]),
+        ordre: extraireTexte(p["Ordre"]),
         categorie: extraireTexte(p["Catégorie"]),
         niveau: extraireTexte(p["Niveau"]),
         priorite: extraireTexte(p["Priorité"]),
@@ -105,6 +108,14 @@ async function recupererOutils() {
 
     curseur = reponse.has_more ? reponse.next_cursor : undefined;
   } while (curseur);
+
+  // Trier par Ordre (nulls en dernier, puis par nom)
+  outils.sort((a, b) => {
+    if (a.ordre === null && b.ordre === null) return a.nom.localeCompare(b.nom);
+    if (a.ordre === null) return 1;
+    if (b.ordre === null) return -1;
+    return a.ordre - b.ordre;
+  });
 
   console.log(`${outils.length} outil(s) récupéré(s).`);
   return outils;
@@ -146,7 +157,7 @@ function genererPageAccueil(outils) {
   const cartes = outils
     .map(
       (o) => `
-      <a class="carte" href="outils/${o.slug}.html" data-categorie="${o.categorie}">
+      <a class="carte" href="outils/${o.slug}.html" data-categorie="${o.categorie}" data-notion-id="${o.id}">
         <div class="carte-header">
           <h2 class="carte-nom">${o.nom}</h2>
           <div class="carte-badges">
@@ -167,6 +178,7 @@ function genererPageAccueil(outils) {
   <title>Base IA -- Outils IA et No Code</title>
   <meta name="description" content="Ma base personnelle d'outils IA et No Code : fiches détaillées, cas d'usage, avantages et limites."/>
   <link rel="stylesheet" href="styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 </head>
 <body>
   <header>
@@ -178,6 +190,12 @@ function genererPageAccueil(outils) {
     <div class="filtres">
       <button class="filtre actif" data-categorie="tous">Tous</button>
       ${filtres}
+    </div>
+
+    <div class="barre-actions">
+      <button class="btn-reorganiser" id="btnReorganiser" onclick="toggleReorganisation()">Réorganiser</button>
+      <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
+      <button class="btn-annuler" id="btnAnnuler" onclick="annulerReorganisation()" style="display:none">Annuler</button>
     </div>
 
     <div class="grille" id="grille">
@@ -234,6 +252,83 @@ function genererPageAccueil(outils) {
           })
           .catch(() => {});
       }, INTERVALLE);
+    }
+  </script>
+
+  <script>
+    let sortable = null;
+    let ordreInitial = null;
+
+    function toggleReorganisation() {
+      const grille = document.getElementById("grille");
+      const btnR = document.getElementById("btnReorganiser");
+      const btnS = document.getElementById("btnSauvegarder");
+      const btnA = document.getElementById("btnAnnuler");
+
+      // Mémoriser l'ordre initial pour pouvoir annuler
+      ordreInitial = Array.from(grille.children).map(c => c.dataset.notionId);
+
+      grille.classList.add("mode-reorganisation");
+      btnR.style.display = "none";
+      btnS.style.display = "";
+      btnA.style.display = "";
+
+      sortable = new Sortable(grille, {
+        animation: 150,
+        ghostClass: "carte-ghost",
+        onEnd: () => {}
+      });
+    }
+
+    function annulerReorganisation() {
+      desactiverReorganisation();
+      // Remettre les cartes dans l'ordre initial
+      const grille = document.getElementById("grille");
+      ordreInitial.forEach(id => {
+        const carte = grille.querySelector('[data-notion-id="' + id + '"]');
+        if (carte) grille.appendChild(carte);
+      });
+    }
+
+    function desactiverReorganisation() {
+      const grille = document.getElementById("grille");
+      const btnR = document.getElementById("btnReorganiser");
+      const btnS = document.getElementById("btnSauvegarder");
+      const btnA = document.getElementById("btnAnnuler");
+
+      grille.classList.remove("mode-reorganisation");
+      btnR.style.display = "";
+      btnS.style.display = "none";
+      btnA.style.display = "none";
+
+      if (sortable) { sortable.destroy(); sortable = null; }
+    }
+
+    function sauvegarderOrdre(btn) {
+      const grille = document.getElementById("grille");
+      const ordre = Array.from(grille.children).map((carte, index) => ({
+        id: carte.dataset.notionId,
+        ordre: index + 1
+      }));
+
+      btn.disabled = true;
+      btn.textContent = "Sauvegarde en cours...";
+
+      fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-reorder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ordre })
+      })
+        .then(() => {
+          btn.textContent = "Sauvegardé -- build en cours...";
+          desactiverReorganisation();
+          document.getElementById("btnReorganiser").disabled = true;
+          attendreMiseAJour(document.getElementById("btnReorganiser"), new Date().toISOString());
+        })
+        .catch(() => {
+          btn.textContent = "Erreur -- réessaie";
+          btn.disabled = false;
+        });
     }
   </script>
 
