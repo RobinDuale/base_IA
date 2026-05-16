@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Base IA -- Outils IA et No Code</title>
+  <meta name="description" content="Ma base personnelle d'outils IA et No Code : fiches détaillées, cas d'usage, avantages et limites."/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>Base IA</h1>
+    <p class="sous-titre">Mes outils IA et No Code</p>
+  </header>
+
+  <main>
+    <div class="filtres">
+      <button class="filtre actif" data-categorie="tous">Tous</button>
+      <button class="filtre" data-categorie="Base de données">Base de données</button>
+        <button class="filtre" data-categorie="Hébergement">Hébergement</button>
+        <button class="filtre" data-categorie="Productivité">Productivité</button>
+        <button class="filtre" data-categorie="Scraping">Scraping</button>
+    </div>
+
+    <div class="grille" id="grille">
+      
+      <a class="carte" href="outils/airtable.html" data-categorie="Base de données">
+        <div class="carte-header">
+          <h2 class="carte-nom">Airtable</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#8b5cf6">Base de données</span>
+            <span class="badge" style="background:#22c55e">Débutant</span>
+          </div>
+        </div>
+        <p class="carte-description">Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle. Il permet de structurer des informations, créer des vues, suivre des processus et collaborer sans coder.</p>
+      </a>
+
+      <a class="carte" href="outils/apify.html" data-categorie="Scraping">
+        <div class="carte-header">
+          <h2 class="carte-nom">Apify</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#a16207">Scraping</span>
+            <span class="badge" style="background:#f97316">Intermédiaire</span>
+          </div>
+        </div>
+        <p class="carte-description">Apify est une plateforme de scraping et d’automatisation qui permet de récupérer automatiquement des données sur Internet via des robots appelés Actors.</p>
+      </a>
+
+      <a class="carte" href="outils/netlify.html" data-categorie="Hébergement">
+        <div class="carte-header">
+          <h2 class="carte-nom">Netlify</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#ec4899">Hébergement</span>
+            <span class="badge" style="background:#22c55e">Débutant</span>
+          </div>
+        </div>
+        <p class="carte-description">Netlify est une plateforme d’hébergement et de déploiement de sites web modernes et d’applications front-end.</p>
+      </a>
+
+      <a class="carte" href="outils/notion.html" data-categorie="Productivité">
+        <div class="carte-header">
+          <h2 class="carte-nom">Notion</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#eab308">Productivité</span>
+            <span class="badge" style="background:#22c55e">Débutant</span>
+          </div>
+        </div>
+        <p class="carte-description">Workspace tout-en-un pour notes, documentation, bases de données et organisation.</p>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Données issues de Notion -- Mis à jour automatiquement</p>
+  </footer>
+
+  <script>
+    // Filtrage par catégorie au clic sur un bouton
+    const filtres = document.querySelectorAll(".filtre");
+    const cartes = document.querySelectorAll(".carte");
+
+    filtres.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const categorie = btn.dataset.categorie;
+
+        filtres.forEach((b) => b.classList.remove("actif"));
+        btn.classList.add("actif");
+
+        cartes.forEach((carte) => {
+          if (categorie === "tous" || carte.dataset.categorie === categorie) {
+            carte.style.display = "";
+          } else {
+            carte.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

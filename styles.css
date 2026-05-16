@@ -1,0 +1,207 @@
+/* styles.css -- Feuille de style du site Base IA */
+
+/* --- Variables --- */
+:root {
+  --bleu:    #3b82f6;
+  --fond:    #0f172a;
+  --surface: #1e293b;
+  --bord:    #334155;
+  --texte:   #f1f5f9;
+  --gris:    #94a3b8;
+  --rayon:   8px;
+}
+
+/* --- Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--fond);
+  color: var(--texte);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* --- Header --- */
+header {
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--bord);
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--bleu);
+}
+
+.sous-titre {
+  color: var(--gris);
+  margin-top: 0.25rem;
+}
+
+/* --- Main --- */
+main {
+  flex: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 1.5rem;
+}
+
+/* --- Filtres --- */
+.filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filtre {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--bord);
+  background: var(--surface);
+  color: var(--gris);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.15s;
+}
+
+.filtre:hover { border-color: var(--bleu); color: var(--texte); }
+.filtre.actif { background: var(--bleu); border-color: var(--bleu); color: #fff; }
+
+/* --- Grille de cartes --- */
+.grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* --- Carte outil --- */
+.carte {
+  background: var(--surface);
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 0.15s, transform 0.15s;
+  cursor: pointer;
+}
+
+.carte:hover {
+  border-color: var(--bleu);
+  transform: translateY(-2px);
+}
+
+.carte-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.carte-nom {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.carte-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.carte-description {
+  color: var(--gris);
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- Badges --- */
+.badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  color: #fff;
+  display: inline-block;
+}
+
+/* --- Page fiche outil --- */
+.retour {
+  display: inline-block;
+  color: var(--gris);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.retour:hover { color: var(--texte); }
+
+.badges {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+}
+
+.lien-officiel {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--bleu);
+  font-size: 0.9rem;
+}
+
+.lien-officiel:hover { text-decoration: underline; }
+
+.fiche {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1rem;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  padding: 1.25rem;
+}
+
+.section h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gris);
+  margin-bottom: 0.75rem;
+}
+
+.section p {
+  color: var(--texte);
+  font-size: 0.95rem;
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--gris);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--bord);
+  margin-top: auto;
+}
+
+/* --- Mobile --- */
+@media (max-width: 600px) {
+  header h1 { font-size: 1.5rem; }
+  .grille { grid-template-columns: 1fr; }
+}
