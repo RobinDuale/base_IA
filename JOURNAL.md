@@ -211,7 +211,7 @@ Notion est la source de vérité pour l'ordre des outils -- ainsi l'ordre est co
 - [x] Ajouter la navigation latérale sur les fiches outils
 - [x] Ajouter le bouton de mise à jour manuelle avec détection de fin de build
 - [x] Ajouter la réorganisation des cartes par glisser-déposer avec sauvegarde dans Notion
-- [ ] Configurer les credentials n8n sur le workflow "Reorder outils" (Notion + GitHub)
+- [x] Configurer les credentials n8n sur le workflow "Reorder outils" -- credential "Header Auth account" avec Name=Authorization (z), Value=Bearer ntn_...
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Affiner la mise en page CSS

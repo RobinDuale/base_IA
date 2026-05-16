@@ -235,7 +235,7 @@ Base_IA/
 - [x] Ajouter la navigation latérale sur les fiches outils
 - [x] Ajouter le bouton de mise à jour manuelle avec détection de fin de build
 - [x] Réorganisation des cartes par glisser-déposer (SortableJS + webhook n8n reorder)
-- [ ] Configurer credentials n8n sur workflow "Reorder outils" (ID: xRKkzmkpVcsjikNG)
+- [x] Configurer credentials n8n sur workflow "Reorder outils" (ID: xRKkzmkpVcsjikNG)
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Mettre en page le site (CSS avancé)
@@ -256,7 +256,11 @@ Structure :
 3. HTTP Request "Update Notion page" -- PATCH `/pages/{pageId}` avec `{properties: {Ordre: {number: N}}}` -- **credential notionApi a selectionner**
 4. HTTP Request "Trigger GitHub Actions" -- POST repository_dispatch (executeOnce) -- **credential Bearer Auth a selectionner**
 
-**ATTENTION (meme probleme que l'autre workflow) :** apres chaque update_workflow via MCP, les credentials sont reinitialises. Configurer manuellement dans l'interface n8n.
+**Credential "Update Notion page" :** Generic Credential Type > Header Auth > credential "Header Auth account"
+- Name : `Authorization` (avec un z, pas un s)
+- Value : `Bearer ntn_...` (token Notion depuis notion.so/my-integrations)
+
+**ATTENTION :** apres chaque update_workflow via MCP, les credentials sont reinitialises. Reconfigurer manuellement. Piege connu : "Authorisation" (s) au lieu de "Authorization" (z) dans le champ Name.
 
 ---
 
