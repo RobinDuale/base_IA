@@ -163,11 +163,64 @@ main {
 
 .lien-officiel:hover { text-decoration: underline; }
 
+/* --- Mise en page fiche (barre laterale + contenu) --- */
+.mise-en-page {
+  display: flex;
+  flex: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.barre-laterale {
+  width: 200px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--bord);
+  padding: 1.25rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.barre-laterale-titre {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gris);
+  padding: 0 1rem 0.75rem;
+}
+
+.barre-laterale a {
+  display: block;
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  color: var(--gris);
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barre-laterale a:hover {
+  color: var(--texte);
+  background: rgba(255,255,255,0.04);
+}
+
+.barre-laterale a.actif {
+  color: var(--bleu);
+  border-left-color: var(--bleu);
+  background: rgba(59, 130, 246, 0.08);
+}
+
 .fiche {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding-top: 1rem;
+  padding: 1.5rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .section {
@@ -204,4 +257,31 @@ footer {
 @media (max-width: 600px) {
   header h1 { font-size: 1.5rem; }
   .grille { grid-template-columns: 1fr; }
+  .mise-en-page { flex-direction: column; }
+  .barre-laterale {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--bord);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.75rem;
+  }
+  .barre-laterale-titre { display: none; }
+  .barre-laterale a {
+    border-left: none;
+    border-radius: var(--rayon);
+    border: 1px solid var(--bord);
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  .barre-laterale a.actif {
+    background: var(--bleu);
+    border-color: var(--bleu);
+    color: #fff;
+  }
+  .fiche { padding: 1rem; }
 }
