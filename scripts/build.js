@@ -566,14 +566,19 @@ function genererPageAccueil(outils, llms) {
 
     document.querySelectorAll(".filtre").forEach((btn) => {
       btn.addEventListener("click", () => {
-        document.querySelectorAll(".filtre").forEach((b) => b.classList.remove("actif"));
+        document.querySelectorAll(".filtre").forEach((b) => {
+          b.classList.remove("actif");
+          b.style.borderColor = "";
+          b.style.color = "";
+        });
         btn.classList.add("actif");
         filtrerOutils();
       });
       btn.addEventListener("mouseenter", () => {
         if (!btn.classList.contains("actif")) {
-          btn.style.borderColor = btn.style.getPropertyValue("--filtre-couleur") || "";
-          btn.style.color = btn.style.getPropertyValue("--filtre-couleur") || "";
+          const couleur = getComputedStyle(btn).getPropertyValue("--filtre-couleur").trim();
+          btn.style.borderColor = couleur;
+          btn.style.color = couleur;
         }
       });
       btn.addEventListener("mouseleave", () => {
