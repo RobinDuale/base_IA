@@ -220,9 +220,11 @@ function genererSitemap(outils, llms) {
     <changefreq>${freq}</changefreq>
     <priority>${prio}</priority>
   </url>`;
+  const slugsPositionnement = ["comparatif-llm", "automatiser-avec-ia", "outils-no-code"];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlEntry(`${BASE_URL}/`, "weekly", "1.0")}
+${slugsPositionnement.map((s) => urlEntry(`${BASE_URL}/${s}.html`, "monthly", "0.9")).join("\n")}
 ${outils.map((o) => urlEntry(`${BASE_URL}/outils/${o.slug}.html`, "monthly", "0.8")).join("\n")}
 ${llms.map((l) => urlEntry(`${BASE_URL}/llm/${l.slug}.html`, "monthly", "0.8")).join("\n")}
 </urlset>`;
@@ -324,6 +326,12 @@ function genererPageAccueil(outils, llms) {
         "name": "Robin Dualé",
         "url": "https://cv-robin.duale.fr",
         "sameAs": "https://www.linkedin.com/in/robinduale"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Robin Dualé",
+        "url": "https://cv-robin.duale.fr",
+        "sameAs": "https://www.linkedin.com/in/robinduale"
       }
     },
     {
@@ -350,6 +358,9 @@ function genererPageAccueil(outils, llms) {
   </header>
 
   <main>
+    <p style="color:var(--gris);font-size:0.95rem;margin-bottom:1.5rem;max-width:680px;line-height:1.7;">
+      Base IA répertorie les meilleurs outils d'intelligence artificielle, No-Code et LLMs avec des fiches détaillées : avantages, limites, modèle économique et scénarios concrets. Une ressource structurée pour choisir le bon outil et l'utiliser efficacement.
+    </p>
     <div class="onglets">
       <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
       <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
@@ -648,6 +659,24 @@ function genererPageDetail(item, liste, prefixe) {
     </section>`;
   }
 
+  function pointsCles(avantages, description) {
+    const source = avantages || description || "";
+    if (!source) return "";
+    const lignes = source
+      .split("\n")
+      .map((l) => l.replace(/^[-•*]\s*/, "").trim())
+      .filter((l) => l.length > 10)
+      .slice(0, 3);
+    if (!lignes.length) return "";
+    return `
+    <section class="section" style="border-color:var(--bleu);">
+      <h2>Points clés</h2>
+      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
+        ${lignes.map((l) => `<li style="color:var(--texte);font-size:0.95rem;">${l}</li>`).join("\n        ")}
+      </ul>
+    </section>`;
+  }
+
   const liensBarreLaterale = liste
     .map((o) => `<a href="${o.slug}.html" class="${o.slug === item.slug ? "actif" : ""}">${o.nom}</a>`)
     .join("\n        ");
@@ -767,6 +796,7 @@ function genererPageDetail(item, liste, prefixe) {
 
     <main class="fiche">
       ${item.tags ? `<div class="tags-fiche"><span class="tags-label"># tags</span>${item.tags.split(",").map(badgeTag).join("")}</div>` : ""}
+      ${pointsCles(item.avantages, item.description)}
       ${section(`A quoi sert ${item.nom} ?`, item.description)}
       ${section(`Quel est le rôle de ${item.nom} dans l'écosystème IA ?`, item.roleEcosysteme)}
       ${section(`Dans quels cas utiliser ${item.nom} ?`, item.quandUtiliser)}
@@ -920,6 +950,182 @@ function genererPageDetail(item, liste, prefixe) {
 
 // --- Programme principal ---
 
+function genererPagePositionnement({ slug, title, description, h1, intro, sections, outils, llms, schema }) {
+  const url = `${BASE_URL}/${slug}.html`;
+  const footerHtml = `
+  <footer>
+    <div class="footer-contenu">
+      <div class="footer-gauche">
+        <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
+      </div>
+      <div class="footer-liens">
+        <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
+        <a href="/mentions-legales.html">Mentions légales</a>
+      </div>
+    </div>
+  </footer>`;
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>${title}</title>
+  <meta name="description" content="${description}"/>
+  <link rel="canonical" href="${url}"/>
+  <meta property="og:title" content="${title}"/>
+  <meta property="og:description" content="${description}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="${url}"/>
+  <meta property="og:image" content="${OG_IMAGE}"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="${OG_IMAGE_ALT}"/>
+  <meta property="og:locale" content="fr_FR"/>
+  <meta property="og:site_name" content="${SITE_NAME}"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="${title}"/>
+  <meta name="twitter:description" content="${description}"/>
+  <meta name="twitter:image" content="${OG_IMAGE}"/>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"/>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png"/>
+  <link rel="apple-touch-icon" sizes="48x48" href="/assets/favicon-48.png"/>
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "${BASE_URL}/"},
+        {"@type": "ListItem", "position": 2, "name": "${h1}", "item": "${url}"}
+      ]
+    },
+    ${schema}
+  ]
+  </script>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+<header>
+  <a class="retour" href="/">← Base IA</a>
+  <h1 style="font-size:1.6rem;">${h1}</h1>
+</header>
+<main>
+  <p style="color:var(--gris);font-size:0.95rem;margin-bottom:2rem;max-width:680px;line-height:1.7;">${intro}</p>
+  ${sections}
+</main>
+${footerHtml}
+</body>
+</html>`;
+}
+
+function genererPagesPositionnement(outils, llms) {
+  const pages = [];
+
+  // Page 1 : Comparatif LLMs
+  const llmsFiltres = llms.filter((l) => l.description);
+  const sectionsLLMs = llmsFiltres.map((l) => `
+  <section class="section" style="margin-bottom:1rem;">
+    <h2>${l.nom} : ${l.description ? l.description.split(".")[0] : "modèle de langage"}</h2>
+    <p style="color:var(--gris);font-size:0.9rem;margin-bottom:0.75rem;">${l.description || ""}</p>
+    ${l.avantages ? `<p><strong>Points forts :</strong> ${l.avantages.split("\n")[0]}</p>` : ""}
+    ${l.limites ? `<p style="margin-top:0.4rem;"><strong>Limites :</strong> ${l.limites.split("\n")[0]}</p>` : ""}
+    <a href="${BASE_URL}/llm/${l.slug}.html" style="display:inline-block;margin-top:0.75rem;color:var(--bleu);font-size:0.9rem;">Fiche complète ${l.nom} →</a>
+  </section>`).join("\n");
+
+  pages.push({
+    slug: "comparatif-llm",
+    title: "Quel LLM choisir en 2026 ? Comparatif Claude, ChatGPT, Gemini · Base IA",
+    description: "Comparatif des meilleurs LLMs en 2026 : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot. Avantages, limites et cas d'usage pour choisir le bon modèle.",
+    h1: "Quel LLM choisir en 2026 ? Comparatif des modèles de langage",
+    intro: "Les LLMs (Large Language Models) sont au coeur de la révolution IA. Claude, ChatGPT, Gemini, Perplexity et Microsoft Copilot ont chacun des forces distinctes selon l'usage : rédaction, code, recherche, automatisation. Ce comparatif vous aide à choisir le modèle adapté à votre contexte.",
+    sections: sectionsLLMs + `
+  <section class="section" style="margin-top:1.5rem;">
+    <h2>Comment choisir entre ces LLMs ?</h2>
+    <p>Le choix d'un LLM dépend de trois critères principaux : la qualité du raisonnement (Claude et GPT-4o excellent), l'accès à l'information en temps réel (Perplexity et Copilot), et le budget (tous proposent une version gratuite). Pour un usage professionnel intensif, tester plusieurs modèles sur vos cas réels reste la meilleure approche.</p>
+  </section>`,
+    outils, llms,
+    schema: `{
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Comparatif LLMs 2026",
+      "description": "Comparatif des meilleurs modèles de langage : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot.",
+      "url": "${BASE_URL}/comparatif-llm.html",
+      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"}
+    }`,
+  });
+
+  // Page 2 : Automatiser avec l'IA
+  const outilsAuto = outils.filter((o) => ["Automatisation", "IA", "No-Code"].includes(o.categorie) && o.description);
+  const sectionsAuto = outilsAuto.map((o) => `
+  <section class="section" style="margin-bottom:1rem;">
+    <h2>Comment utiliser ${o.nom} pour automatiser ?</h2>
+    <p style="color:var(--gris);font-size:0.9rem;margin-bottom:0.75rem;">${o.description || ""}</p>
+    ${o.casUsage ? `<p><strong>Cas d'usage :</strong> ${o.casUsage.split("\n")[0]}</p>` : ""}
+    <a href="${BASE_URL}/outils/${o.slug}.html" style="display:inline-block;margin-top:0.75rem;color:var(--bleu);font-size:0.9rem;">Fiche complète ${o.nom} →</a>
+  </section>`).join("\n");
+
+  pages.push({
+    slug: "automatiser-avec-ia",
+    title: "Automatiser ses processus avec l'IA : outils et méthodes · Base IA",
+    description: "Guide des meilleurs outils pour automatiser ses processus métier avec l'IA : n8n, Make, Notion, Clay. Workflows concrets, cas d'usage et comparatif pour débutants et experts.",
+    h1: "Comment automatiser ses processus métier avec des outils IA ?",
+    intro: "L'automatisation des tâches répétitives est l'un des gains les plus immédiats de l'IA. Des outils comme n8n, Make ou Clay permettent de connecter des services, traiter des données et déclencher des actions sans écrire une ligne de code. Voici les outils clés et comment les utiliser.",
+    sections: sectionsAuto + `
+  <section class="section" style="margin-top:1.5rem;">
+    <h2>Par où commencer pour automatiser avec l'IA ?</h2>
+    <p>Commencez par identifier une tâche répétitive qui vous prend du temps : envoi d'emails, mise à jour de base de données, collecte d'informations. Choisissez ensuite l'outil adapté : Make pour les workflows visuels simples, n8n pour plus de flexibilité et d'hébergement autonome. Testez avec un workflow simple avant de passer à des automatisations complexes.</p>
+  </section>`,
+    outils, llms,
+    schema: `{
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Automatiser avec l'IA",
+      "description": "Guide des meilleurs outils pour automatiser ses processus avec l'IA.",
+      "url": "${BASE_URL}/automatiser-avec-ia.html",
+      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"}
+    }`,
+  });
+
+  // Page 3 : Outils No-Code
+  const outilsNC = outils.filter((o) => ["No-Code", "Développement", "Hébergement"].includes(o.categorie) && o.description);
+  const sectionsNC = outilsNC.map((o) => `
+  <section class="section" style="margin-bottom:1rem;">
+    <h2>${o.nom} : ${o.description ? o.description.split(".")[0] : o.categorie}</h2>
+    <p style="color:var(--gris);font-size:0.9rem;margin-bottom:0.75rem;">${o.description || ""}</p>
+    ${o.gratuite ? `<p><strong>Version gratuite :</strong> ${o.gratuite.split("\n")[0]}</p>` : ""}
+    <a href="${BASE_URL}/outils/${o.slug}.html" style="display:inline-block;margin-top:0.75rem;color:var(--bleu);font-size:0.9rem;">Fiche complète ${o.nom} →</a>
+  </section>`).join("\n");
+
+  pages.push({
+    slug: "outils-no-code",
+    title: "Meilleurs outils No-Code en 2026 : créer sans coder · Base IA",
+    description: "Sélection des meilleurs outils No-Code en 2026 : Notion, Lovable, GitHub Pages, Netlify. Créez des applications, sites et bases de données sans écrire de code.",
+    h1: "Les meilleurs outils No-Code en 2026 pour créer sans coder",
+    intro: "Le No-Code démocratise la création d'applications, de sites web et de bases de données. En 2026, des outils comme Notion, Lovable ou Webflow permettent de construire des produits fonctionnels sans compétence technique. Voici la sélection des meilleurs outils No-Code selon les cas d'usage.",
+    sections: sectionsNC + `
+  <section class="section" style="margin-top:1.5rem;">
+    <h2>No-Code ou Low-Code : quelle différence ?</h2>
+    <p>Le No-Code (sans code) s'adresse aux non-développeurs qui veulent créer sans apprendre à programmer. Le Low-Code permet d'accélérer le développement en ajoutant du code là où les interfaces visuelles atteignent leurs limites. Pour débuter, le No-Code suffit pour 80 % des besoins courants : bases de données, sites vitrines, formulaires, automatisations simples.</p>
+  </section>`,
+    outils, llms,
+    schema: `{
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Outils No-Code 2026",
+      "description": "Sélection des meilleurs outils No-Code pour créer sans coder.",
+      "url": "${BASE_URL}/outils-no-code.html",
+      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"}
+    }`,
+  });
+
+  return pages.map((p) => ({ slug: p.slug, html: genererPagePositionnement(p) }));
+}
+
 function genererLLMsTxt(outils, llms) {
   const lignesOutils = outils
     .filter((o) => o.description)
@@ -967,6 +1173,9 @@ ${lignesLLMs}
 ## Pages du site
 
 - [Accueil](${BASE_URL}/) : grille complète des outils et LLMs avec filtres par catégorie, tags et recherche
+- [Comparatif LLMs 2026](${BASE_URL}/comparatif-llm.html) : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot
+- [Automatiser avec l'IA](${BASE_URL}/automatiser-avec-ia.html) : outils et méthodes pour automatiser ses processus
+- [Outils No-Code 2026](${BASE_URL}/outils-no-code.html) : créer des applications et sites sans coder
 - [Mentions légales](${BASE_URL}/mentions-legales.html) : éditeur, hébergeur GitHub Pages, RGPD
 - [Sitemap](${BASE_URL}/sitemap.xml) : index complet de toutes les pages
 
@@ -1030,7 +1239,6 @@ function genererMentionsLegales() {
   <div class="footer-contenu">
     <div class="footer-gauche">
       <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
-      <span class="footer-sub">Données issues de Notion</span>
     </div>
     <div class="footer-liens">
       <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1085,7 +1293,12 @@ async function main() {
     fs.writeFileSync(path.join(DIST_DIR, "mentions-legales.html"), genererMentionsLegales());
     fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"), genererSitemap(outils, llms));
     fs.writeFileSync(path.join(DIST_DIR, "llms.txt"), genererLLMsTxt(outils, llms));
-    console.log("Page d'accueil, mentions légales, sitemap et llms.txt générés.");
+
+    const pagesPositionnement = genererPagesPositionnement(outils, llms);
+    for (const page of pagesPositionnement) {
+      fs.writeFileSync(path.join(DIST_DIR, `${page.slug}.html`), page.html);
+    }
+    console.log(`Page d'accueil, mentions légales, sitemap, llms.txt et ${pagesPositionnement.length} pages de positionnement générés.`);
 
     for (const outil of outils) {
       fs.writeFileSync(
