@@ -298,26 +298,47 @@ function genererPageAccueil(outils, llms) {
   <meta name="twitter:title" content="${TITLE_HOME}"/>
   <meta name="twitter:description" content="${DESC_HOME}"/>
   <meta name="twitter:image" content="${OG_IMAGE}"/>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"/>
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png"/>
   <link rel="apple-touch-icon" sizes="48x48" href="/assets/favicon-48.png"/>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Base IA",
-    "description": "${DESC_HOME}",
-    "url": "${BASE_URL}/",
-    "inLanguage": "fr",
-    "author": {
-      "@type": "Person",
-      "name": "Robin Dualé",
-      "url": "https://cv-robin.duale.fr",
-      "sameAs": "https://www.linkedin.com/in/robinduale"
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Base IA",
+      "description": "${DESC_HOME}",
+      "url": "${BASE_URL}/",
+      "inLanguage": "fr",
+      "image": {
+        "@type": "ImageObject",
+        "url": "${OG_IMAGE}",
+        "width": 1200,
+        "height": 630
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Robin Dualé",
+        "url": "https://cv-robin.duale.fr",
+        "sameAs": "https://www.linkedin.com/in/robinduale"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Meilleurs outils IA, No-Code et LLMs",
+      "description": "Sélection personnelle des outils IA, No-Code et LLMs avec fiches détaillées.",
+      "url": "${BASE_URL}/",
+      "numberOfItems": ${outils.length + llms.length},
+      "itemListElement": [
+        ${outils.map((o, i) => `{"@type":"ListItem","position":${i + 1},"name":"${o.nom}","url":"${BASE_URL}/outils/${o.slug}.html"}`).join(",\n        ")},
+        ${llms.map((l, i) => `{"@type":"ListItem","position":${outils.length + i + 1},"name":"${l.nom}","url":"${BASE_URL}/llm/${l.slug}.html"}`).join(",\n        ")}
+      ]
     }
-  }
+  ]
   </script>
   <link rel="stylesheet" href="styles.css"/>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
@@ -325,7 +346,7 @@ function genererPageAccueil(outils, llms) {
 <body>
   <header>
     <h1>Base IA</h1>
-    <p class="sous-titre">Mes outils IA, No Code et LLMs</p>
+    <p class="sous-titre">Référence personnelle des outils IA, No-Code et LLMs par Robin Dualé</p>
   </header>
 
   <main>
@@ -686,6 +707,7 @@ function genererPageDetail(item, liste, prefixe) {
   <meta name="twitter:title" content="${titleDetail}"/>
   <meta name="twitter:description" content="${descDetail}"/>
   <meta name="twitter:image" content="${OG_IMAGE}"/>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"/>
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
@@ -709,6 +731,12 @@ function genererPageDetail(item, liste, prefixe) {
       "applicationCategory": "${item.type === "LLM" ? "AIApplication" : "WebApplication"}",
       "operatingSystem": "Web",
       ${item.lienOfficiel ? `"url": "${item.lienOfficiel}",` : ""}
+      "image": {
+        "@type": "ImageObject",
+        "url": "${OG_IMAGE}",
+        "width": 1200,
+        "height": 630
+      },
       "author": {
         "@type": "Person",
         "name": "Robin Dualé",
@@ -739,20 +767,20 @@ function genererPageDetail(item, liste, prefixe) {
 
     <main class="fiche">
       ${item.tags ? `<div class="tags-fiche"><span class="tags-label"># tags</span>${item.tags.split(",").map(badgeTag).join("")}</div>` : ""}
-      ${section("Description", item.description)}
-      ${section("Rôle dans l'écosystème", item.roleEcosysteme)}
-      ${section("Quand utiliser cet outil", item.quandUtiliser)}
-      ${section("Gratuité", item.gratuite)}
-      ${section("Avantages", item.avantages)}
-      ${section("Limites", item.limites)}
-      ${section("Cas d'usage", item.casUsage)}
-      ${section("Cas d'usage pour moi", item.casUsagePourMoi)}
-      ${section("Exemples & Workflows", item.exemplesWorkflows)}
-      ${section("Complémentaire avec", item.complementaireAvec)}
-      ${section("Modèle économique", item.modeleEconomique)}
-      ${section("Quand payer ?", item.quandPayer)}
-      ${section("Alternatives", item.alternatives)}
-      ${section("Notes personnelles", item.notePersonnelles)}
+      ${section(`A quoi sert ${item.nom} ?`, item.description)}
+      ${section(`Quel est le rôle de ${item.nom} dans l'écosystème IA ?`, item.roleEcosysteme)}
+      ${section(`Dans quels cas utiliser ${item.nom} ?`, item.quandUtiliser)}
+      ${section(`Ce que comprend la version gratuite de ${item.nom}`, item.gratuite)}
+      ${section(`Pourquoi utiliser ${item.nom} ? Les points forts`, item.avantages)}
+      ${section(`Quelles sont les limites de ${item.nom} ?`, item.limites)}
+      ${section(`Cas d'usage de ${item.nom}`, item.casUsage)}
+      ${section(`Comment j'utilise ${item.nom} dans mon contexte`, item.casUsagePourMoi)}
+      ${section(`Exemples concrets et workflows avec ${item.nom}`, item.exemplesWorkflows)}
+      ${section(`Avec quels outils ${item.nom} est-il complémentaire ?`, item.complementaireAvec)}
+      ${section(`Quel est le modèle économique de ${item.nom} ?`, item.modeleEconomique)}
+      ${section(`Quand passer à la version payante de ${item.nom} ?`, item.quandPayer)}
+      ${section(`Quelles alternatives à ${item.nom} ?`, item.alternatives)}
+      ${section(`Notes personnelles sur ${item.nom}`, item.notePersonnelles)}
       ${item.lienOfficiel ? `
     <section class="section section-lien">
       <h2>Lien officiel</h2>
@@ -892,6 +920,62 @@ function genererPageDetail(item, liste, prefixe) {
 
 // --- Programme principal ---
 
+function genererLLMsTxt(outils, llms) {
+  const lignesOutils = outils
+    .filter((o) => o.description)
+    .map((o) => `- [${o.nom}](${BASE_URL}/outils/${o.slug}.html) : ${o.description.substring(0, 120).trimEnd()}`)
+    .join("\n");
+
+  const lignesLLMs = llms
+    .filter((l) => l.description)
+    .map((l) => `- [${l.nom}](${BASE_URL}/llm/${l.slug}.html) : ${l.description.substring(0, 120).trimEnd()}`)
+    .join("\n");
+
+  const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))].join(", ");
+
+  return `# Base IA -- Robin Duale · Référence des outils IA, No-Code et LLMs
+
+> Base de connaissance structurée sur les outils d'intelligence artificielle, No-Code et les LLMs, construite et maintenue par Robin Dualé, CEO spécialisé en transformation B2B SaaS, Data et IA.
+
+## A propos du site
+
+Base IA (${BASE_URL}) est une référence personnelle des meilleurs outils IA et No-Code. Chaque fiche détaille : description, avantages, limites, cas d'usage réels, modèle économique, version gratuite et scénarios d'utilisation concrets (débutant, intermédiaire, avancé). Le contenu est produit avec l'assistance d'outils d'IA et validé par Robin Dualé.
+
+## Auteur
+
+Robin Dualé -- CEO, spécialiste transformation B2B SaaS, Data et IA
+Site professionnel : https://cv-robin.duale.fr
+LinkedIn : https://www.linkedin.com/in/robinduale
+Contact : robin@duale.fr
+
+## Pourquoi consulter Base IA ?
+
+Base IA répond aux questions : quel outil IA choisir pour automatiser un workflow ? Quelle est la différence entre n8n et Make ? Quand utiliser un LLM plutôt qu'un outil No-Code ? Chaque fiche est structurée pour répondre directement à ces questions avec des exemples concrets.
+
+## Catégories référencées
+
+${categories}
+
+## ${outils.length} outils référencés
+
+${lignesOutils}
+
+## ${llms.length} LLMs référencés
+
+${lignesLLMs}
+
+## Pages du site
+
+- [Accueil](${BASE_URL}/) : grille complète des outils et LLMs avec filtres par catégorie, tags et recherche
+- [Mentions légales](${BASE_URL}/mentions-legales.html) : éditeur, hébergeur GitHub Pages, RGPD
+- [Sitemap](${BASE_URL}/sitemap.xml) : index complet de toutes les pages
+
+## Informations techniques
+
+Le site est généré statiquement depuis une base Notion via GitHub Actions et déployé sur GitHub Pages. Mis à jour automatiquement à chaque modification de la base de données.
+`;
+}
+
 function genererMentionsLegales() {
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -902,6 +986,7 @@ function genererMentionsLegales() {
   <meta name="description" content="Mentions légales du site ia.duale.fr -- éditeur Robin Dualé, hébergeur GitHub Pages, propriété intellectuelle et données personnelles RGPD."/>
   <meta name="robots" content="noindex, follow"/>
   <link rel="canonical" href="${BASE_URL}/mentions-legales.html"/>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"/>
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
@@ -968,8 +1053,8 @@ async function main() {
 
     // Copier les fichiers statiques SEO
     fs.copyFileSync(path.join(__dirname, "..", "src", "robots.txt"), path.join(DIST_DIR, "robots.txt"));
-    fs.copyFileSync(path.join(__dirname, "..", "src", "llms.txt"), path.join(DIST_DIR, "llms.txt"));
     fs.copyFileSync(path.join(__dirname, "..", "src", "BingSiteAuth.xml"), path.join(DIST_DIR, "BingSiteAuth.xml"));
+    fs.copyFileSync(path.join(__dirname, "..", "src", "fff05dc2d2973f558bcd5cf3cb8ceee8.txt"), path.join(DIST_DIR, "fff05dc2d2973f558bcd5cf3cb8ceee8.txt"));
 
     // Générer l'image OG (fond #0f172a = RGB 15, 23, 42)
     creerDossier(path.join(DIST_DIR, "assets"));
@@ -999,7 +1084,8 @@ async function main() {
     fs.writeFileSync(path.join(DIST_DIR, "index.html"), genererPageAccueil(outils, llms));
     fs.writeFileSync(path.join(DIST_DIR, "mentions-legales.html"), genererMentionsLegales());
     fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"), genererSitemap(outils, llms));
-    console.log("Page d'accueil, mentions légales et sitemap générés.");
+    fs.writeFileSync(path.join(DIST_DIR, "llms.txt"), genererLLMsTxt(outils, llms));
+    console.log("Page d'accueil, mentions légales, sitemap et llms.txt générés.");
 
     for (const outil of outils) {
       fs.writeFileSync(

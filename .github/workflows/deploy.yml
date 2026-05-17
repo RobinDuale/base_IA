@@ -58,3 +58,16 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
+      # Etape 6 : notifier Bing via IndexNow (accélère l'indexation)
+      - name: Ping IndexNow
+        run: |
+          curl -s -o /dev/null -w "IndexNow Bing: %{http_code}\n" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d '{
+              "host": "ia.duale.fr",
+              "key": "fff05dc2d2973f558bcd5cf3cb8ceee8",
+              "keyLocation": "https://ia.duale.fr/fff05dc2d2973f558bcd5cf3cb8ceee8.txt",
+              "urlList": ["https://ia.duale.fr/"]
+            }'
