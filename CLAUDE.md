@@ -262,9 +262,11 @@ Base_IA/
 - [x] Outils ajoutés : Clay, Slack, Lovable, GitHub Copilot -> Microsoft Copilot
 - [x] Système admin : boutons Réorganiser et Mettre à jour cachés par défaut, icône ⚙ dans le footer, auth via token GitHub validé contre l'API GitHub, cookie partagé .duale.fr avec cv-robin.duale.fr (SSO entre les deux sites)
 - [x] Sync automatique JOURNAL.md -> Notion via GitHub Actions (sous-page dans "Outils IA et No Code")
-- [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
-- [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
+- [x] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
+- [x] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
+- [ ] Formulaire de proposition d'outil par les visiteurs (Gemini + WhatsApp CallMeBot + admin)
+- [ ] 2e passe Gemini à la publication + email visiteur
 
 ---
 
