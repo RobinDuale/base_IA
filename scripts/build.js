@@ -614,7 +614,7 @@ function genererMentionsLegales() {
 
   <div class="section" style="margin-bottom:1rem;">
     <h2>Propriété intellectuelle</h2>
-    <p>Le contenu de ce site (textes, structure, code) est la propriété de Robin Dualé. Les données affichées sont issues d'une base Notion personnelle. Toute reproduction sans autorisation est interdite.</p>
+    <p>La structure, la sélection et l'organisation des contenus de ce site sont la propriété de Robin Dualé. Les textes descriptifs sont principalement produits avec l'assistance d'outils d'IA. Toute reproduction de la structure ou de l'organisation sans autorisation est interdite.</p>
   </div>
 
   <div class="section" style="margin-bottom:1rem;">
