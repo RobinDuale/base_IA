@@ -29,6 +29,7 @@
         <a href="netlify.html" class="actif">Netlify</a>
         <a href="make.html" class="">Make</a>
         <a href="clay.html" class="">Clay</a>
+        <a href="lovable.html" class="">Lovable</a>
         <a href="slack.html" class="">Slack</a>
     </nav>
 
@@ -102,6 +103,26 @@
       <a class="lien-officiel-section" href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">https://www.netlify.com →</a>
     </section>
     </main>
+
+    
+    <aside class="barre-scenarios">
+      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <p class="scenario-texte">Glisser-déposer un dossier HTML/CSS/JS sur l'interface Netlify -> le site est en ligne en 30 secondes avec HTTPS automatique et CDN mondial, sans configuration serveur.</p>
+      </div>
+      
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <p class="scenario-texte">Connecter un repo GitHub à Netlify -> chaque push sur main déclenche un build automatique -> une URL de prévisualisation unique est générée pour chaque Pull Request avant le merge en production.</p>
+      </div>
+      
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <p class="scenario-texte">GitHub Actions génère les fichiers statiques (script Node.js lisant Notion) -> déclenche le déploiement Netlify via webhook -> Netlify gère le CDN, les redirections et le SSL -> n8n surveille le statut et alerte sur Slack en cas d'échec de build.</p>
+      </div>
+    </aside>
   </div>
 
   <footer>

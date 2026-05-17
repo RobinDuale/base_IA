@@ -21,12 +21,17 @@
     </div>
 
     <div id="section-outils">
+      <div class="barre-recherche">
+        <input type="search" id="recherche-outils" class="champ-recherche" placeholder="Rechercher un outil..." oninput="filtrerOutils()" autocomplete="off"/>
+      </div>
+
       <div class="filtres">
         <button class="filtre actif" data-categorie="tous">Tous</button>
         <button class="filtre" data-categorie="Automatisation">Automatisation</button>
         <button class="filtre" data-categorie="Base de données">Base de données</button>
         <button class="filtre" data-categorie="Développement">Développement</button>
         <button class="filtre" data-categorie="Hébergement">Hébergement</button>
+        <button class="filtre" data-categorie="No-Code">No-Code</button>
         <button class="filtre" data-categorie="Productivité">Productivité</button>
         <button class="filtre" data-categorie="Scraping">Scraping</button>
       </div>
@@ -127,6 +132,17 @@
         <p class="carte-description">Outil de prospection et d'enrichissement de données B2B qui connecte plus de 100 sources (LinkedIn, Apollo, Clearbit, Hunter...) pour construire des listes de leads qualifiées et automatiser l'outreach personnalisé grâce à l'IA.</p>
       </a>
 
+      <a class="carte" href="outils/lovable.html" data-categorie="No-Code" data-notion-id="3635b86a-8bb4-81bc-8bbe-e79f8f2c75a8">
+        <div class="carte-header">
+          <h2 class="carte-nom">Lovable</h2>
+          <div class="carte-badges">
+            <span class="badge" style="background:#22c55e">No-Code</span>
+            <span class="badge" style="background:#f97316">Intermédiaire</span>
+          </div>
+        </div>
+        <p class="carte-description">Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code frontend et backend complet, déployable en quelques minutes.</p>
+      </a>
+
       <a class="carte" href="outils/slack.html" data-categorie="Productivité" data-notion-id="3635b86a-8bb4-81a9-b2a7-edf225cca91f">
         <div class="carte-header">
           <h2 class="carte-nom">Slack</h2>
@@ -141,9 +157,18 @@
     </div>
 
     <div id="section-llms" style="display:none">
-      <div class="grille">
+      <div class="barre-recherche">
+        <input type="search" id="recherche-llms" class="champ-recherche" placeholder="Rechercher un LLM..." oninput="filtrerLLMs()" autocomplete="off"/>
+      </div>
+
+      <div class="barre-actions">
+        <button class="btn-reorganiser" id="btnReorganiserLLM" onclick="toggleReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')">Réorganiser</button>
+        <button class="btn-sauvegarder" id="btnSauvegarderLLM" onclick="sauvegarderOrdreGrille('grille-llms', 'btnReorganiserLLM', this)" style="display:none">Sauvegarder l'ordre</button>
+        <button class="btn-annuler" id="btnAnnulerLLM" onclick="annulerReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Annuler</button>
+      </div>
+      <div class="grille" id="grille-llms">
         
-      <a class="carte" href="llm/claude.html" data-categorie="IA">
+      <a class="carte" href="llm/claude.html" data-categorie="IA" data-notion-id="3625b86a-8bb4-814d-a6c8-dbe83b3c1d59">
         <div class="carte-header">
           <h2 class="carte-nom">Claude</h2>
           <div class="carte-badges">
@@ -154,7 +179,7 @@
         <p class="carte-description">LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très longs documents. Disponible en trois niveaux : Haiku (rapide), Sonnet (équilibré), Opus (puissant).</p>
       </a>
 
-      <a class="carte" href="llm/chatgpt.html" data-categorie="IA">
+      <a class="carte" href="llm/chatgpt.html" data-categorie="IA" data-notion-id="3625b86a-8bb4-81fc-901a-dfe40c09dea4">
         <div class="carte-header">
           <h2 class="carte-nom">ChatGPT</h2>
           <div class="carte-badges">
@@ -165,7 +190,7 @@
         <p class="carte-description">LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème très riche : Custom GPTs, plugins, Canvas, DALL-E pour les images.</p>
       </a>
 
-      <a class="carte" href="llm/gemini.html" data-categorie="IA">
+      <a class="carte" href="llm/gemini.html" data-categorie="IA" data-notion-id="3625b86a-8bb4-818f-946b-ebb06a2a35b3">
         <div class="carte-header">
           <h2 class="carte-nom">Gemini</h2>
           <div class="carte-badges">
@@ -176,7 +201,7 @@
         <p class="carte-description">LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre de contexte de 1 million de tokens. Très fort en multimodal (texte, images, audio, vidéo).</p>
       </a>
 
-      <a class="carte" href="llm/perplexity.html" data-categorie="IA">
+      <a class="carte" href="llm/perplexity.html" data-categorie="IA" data-notion-id="3625b86a-8bb4-81fe-b40c-ed6c161166fa">
         <div class="carte-header">
           <h2 class="carte-nom">Perplexity</h2>
           <div class="carte-badges">
@@ -187,7 +212,7 @@
         <p class="carte-description">Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
       </a>
 
-      <a class="carte" href="llm/claude-code.html" data-categorie="IA">
+      <a class="carte" href="llm/claude-code.html" data-categorie="IA" data-notion-id="3635b86a-8bb4-8195-b3b9-e219afb802ee">
         <div class="carte-header">
           <h2 class="carte-nom">Claude Code</h2>
           <div class="carte-badges">
@@ -255,45 +280,44 @@
   </script>
 
   <script>
-    let sortable = null;
-    let ordreInitial = null;
+    const sortables = {};
+    const ordresInitiaux = {};
 
-    function toggleReorganisation() {
-      const grille = document.getElementById("grille");
-      const btnR = document.getElementById("btnReorganiser");
-      const btnS = document.getElementById("btnSauvegarder");
-      const btnA = document.getElementById("btnAnnuler");
-      ordreInitial = Array.from(grille.children).map(c => c.dataset.notionId);
+    function toggleReorg(grilleId, btnRId, btnSId, btnAId) {
+      const grille = document.getElementById(grilleId);
+      const btnR = document.getElementById(btnRId);
+      const btnS = document.getElementById(btnSId);
+      const btnA = document.getElementById(btnAId);
+      ordresInitiaux[grilleId] = Array.from(grille.children).map(c => c.dataset.notionId);
       grille.classList.add("mode-reorganisation");
       btnR.style.display = "none";
       btnS.style.display = "";
       btnA.style.display = "";
-      sortable = new Sortable(grille, { animation: 150, ghostClass: "carte-ghost", onEnd: () => {} });
+      sortables[grilleId] = new Sortable(grille, { animation: 150, ghostClass: "carte-ghost", onEnd: () => {} });
     }
 
-    function annulerReorganisation() {
-      desactiverReorganisation();
-      const grille = document.getElementById("grille");
-      ordreInitial.forEach(id => {
+    function annulerReorg(grilleId, btnRId, btnSId, btnAId) {
+      desactiverReorg(grilleId, btnRId, btnSId, btnAId);
+      const grille = document.getElementById(grilleId);
+      (ordresInitiaux[grilleId] || []).forEach(id => {
         const carte = grille.querySelector('[data-notion-id="' + id + '"]');
         if (carte) grille.appendChild(carte);
       });
     }
 
-    function desactiverReorganisation() {
-      const grille = document.getElementById("grille");
-      const btnR = document.getElementById("btnReorganiser");
-      const btnS = document.getElementById("btnSauvegarder");
-      const btnA = document.getElementById("btnAnnuler");
+    function desactiverReorg(grilleId, btnRId, btnSId, btnAId) {
+      const grille = document.getElementById(grilleId);
+      document.getElementById(btnRId).style.display = "";
+      document.getElementById(btnSId).style.display = "none";
+      document.getElementById(btnAId).style.display = "none";
       grille.classList.remove("mode-reorganisation");
-      btnR.style.display = "";
-      btnS.style.display = "none";
-      btnA.style.display = "none";
-      if (sortable) { sortable.destroy(); sortable = null; }
+      if (sortables[grilleId]) { sortables[grilleId].destroy(); delete sortables[grilleId]; }
     }
 
-    function sauvegarderOrdre(btn) {
-      const grille = document.getElementById("grille");
+    function sauvegarderOrdreGrille(grilleId, btnRId, btn) {
+      const grille = document.getElementById(grilleId);
+      const btnSId = btn.id;
+      const btnAId = btnSId.replace("Sauvegarder", "Annuler");
       const ordre = Array.from(grille.children).map((carte, index) => ({ id: carte.dataset.notionId, ordre: index + 1 }));
       btn.disabled = true;
       btn.textContent = "Sauvegarde en cours...";
@@ -304,25 +328,48 @@
       })
         .then(() => {
           btn.textContent = "Sauvegardé -- build en cours...";
-          desactiverReorganisation();
-          document.getElementById("btnReorganiser").disabled = true;
-          attendreMiseAJour(document.getElementById("btnReorganiser"), new Date().toISOString());
+          desactiverReorg(grilleId, btnRId, btnSId, btnAId);
+          const btnR = document.getElementById(btnRId);
+          btnR.disabled = true;
+          attendreMiseAJour(btnR, new Date().toISOString());
         })
         .catch(() => { btn.textContent = "Erreur -- réessaie"; btn.disabled = false; });
     }
+
+    // Alias pour la grille outils (compatibilité boutons HTML)
+    function toggleReorganisation() { toggleReorg('grille', 'btnReorganiser', 'btnSauvegarder', 'btnAnnuler'); }
+    function annulerReorganisation() { annulerReorg('grille', 'btnReorganiser', 'btnSauvegarder', 'btnAnnuler'); }
+    function sauvegarderOrdre(btn) { sauvegarderOrdreGrille('grille', 'btnReorganiser', btn); }
   </script>
 
   <script>
-    const filtres = document.querySelectorAll(".filtre");
-    const cartes = document.querySelectorAll("#section-outils .carte");
-    filtres.forEach((btn) => {
+    function filtrerOutils() {
+      const query = document.getElementById("recherche-outils").value.toLowerCase().trim();
+      const categorieActive = document.querySelector(".filtre.actif")?.dataset.categorie || "tous";
+      document.querySelectorAll("#section-outils .carte").forEach((carte) => {
+        const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
+        const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
+        const matchQuery = !query || nom.includes(query) || desc.includes(query);
+        const matchCategorie = categorieActive === "tous" || carte.dataset.categorie === categorieActive;
+        carte.style.display = matchQuery && matchCategorie ? "" : "none";
+      });
+    }
+
+    function filtrerLLMs() {
+      const query = document.getElementById("recherche-llms").value.toLowerCase().trim();
+      document.querySelectorAll("#section-llms .carte").forEach((carte) => {
+        const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
+        const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
+        const match = !query || nom.includes(query) || desc.includes(query);
+        carte.style.display = match ? "" : "none";
+      });
+    }
+
+    document.querySelectorAll(".filtre").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const categorie = btn.dataset.categorie;
-        filtres.forEach((b) => b.classList.remove("actif"));
+        document.querySelectorAll(".filtre").forEach((b) => b.classList.remove("actif"));
         btn.classList.add("actif");
-        cartes.forEach((carte) => {
-          carte.style.display = (categorie === "tous" || carte.dataset.categorie === categorie) ? "" : "none";
-        });
+        filtrerOutils();
       });
     });
   </script>

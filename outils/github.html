@@ -29,6 +29,7 @@
         <a href="netlify.html" class="">Netlify</a>
         <a href="make.html" class="">Make</a>
         <a href="clay.html" class="">Clay</a>
+        <a href="lovable.html" class="">Lovable</a>
         <a href="slack.html" class="">Slack</a>
     </nav>
 
@@ -102,6 +103,26 @@
       <a class="lien-officiel-section" href="https://github.com" target="_blank" rel="noopener noreferrer">https://github.com →</a>
     </section>
     </main>
+
+    
+    <aside class="barre-scenarios">
+      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <p class="scenario-texte">Versionner son code source : historique complet des modifications, retour arrière possible à tout moment, collaboration facilitée sans risque d'écraser le travail d'un autre.</p>
+      </div>
+      
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <p class="scenario-texte">Pousser du code sur GitHub -> GitHub Actions détecte le push -> lance automatiquement les tests -> si tout passe, déploie sur GitHub Pages. Déploiement continu sans intervention manuelle à chaque modification.</p>
+      </div>
+      
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <p class="scenario-texte">Notion est modifié -> n8n détecte la modification via poll -> appelle l'API GitHub Actions (repository_dispatch) -> le workflow lit Notion, génère le HTML statique et déploie sur GitHub Pages. C'est exactement l'architecture de ce projet.</p>
+      </div>
+    </aside>
   </div>
 
   <footer>
