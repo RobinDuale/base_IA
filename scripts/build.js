@@ -468,7 +468,7 @@ function genererPageDetail(item, liste, prefixe) {
     </nav>
 
     <main class="fiche">
-      ${item.tags ? `<div class="tags-fiche">${item.tags.split(",").map(badgeTag).join("")}</div>` : ""}
+      ${item.tags ? `<div class="tags-fiche"><span class="tags-label"># tags</span>${item.tags.split(",").map(badgeTag).join("")}</div>` : ""}
       ${section("Description", item.description)}
       ${section("Rôle dans l'écosystème", item.roleEcosysteme)}
       ${section("Quand utiliser cet outil", item.quandUtiliser)}

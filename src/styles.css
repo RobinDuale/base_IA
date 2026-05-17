@@ -352,6 +352,15 @@ main {
   margin-bottom: 1rem;
 }
 
+.tags-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gris);
+  letter-spacing: 0.05em;
+  align-self: center;
+  margin-right: 0.25rem;
+}
+
 .tag-fiche {
   font-size: 0.75rem;
   font-weight: 600;
