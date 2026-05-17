@@ -119,7 +119,7 @@ function formatDate(iso) {
 }
 
 function renderLigne(p) {
-  const peutAgir = p.statut === 'Email validé' || p.statut === 'Reçue' || p.statut === 'En cours';
+  const peutAgir = ['Email validé', 'Email valide', 'Reçue', 'En cours'].includes(p.statut);
   return `<tr data-statut="${p.statut}" data-id="${p.id}">
     <td>
       <div class="prop-nom">${escHtml(p.nom)}</div>
