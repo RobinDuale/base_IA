@@ -261,6 +261,7 @@ Base_IA/
 - [x] Concurrence deploy.yml : cancel-in-progress pour éviter les doubles builds
 - [x] Outils ajoutés : Clay, Slack, Lovable, GitHub Copilot -> Microsoft Copilot
 - [x] Système admin : boutons Réorganiser et Mettre à jour cachés par défaut, icône ⚙ dans le footer, auth via token GitHub validé contre l'API GitHub, cookie partagé .duale.fr avec cv-robin.duale.fr (SSO entre les deux sites)
+- [x] Sync automatique JOURNAL.md -> Notion via GitHub Actions (sous-page dans "Outils IA et No Code")
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
@@ -313,3 +314,4 @@ Structure :
 | 2026-05-17 | Réorganisation drag & drop ajoutée sur l'onglet LLMs (fonctions JS génériques) |
 | 2026-05-17 | Système admin : boutons admin masqués, auth via GitHub PAT + cookie .duale.fr partagé (SSO) |
 | 2026-05-17 | Décision : pas de clé locale dans le code public -- seul le token GitHub fait foi |
+| 2026-05-17 | Sync JOURNAL.md -> Notion : sous-page créée automatiquement dans "Outils IA et No Code", workflow déclenché sur push touchant JOURNAL.md, lib @tryfabric/martian pour la conversion markdown -> blocs Notion |
