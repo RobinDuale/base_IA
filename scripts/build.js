@@ -969,6 +969,7 @@ async function main() {
     // Copier les fichiers statiques SEO
     fs.copyFileSync(path.join(__dirname, "..", "src", "robots.txt"), path.join(DIST_DIR, "robots.txt"));
     fs.copyFileSync(path.join(__dirname, "..", "src", "llms.txt"), path.join(DIST_DIR, "llms.txt"));
+    fs.copyFileSync(path.join(__dirname, "..", "src", "BingSiteAuth.xml"), path.join(DIST_DIR, "BingSiteAuth.xml"));
 
     // Générer l'image OG (fond #0f172a = RGB 15, 23, 42)
     creerDossier(path.join(DIST_DIR, "assets"));
