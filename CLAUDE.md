@@ -70,12 +70,17 @@ ia.duale.fr
 | Quand payer | Texte | — |
 | Lien officiel | URL | — |
 | Notes personnelles | Texte | — |
-| Tags | Multi-sélection | CRM, Veille, Prospection, Workflow, Scraping, IA |
+| Tags | Multi-sélection | CRM, Veille, Prospection, Workflow, Scraping, IA, Hébergement |
 | Complémentaire avec | Texte | — |
 | Exemples & Workflows | Texte | — |
 | Quand utiliser cet outil | Texte | — |
 | Rôle dans l'écosystème | Texte | — |
 | Gratuité | Texte | Périmètre de la version gratuite |
+| Type | Sélection | Outil, LLM |
+| Ordre | Nombre | Ordre d'affichage dans la grille |
+| Scénario simple | Texte | Workflow débutant avec interactions multi-outils |
+| Scénario intermédiaire | Texte | Workflow intermédiaire avec interactions multi-outils |
+| Scénario avancé | Texte | Workflow avancé avec interactions multi-outils |
 
 ### Autres bases de données dans l'espace
 - **Cas d'usage** — ID: `5fa5a591-a14f-4605-b426-7dcc9e36989a`
@@ -197,6 +202,8 @@ Base_IA/
 ├── JOURNAL.md             → journal de bord humain
 ├── .gitignore             → ignore node_modules/, .env, dist/
 ├── package.json           → dépendances Node.js (@notionhq/client)
+├── .github/workflows/
+│   └── deploy.yml         → workflow GitHub Actions (push + webhook + schedule horaire)
 ├── scripts/
 │   └── build.js           → script principal : lit Notion, génère le HTML
 ├── src/
@@ -204,9 +211,12 @@ Base_IA/
 └── dist/                  → fichiers générés (gitignorés, déployés par GitHub Actions)
     ├── CNAME
     ├── styles.css
-    ├── index.html          → liste des outils avec filtres par catégorie
-    └── outils/
-        └── [slug].html     → fiche détaillée par outil
+    ├── version.json        → horodatage du dernier build (pour détection fin de build)
+    ├── index.html          → page d'accueil avec onglets Outils / LLMs + recherche + filtres
+    ├── outils/
+    │   └── [slug].html     → fiche détaillée par outil
+    └── llm/
+        └── [slug].html     → fiche détaillée par LLM
 ```
 
 ## n8n -- Workflow Notion -> GitHub Actions
@@ -241,9 +251,18 @@ Base_IA/
 - [x] Ajouter le bouton de mise à jour manuelle avec détection de fin de build
 - [x] Réorganisation des cartes par glisser-déposer (SortableJS + webhook n8n reorder)
 - [x] Configurer credentials n8n sur workflow "Reorder outils" (ID: xRKkzmkpVcsjikNG)
+- [x] Ajouter onglet LLMs (Claude, ChatGPT, Gemini, Perplexity, Claude Code, Microsoft Copilot)
+- [x] Ajouter champ Gratuité sur toutes les fiches
+- [x] Ajouter champs Scénario simple / intermédiaire / avancé -- sidebar droite sur les fiches
+- [x] Layout 3 colonnes : nav gauche (160px) + contenu + scénarios droite (260px)
+- [x] Champ recherche dynamique sur la home (filtre nom + description)
+- [x] Filtres unifiés catégories + tags sur la home (sans doublons, couleur par filtre)
+- [x] Tags affichés en badges colorés en haut des fiches (avec label "# tags")
+- [x] Concurrence deploy.yml : cancel-in-progress pour éviter les doubles builds
+- [x] Outils ajoutés : Clay, Slack, Lovable, GitHub Copilot -> Microsoft Copilot
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
-- [ ] Mettre en page le site (CSS avancé)
+- [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
 
 ---
 
@@ -283,3 +302,11 @@ Structure :
 | 2026-05-16 | n8n activé, poll réduit à toutes les heures, webhook manuel ajouté (`/webhook/base-ia-refresh`) |
 | 2026-05-16 | Barre de navigation latérale ajoutée sur les fiches outils (sticky desktop, tags mobile) |
 | 2026-05-16 | Bouton refresh avec polling de version.json pour détecter la fin de build |
+| 2026-05-17 | Onglet LLMs ajouté -- même base Notion, champ Type (Outil/LLM) pour séparer |
+| 2026-05-17 | 3 champs Scénarios ajoutés (simple/intermédiaire/avancé) -- sidebar droite sur fiches |
+| 2026-05-17 | Layout 3 colonnes : nav gauche 160px + contenu + scénarios droite 260px |
+| 2026-05-17 | Recherche dynamique sur la home (nom + description, compatible filtres) |
+| 2026-05-17 | Filtres unifiés catégories + tags -- déduplication, couleur propre par filtre |
+| 2026-05-17 | Tags affichés en badges colorés en haut des fiches avec label "# tags" |
+| 2026-05-17 | deploy.yml : concurrency cancel-in-progress pour éviter les doubles builds (push + n8n) |
+| 2026-05-17 | Réorganisation drag & drop ajoutée sur l'onglet LLMs (fonctions JS génériques) |

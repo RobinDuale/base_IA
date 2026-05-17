@@ -194,6 +194,48 @@ Notion est la source de vérité pour l'ordre des outils -- ainsi l'ordre est co
 
 ---
 
+### 2026-05-17 -- Enrichissement du site et de la base de données
+
+#### 19. Onglet LLMs et séparation Outils / LLMs
+
+- Champ "Type" (Outil / LLM) ajouté dans la base Notion pour séparer les deux catégories
+- Page d'accueil : deux onglets "Outils" et "LLMs" avec grilles indépendantes
+- Fiches LLMs générées dans `dist/llm/[slug].html` (même logique que les fiches outils)
+- LLMs ajoutés : Claude, ChatGPT, Gemini, Perplexity, Claude Code, Microsoft Copilot
+- Réorganisation drag & drop disponible sur les deux onglets (fonctions JS génériques)
+
+#### 20. Champs Scénarios et layout 3 colonnes
+
+- 3 nouveaux champs Notion : "Scénario simple", "Scénario intermédiaire", "Scénario avancé"
+- Objectif : montrer les interactions entre plusieurs outils à différents niveaux de complexité
+- Remplis pour tous les outils et LLMs de la base (12 fiches)
+- Layout des fiches revu : 3 colonnes -- nav gauche (160px) + contenu + sidebar scénarios droite (260px)
+- Sur mobile : les 3 colonnes s'empilent verticalement
+
+#### 21. Recherche dynamique et filtres unifiés sur la home
+
+- Champ de recherche ajouté sous le titre de chaque onglet -- filtre en temps réel sur nom et description
+- Filtres catégories et tags fusionnés en une seule barre -- les doublons (Scraping, IA, Hébergement) sont supprimés
+- Chaque filtre prend la couleur de sa catégorie/tag au survol et quand actif
+- La logique de filtrage vérifie la catégorie OU les tags de la carte
+
+#### 22. Tags en badges colorés sur les fiches
+
+- Tags déplacés du bas de page (texte brut) vers le haut de la fiche (avant la description)
+- Chaque tag a une couleur distincte : CRM=bleu, Prospection=orange, Workflow=violet, Scraping=ambre, IA=rose, Veille=vert, Hébergement=teal
+- Label "# tags" ajouté devant les pastilles pour contextualiser
+
+#### 23. Corrections et ajouts de contenu
+
+- Lovable ajouté dans les outils (No-Code, générateur d'apps full-stack par IA)
+- Microsoft Copilot ajouté dans les LLMs (remplace GitHub Copilot -- assistant généraliste Microsoft)
+- Netlify : correction du modèle économique (plan Free = sites illimités pas "1 site", ajout Blob storage, Edge Functions, Netlify Database, comportement de pause si dépassement)
+- Clay : description mise à jour pour mentionner le scraping ciblé, alternatives corrigées (liens Notion cassés remplacés par texte simple)
+- n8n et Make : scénarios d'usage ajoutés
+- deploy.yml : règle de concurrence ajoutée (`cancel-in-progress: true`) pour éviter les doubles builds push + n8n
+
+---
+
 ## Etapes à venir
 
 - [x] Vérifier que Node.js est installé -- version 24.14.1
@@ -212,9 +254,16 @@ Notion est la source de vérité pour l'ordre des outils -- ainsi l'ordre est co
 - [x] Ajouter le bouton de mise à jour manuelle avec détection de fin de build
 - [x] Ajouter la réorganisation des cartes par glisser-déposer avec sauvegarde dans Notion
 - [x] Configurer les credentials n8n sur le workflow "Reorder outils" -- credential "Header Auth account" avec Name=Authorization (z), Value=Bearer ntn_...
+- [x] Ajouter onglet LLMs séparé des outils
+- [x] Ajouter champs Scénarios (simple / intermédiaire / avancé) avec sidebar droite
+- [x] Ajouter recherche dynamique sur la home
+- [x] Fusionner filtres catégories + tags sur la home
+- [x] Afficher les tags en badges colorés sur les fiches
+- [x] Ajouter Lovable, Microsoft Copilot dans la base
+- [x] Corriger fiche Netlify (modèle économique)
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
-- [ ] Affiner la mise en page CSS
+- [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
 
 ---
 
