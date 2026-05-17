@@ -453,6 +453,7 @@ function genererPageDetail(item, liste, prefixe) {
     </nav>
 
     <main class="fiche">
+      ${item.tags ? `<div class="tags-fiche">${item.tags.split(",").map(t => `<span class="tag-fiche">${t.trim()}</span>`).join("")}</div>` : ""}
       ${section("Description", item.description)}
       ${section("Rôle dans l'écosystème", item.roleEcosysteme)}
       ${section("Quand utiliser cet outil", item.quandUtiliser)}
@@ -467,7 +468,6 @@ function genererPageDetail(item, liste, prefixe) {
       ${section("Quand payer ?", item.quandPayer)}
       ${section("Alternatives", item.alternatives)}
       ${section("Notes personnelles", item.notePersonnelles)}
-      ${item.tags ? `<section class="section"><h2>Tags</h2><p>${item.tags}</p></section>` : ""}
       ${item.lienOfficiel ? `
     <section class="section section-lien">
       <h2>Lien officiel</h2>
