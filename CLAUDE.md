@@ -260,6 +260,7 @@ Base_IA/
 - [x] Tags affichés en badges colorés en haut des fiches (avec label "# tags")
 - [x] Concurrence deploy.yml : cancel-in-progress pour éviter les doubles builds
 - [x] Outils ajoutés : Clay, Slack, Lovable, GitHub Copilot -> Microsoft Copilot
+- [x] Système admin : boutons Réorganiser et Mettre à jour cachés par défaut, icône ⚙ dans le footer, auth via token GitHub validé contre l'API GitHub, cookie partagé .duale.fr avec cv-robin.duale.fr (SSO entre les deux sites)
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
@@ -310,3 +311,5 @@ Structure :
 | 2026-05-17 | Tags affichés en badges colorés en haut des fiches avec label "# tags" |
 | 2026-05-17 | deploy.yml : concurrency cancel-in-progress pour éviter les doubles builds (push + n8n) |
 | 2026-05-17 | Réorganisation drag & drop ajoutée sur l'onglet LLMs (fonctions JS génériques) |
+| 2026-05-17 | Système admin : boutons admin masqués, auth via GitHub PAT + cookie .duale.fr partagé (SSO) |
+| 2026-05-17 | Décision : pas de clé locale dans le code public -- seul le token GitHub fait foi |

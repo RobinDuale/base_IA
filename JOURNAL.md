@@ -225,6 +225,33 @@ Notion est la source de vérité pour l'ordre des outils -- ainsi l'ordre est co
 - Chaque tag a une couleur distincte : CRM=bleu, Prospection=orange, Workflow=violet, Scraping=ambre, IA=rose, Veille=vert, Hébergement=teal
 - Label "# tags" ajouté devant les pastilles pour contextualiser
 
+#### 24. Système d'authentification admin (session 2026-05-17 suite)
+
+**Problème :** les boutons "Réorganiser" et "Mettre à jour le site" étaient visibles par tous les visiteurs.
+Risque de clics accidentels, et interface peu propre pour un visiteur lambda.
+
+**Solution :** un système d'accès admin discret, sans rien de sensible dans le code public.
+
+**Ce qui a été mis en place :**
+- Les boutons "Réorganiser" (outils + LLMs) et "Mettre à jour le site" sont cachés par défaut (`display:none`)
+- Une icône ⚙ subtile dans le footer de toutes les pages ouvre une modale de connexion
+- Dans la modale : on entre son token GitHub (`ghp_...`) -- l'API GitHub valide qu'il est bien réel
+- Si le token est valide : un cookie `admin_duale=1` est posé sur le domaine `.duale.fr` (24h)
+- Ce cookie est lisible par tous les sous-domaines de `duale.fr`, donc aussi par `cv-robin.duale.fr`
+- La même logique a été ajoutée sur `cv-robin.duale.fr/admin` : connexion là-bas = cookie posé = ia.duale.fr débloqué automatiquement (SSO)
+- Déconnexion sur l'un = cookie supprimé = déconnecté sur les deux
+
+**Pourquoi le token GitHub et pas un mot de passe ?**
+Le repo est public -- tout ce qui est écrit dans le code est visible par tout le monde.
+Un mot de passe codé en dur dans `build.js` serait lisible par n'importe qui sur GitHub.
+Le token GitHub, lui, n'est jamais dans le code : il est entré par l'utilisateur, validé en temps réel
+contre l'API GitHub, et jamais stocké (seulement le cookie de session).
+
+**Concept clé -- les cookies de domaine partagé :**
+Un cookie peut être posé avec un attribut `domain=.duale.fr`. Le point devant signifie "tous les
+sous-domaines". Ainsi, un cookie posé sur `cv-robin.duale.fr` est visible sur `ia.duale.fr` et
+vice versa. C'est le mécanisme standard du SSO (Single Sign-On) sur le web.
+
 #### 23. Corrections et ajouts de contenu
 
 - Lovable ajouté dans les outils (No-Code, générateur d'apps full-stack par IA)
@@ -261,6 +288,7 @@ Notion est la source de vérité pour l'ordre des outils -- ainsi l'ordre est co
 - [x] Afficher les tags en badges colorés sur les fiches
 - [x] Ajouter Lovable, Microsoft Copilot dans la base
 - [x] Corriger fiche Netlify (modèle économique)
+- [x] Ajouter système d'authentification admin (boutons cachés, login token GitHub, cookie SSO .duale.fr)
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
@@ -299,6 +327,21 @@ Dans ce projet, il joue le rôle de "traducteur" entre Notion et GitHub :
 - Quand il détecte un changement, il appelle l'API GitHub
 - GitHub Actions se déclenche et reconstruit le site
 Sans n8n, il faudrait un serveur dédié pour recevoir les webhooks -- n8n remplace ce serveur.
+
+### Les cookies de domaine partagé et le SSO
+Un cookie web peut être limité à un seul site, ou partagé entre plusieurs sous-domaines
+avec l'attribut `domain=.duale.fr`. Le point devant indique "tous les sous-domaines de duale.fr".
+Ainsi un cookie posé sur `cv-robin.duale.fr` est automatiquement transmis à `ia.duale.fr` par
+le navigateur. C'est le principe du SSO (Single Sign-On) : se connecter une fois sur un site
+et être reconnu automatiquement sur les autres sites du même domaine.
+
+### Sécurité dans un repo public
+Tout ce qui est écrit dans un repo public est lisible par tout le monde sur GitHub.
+Il ne faut jamais y mettre de mots de passe, tokens ou secrets. Pour des données sensibles :
+- GitHub Secrets : pour les tokens utilisés par GitHub Actions (ex: NOTION_API_KEY)
+- Validation côté serveur (ou API tierce) : pour authentifier un utilisateur sans stocker de secret
+Dans ce projet, l'auth admin utilise le token GitHub de l'utilisateur, validé en temps réel
+contre l'API GitHub -- aucun secret n'est jamais dans le code.
 
 ### GitHub Pages et la branche gh-pages
 GitHub Pages sert les fichiers d'une branche spécifique du repo.
