@@ -262,7 +262,7 @@ function genererPageAccueil(outils, llms) {
       <div class="footer-liens">
         <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
-        <a href="https://cv-robin.duale.fr/fr/mentions-legales.html" target="_blank" rel="noopener noreferrer">Mentions légales</a>
+        <a href="/mentions-legales.html">Mentions légales</a>
       </div>
       <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
     </div>
@@ -530,7 +530,7 @@ function genererPageDetail(item, liste, prefixe) {
       <div class="footer-liens">
         <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
-        <a href="https://cv-robin.duale.fr/fr/mentions-legales.html" target="_blank" rel="noopener noreferrer">Mentions légales</a>
+        <a href="/mentions-legales.html">Mentions légales</a>
       </div>
       <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
     </div>
@@ -579,6 +579,66 @@ function genererPageDetail(item, liste, prefixe) {
 
 // --- Programme principal ---
 
+function genererMentionsLegales() {
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mentions légales · Base IA</title>
+  <meta name="description" content="Mentions légales du site ia.duale.fr — éditeur, hébergeur, propriété intellectuelle, données personnelles."/>
+  <meta name="robots" content="noindex, follow"/>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+<header>
+  <h1>Base IA</h1>
+  <p class="sous-titre">Outils IA &amp; No-Code · Robin Dualé</p>
+</header>
+<main>
+  <a href="/" class="retour">← Retour</a>
+  <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:1.5rem;">Mentions légales</h2>
+
+  <div class="section" style="margin-bottom:1rem;">
+    <h2>Éditeur</h2>
+    <p>Robin Dualé<br/>
+    Email : <a href="mailto:robin@duale.fr" style="color:var(--bleu);">robin@duale.fr</a><br/>
+    Site : <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer" style="color:var(--bleu);">cv-robin.duale.fr</a></p>
+  </div>
+
+  <div class="section" style="margin-bottom:1rem;">
+    <h2>Hébergement</h2>
+    <p>GitHub Pages · GitHub, Inc. · 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, États-Unis<br/>
+    <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer" style="color:var(--bleu);">pages.github.com</a></p>
+  </div>
+
+  <div class="section" style="margin-bottom:1rem;">
+    <h2>Propriété intellectuelle</h2>
+    <p>Le contenu de ce site (textes, structure, code) est la propriété de Robin Dualé. Les données affichées sont issues d'une base Notion personnelle. Toute reproduction sans autorisation est interdite.</p>
+  </div>
+
+  <div class="section" style="margin-bottom:1rem;">
+    <h2>Données personnelles &amp; RGPD</h2>
+    <p>Ce site ne collecte aucune donnée personnelle, ne dépose aucun cookie et n'utilise aucun outil d'analyse d'audience. Aucune information vous concernant n'est transmise à des tiers.</p>
+  </div>
+</main>
+<footer>
+  <div class="footer-contenu">
+    <div class="footer-gauche">
+      <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
+      <span class="footer-sub">Données issues de Notion</span>
+    </div>
+    <div class="footer-liens">
+      <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
+      <a href="/mentions-legales.html">Mentions légales</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>`;
+}
+
 async function main() {
   try {
     creerDossier(DIST_DIR);
@@ -602,7 +662,8 @@ async function main() {
     );
 
     fs.writeFileSync(path.join(DIST_DIR, "index.html"), genererPageAccueil(outils, llms));
-    console.log("Page d'accueil générée.");
+    fs.writeFileSync(path.join(DIST_DIR, "mentions-legales.html"), genererMentionsLegales());
+    console.log("Page d'accueil + mentions légales générées.");
 
     for (const outil of outils) {
       fs.writeFileSync(
