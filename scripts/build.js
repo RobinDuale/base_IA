@@ -89,6 +89,9 @@ async function recupererItems() {
         quandUtiliser: extraireTexte(p["Quand utiliser cet outil"]),
         roleEcosysteme: extraireTexte(p["Rôle dans l'écosystème"]),
         gratuite: extraireTexte(p["Gratuité"]),
+        scenarioSimple: extraireTexte(p["Scénario simple"]),
+        scenarioIntermediaire: extraireTexte(p["Scénario intermédiaire"]),
+        scenarioAvance: extraireTexte(p["Scénario avancé"]),
       });
     }
 
@@ -194,6 +197,10 @@ function genererPageAccueil(outils, llms) {
     </div>
 
     <div id="section-outils">
+      <div class="barre-recherche">
+        <input type="search" id="recherche-outils" class="champ-recherche" placeholder="Rechercher un outil..." oninput="filtrerOutils()" autocomplete="off"/>
+      </div>
+
       <div class="filtres">
         <button class="filtre actif" data-categorie="tous">Tous</button>
         ${filtres}
@@ -211,6 +218,10 @@ function genererPageAccueil(outils, llms) {
     </div>
 
     <div id="section-llms" style="display:none">
+      <div class="barre-recherche">
+        <input type="search" id="recherche-llms" class="champ-recherche" placeholder="Rechercher un LLM..." oninput="filtrerLLMs()" autocomplete="off"/>
+      </div>
+
       <div class="barre-actions">
         <button class="btn-reorganiser" id="btnReorganiserLLM" onclick="toggleReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')">Réorganiser</button>
         <button class="btn-sauvegarder" id="btnSauvegarderLLM" onclick="sauvegarderOrdreGrille('grille-llms', 'btnReorganiserLLM', this)" style="display:none">Sauvegarder l'ordre</button>
@@ -339,16 +350,33 @@ function genererPageAccueil(outils, llms) {
   </script>
 
   <script>
-    const filtres = document.querySelectorAll(".filtre");
-    const cartes = document.querySelectorAll("#section-outils .carte");
-    filtres.forEach((btn) => {
+    function filtrerOutils() {
+      const query = document.getElementById("recherche-outils").value.toLowerCase().trim();
+      const categorieActive = document.querySelector(".filtre.actif")?.dataset.categorie || "tous";
+      document.querySelectorAll("#section-outils .carte").forEach((carte) => {
+        const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
+        const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
+        const matchQuery = !query || nom.includes(query) || desc.includes(query);
+        const matchCategorie = categorieActive === "tous" || carte.dataset.categorie === categorieActive;
+        carte.style.display = matchQuery && matchCategorie ? "" : "none";
+      });
+    }
+
+    function filtrerLLMs() {
+      const query = document.getElementById("recherche-llms").value.toLowerCase().trim();
+      document.querySelectorAll("#section-llms .carte").forEach((carte) => {
+        const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
+        const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
+        const match = !query || nom.includes(query) || desc.includes(query);
+        carte.style.display = match ? "" : "none";
+      });
+    }
+
+    document.querySelectorAll(".filtre").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const categorie = btn.dataset.categorie;
-        filtres.forEach((b) => b.classList.remove("actif"));
+        document.querySelectorAll(".filtre").forEach((b) => b.classList.remove("actif"));
         btn.classList.add("actif");
-        cartes.forEach((carte) => {
-          carte.style.display = (categorie === "tous" || carte.dataset.categorie === categorie) ? "" : "none";
-        });
+        filtrerOutils();
       });
     });
   </script>
@@ -375,6 +403,28 @@ function genererPageDetail(item, liste, prefixe) {
   const badgeType = item.type === "LLM"
     ? `<span class="badge" style="background:#8b5cf6">LLM</span>`
     : badgeCategorie(item.categorie);
+
+  const hasScenarios = item.scenarioSimple || item.scenarioIntermediaire || item.scenarioAvance;
+
+  const barreScenariosHtml = hasScenarios ? `
+    <aside class="barre-scenarios">
+      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      ${item.scenarioSimple ? `
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <p class="scenario-texte">${item.scenarioSimple}</p>
+      </div>` : ""}
+      ${item.scenarioIntermediaire ? `
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <p class="scenario-texte">${item.scenarioIntermediaire}</p>
+      </div>` : ""}
+      ${item.scenarioAvance ? `
+      <div class="scenario">
+        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <p class="scenario-texte">${item.scenarioAvance}</p>
+      </div>` : ""}
+    </aside>` : "";
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -424,6 +474,8 @@ function genererPageDetail(item, liste, prefixe) {
       <a class="lien-officiel-section" href="${item.lienOfficiel}" target="_blank" rel="noopener noreferrer">${item.lienOfficiel} →</a>
     </section>` : ""}
     </main>
+
+    ${barreScenariosHtml}
   </div>
 
   <footer>
