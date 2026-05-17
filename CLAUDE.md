@@ -264,7 +264,15 @@ Base_IA/
 - [x] Sync automatique JOURNAL.md -> Notion via GitHub Actions (sous-page dans "Outils IA et No Code")
 - [x] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [x] Vérifier les credentials n8n après chaque mise à jour du workflow
-- [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
+- [x] Ajouter robots.txt et balises OG/Twitter Card (SEO)
+- [x] sitemap.xml dynamique généré à chaque build + soumis à Bing Webmaster Tools
+- [x] Schema.org complet : WebSite + ItemList sur la home, SoftwareApplication + BreadcrumbList + ImageObject sur les fiches
+- [x] llms.txt généré dynamiquement avec liste complète des outils et descriptions
+- [x] Favicon : carré noir/blanc IA (SVG + PNG 16/32/48 + ICO), référencé en 5 lignes dans toutes les pages
+- [x] H2 answer-ready sur toutes les fiches (formulés comme questions avec le nom de l'outil)
+- [x] IndexNow : clé fff05dc2... + ping Bing automatique à chaque déploiement
+- [x] Mentions légales propres à ia.duale.fr (éditeur, hébergeur GitHub Pages, RGPD)
+- [x] Maillage SEO vers cv-robin.duale.fr dans le footer (2 liens par page)
 - [ ] Formulaire de proposition d'outil par les visiteurs (Gemini + WhatsApp CallMeBot + admin)
 - [ ] 2e passe Gemini à la publication + email visiteur
 
@@ -314,6 +322,11 @@ Structure :
 | 2026-05-17 | Tags affichés en badges colorés en haut des fiches avec label "# tags" |
 | 2026-05-17 | deploy.yml : concurrency cancel-in-progress pour éviter les doubles builds (push + n8n) |
 | 2026-05-17 | Réorganisation drag & drop ajoutée sur l'onglet LLMs (fonctions JS génériques) |
+| 2026-05-17 | SEO/GEO complet : robots.txt, sitemap, OG, Schema.org, llms.txt dynamique, IndexNow, favicon noir/blanc, H2 answer-ready, BingSiteAuth |
+| 2026-05-17 | Mentions légales propres à ia.duale.fr -- pas de renvoi vers cv-robin |
+| 2026-05-17 | Footer : LinkedIn + cv-robin.duale.fr + Mentions légales (maillage SEO vers CV) |
+| 2026-05-17 | IndexNow clé fff05dc2d2973f558bcd5cf3cb8ceee8 -- ping automatique après chaque déploiement |
+| 2026-05-17 | Sitemap soumis à Bing Webmaster Tools |
 | 2026-05-17 | Système admin : boutons admin masqués, auth via GitHub PAT + cookie .duale.fr partagé (SSO) |
 | 2026-05-17 | Décision : pas de clé locale dans le code public -- seul le token GitHub fait foi |
 | 2026-05-17 | Sync JOURNAL.md -> Notion : sous-page créée automatiquement dans "Outils IA et No Code", workflow déclenché sur push touchant JOURNAL.md, lib @tryfabric/martian pour la conversion markdown -> blocs Notion |
