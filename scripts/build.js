@@ -254,8 +254,18 @@ function genererPageAccueil(outils, llms) {
   </main>
 
   <footer>
-    <p>Données issues de Notion -- Mis à jour automatiquement</p>
-    <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
+    <div class="footer-contenu">
+      <div class="footer-gauche">
+        <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
+        <span class="footer-sub">Données issues de Notion</span>
+      </div>
+      <div class="footer-liens">
+        <a href="mailto:robin@duale.fr">robin@duale.fr</a>
+        <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://projets.duale.fr" target="_blank" rel="noopener noreferrer">projets.duale.fr</a>
+      </div>
+      <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
+    </div>
   </footer>
 
   <script>
@@ -512,8 +522,18 @@ function genererPageDetail(item, liste, prefixe) {
   </div>
 
   <footer>
-    <p>Données issues de Notion -- Mis à jour automatiquement</p>
-    <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
+    <div class="footer-contenu">
+      <div class="footer-gauche">
+        <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
+        <span class="footer-sub">Données issues de Notion</span>
+      </div>
+      <div class="footer-liens">
+        <a href="mailto:robin@duale.fr">robin@duale.fr</a>
+        <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://projets.duale.fr" target="_blank" rel="noopener noreferrer">projets.duale.fr</a>
+      </div>
+      <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
+    </div>
   </footer>
 
   <script>
