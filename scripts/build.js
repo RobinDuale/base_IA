@@ -112,6 +112,21 @@ async function recupererItems() {
 
 // --- Génération du HTML ---
 
+const COULEURS_TAG = {
+  CRM:          "#3b82f6",
+  Veille:       "#22c55e",
+  Prospection:  "#f97316",
+  Workflow:     "#8b5cf6",
+  Scraping:     "#d97706",
+  IA:           "#ec4899",
+  Hébergement:  "#14b8a6",
+};
+
+function badgeTag(tag) {
+  const couleur = COULEURS_TAG[tag.trim()] || "#6b7280";
+  return `<span class="tag-fiche" style="background:${couleur}">${tag.trim()}</span>`;
+}
+
 const COULEURS_CATEGORIE = {
   IA: "#3b82f6",
   "No-Code": "#22c55e",
@@ -453,7 +468,7 @@ function genererPageDetail(item, liste, prefixe) {
     </nav>
 
     <main class="fiche">
-      ${item.tags ? `<div class="tags-fiche">${item.tags.split(",").map(t => `<span class="tag-fiche">${t.trim()}</span>`).join("")}</div>` : ""}
+      ${item.tags ? `<div class="tags-fiche">${item.tags.split(",").map(badgeTag).join("")}</div>` : ""}
       ${section("Description", item.description)}
       ${section("Rôle dans l'écosystème", item.roleEcosysteme)}
       ${section("Quand utiliser cet outil", item.quandUtiliser)}

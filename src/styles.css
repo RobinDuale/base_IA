@@ -348,18 +348,17 @@ main {
 .tags-fiche {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .tag-fiche {
   font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0.2rem 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
   border-radius: 999px;
-  border: 1px solid var(--bord);
-  color: var(--gris);
-  background: var(--surface);
+  color: #fff;
+  letter-spacing: 0.03em;
 }
 
 /* --- Barre scenarios (colonne droite) --- */
