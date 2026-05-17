@@ -86,6 +86,8 @@ ia.duale.fr
 - **Cas d'usage** — ID: `5fa5a591-a14f-4605-b426-7dcc9e36989a`
 - **Projets** — ID: `58d337f4-3305-49a3-910f-d889d0dfe77d`
 - **Parcours d'apprentissage** — ID: `dc9137fd-a09d-4d59-a739-2b5404e0f6be`
+- **Propositions d'outils** — ID collection: `2224a9df-e426-4812-bfba-5a1d23e5947f` — URL: https://www.notion.so/08162c25b54a437098992ff9fd6d0701
+  - Champs : Nom (title), Email, Statut (Reçue/Email validé/En cours/Validée/Rejetée), Description Gemini, Catégorie, URL officielle, Token, Notes admin, Date soumission (auto)
 
 ---
 
@@ -96,6 +98,8 @@ ia.duale.fr
 - **CI/CD :** GitHub Actions
 - **Déclencheur :** webhook Notion + schedule de secours (toutes les heures)
 - **Secrets :** `NOTION_API_KEY` dans GitHub Secrets
+- **Email transactionnel :** Brevo (300 emails/jour gratuits) -- node natif n8n
+- **Analytics :** Google Analytics GA4, propriété "Base IA", ID `G-61ZR41S7J7`
 
 ---
 
@@ -273,8 +277,12 @@ Base_IA/
 - [x] IndexNow : clé fff05dc2... + ping Bing automatique à chaque déploiement
 - [x] Mentions légales propres à ia.duale.fr (éditeur, hébergeur GitHub Pages, RGPD)
 - [x] Maillage SEO vers cv-robin.duale.fr dans le footer (2 liens par page)
-- [ ] Formulaire de proposition d'outil par les visiteurs (Gemini + WhatsApp CallMeBot + admin)
-- [ ] 2e passe Gemini à la publication + email visiteur
+- [ ] Formulaire de proposition d'outil par les visiteurs (Gemini + Brevo + WhatsApp CallMeBot + admin)
+  - Base Notion "Propositions d'outils" creee (ID: 2224a9df-e426-4812-bfba-5a1d23e5947f)
+  - Fiche Brevo creee dans Notion Outils
+  - Brevo : compte a creer sur brevo.com + cle API a recuperer
+  - Workflow : nom -> check doublon + Gemini -> confirmation -> email validation -> Notion -> WhatsApp admin -> admin valide -> email visiteur
+- [ ] 2e passe Gemini a la publication + email visiteur
 
 ---
 
