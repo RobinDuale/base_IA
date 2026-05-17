@@ -156,12 +156,12 @@ function badgeNiveau(niveau) {
 const BASE_URL = "https://ia.duale.fr";
 
 const GA_TAG = `<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJXQQE3YG5"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-YJXQQE3YG5');
+    gtag('config', 'G-61ZR41S7J7');
   </script>`;
 const OG_IMAGE = `${BASE_URL}/assets/og-default.png`;
 const OG_IMAGE_ALT = "Base IA -- Référence des outils IA et No-Code par Robin Dualé";
