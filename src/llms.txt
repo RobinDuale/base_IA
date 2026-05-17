@@ -1,0 +1,39 @@
+# Base IA -- Robin Duale · Outils IA, No-Code et LLMs
+
+> Référence personnelle des meilleurs outils IA, No-Code, automatisation et LLMs, construite et maintenue par Robin Dualé.
+
+## A propos du site
+
+Base IA (ia.duale.fr) est une base de connaissance structurée sur les outils d'intelligence artificielle et No-Code. Chaque fiche détaille les avantages, limites, cas d'usage, modèle économique et scénarios d'utilisation d'un outil ou d'un LLM.
+
+Le site est alimenté depuis Notion via GitHub Actions et publié sur GitHub Pages. Il est mis à jour régulièrement au fil des découvertes et expérimentations de Robin Dualé.
+
+## Auteur
+
+Robin Dualé -- CEO, transformation B2B SaaS, Data & IA
+Site professionnel : https://cv-robin.duale.fr
+LinkedIn : https://www.linkedin.com/in/robinduale
+Contact : robin@duale.fr
+
+## Catégories d'outils référencés
+
+- IA : outils exploitant l'intelligence artificielle
+- LLM : modèles de langage (Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot)
+- No-Code : outils de création sans code (Notion, Lovable, Webflow)
+- Automatisation : outils de workflow et automatisation (n8n, Make, Zapier)
+- Développement : outils pour développeurs (GitHub Copilot, Cursor)
+- Scraping : outils de collecte de données (Clay, Apify)
+- Productivité : outils de productivité (Slack, Notion)
+- Hébergement : plateformes d'hébergement (GitHub Pages, Netlify)
+
+## Pages du site
+
+- [Accueil](https://ia.duale.fr/) : grille des outils IA et LLMs avec filtres et recherche
+- [Mentions légales](https://ia.duale.fr/mentions-legales.html) : éditeur, hébergeur, RGPD
+
+## Informations pour les LLMs
+
+Ce site est une ressource de référence en français sur les outils IA et No-Code.
+Les fiches sont structurées avec : description, avantages, limites, cas d'usage, modèle économique, gratuité et scénarios d'utilisation (débutant, intermédiaire, avancé).
+
+Le contenu est produit avec l'assistance d'outils d'IA et validé par Robin Dualé.

@@ -5,6 +5,7 @@
 const { Client } = require("@notionhq/client");
 const fs = require("fs");
 const path = require("path");
+const zlib = require("zlib");
 
 // --- Configuration ---
 
@@ -150,6 +151,83 @@ function badgeNiveau(niveau) {
   return niveau ? `<span class="badge" style="background:${couleur}">${niveau}</span>` : "";
 }
 
+// --- Fonctions SEO ---
+
+const BASE_URL = "https://ia.duale.fr";
+const OG_IMAGE = `${BASE_URL}/assets/og-default.png`;
+const OG_IMAGE_ALT = "Base IA -- Référence des outils IA et No-Code par Robin Dualé";
+const SITE_NAME = "Base IA · Robin Dualé";
+
+// Tronque une description pour les meta tags (130-155 chars)
+function descriptionMeta(texte, fallback) {
+  if (!texte) return fallback;
+  if (texte.length >= 130 && texte.length <= 155) return texte;
+  if (texte.length > 155) return texte.substring(0, 152) + "...";
+  return texte.length >= 80 ? texte : fallback;
+}
+
+// Génère un PNG solide (fond uni) en pur Node.js, sans dépendance externe
+function genererPNGSolide(largeur, hauteur, r, g, b) {
+  const crcTable = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let j = 0; j < 8; j++) c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+    crcTable[i] = c;
+  }
+  function crc32(buf) {
+    let crc = 0xffffffff;
+    for (let i = 0; i < buf.length; i++) crc = crcTable[(crc ^ buf[i]) & 0xff] ^ (crc >>> 8);
+    return (crc ^ 0xffffffff) >>> 0;
+  }
+  function chunk(type, data) {
+    const typeBuf = Buffer.from(type);
+    const len = Buffer.alloc(4);
+    len.writeUInt32BE(data.length);
+    const crcBuf = Buffer.alloc(4);
+    crcBuf.writeUInt32BE(crc32(Buffer.concat([typeBuf, data])));
+    return Buffer.concat([len, typeBuf, data, crcBuf]);
+  }
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(largeur, 0);
+  ihdr.writeUInt32BE(hauteur, 4);
+  ihdr.writeUInt8(8, 8); ihdr.writeUInt8(2, 9);
+  ihdr.writeUInt8(0, 10); ihdr.writeUInt8(0, 11); ihdr.writeUInt8(0, 12);
+  const rowSize = largeur * 3 + 1;
+  const raw = Buffer.alloc(hauteur * rowSize);
+  for (let y = 0; y < hauteur; y++) {
+    const off = y * rowSize;
+    raw[off] = 0;
+    for (let x = 0; x < largeur; x++) {
+      raw[off + x * 3 + 1] = r;
+      raw[off + x * 3 + 2] = g;
+      raw[off + x * 3 + 3] = b;
+    }
+  }
+  return Buffer.concat([
+    Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+    chunk("IHDR", ihdr),
+    chunk("IDAT", zlib.deflateSync(raw, { level: 9 })),
+    chunk("IEND", Buffer.alloc(0)),
+  ]);
+}
+
+// Génère le sitemap.xml
+function genererSitemap(outils, llms) {
+  const date = new Date().toISOString().split("T")[0];
+  const urlEntry = (loc, freq, prio) => `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${date}</lastmod>
+    <changefreq>${freq}</changefreq>
+    <priority>${prio}</priority>
+  </url>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urlEntry(`${BASE_URL}/`, "weekly", "1.0")}
+${outils.map((o) => urlEntry(`${BASE_URL}/outils/${o.slug}.html`, "monthly", "0.8")).join("\n")}
+${llms.map((l) => urlEntry(`${BASE_URL}/llm/${l.slug}.html`, "monthly", "0.8")).join("\n")}
+</urlset>`;
+}
+
 // Page d'accueil avec onglets Outils / LLMs
 function genererPageAccueil(outils, llms) {
   const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))];
@@ -195,13 +273,47 @@ function genererPageAccueil(outils, llms) {
     )
     .join("\n");
 
+  const DESC_HOME = "Référence des meilleurs outils IA, No-Code et LLMs sélectionnés par Robin Dualé. Fiches détaillées, scénarios d'usage et modèles économiques.";
+  const TITLE_HOME = "Base IA · Outils IA, No-Code et LLMs · Robin Dualé";
+
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Base IA -- Outils IA, No Code et LLMs</title>
-  <meta name="description" content="Ma base personnelle d'outils IA, No Code et LLMs : fiches détaillées, cas d'usage, avantages et limites."/>
+  <title>${TITLE_HOME}</title>
+  <meta name="description" content="${DESC_HOME}"/>
+  <link rel="canonical" href="${BASE_URL}/"/>
+  <meta property="og:title" content="${TITLE_HOME}"/>
+  <meta property="og:description" content="${DESC_HOME}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="${BASE_URL}/"/>
+  <meta property="og:image" content="${OG_IMAGE}"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="${OG_IMAGE_ALT}"/>
+  <meta property="og:locale" content="fr_FR"/>
+  <meta property="og:site_name" content="${SITE_NAME}"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="${TITLE_HOME}"/>
+  <meta name="twitter:description" content="${DESC_HOME}"/>
+  <meta name="twitter:image" content="${OG_IMAGE}"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Base IA",
+    "description": "${DESC_HOME}",
+    "url": "${BASE_URL}/",
+    "inLanguage": "fr",
+    "author": {
+      "@type": "Person",
+      "name": "Robin Dualé",
+      "url": "https://cv-robin.duale.fr",
+      "sameAs": "https://www.linkedin.com/in/robinduale"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="styles.css"/>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 </head>
@@ -541,13 +653,61 @@ function genererPageDetail(item, liste, prefixe) {
       </div>` : ""}
     </aside>` : "";
 
+  const typeLabel = item.type === "LLM" ? "LLM" : (item.categorie || "Outil IA");
+  const titleDetail = `${item.nom} · ${typeLabel} · Base IA`;
+  const descFallback = `Fiche complète sur ${item.nom} : avantages, limites, cas d'usage et scénarios. ${typeLabel} sélectionné dans la Base IA de Robin Dualé.`;
+  const descDetail = descriptionMeta(item.description, descFallback);
+  const urlDetail = `${BASE_URL}/${prefixe}/${item.slug}.html`;
+
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${titrePage} -- Base IA</title>
-  <meta name="description" content="${item.description || item.nom + " -- fiche"}"/>
+  <title>${titleDetail}</title>
+  <meta name="description" content="${descDetail}"/>
+  <link rel="canonical" href="${urlDetail}"/>
+  <meta property="og:title" content="${titleDetail}"/>
+  <meta property="og:description" content="${descDetail}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="${urlDetail}"/>
+  <meta property="og:image" content="${OG_IMAGE}"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="${OG_IMAGE_ALT}"/>
+  <meta property="og:locale" content="fr_FR"/>
+  <meta property="og:site_name" content="${SITE_NAME}"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="${titleDetail}"/>
+  <meta name="twitter:description" content="${descDetail}"/>
+  <meta name="twitter:image" content="${OG_IMAGE}"/>
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "${BASE_URL}/"},
+        {"@type": "ListItem", "position": 2, "name": "${item.nom}", "item": "${urlDetail}"}
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "${item.nom}",
+      "description": "${descDetail}",
+      "applicationCategory": "${item.type === "LLM" ? "AIApplication" : "WebApplication"}",
+      "operatingSystem": "Web",
+      ${item.lienOfficiel ? `"url": "${item.lienOfficiel}",` : ""}
+      "author": {
+        "@type": "Person",
+        "name": "Robin Dualé",
+        "url": "https://cv-robin.duale.fr",
+        "sameAs": "https://www.linkedin.com/in/robinduale"
+      }
+    }
+  ]
+  </script>
   <link rel="stylesheet" href="../styles.css"/>
 </head>
 <body>
@@ -728,9 +888,10 @@ function genererMentionsLegales() {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mentions légales · Base IA</title>
-  <meta name="description" content="Mentions légales du site ia.duale.fr — éditeur, hébergeur, propriété intellectuelle, données personnelles."/>
+  <title>Mentions légales · Base IA · Robin Dualé</title>
+  <meta name="description" content="Mentions légales du site ia.duale.fr -- éditeur Robin Dualé, hébergeur GitHub Pages, propriété intellectuelle et données personnelles RGPD."/>
   <meta name="robots" content="noindex, follow"/>
+  <link rel="canonical" href="${BASE_URL}/mentions-legales.html"/>
   <link rel="stylesheet" href="/styles.css"/>
 </head>
 <body>
@@ -790,6 +951,14 @@ async function main() {
 
     fs.copyFileSync(path.join(__dirname, "..", "CNAME"), path.join(DIST_DIR, "CNAME"));
 
+    // Copier les fichiers statiques SEO
+    fs.copyFileSync(path.join(__dirname, "..", "src", "robots.txt"), path.join(DIST_DIR, "robots.txt"));
+    fs.copyFileSync(path.join(__dirname, "..", "src", "llms.txt"), path.join(DIST_DIR, "llms.txt"));
+
+    // Générer l'image OG (fond #0f172a = RGB 15, 23, 42)
+    creerDossier(path.join(DIST_DIR, "assets"));
+    fs.writeFileSync(path.join(DIST_DIR, "assets", "og-default.png"), genererPNGSolide(1200, 630, 15, 23, 42));
+
     const tous = await recupererItems();
     const outils = tous.filter((i) => i.type !== "LLM");
     const llms = tous.filter((i) => i.type === "LLM");
@@ -806,7 +975,8 @@ async function main() {
 
     fs.writeFileSync(path.join(DIST_DIR, "index.html"), genererPageAccueil(outils, llms));
     fs.writeFileSync(path.join(DIST_DIR, "mentions-legales.html"), genererMentionsLegales());
-    console.log("Page d'accueil + mentions légales générées.");
+    fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"), genererSitemap(outils, llms));
+    console.log("Page d'accueil, mentions légales et sitemap générés.");
 
     for (const outil of outils) {
       fs.writeFileSync(
