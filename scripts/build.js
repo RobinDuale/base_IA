@@ -158,7 +158,7 @@ function genererPageAccueil(outils, llms) {
   const cartesLLMs = llms
     .map(
       (l) => `
-      <a class="carte" href="llm/${l.slug}.html" data-categorie="${l.categorie}">
+      <a class="carte" href="llm/${l.slug}.html" data-categorie="${l.categorie}" data-notion-id="${l.id}">
         <div class="carte-header">
           <h2 class="carte-nom">${l.nom}</h2>
           <div class="carte-badges">
@@ -211,7 +211,12 @@ function genererPageAccueil(outils, llms) {
     </div>
 
     <div id="section-llms" style="display:none">
-      <div class="grille">
+      <div class="barre-actions">
+        <button class="btn-reorganiser" id="btnReorganiserLLM" onclick="toggleReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')">Réorganiser</button>
+        <button class="btn-sauvegarder" id="btnSauvegarderLLM" onclick="sauvegarderOrdreGrille('grille-llms', 'btnReorganiserLLM', this)" style="display:none">Sauvegarder l'ordre</button>
+        <button class="btn-annuler" id="btnAnnulerLLM" onclick="annulerReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Annuler</button>
+      </div>
+      <div class="grille" id="grille-llms">
         ${cartesLLMs}
       </div>
     </div>
@@ -271,45 +276,44 @@ function genererPageAccueil(outils, llms) {
   </script>
 
   <script>
-    let sortable = null;
-    let ordreInitial = null;
+    const sortables = {};
+    const ordresInitiaux = {};
 
-    function toggleReorganisation() {
-      const grille = document.getElementById("grille");
-      const btnR = document.getElementById("btnReorganiser");
-      const btnS = document.getElementById("btnSauvegarder");
-      const btnA = document.getElementById("btnAnnuler");
-      ordreInitial = Array.from(grille.children).map(c => c.dataset.notionId);
+    function toggleReorg(grilleId, btnRId, btnSId, btnAId) {
+      const grille = document.getElementById(grilleId);
+      const btnR = document.getElementById(btnRId);
+      const btnS = document.getElementById(btnSId);
+      const btnA = document.getElementById(btnAId);
+      ordresInitiaux[grilleId] = Array.from(grille.children).map(c => c.dataset.notionId);
       grille.classList.add("mode-reorganisation");
       btnR.style.display = "none";
       btnS.style.display = "";
       btnA.style.display = "";
-      sortable = new Sortable(grille, { animation: 150, ghostClass: "carte-ghost", onEnd: () => {} });
+      sortables[grilleId] = new Sortable(grille, { animation: 150, ghostClass: "carte-ghost", onEnd: () => {} });
     }
 
-    function annulerReorganisation() {
-      desactiverReorganisation();
-      const grille = document.getElementById("grille");
-      ordreInitial.forEach(id => {
+    function annulerReorg(grilleId, btnRId, btnSId, btnAId) {
+      desactiverReorg(grilleId, btnRId, btnSId, btnAId);
+      const grille = document.getElementById(grilleId);
+      (ordresInitiaux[grilleId] || []).forEach(id => {
         const carte = grille.querySelector('[data-notion-id="' + id + '"]');
         if (carte) grille.appendChild(carte);
       });
     }
 
-    function desactiverReorganisation() {
-      const grille = document.getElementById("grille");
-      const btnR = document.getElementById("btnReorganiser");
-      const btnS = document.getElementById("btnSauvegarder");
-      const btnA = document.getElementById("btnAnnuler");
+    function desactiverReorg(grilleId, btnRId, btnSId, btnAId) {
+      const grille = document.getElementById(grilleId);
+      document.getElementById(btnRId).style.display = "";
+      document.getElementById(btnSId).style.display = "none";
+      document.getElementById(btnAId).style.display = "none";
       grille.classList.remove("mode-reorganisation");
-      btnR.style.display = "";
-      btnS.style.display = "none";
-      btnA.style.display = "none";
-      if (sortable) { sortable.destroy(); sortable = null; }
+      if (sortables[grilleId]) { sortables[grilleId].destroy(); delete sortables[grilleId]; }
     }
 
-    function sauvegarderOrdre(btn) {
-      const grille = document.getElementById("grille");
+    function sauvegarderOrdreGrille(grilleId, btnRId, btn) {
+      const grille = document.getElementById(grilleId);
+      const btnSId = btn.id;
+      const btnAId = btnSId.replace("Sauvegarder", "Annuler");
       const ordre = Array.from(grille.children).map((carte, index) => ({ id: carte.dataset.notionId, ordre: index + 1 }));
       btn.disabled = true;
       btn.textContent = "Sauvegarde en cours...";
@@ -320,12 +324,18 @@ function genererPageAccueil(outils, llms) {
       })
         .then(() => {
           btn.textContent = "Sauvegardé -- build en cours...";
-          desactiverReorganisation();
-          document.getElementById("btnReorganiser").disabled = true;
-          attendreMiseAJour(document.getElementById("btnReorganiser"), new Date().toISOString());
+          desactiverReorg(grilleId, btnRId, btnSId, btnAId);
+          const btnR = document.getElementById(btnRId);
+          btnR.disabled = true;
+          attendreMiseAJour(btnR, new Date().toISOString());
         })
         .catch(() => { btn.textContent = "Erreur -- réessaie"; btn.disabled = false; });
     }
+
+    // Alias pour la grille outils (compatibilité boutons HTML)
+    function toggleReorganisation() { toggleReorg('grille', 'btnReorganiser', 'btnSauvegarder', 'btnAnnuler'); }
+    function annulerReorganisation() { annulerReorg('grille', 'btnReorganiser', 'btnSauvegarder', 'btnAnnuler'); }
+    function sauvegarderOrdre(btn) { sauvegarderOrdreGrille('grille', 'btnReorganiser', btn); }
   </script>
 
   <script>
