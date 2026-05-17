@@ -26,14 +26,19 @@
       </div>
 
       <div class="filtres">
-        <button class="filtre actif" data-categorie="tous">Tous</button>
-        <button class="filtre" data-categorie="Automatisation">Automatisation</button>
-        <button class="filtre" data-categorie="Base de données">Base de données</button>
-        <button class="filtre" data-categorie="Développement">Développement</button>
-        <button class="filtre" data-categorie="Hébergement">Hébergement</button>
-        <button class="filtre" data-categorie="No-Code">No-Code</button>
-        <button class="filtre" data-categorie="Productivité">Productivité</button>
-        <button class="filtre" data-categorie="Scraping">Scraping</button>
+        <button class="filtre actif" data-filtre="tous">Tous</button>
+        <button class="filtre" data-filtre="Automatisation" style="--filtre-couleur:#f97316">Automatisation</button>
+        <button class="filtre" data-filtre="Base de données" style="--filtre-couleur:#8b5cf6">Base de données</button>
+        <button class="filtre" data-filtre="CRM" style="--filtre-couleur:#3b82f6">CRM</button>
+        <button class="filtre" data-filtre="Développement" style="--filtre-couleur:#ef4444">Développement</button>
+        <button class="filtre" data-filtre="Hébergement" style="--filtre-couleur:#ec4899">Hébergement</button>
+        <button class="filtre" data-filtre="IA" style="--filtre-couleur:#3b82f6">IA</button>
+        <button class="filtre" data-filtre="No-Code" style="--filtre-couleur:#22c55e">No-Code</button>
+        <button class="filtre" data-filtre="Productivité" style="--filtre-couleur:#eab308">Productivité</button>
+        <button class="filtre" data-filtre="Prospection" style="--filtre-couleur:#f97316">Prospection</button>
+        <button class="filtre" data-filtre="Scraping" style="--filtre-couleur:#a16207">Scraping</button>
+        <button class="filtre" data-filtre="Veille" style="--filtre-couleur:#22c55e">Veille</button>
+        <button class="filtre" data-filtre="Workflow" style="--filtre-couleur:#8b5cf6">Workflow</button>
       </div>
 
       <div class="barre-actions">
@@ -44,7 +49,7 @@
 
       <div class="grille" id="grille">
         
-      <a class="carte" href="outils/notion.html" data-categorie="Productivité" data-notion-id="3625b86a-8bb4-8173-ad2a-f68bf67c3516">
+      <a class="carte" href="outils/notion.html" data-categorie="Productivité" data-tags="IA, Workflow" data-notion-id="3625b86a-8bb4-8173-ad2a-f68bf67c3516">
         <div class="carte-header">
           <h2 class="carte-nom">Notion</h2>
           <div class="carte-badges">
@@ -55,7 +60,7 @@
         <p class="carte-description">Workspace tout-en-un pour notes, documentation, bases de données et organisation.</p>
       </a>
 
-      <a class="carte" href="outils/github.html" data-categorie="Développement" data-notion-id="3625b86a-8bb4-814e-a6f1-c12b1d2724ad">
+      <a class="carte" href="outils/github.html" data-categorie="Développement" data-tags="Workflow, Hébergement" data-notion-id="3625b86a-8bb4-814e-a6f1-c12b1d2724ad">
         <div class="carte-header">
           <h2 class="carte-nom">GitHub</h2>
           <div class="carte-badges">
@@ -66,7 +71,7 @@
         <p class="carte-description">GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres développeurs et automatiser des tâches via GitHub Actions.</p>
       </a>
 
-      <a class="carte" href="outils/n8n.html" data-categorie="Automatisation" data-notion-id="3625b86a-8bb4-81e3-9df2-ca05ef3a013f">
+      <a class="carte" href="outils/n8n.html" data-categorie="Automatisation" data-tags="Workflow, IA" data-notion-id="3625b86a-8bb4-81e3-9df2-ca05ef3a013f">
         <div class="carte-header">
           <h2 class="carte-nom">n8n</h2>
           <div class="carte-badges">
@@ -77,7 +82,7 @@
         <p class="carte-description">Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.</p>
       </a>
 
-      <a class="carte" href="outils/airtable.html" data-categorie="Base de données" data-notion-id="3625b86a-8bb4-81aa-a9a8-ee4fe1f3f354">
+      <a class="carte" href="outils/airtable.html" data-categorie="Base de données" data-tags="CRM, Workflow" data-notion-id="3625b86a-8bb4-81aa-a9a8-ee4fe1f3f354">
         <div class="carte-header">
           <h2 class="carte-nom">Airtable</h2>
           <div class="carte-badges">
@@ -88,7 +93,7 @@
         <p class="carte-description">Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle. Il permet de structurer des informations, créer des vues, suivre des processus et collaborer sans coder.</p>
       </a>
 
-      <a class="carte" href="outils/apify.html" data-categorie="Scraping" data-notion-id="3625b86a-8bb4-8146-9bf4-efd79fc5d4ee">
+      <a class="carte" href="outils/apify.html" data-categorie="Scraping" data-tags="Scraping, Prospection, Veille" data-notion-id="3625b86a-8bb4-8146-9bf4-efd79fc5d4ee">
         <div class="carte-header">
           <h2 class="carte-nom">Apify</h2>
           <div class="carte-badges">
@@ -99,7 +104,7 @@
         <p class="carte-description">Apify est une plateforme de scraping et d’automatisation qui permet de récupérer automatiquement des données sur Internet via des robots appelés Actors.</p>
       </a>
 
-      <a class="carte" href="outils/netlify.html" data-categorie="Hébergement" data-notion-id="3625b86a-8bb4-8105-8755-dc5b0b35eab3">
+      <a class="carte" href="outils/netlify.html" data-categorie="Hébergement" data-tags="Workflow, Hébergement" data-notion-id="3625b86a-8bb4-8105-8755-dc5b0b35eab3">
         <div class="carte-header">
           <h2 class="carte-nom">Netlify</h2>
           <div class="carte-badges">
@@ -110,7 +115,7 @@
         <p class="carte-description">Netlify est une plateforme d’hébergement et de déploiement de sites web modernes et d’applications front-end.</p>
       </a>
 
-      <a class="carte" href="outils/make.html" data-categorie="Automatisation" data-notion-id="3625b86a-8bb4-8103-893a-ff300036ee78">
+      <a class="carte" href="outils/make.html" data-categorie="Automatisation" data-tags="Workflow, IA" data-notion-id="3625b86a-8bb4-8103-893a-ff300036ee78">
         <div class="carte-header">
           <h2 class="carte-nom">Make</h2>
           <div class="carte-badges">
@@ -121,7 +126,7 @@
         <p class="carte-description">Plateforme no-code d’automatisation visuelle permettant de connecter des applications et créer des scénarios automatisés.</p>
       </a>
 
-      <a class="carte" href="outils/clay.html" data-categorie="Automatisation" data-notion-id="3625b86a-8bb4-8194-81be-d9a7bee3816d">
+      <a class="carte" href="outils/clay.html" data-categorie="Automatisation" data-tags="Prospection, Scraping, IA, Workflow" data-notion-id="3625b86a-8bb4-8194-81be-d9a7bee3816d">
         <div class="carte-header">
           <h2 class="carte-nom">Clay</h2>
           <div class="carte-badges">
@@ -132,7 +137,7 @@
         <p class="carte-description">Outil de prospection et d'enrichissement de données B2B qui connecte plus de 100 sources (LinkedIn, Apollo, Clearbit, Hunter...) pour construire des listes de leads qualifiées. Peut aussi scraper des sites web de façon ciblée pour extraire des données spécifiques sur des entreprises ou contacts, et automatiser l'outreach personnalisé grâce à l'IA.</p>
       </a>
 
-      <a class="carte" href="outils/lovable.html" data-categorie="No-Code" data-notion-id="3635b86a-8bb4-81bc-8bbe-e79f8f2c75a8">
+      <a class="carte" href="outils/lovable.html" data-categorie="No-Code" data-tags="IA" data-notion-id="3635b86a-8bb4-81bc-8bbe-e79f8f2c75a8">
         <div class="carte-header">
           <h2 class="carte-nom">Lovable</h2>
           <div class="carte-badges">
@@ -143,7 +148,7 @@
         <p class="carte-description">Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code frontend et backend complet, déployable en quelques minutes.</p>
       </a>
 
-      <a class="carte" href="outils/slack.html" data-categorie="Productivité" data-notion-id="3635b86a-8bb4-81a9-b2a7-edf225cca91f">
+      <a class="carte" href="outils/slack.html" data-categorie="Productivité" data-tags="Workflow" data-notion-id="3635b86a-8bb4-81a9-b2a7-edf225cca91f">
         <div class="carte-header">
           <h2 class="carte-nom">Slack</h2>
           <div class="carte-badges">
@@ -168,7 +173,7 @@
       </div>
       <div class="grille" id="grille-llms">
         
-      <a class="carte" href="llm/claude.html" data-categorie="IA" data-notion-id="3625b86a-8bb4-814d-a6c8-dbe83b3c1d59">
+      <a class="carte" href="llm/claude.html" data-categorie="IA" data-tags="IA" data-notion-id="3625b86a-8bb4-814d-a6c8-dbe83b3c1d59">
         <div class="carte-header">
           <h2 class="carte-nom">Claude</h2>
           <div class="carte-badges">
@@ -179,7 +184,7 @@
         <p class="carte-description">LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très longs documents. Disponible en trois niveaux : Haiku (rapide), Sonnet (équilibré), Opus (puissant).</p>
       </a>
 
-      <a class="carte" href="llm/chatgpt.html" data-categorie="IA" data-notion-id="3625b86a-8bb4-81fc-901a-dfe40c09dea4">
+      <a class="carte" href="llm/chatgpt.html" data-categorie="IA" data-tags="IA" data-notion-id="3625b86a-8bb4-81fc-901a-dfe40c09dea4">
         <div class="carte-header">
           <h2 class="carte-nom">ChatGPT</h2>
           <div class="carte-badges">
@@ -190,7 +195,7 @@
         <p class="carte-description">LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème très riche : Custom GPTs, plugins, Canvas, DALL-E pour les images.</p>
       </a>
 
-      <a class="carte" href="llm/gemini.html" data-categorie="IA" data-notion-id="3625b86a-8bb4-818f-946b-ebb06a2a35b3">
+      <a class="carte" href="llm/gemini.html" data-categorie="IA" data-tags="IA" data-notion-id="3625b86a-8bb4-818f-946b-ebb06a2a35b3">
         <div class="carte-header">
           <h2 class="carte-nom">Gemini</h2>
           <div class="carte-badges">
@@ -201,7 +206,7 @@
         <p class="carte-description">LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre de contexte de 1 million de tokens. Très fort en multimodal (texte, images, audio, vidéo).</p>
       </a>
 
-      <a class="carte" href="llm/perplexity.html" data-categorie="IA" data-notion-id="3625b86a-8bb4-81fe-b40c-ed6c161166fa">
+      <a class="carte" href="llm/perplexity.html" data-categorie="IA" data-tags="IA, Veille" data-notion-id="3625b86a-8bb4-81fe-b40c-ed6c161166fa">
         <div class="carte-header">
           <h2 class="carte-nom">Perplexity</h2>
           <div class="carte-badges">
@@ -212,7 +217,7 @@
         <p class="carte-description">Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
       </a>
 
-      <a class="carte" href="llm/claude-code.html" data-categorie="IA" data-notion-id="3635b86a-8bb4-8195-b3b9-e219afb802ee">
+      <a class="carte" href="llm/claude-code.html" data-categorie="IA" data-tags="IA" data-notion-id="3635b86a-8bb4-8195-b3b9-e219afb802ee">
         <div class="carte-header">
           <h2 class="carte-nom">Claude Code</h2>
           <div class="carte-badges">
@@ -223,7 +228,7 @@
         <p class="carte-description">Outil de développement IA d'Anthropic intégré directement dans le terminal. Basé sur Claude, il comprend le contexte complet d'un projet, lit et modifie des fichiers, exécute des commandes et permet de coder, déboguer et déployer sans quitter la ligne de commande.</p>
       </a>
 
-      <a class="carte" href="llm/github-copilot.html" data-categorie="Développement" data-notion-id="3635b86a-8bb4-81e5-b80b-de9ccb61e3ed">
+      <a class="carte" href="llm/github-copilot.html" data-categorie="Développement" data-tags="IA" data-notion-id="3635b86a-8bb4-81e5-b80b-de9ccb61e3ed">
         <div class="carte-header">
           <h2 class="carte-nom">GitHub Copilot</h2>
           <div class="carte-badges">
@@ -356,13 +361,14 @@
   <script>
     function filtrerOutils() {
       const query = document.getElementById("recherche-outils").value.toLowerCase().trim();
-      const categorieActive = document.querySelector(".filtre.actif")?.dataset.categorie || "tous";
+      const filtreActif = document.querySelector(".filtre.actif")?.dataset.filtre || "tous";
       document.querySelectorAll("#section-outils .carte").forEach((carte) => {
         const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
         const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
         const matchQuery = !query || nom.includes(query) || desc.includes(query);
-        const matchCategorie = categorieActive === "tous" || carte.dataset.categorie === categorieActive;
-        carte.style.display = matchQuery && matchCategorie ? "" : "none";
+        const tags = (carte.dataset.tags || "").split(",").map((t) => t.trim());
+        const matchFiltre = filtreActif === "tous" || carte.dataset.categorie === filtreActif || tags.includes(filtreActif);
+        carte.style.display = matchQuery && matchFiltre ? "" : "none";
       });
     }
 
@@ -381,6 +387,18 @@
         document.querySelectorAll(".filtre").forEach((b) => b.classList.remove("actif"));
         btn.classList.add("actif");
         filtrerOutils();
+      });
+      btn.addEventListener("mouseenter", () => {
+        if (!btn.classList.contains("actif")) {
+          btn.style.borderColor = btn.style.getPropertyValue("--filtre-couleur") || "";
+          btn.style.color = btn.style.getPropertyValue("--filtre-couleur") || "";
+        }
+      });
+      btn.addEventListener("mouseleave", () => {
+        if (!btn.classList.contains("actif")) {
+          btn.style.borderColor = "";
+          btn.style.color = "";
+        }
       });
     });
   </script>

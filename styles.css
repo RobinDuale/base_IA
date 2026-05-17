@@ -121,7 +121,7 @@ main {
 }
 
 .filtre:hover { border-color: var(--bleu); color: var(--texte); }
-.filtre.actif { background: var(--bleu); border-color: var(--bleu); color: #fff; }
+.filtre.actif { background: var(--filtre-couleur, var(--bleu)); border-color: var(--filtre-couleur, var(--bleu)); color: #fff; }
 
 /* --- Barre d'actions --- */
 .barre-actions {
