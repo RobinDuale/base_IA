@@ -1,0 +1,25 @@
+name: Sync JOURNAL.md vers Notion
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'JOURNAL.md'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: Synchroniser JOURNAL.md vers Notion
+        run: node scripts/sync-journal.js
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}

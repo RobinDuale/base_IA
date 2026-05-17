@@ -6,6 +6,7 @@
     "build": "node scripts/build.js"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.15"
+    "@notionhq/client": "^2.2.15",
+    "@tryfabric/martian": "^1.2.4"
   }
 }
