@@ -482,15 +482,29 @@ function genererPageAccueil(outils, llms, adminHash) {
       document.getElementById('modal-admin').style.display = 'none';
     }
     async function connecterAdmin() {
-      const hash = await sha256(document.getElementById('input-cle-admin').value);
-      if (hash === ADMIN_HASH) {
-        setAdminCookie();
-        document.getElementById('panel-login').style.display = 'none';
-        document.getElementById('panel-admin').style.display = '';
-        activerAdmin();
-      } else {
-        document.getElementById('erreur-admin').style.display = 'block';
+      const val = document.getElementById('input-cle-admin').value.trim();
+      const errEl = document.getElementById('erreur-admin');
+      // Token GitHub (ghp_ ou github_pat_) : validation via l'API GitHub
+      if (val.startsWith('ghp_') || val.startsWith('github_pat_')) {
+        try {
+          const r = await fetch('https://api.github.com/user', {
+            headers: { Authorization: 'token ' + val }
+          });
+          if (r.ok) { validerAdmin(); return; }
+        } catch(e) {}
+        errEl.style.display = 'block';
+        return;
       }
+      // Clé locale : vérification SHA-256
+      const hash = await sha256(val);
+      if (hash === ADMIN_HASH) { validerAdmin(); }
+      else { errEl.style.display = 'block'; }
+    }
+    function validerAdmin() {
+      setAdminCookie();
+      document.getElementById('panel-login').style.display = 'none';
+      document.getElementById('panel-admin').style.display = '';
+      activerAdmin();
     }
     function deconnecterAdmin() {
       deleteAdminCookie();
@@ -701,15 +715,29 @@ function genererPageDetail(item, liste, prefixe, adminHash) {
       document.getElementById('modal-admin').style.display = 'none';
     }
     async function connecterAdmin() {
-      const hash = await sha256(document.getElementById('input-cle-admin').value);
-      if (hash === ADMIN_HASH) {
-        setAdminCookie();
-        document.getElementById('panel-login').style.display = 'none';
-        document.getElementById('panel-admin').style.display = '';
-        activerAdmin();
-      } else {
-        document.getElementById('erreur-admin').style.display = 'block';
+      const val = document.getElementById('input-cle-admin').value.trim();
+      const errEl = document.getElementById('erreur-admin');
+      // Token GitHub (ghp_ ou github_pat_) : validation via l'API GitHub
+      if (val.startsWith('ghp_') || val.startsWith('github_pat_')) {
+        try {
+          const r = await fetch('https://api.github.com/user', {
+            headers: { Authorization: 'token ' + val }
+          });
+          if (r.ok) { validerAdmin(); return; }
+        } catch(e) {}
+        errEl.style.display = 'block';
+        return;
       }
+      // Clé locale : vérification SHA-256
+      const hash = await sha256(val);
+      if (hash === ADMIN_HASH) { validerAdmin(); }
+      else { errEl.style.display = 'block'; }
+    }
+    function validerAdmin() {
+      setAdminCookie();
+      document.getElementById('panel-login').style.display = 'none';
+      document.getElementById('panel-admin').style.display = '';
+      activerAdmin();
     }
     function deconnecterAdmin() {
       deleteAdminCookie();
