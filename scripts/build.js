@@ -151,16 +151,21 @@ function badgeNiveau(niveau) {
 
 // Page d'accueil avec onglets Outils / LLMs
 function genererPageAccueil(outils, llms) {
-  const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))].sort();
+  const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))];
+  const tagsOutils = [...new Set(outils.flatMap((o) => o.tags ? o.tags.split(",").map((t) => t.trim()) : []).filter(Boolean))];
+  const filtresUniques = [...new Set([...categories, ...tagsOutils])].sort();
 
-  const filtres = categories
-    .map((c) => `<button class="filtre" data-categorie="${c}">${c}</button>`)
+  const filtres = filtresUniques
+    .map((f) => {
+      const couleur = COULEURS_CATEGORIE[f] || COULEURS_TAG[f] || "#6b7280";
+      return `<button class="filtre" data-filtre="${f}" style="--filtre-couleur:${couleur}">${f}</button>`;
+    })
     .join("\n        ");
 
   const cartesOutils = outils
     .map(
       (o) => `
-      <a class="carte" href="outils/${o.slug}.html" data-categorie="${o.categorie}" data-notion-id="${o.id}">
+      <a class="carte" href="outils/${o.slug}.html" data-categorie="${o.categorie}" data-tags="${o.tags || ""}" data-notion-id="${o.id}">
         <div class="carte-header">
           <h2 class="carte-nom">${o.nom}</h2>
           <div class="carte-badges">
@@ -176,7 +181,7 @@ function genererPageAccueil(outils, llms) {
   const cartesLLMs = llms
     .map(
       (l) => `
-      <a class="carte" href="llm/${l.slug}.html" data-categorie="${l.categorie}" data-notion-id="${l.id}">
+      <a class="carte" href="llm/${l.slug}.html" data-categorie="${l.categorie}" data-tags="${l.tags || ""}" data-notion-id="${l.id}">
         <div class="carte-header">
           <h2 class="carte-nom">${l.nom}</h2>
           <div class="carte-badges">
@@ -217,7 +222,7 @@ function genererPageAccueil(outils, llms) {
       </div>
 
       <div class="filtres">
-        <button class="filtre actif" data-categorie="tous">Tous</button>
+        <button class="filtre actif" data-filtre="tous">Tous</button>
         ${filtres}
       </div>
 
@@ -367,13 +372,14 @@ function genererPageAccueil(outils, llms) {
   <script>
     function filtrerOutils() {
       const query = document.getElementById("recherche-outils").value.toLowerCase().trim();
-      const categorieActive = document.querySelector(".filtre.actif")?.dataset.categorie || "tous";
+      const filtreActif = document.querySelector(".filtre.actif")?.dataset.filtre || "tous";
       document.querySelectorAll("#section-outils .carte").forEach((carte) => {
         const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
         const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
         const matchQuery = !query || nom.includes(query) || desc.includes(query);
-        const matchCategorie = categorieActive === "tous" || carte.dataset.categorie === categorieActive;
-        carte.style.display = matchQuery && matchCategorie ? "" : "none";
+        const tags = (carte.dataset.tags || "").split(",").map((t) => t.trim());
+        const matchFiltre = filtreActif === "tous" || carte.dataset.categorie === filtreActif || tags.includes(filtreActif);
+        carte.style.display = matchQuery && matchFiltre ? "" : "none";
       });
     }
 
@@ -392,6 +398,18 @@ function genererPageAccueil(outils, llms) {
         document.querySelectorAll(".filtre").forEach((b) => b.classList.remove("actif"));
         btn.classList.add("actif");
         filtrerOutils();
+      });
+      btn.addEventListener("mouseenter", () => {
+        if (!btn.classList.contains("actif")) {
+          btn.style.borderColor = btn.style.getPropertyValue("--filtre-couleur") || "";
+          btn.style.color = btn.style.getPropertyValue("--filtre-couleur") || "";
+        }
+      });
+      btn.addEventListener("mouseleave", () => {
+        if (!btn.classList.contains("actif")) {
+          btn.style.borderColor = "";
+          btn.style.color = "";
+        }
       });
     });
   </script>
