@@ -3,7 +3,6 @@
 // Il est exécuté par GitHub Actions à chaque mise à jour de Notion.
 
 const { Client } = require("@notionhq/client");
-const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
@@ -13,11 +12,6 @@ const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const NOTION_DATABASE_ID = "b6a3c72949e546f89c6dfc990689298e";
 const DIST_DIR = path.join(__dirname, "..", "dist");
 
-// Clé admin hashée (SHA-256). Changer ADMIN_PASSWORD dans les GitHub Secrets pour personnaliser.
-const ADMIN_HASH = crypto
-  .createHash("sha256")
-  .update(process.env.ADMIN_PASSWORD || "ia-robin-2026")
-  .digest("hex");
 
 if (!NOTION_API_KEY) {
   console.error("Erreur : la variable NOTION_API_KEY est manquante.");
@@ -157,7 +151,7 @@ function badgeNiveau(niveau) {
 }
 
 // Page d'accueil avec onglets Outils / LLMs
-function genererPageAccueil(outils, llms, adminHash) {
+function genererPageAccueil(outils, llms) {
   const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))];
   const tagsOutils = [...new Set(outils.flatMap((o) => o.tags ? o.tags.split(",").map((t) => t.trim()) : []).filter(Boolean))];
   const filtresUniques = [...new Set([...categories, ...tagsOutils])].sort();
@@ -449,11 +443,6 @@ function genererPageAccueil(outils, llms, adminHash) {
     </div>
   </div>
   <script>
-    const ADMIN_HASH = '${adminHash}';
-    async function sha256(msg) {
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-    }
     function getAdminCookie() {
       return document.cookie.split(';').some(c => c.trim() === 'admin_duale=1');
     }
@@ -484,21 +473,14 @@ function genererPageAccueil(outils, llms, adminHash) {
     async function connecterAdmin() {
       const val = document.getElementById('input-cle-admin').value.trim();
       const errEl = document.getElementById('erreur-admin');
-      // Token GitHub (ghp_ ou github_pat_) : validation via l'API GitHub
-      if (val.startsWith('ghp_') || val.startsWith('github_pat_')) {
-        try {
-          const r = await fetch('https://api.github.com/user', {
-            headers: { Authorization: 'token ' + val }
-          });
-          if (r.ok) { validerAdmin(); return; }
-        } catch(e) {}
-        errEl.style.display = 'block';
-        return;
-      }
-      // Clé locale : vérification SHA-256
-      const hash = await sha256(val);
-      if (hash === ADMIN_HASH) { validerAdmin(); }
-      else { errEl.style.display = 'block'; }
+      if (!val) { errEl.style.display = 'block'; return; }
+      try {
+        const r = await fetch('https://api.github.com/user', {
+          headers: { Authorization: 'token ' + val }
+        });
+        if (r.ok) { validerAdmin(); return; }
+      } catch(e) {}
+      errEl.style.display = 'block';
     }
     function validerAdmin() {
       setAdminCookie();
@@ -518,7 +500,7 @@ function genererPageAccueil(outils, llms, adminHash) {
 }
 
 // Page détail (commune Outils et LLMs)
-function genererPageDetail(item, liste, prefixe, adminHash) {
+function genererPageDetail(item, liste, prefixe) {
   function section(titre, contenu) {
     if (!contenu) return "";
     return `
@@ -682,11 +664,6 @@ function genererPageDetail(item, liste, prefixe, adminHash) {
     </div>
   </div>
   <script>
-    const ADMIN_HASH = '${adminHash}';
-    async function sha256(msg) {
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-    }
     function getAdminCookie() {
       return document.cookie.split(';').some(c => c.trim() === 'admin_duale=1');
     }
@@ -717,21 +694,14 @@ function genererPageDetail(item, liste, prefixe, adminHash) {
     async function connecterAdmin() {
       const val = document.getElementById('input-cle-admin').value.trim();
       const errEl = document.getElementById('erreur-admin');
-      // Token GitHub (ghp_ ou github_pat_) : validation via l'API GitHub
-      if (val.startsWith('ghp_') || val.startsWith('github_pat_')) {
-        try {
-          const r = await fetch('https://api.github.com/user', {
-            headers: { Authorization: 'token ' + val }
-          });
-          if (r.ok) { validerAdmin(); return; }
-        } catch(e) {}
-        errEl.style.display = 'block';
-        return;
-      }
-      // Clé locale : vérification SHA-256
-      const hash = await sha256(val);
-      if (hash === ADMIN_HASH) { validerAdmin(); }
-      else { errEl.style.display = 'block'; }
+      if (!val) { errEl.style.display = 'block'; return; }
+      try {
+        const r = await fetch('https://api.github.com/user', {
+          headers: { Authorization: 'token ' + val }
+        });
+        if (r.ok) { validerAdmin(); return; }
+      } catch(e) {}
+      errEl.style.display = 'block';
     }
     function validerAdmin() {
       setAdminCookie();
@@ -834,14 +804,14 @@ async function main() {
       JSON.stringify({ built_at: new Date().toISOString() })
     );
 
-    fs.writeFileSync(path.join(DIST_DIR, "index.html"), genererPageAccueil(outils, llms, ADMIN_HASH));
+    fs.writeFileSync(path.join(DIST_DIR, "index.html"), genererPageAccueil(outils, llms));
     fs.writeFileSync(path.join(DIST_DIR, "mentions-legales.html"), genererMentionsLegales());
     console.log("Page d'accueil + mentions légales générées.");
 
     for (const outil of outils) {
       fs.writeFileSync(
         path.join(DIST_DIR, "outils", `${outil.slug}.html`),
-        genererPageDetail(outil, outils, "outils", ADMIN_HASH)
+        genererPageDetail(outil, outils, "outils")
       );
     }
     console.log(`${outils.length} pages outils générées.`);
@@ -849,7 +819,7 @@ async function main() {
     for (const llm of llms) {
       fs.writeFileSync(
         path.join(DIST_DIR, "llm", `${llm.slug}.html`),
-        genererPageDetail(llm, llms, "llm", ADMIN_HASH)
+        genererPageDetail(llm, llms, "llm")
       );
     }
     console.log(`${llms.length} pages LLMs générées.`);
