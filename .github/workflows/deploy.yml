@@ -20,6 +20,10 @@ on:
   schedule:
     - cron: "0 * * * *"
 
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
