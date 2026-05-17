@@ -601,12 +601,13 @@ function genererPageAccueil(outils, llms) {
       <div id="prop-step1">
         <label style="display:block;font-size:13px;color:#555;margin-bottom:8px;">Quel outil souhaitez-vous ajouter ?</label>
         <input type="text" id="prop-nom" placeholder="ex: Zapier, Notion, Midjourney..." style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;outline:none;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key==='Enter')verifierOutil()"/>
-        <button onclick="verifierOutil()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Vérifier l'outil →</button>
+        <div id="prop-erreur1" style="display:none;color:#dc2626;font-size:12px;margin-bottom:8px;"></div>
+        <button type="button" onclick="verifierOutil()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Vérifier l'outil →</button>
       </div>
       <div id="prop-loading" style="display:none;text-align:center;padding:1.5rem 0;color:#888;font-size:14px;">Vérification en cours...</div>
       <div id="prop-existe" style="display:none;">
         <div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:4px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:#92400e;"><strong id="prop-nom-existe"></strong> est déjà dans la base.</div>
-        <button onclick="propReset()" style="width:100%;padding:9px;background:none;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;cursor:pointer;color:#555;">Proposer un autre outil</button>
+        <button type="button" onclick="propReset()" style="width:100%;padding:9px;background:none;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;cursor:pointer;color:#555;">Proposer un autre outil</button>
       </div>
       <div id="prop-step2" style="display:none;">
         <div id="prop-bloc-gemini" style="display:none;background:#f0f9ff;border:1px solid #bae6fd;border-radius:4px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#0c4a6e;"><strong>Outil IA/No-Code confirmé.</strong> <span id="prop-desc-gemini"></span></div>
@@ -617,8 +618,9 @@ function genererPageAccueil(outils, llms) {
         <input type="email" id="prop-email" placeholder="votre@email.com" style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;outline:none;margin-bottom:12px;box-sizing:border-box;"/>
         <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;color:#888;margin-bottom:5px;">Description courte (optionnel)</label>
         <textarea id="prop-description" placeholder="En quoi consiste cet outil ?" style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;outline:none;margin-bottom:8px;box-sizing:border-box;resize:vertical;min-height:70px;font-family:inherit;"></textarea>
+        <div id="prop-erreur2" style="display:none;color:#dc2626;font-size:12px;margin-bottom:8px;"></div>
         <p style="font-size:11px;color:#aaa;margin-bottom:12px;">Un email de confirmation vous sera envoyé. Votre email n'est utilisé que pour cette proposition.</p>
-        <button onclick="soumettreProposition()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Envoyer ma proposition →</button>
+        <button type="button" onclick="soumettreProposition()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Envoyer ma proposition →</button>
       </div>
       <div id="prop-succes" style="display:none;text-align:center;padding:1rem 0;">
         <div style="width:48px;height:48px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;color:#fff;">✓</div>
@@ -646,12 +648,15 @@ function genererPageAccueil(outils, llms) {
     }
     async function verifierOutil() {
       const nom = document.getElementById('prop-nom').value.trim();
+      const errEl = document.getElementById('prop-erreur1');
+      errEl.style.display = 'none';
       if (!nom) { document.getElementById('prop-nom').focus(); return; }
       propShowStep('loading');
       try {
         const r = await fetch('https://n8n.srv1161197.hstgr.cloud/webhook/check-tool', {
           method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ nom })
         });
+        if (!r.ok) throw new Error('Erreur serveur ' + r.status);
         const data = await r.json();
         if (data.exists) {
           document.getElementById('prop-nom-existe').textContent = nom;
@@ -664,23 +669,34 @@ function genererPageAccueil(outils, llms) {
           }
           propShowStep('step2');
         }
-      } catch(e) { propShowStep('step1'); }
+      } catch(e) {
+        propShowStep('step1');
+        errEl.textContent = 'Impossible de vérifier l\'outil. Réessayez dans un instant.';
+        errEl.style.display = '';
+      }
     }
     async function soumettreProposition() {
       const outil = document.getElementById('prop-nom-hidden').value;
       const url = document.getElementById('prop-url').value.trim();
       const email = document.getElementById('prop-email').value.trim();
       const description = document.getElementById('prop-description').value.trim();
+      const errEl = document.getElementById('prop-erreur2');
+      errEl.style.display = 'none';
       if (!url) { document.getElementById('prop-url').focus(); return; }
       if (!email) { document.getElementById('prop-email').focus(); return; }
       propShowStep('loading');
       try {
-        await fetch('https://n8n.srv1161197.hstgr.cloud/webhook/submit-proposal', {
+        const r = await fetch('https://n8n.srv1161197.hstgr.cloud/webhook/submit-proposal', {
           method: 'POST', headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({ outil, email, url, description })
         });
+        if (!r.ok) throw new Error('Erreur serveur ' + r.status);
         propShowStep('succes');
-      } catch(e) { propShowStep('step2'); }
+      } catch(e) {
+        propShowStep('step2');
+        errEl.textContent = 'Une erreur est survenue. Réessayez dans un instant.';
+        errEl.style.display = '';
+      }
     }
   </script>
 
