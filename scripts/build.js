@@ -74,12 +74,12 @@ async function recupererItems() {
         categorie: extraireTexte(p["Catégorie"]),
         niveau: extraireTexte(p["Niveau"]),
         priorite: extraireTexte(p["Priorité"]),
-        statut: extraireTexte(p["Statut d'apprentissage"]),
+        statut: extraireTexte(p["Statut d’apprentissage"]),
         description: extraireTexte(p["Description simple"]),
         avantages: extraireTexte(p["Avantages"]),
         limites: extraireTexte(p["Limites"]),
-        casUsage: extraireTexte(p["Cas d'usage"]),
-        casUsagePourMoi: extraireTexte(p["Cas d'usage pour moi"]),
+        casUsage: extraireTexte(p["Cas d’usage"]),
+        casUsagePourMoi: extraireTexte(p["Cas d’usage pour moi"]),
         alternatives: extraireTexte(p["Alternatives"]),
         modeleEconomique: extraireTexte(p["Modèle économique"]),
         quandPayer: extraireTexte(p["Quand payer"]),
@@ -89,7 +89,7 @@ async function recupererItems() {
         complementaireAvec: extraireTexte(p["Complémentaire avec"]),
         exemplesWorkflows: extraireTexte(p["Exemples & Workflows"]),
         quandUtiliser: extraireTexte(p["Quand utiliser cet outil"]),
-        roleEcosysteme: extraireTexte(p["Rôle dans l'écosystème"]),
+        roleEcosysteme: extraireTexte(p["Rôle dans l’écosystème"]),
         gratuite: extraireTexte(p["Gratuité"]),
         scenarioSimple: extraireTexte(p["Scénario simple"]),
         scenarioIntermediaire: extraireTexte(p["Scénario intermédiaire"]),
@@ -832,7 +832,7 @@ function genererAdminPropositions() {
     .prop-table { width:100%; border-collapse:collapse; font-size:0.9rem; }
     .prop-table th { text-align:left; padding:10px 12px; border-bottom:2px solid #e5e1d8; font-weight:600; color:#555; font-size:0.8rem; text-transform:uppercase; letter-spacing:.04em; }
     .prop-table td { padding:10px 12px; border-bottom:1px solid #f0ece4; vertical-align:top; }
-    .prop-table tr:hover td { background:#faf8f4; }
+    .prop-table tr:hover td { background:rgba(255,255,255,0.06); }
     .statut-badge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:0.75rem; font-weight:600; white-space:nowrap; }
     .statut-recue { background:#f3f4f6; color:#6b7280; }
     .statut-email { background:#dbeafe; color:#1d4ed8; }
@@ -1184,7 +1184,7 @@ function genererPageDetail(item, liste, prefixe) {
       ${section(`Ce que comprend la version gratuite de ${item.nom}`, item.gratuite)}
       ${section(`Pourquoi utiliser ${item.nom} ? Les points forts`, item.avantages)}
       ${section(`Quelles sont les limites de ${item.nom} ?`, item.limites)}
-      ${section(`Cas d'usage de ${item.nom}`, item.casUsage)}
+      ${section(`Cas d’usage de ${item.nom}`, item.casUsage)}
       ${section(`Comment j'utilise ${item.nom} dans mon contexte`, item.casUsagePourMoi)}
       ${section(`Exemples concrets et workflows avec ${item.nom}`, item.exemplesWorkflows)}
       ${section(`Avec quels outils ${item.nom} est-il complémentaire ?`, item.complementaireAvec)}
@@ -1447,7 +1447,7 @@ function genererPagesPositionnement(outils, llms) {
   <section class="section" style="margin-bottom:1rem;">
     <h2>Comment utiliser ${o.nom} pour automatiser ?</h2>
     <p style="color:var(--gris);font-size:0.9rem;margin-bottom:0.75rem;">${o.description || ""}</p>
-    ${o.casUsage ? `<p><strong>Cas d'usage :</strong> ${o.casUsage.split("\n")[0]}</p>` : ""}
+    ${o.casUsage ? `<p><strong>Cas d’usage :</strong> ${o.casUsage.split("\n")[0]}</p>` : ""}
     <a href="${BASE_URL}/outils/${o.slug}.html" style="display:inline-block;margin-top:0.75rem;color:var(--bleu);font-size:0.9rem;">Fiche complète ${o.nom} →</a>
   </section>`).join("\n");
 
