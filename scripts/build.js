@@ -154,6 +154,15 @@ function badgeNiveau(niveau) {
 // --- Fonctions SEO ---
 
 const BASE_URL = "https://ia.duale.fr";
+
+const GA_TAG = `<!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJXQQE3YG5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YJXQQE3YG5');
+  </script>`;
 const OG_IMAGE = `${BASE_URL}/assets/og-default.png`;
 const OG_IMAGE_ALT = "Base IA -- Référence des outils IA et No-Code par Robin Dualé";
 const SITE_NAME = "Base IA · Robin Dualé";
@@ -350,6 +359,7 @@ function genererPageAccueil(outils, llms) {
   </script>
   <link rel="stylesheet" href="styles.css"/>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+  ${GA_TAG}
 </head>
 <body>
   <header>
@@ -776,6 +786,7 @@ function genererPageDetail(item, liste, prefixe) {
   ]
   </script>
   <link rel="stylesheet" href="../styles.css"/>
+  ${GA_TAG}
 </head>
 <body>
   <header>
@@ -1008,6 +1019,7 @@ function genererPagePositionnement({ slug, title, description, h1, intro, sectio
   ]
   </script>
   <link rel="stylesheet" href="/styles.css"/>
+  ${GA_TAG}
 </head>
 <body>
 <header>
@@ -1202,6 +1214,7 @@ function genererMentionsLegales() {
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png"/>
   <link rel="apple-touch-icon" sizes="48x48" href="/assets/favicon-48.png"/>
   <link rel="stylesheet" href="/styles.css"/>
+  ${GA_TAG}
 </head>
 <body>
 <header>
