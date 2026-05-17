@@ -671,7 +671,7 @@ function genererPageAccueil(outils, llms) {
         }
       } catch(e) {
         propShowStep('step1');
-        errEl.textContent = 'Impossible de vérifier l\'outil. Réessayez dans un instant.';
+        errEl.textContent = "Impossible de vérifier l'outil. Réessayez dans un instant.";
         errEl.style.display = '';
       }
     }
