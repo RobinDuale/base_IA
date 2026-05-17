@@ -372,7 +372,7 @@ function genererPageAccueil(outils, llms) {
       Base IA répertorie les meilleurs outils d'intelligence artificielle, No-Code et LLMs avec des fiches détaillées : avantages, limites, modèle économique et scénarios concrets. Une ressource structurée pour choisir le bon outil et l'utiliser efficacement.
     </p>
     <p class="admin-zone" style="display:none;margin-bottom:1.5rem;">
-      <button onclick="ouvrirModalProposition()" style="background:none;border:1px solid #d0c9bc;color:#666;padding:7px 16px;border-radius:3px;font-size:0.85rem;cursor:pointer;" onmouseover="this.style.borderColor='#1a1712';this.style.color='#1a1712'" onmouseout="this.style.borderColor='#d0c9bc';this.style.color='#666'">+ Proposer un outil</button>
+      <button type="button" onclick="ouvrirModalProposition()" class="btn-reorganiser">+ Proposer un outil</button>
     </p>
     <div class="onglets">
       <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
