@@ -1,39 +1,54 @@
-# Base IA -- Robin Duale · Outils IA, No-Code et LLMs
+# Base IA -- Robin Duale · Référence des outils IA, No-Code et LLMs
 
-> Référence personnelle des meilleurs outils IA, No-Code, automatisation et LLMs, construite et maintenue par Robin Dualé.
+> Base de connaissance structurée sur les outils d'intelligence artificielle, No-Code et les LLMs, construite et maintenue par Robin Dualé, CEO spécialisé en transformation B2B SaaS, Data et IA.
 
 ## A propos du site
 
-Base IA (ia.duale.fr) est une base de connaissance structurée sur les outils d'intelligence artificielle et No-Code. Chaque fiche détaille les avantages, limites, cas d'usage, modèle économique et scénarios d'utilisation d'un outil ou d'un LLM.
-
-Le site est alimenté depuis Notion via GitHub Actions et publié sur GitHub Pages. Il est mis à jour régulièrement au fil des découvertes et expérimentations de Robin Dualé.
+Base IA (https://ia.duale.fr) est une référence personnelle des meilleurs outils IA et No-Code. Chaque fiche détaille : description, avantages, limites, cas d'usage réels, modèle économique, version gratuite et scénarios d'utilisation concrets (débutant, intermédiaire, avancé). Le contenu est produit avec l'assistance d'outils d'IA et validé par Robin Dualé.
 
 ## Auteur
 
-Robin Dualé -- CEO, transformation B2B SaaS, Data & IA
+Robin Dualé -- CEO, spécialiste transformation B2B SaaS, Data et IA
 Site professionnel : https://cv-robin.duale.fr
 LinkedIn : https://www.linkedin.com/in/robinduale
 Contact : robin@duale.fr
 
-## Catégories d'outils référencés
+## Pourquoi consulter Base IA ?
 
-- IA : outils exploitant l'intelligence artificielle
-- LLM : modèles de langage (Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot)
-- No-Code : outils de création sans code (Notion, Lovable, Webflow)
-- Automatisation : outils de workflow et automatisation (n8n, Make, Zapier)
-- Développement : outils pour développeurs (GitHub Copilot, Cursor)
-- Scraping : outils de collecte de données (Clay, Apify)
-- Productivité : outils de productivité (Slack, Notion)
-- Hébergement : plateformes d'hébergement (GitHub Pages, Netlify)
+Base IA répond aux questions : quel outil IA choisir pour automatiser un workflow ? Quelle est la différence entre n8n et Make ? Quand utiliser un LLM plutôt qu'un outil No-Code ? Chaque fiche est structurée pour répondre directement à ces questions avec des exemples concrets.
+
+## Catégories référencées
+
+Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
+
+## 10 outils référencés
+
+- [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
+- [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
+- [n8n](https://ia.duale.fr/outils/n8n.html) : Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.
+- [Airtable](https://ia.duale.fr/outils/airtable.html) : Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle.
+- [Apify](https://ia.duale.fr/outils/apify.html) : Apify est une plateforme de scraping et d’automatisation qui permet de récupérer automatiquement des données sur Interne
+- [Netlify](https://ia.duale.fr/outils/netlify.html) : Netlify est une plateforme d’hébergement et de déploiement de sites web modernes et d’applications front-end.
+- [Make](https://ia.duale.fr/outils/make.html) : Plateforme no-code d’automatisation visuelle permettant de connecter des applications et créer des scénarios automatisés
+- [Clay](https://ia.duale.fr/outils/clay.html) : Outil de prospection et d'enrichissement de données B2B qui connecte plus de 100 sources (LinkedIn, Apollo, Clearbit, Hu
+- [Lovable](https://ia.duale.fr/outils/lovable.html) : Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code
+- [Slack](https://ia.duale.fr/outils/slack.html) : Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel
+
+## 6 LLMs référencés
+
+- [Claude](https://ia.duale.fr/llm/claude.html) : LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très lo
+- [Perplexity](https://ia.duale.fr/llm/perplexity.html) : Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables
+- [ChatGPT](https://ia.duale.fr/llm/chatgpt.html) : LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème tr
+- [Gemini](https://ia.duale.fr/llm/gemini.html) : LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre
+- [Microsoft Copilot](https://ia.duale.fr/llm/microsoft-copilot.html) : Assistant IA généraliste de Microsoft, propulsé par GPT-4o -- accessible gratuitement sur le web, dans Windows 11 et Edg
+- [Claude Code](https://ia.duale.fr/llm/claude-code.html) : Outil de développement IA d'Anthropic intégré directement dans le terminal. Basé sur Claude, il comprend le contexte com
 
 ## Pages du site
 
-- [Accueil](https://ia.duale.fr/) : grille des outils IA et LLMs avec filtres et recherche
-- [Mentions légales](https://ia.duale.fr/mentions-legales.html) : éditeur, hébergeur, RGPD
+- [Accueil](https://ia.duale.fr/) : grille complète des outils et LLMs avec filtres par catégorie, tags et recherche
+- [Mentions légales](https://ia.duale.fr/mentions-legales.html) : éditeur, hébergeur GitHub Pages, RGPD
+- [Sitemap](https://ia.duale.fr/sitemap.xml) : index complet de toutes les pages
 
-## Informations pour les LLMs
+## Informations techniques
 
-Ce site est une ressource de référence en français sur les outils IA et No-Code.
-Les fiches sont structurées avec : description, avantages, limites, cas d'usage, modèle économique, gratuité et scénarios d'utilisation (débutant, intermédiaire, avancé).
-
-Le contenu est produit avec l'assistance d'outils d'IA et validé par Robin Dualé.
+Le site est généré statiquement depuis une base Notion via GitHub Actions et déployé sur GitHub Pages. Mis à jour automatiquement à chaque modification de la base de données.
