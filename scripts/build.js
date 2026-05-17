@@ -298,6 +298,11 @@ function genererPageAccueil(outils, llms) {
   <meta name="twitter:title" content="${TITLE_HOME}"/>
   <meta name="twitter:description" content="${DESC_HOME}"/>
   <meta name="twitter:image" content="${OG_IMAGE}"/>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png"/>
+  <link rel="apple-touch-icon" sizes="48x48" href="/assets/favicon-48.png"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -681,6 +686,11 @@ function genererPageDetail(item, liste, prefixe) {
   <meta name="twitter:title" content="${titleDetail}"/>
   <meta name="twitter:description" content="${descDetail}"/>
   <meta name="twitter:image" content="${OG_IMAGE}"/>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png"/>
+  <link rel="apple-touch-icon" sizes="48x48" href="/assets/favicon-48.png"/>
   <script type="application/ld+json">
   [
     {
@@ -892,6 +902,11 @@ function genererMentionsLegales() {
   <meta name="description" content="Mentions légales du site ia.duale.fr -- éditeur Robin Dualé, hébergeur GitHub Pages, propriété intellectuelle et données personnelles RGPD."/>
   <meta name="robots" content="noindex, follow"/>
   <link rel="canonical" href="${BASE_URL}/mentions-legales.html"/>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png"/>
+  <link rel="apple-touch-icon" sizes="48x48" href="/assets/favicon-48.png"/>
   <link rel="stylesheet" href="/styles.css"/>
 </head>
 <body>
@@ -958,6 +973,13 @@ async function main() {
     // Générer l'image OG (fond #0f172a = RGB 15, 23, 42)
     creerDossier(path.join(DIST_DIR, "assets"));
     fs.writeFileSync(path.join(DIST_DIR, "assets", "og-default.png"), genererPNGSolide(1200, 630, 15, 23, 42));
+
+    // Copier les favicons
+    for (const f of ["favicon.ico", "favicon-16.png", "favicon-32.png", "favicon-48.png", "favicon.svg"]) {
+      const src = path.join(__dirname, "..", "src", "assets", f);
+      const dst = f === "favicon.ico" ? path.join(DIST_DIR, f) : path.join(DIST_DIR, "assets", f);
+      if (fs.existsSync(src)) fs.copyFileSync(src, dst);
+    }
 
     const tous = await recupererItems();
     const outils = tous.filter((i) => i.type !== "LLM");
