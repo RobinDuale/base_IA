@@ -277,12 +277,16 @@ Base_IA/
 - [x] IndexNow : clé fff05dc2... + ping Bing automatique à chaque déploiement
 - [x] Mentions légales propres à ia.duale.fr (éditeur, hébergeur GitHub Pages, RGPD)
 - [x] Maillage SEO vers cv-robin.duale.fr dans le footer (2 liens par page)
-- [ ] Formulaire de proposition d'outil par les visiteurs (Gemini + Brevo + WhatsApp CallMeBot + admin)
-  - Base Notion "Propositions d'outils" creee (ID: 2224a9df-e426-4812-bfba-5a1d23e5947f)
-  - Fiche Brevo creee dans Notion Outils
-  - Brevo : compte a creer sur brevo.com + cle API a recuperer
-  - Workflow : nom -> check doublon + Gemini -> confirmation -> email validation -> Notion -> WhatsApp admin -> admin valide -> email visiteur
-- [ ] 2e passe Gemini a la publication + email visiteur
+- [x] Formulaire de proposition d'outil -- 4 workflows n8n créés + bouton admin sur home + confirmation.html
+  - [x] Workflow 1 "Check Tool" : vérifie doublon + Gemini validation (ID: dRZQiupe2iNmPlnK)
+  - [x] Workflow 2 "Submit Proposal" : token + page Notion Propositions + email Brevo (ID: UkA7kAlie7yhJzSI)
+  - [x] Workflow 3 "Confirm Email" : validation token + Gemini description préliminaire + redirect confirmation.html (ID: qLDdGsnfq8iCjP2P)
+  - [x] Workflow 4 "Admin Validate" : Gemini fiche complète + page Notion Outils + GitHub rebuild + email visiteur (ID: 6dnXvN7rU8Udc99Q)
+  - [x] Bouton "+ Proposer un outil" caché derrière admin-zone en attendant les tests
+- [ ] Interface admin propositions : page ou section sur ia.duale.fr pour voir/valider/rejeter les propositions
+- [ ] WhatsApp CallMeBot : configurer dans workflow 3 (noeud désactivé -- numéro + apikey à obtenir sur callmebot.com)
+- [ ] Rendre le bouton "Proposer un outil" public (retirer admin-zone) une fois tout testé
+- [ ] Google Analytics GA4 : vérifier que les données remontent correctement dans la propriété "Base IA"
 
 ---
 
@@ -305,6 +309,46 @@ Structure :
 - Value : `Bearer ntn_...` (token Notion depuis notion.so/my-integrations)
 
 **ATTENTION :** apres chaque update_workflow via MCP, les credentials sont reinitialises. Reconfigurer manuellement. Piege connu : "Authorisation" (s) au lieu de "Authorization" (z) dans le champ Name.
+
+---
+
+## n8n -- Workflows proposition d'outil
+
+### Workflow 1 : Check Tool - Base IA
+**ID :** dRZQiupe2iNmPlnK
+**Webhook :** POST `https://n8n.srv1161197.hstgr.cloud/webhook/check-tool`
+**Body :** `{"nom": "Zapier"}`
+**Réponse :** `{"exists": bool, "isAiTool": bool, "description": string, "categorie": string}`
+**Statut :** actif
+
+### Workflow 2 : Submit Proposal - Base IA
+**ID :** UkA7kAlie7yhJzSI
+**Webhook :** POST `https://n8n.srv1161197.hstgr.cloud/webhook/submit-proposal`
+**Body :** `{"outil": "...", "email": "...", "url": "...", "description": "..."}`
+**Réponse :** `{"status": "ok", "message": "Email de confirmation envoyé"}`
+**Statut :** actif
+**Effet :** crée page dans Notion Propositions (statut "Recue") + envoie email Brevo avec lien de confirmation
+
+### Workflow 3 : Confirm Email - Base IA
+**ID :** qLDdGsnfq8iCjP2P
+**Webhook :** GET `https://n8n.srv1161197.hstgr.cloud/webhook/confirm-email?token=XXX&email=XXX`
+**Statut :** actif (noeud WhatsApp désactivé)
+**Effet :** valide token, met statut "Email valide" dans Notion, appelle Gemini pour description préliminaire, redirige vers `https://ia.duale.fr/confirmation.html`
+
+### Workflow 4 : Admin Validate - Base IA
+**ID :** 6dnXvN7rU8Udc99Q
+**Webhook :** POST `https://n8n.srv1161197.hstgr.cloud/webhook/admin-validate`
+**Body :** `{"pageId": "notion-page-id", "action": "valider"}` ou `{"pageId": "...", "action": "rejeter"}`
+**Réponse :** `{"status": "ok", "message": "..."}`
+**Statut :** actif
+**Effet (valider) :** Gemini génère fiche complète -> page créée dans Notion Outils -> GitHub Actions rebuild -> email visiteur -> statut "Validée"
+**Effet (rejeter) :** statut "Rejetée" dans Notion Propositions
+
+**Credentials communs aux 4 workflows :**
+- `Notion API - Base IA` : Header Auth, `Authorization: Bearer ntn_...`
+- `Gemini API - Base IA` : Header Auth, `x-goog-api-key: AIza...`
+- `Brevo API - Base IA` : Header Auth, `api-key: xkeysib-...`
+- `GitHub Token - Base IA` : Header Auth, `Authorization: Bearer ghp_...` (workflow 4 uniquement)
 
 ---
 
@@ -338,3 +382,8 @@ Structure :
 | 2026-05-17 | Système admin : boutons admin masqués, auth via GitHub PAT + cookie .duale.fr partagé (SSO) |
 | 2026-05-17 | Décision : pas de clé locale dans le code public -- seul le token GitHub fait foi |
 | 2026-05-17 | Sync JOURNAL.md -> Notion : sous-page créée automatiquement dans "Outils IA et No Code", workflow déclenché sur push touchant JOURNAL.md, lib @tryfabric/martian pour la conversion markdown -> blocs Notion |
+| 2026-05-17 | GA4 : propriété dédiée "Base IA" créée, ID G-61ZR41S7J7, séparée de cv-robin |
+| 2026-05-17 | 3 pages de positionnement SEO générées dynamiquement : comparatif-llm, automatiser-avec-ia, outils-no-code |
+| 2026-05-17 | Formulaire proposition d'outil : 4 workflows n8n créés (Check Tool, Submit Proposal, Confirm Email, Admin Validate) |
+| 2026-05-17 | Bouton "+ Proposer un outil" caché derrière admin-zone -- sera rendu public après tests complets |
+| 2026-05-17 | confirmation.html générée à chaque build -- page de succès après validation email visiteur |
