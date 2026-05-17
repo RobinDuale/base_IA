@@ -261,6 +261,114 @@ vice versa. C'est le mécanisme standard du SSO (Single Sign-On) sur le web.
 - n8n et Make : scénarios d'usage ajoutés
 - deploy.yml : règle de concurrence ajoutée (`cancel-in-progress: true`) pour éviter les doubles builds push + n8n
 
+#### 25. Google Analytics GA4 -- propriété dédiée
+
+- Créé une propriété GA4 distincte "Base IA" dans le compte Google Analytics
+- ID de mesure : `G-61ZR41S7J7`
+- Balise GA4 ajoutée dans le `<head>` de toutes les pages générées par `build.js`
+- Avantage d'une propriété séparée : les données de `ia.duale.fr` ne se mélangent pas avec celles de `cv-robin.duale.fr`
+
+#### 26. Pages de positionnement SEO
+
+Trois pages statiques ajoutées pour capter des requêtes plus larges (mots-clés génériques) :
+
+- `/comparatif-llm.html` -- "Comparatif LLM 2025 : ChatGPT vs Claude vs Gemini"
+- `/automatiser-avec-ia.html` -- "Comment automatiser avec l'IA en 2025"
+- `/outils-no-code.html` -- "Outils No-Code 2025 : créer sans coder"
+
+Chaque page reprend le layout du site (header, footer, SEO complet) mais avec du contenu éditorial
+orienté mots-clés. Ces pages créent du maillage interne vers les fiches d'outils associées.
+
+**Concept clé -- les pages de positionnement :**
+Un site ne se référence pas uniquement sur son nom ou ses pages principales. Pour attirer du trafic
+sur des requêtes génériques ("comparatif LLM", "outils no-code"), il faut créer des pages qui
+répondent spécifiquement à ces questions. Ces pages sont moins "produit" et plus "éditoriales".
+
+#### 27. Formulaire de proposition d'outil -- interface visiteur
+
+**Objectif :** permettre aux visiteurs de proposer un outil qu'ils connaissent et qui n'est pas encore
+dans la base. Sans exposer l'interface admin, sans collecte de données inutile.
+
+**Ce qui a été mis en place dans le frontend (build.js) :**
+
+- Bouton "+ Proposer un outil" sur la page d'accueil (caché dans la `admin-zone` pendant les tests)
+- Modale en 5 étapes affichées une par une :
+  1. **Etape 1** : saisie du nom de l'outil + bouton "Vérifier l'outil"
+  2. **Chargement** : spinner pendant la vérification côté n8n
+  3. **Outil existant** : message si l'outil est déjà dans la base
+  4. **Etape 2** : URL officielle (obligatoire), email visiteur (obligatoire), description courte (optionnel)
+  5. **Succès** : message de confirmation avec indication que le visiteur recevra un email
+
+- Page `/confirmation.html` : page de remerciement après validation de l'email, avec lien retour vers l'accueil
+
+**Concept clé -- les formulaires multi-étapes :**
+Un formulaire en plusieurs étapes (wizard) réduit la friction : le visiteur ne voit pas d'un seul
+coup tous les champs à remplir. On valide aussi les données entre les étapes (ici : vérifier
+que l'outil n'existe pas avant d'afficher le formulaire complet).
+
+#### 28. Formulaire de proposition d'outil -- workflows n8n
+
+Quatre workflows n8n créés pour traiter les propositions de A à Z :
+
+**Workflow 1 -- "Check Tool - Base IA"**
+- Webhook POST `/check-tool`
+- Reçoit : `{nom: "Airtable"}`
+- Interroge la base Notion "Outils" via l'API
+- Répond : `{exists: true, slug: "airtable"}` ou `{exists: false, description: "..."}` (Gemini génère une description préliminaire si l'outil n'existe pas)
+
+**Workflow 2 -- "Submit Proposal - Base IA"**
+- Webhook POST `/submit-proposal`
+- Reçoit : `{outil, email, url, description}`
+- Génère un token unique (aléatoire)
+- Crée une page dans la base Notion "Propositions d'outils" (statut : "Reçue")
+- Envoie un email de confirmation à l'adresse du visiteur (via Brevo) avec un lien de validation contenant le token
+
+**Workflow 3 -- "Confirm Email - Base IA"**
+- Webhook GET `/confirm-email?token=xxx`
+- Trouve la proposition Notion correspondante au token
+- Met à jour le statut Notion -> "Email validé"
+- Appelle Gemini pour enrichir la description (premiers éléments de fiche)
+- Envoie une notification WhatsApp à l'admin via CallMeBot (noeud désactivé temporairement)
+- Redirige le visiteur vers `/confirmation.html`
+
+**Workflow 4 -- "Admin Validate - Base IA"**
+- Webhook POST `/admin-validate` (protégé par token admin dans le body)
+- Reçoit : `{notion_page_id, action: "validate"|"reject"}`
+- Si "validate" :
+  - Appelle Gemini pour générer une fiche complète (description, avantages, limites, cas d'usage, modèle économique, etc.)
+  - Crée une nouvelle page dans la base Notion "Outils" avec tous les champs remplis
+  - Déclenche GitHub Actions (rebuild du site)
+  - Met à jour le statut de la proposition -> "Validée"
+  - Envoie un email au visiteur pour l'informer que son outil est en ligne
+- Si "reject" :
+  - Met à jour le statut -> "Rejetée"
+  - Envoie un email au visiteur pour l'informer
+
+**Concept clé -- la validation par email (double opt-in) :**
+Quand un formulaire collecte un email, il faut s'assurer que l'email appartient bien à la personne
+qui le saisit. Le principe du "double opt-in" : on envoie un email avec un lien unique (contenant
+un token secret), et on ne traite la demande que si ce lien est cliqué. Si l'email est faux ou
+mal orthographié, le lien ne sera jamais cliqué et la proposition reste en attente indéfiniment.
+
+**Concept clé -- les tokens de validation :**
+Un token est une chaîne de caractères aléatoire, générée une seule fois, stockée en base (ici Notion),
+et transmise par email. Quand le visiteur clique le lien, le système compare le token reçu avec
+celui stocké. Si c'est le même, c'est que la personne a bien accès à cet email. C'est exactement
+le même principe que les liens "réinitialisez votre mot de passe" que tu reçois par email.
+
+**Concept clé -- Gemini comme générateur de contenu :**
+Au lieu de demander au visiteur de remplir une fiche complète (20 champs !), on lui demande
+juste le nom et l'URL. Gemini (l'IA de Google) se charge de générer automatiquement les autres
+informations (description, avantages, limites, modèle économique, etc.) en cherchant sur le web.
+L'admin valide et peut corriger avant publication. C'est une utilisation "augmentation humaine" de l'IA.
+
+**Concept clé -- Brevo pour les emails transactionnels :**
+Un email transactionnel, c'est un email déclenché par une action de l'utilisateur (inscription,
+commande, validation...) -- par opposition aux emails marketing (newsletters, promotions).
+Brevo (anciennement Sendinblue) est un service qui permet d'envoyer jusqu'à 300 emails/jour gratuitement.
+On l'appelle via son API REST : on lui envoie les destinataires, le sujet, le contenu HTML,
+et il se charge de l'envoi, de la délivrabilité, et des statistiques.
+
 ---
 
 ## Etapes à venir
@@ -290,9 +398,18 @@ vice versa. C'est le mécanisme standard du SSO (Single Sign-On) sur le web.
 - [x] Corriger fiche Netlify (modèle économique)
 - [x] Ajouter système d'authentification admin (boutons cachés, login token GitHub, cookie SSO .duale.fr)
 - [x] Sync automatique JOURNAL.md vers Notion (GitHub Actions + @tryfabric/martian)
-- [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
-- [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
-- [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
+- [x] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
+- [x] Vérifier les credentials n8n après chaque mise à jour du workflow
+- [x] Ajouter robots.txt et balises OG/Twitter Card (SEO)
+- [x] Ajouter Google Analytics GA4 (propriété dédiée "Base IA", ID G-61ZR41S7J7)
+- [x] Ajouter pages de positionnement SEO (comparatif LLM, automatiser avec IA, outils no-code)
+- [x] Créer les 4 workflows n8n pour la proposition d'outil (check, submit, confirm, validate)
+- [x] Ajouter le formulaire de proposition d'outil sur la home (modale multi-étapes)
+- [x] Créer la page confirmation.html
+- [ ] Rendre le bouton "Proposer un outil" public (retirer admin-zone) apres tests complets
+- [ ] Configurer WhatsApp CallMeBot dans le workflow 3 (noeud actuellement désactivé)
+- [ ] Créer une interface admin sur ia.duale.fr pour valider/rejeter les propositions sans appeler le webhook manuellement
+- [ ] 2e passe Gemini à la publication (enrichissement de fiche après validation admin)
 
 ---
 
@@ -349,3 +466,34 @@ GitHub Pages sert les fichiers d'une branche spécifique du repo.
 Dans ce projet, on utilise la branche `gh-pages` qui est créée et mise à jour
 automatiquement par GitHub Actions à chaque build. On ne la touche jamais manuellement.
 La branche `main` contient le code source, la branche `gh-pages` contient le site généré.
+
+### Google Analytics GA4 et les propriétés multiples
+Google Analytics permet de créer plusieurs "propriétés" dans le même compte.
+Chaque propriété reçoit les données d'un site différent, avec son propre ID de mesure.
+Avantage : les rapports sont séparés -- on ne mélange pas le trafic de `ia.duale.fr`
+avec celui de `cv-robin.duale.fr`. La balise GA4 est un petit script JS à coller
+dans le `<head>` de chaque page, qui envoie automatiquement des données à Google.
+
+### Le double opt-in -- validation par email
+Quand un formulaire collecte un email, on doit s'assurer que cet email est réel.
+Le principe : on envoie un email avec un lien unique contenant un token secret.
+Si le visiteur clique le lien, c'est qu'il a bien accès à cet email.
+C'est le même mécanisme que les liens "réinitialiser mon mot de passe".
+
+### Les tokens de validation (liens uniques)
+Un token est une longue chaîne de caractères aléatoire, générée une seule fois.
+On la stocke en base de données, on la transmet par email. Quand le visiteur
+clique le lien, on compare le token reçu avec celui stocké : si c'est le même, c'est validé.
+Le token est ensuite invalidé (ou marqué "utilisé") pour éviter qu'il soit réutilisé.
+
+### Gemini comme générateur de contenu automatique
+Plutôt que de demander au visiteur de remplir 20 champs, on lui demande juste le nom et l'URL.
+Gemini (LLM de Google, accessible via API) génère les autres informations automatiquement.
+On l'appelle via une requête HTTP POST en lui envoyant un "prompt" précis.
+L'admin valide et corrige avant publication -- c'est de l'augmentation humaine, pas du remplacement.
+
+### Les emails transactionnels et Brevo
+Un email transactionnel est déclenché par une action de l'utilisateur (inscription, commande...).
+A l'opposé : les emails marketing (newsletters). Brevo (ex-Sendinblue) est un service
+d'envoi d'emails transactionnels, avec 300 emails/jour gratuits.
+On l'appelle via son API REST : destinataire, sujet, contenu HTML -- et il gère le reste.
