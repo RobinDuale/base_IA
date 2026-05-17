@@ -46,6 +46,9 @@ Productivité, Développement, Automatisation, Base de données, Scraping, Hébe
 ## Pages du site
 
 - [Accueil](https://ia.duale.fr/) : grille complète des outils et LLMs avec filtres par catégorie, tags et recherche
+- [Comparatif LLMs 2026](https://ia.duale.fr/comparatif-llm.html) : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot
+- [Automatiser avec l'IA](https://ia.duale.fr/automatiser-avec-ia.html) : outils et méthodes pour automatiser ses processus
+- [Outils No-Code 2026](https://ia.duale.fr/outils-no-code.html) : créer des applications et sites sans coder
 - [Mentions légales](https://ia.duale.fr/mentions-legales.html) : éditeur, hébergeur GitHub Pages, RGPD
 - [Sitemap](https://ia.duale.fr/sitemap.xml) : index complet de toutes les pages
 
