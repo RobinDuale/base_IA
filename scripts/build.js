@@ -260,9 +260,9 @@ function genererPageAccueil(outils, llms) {
         <span class="footer-sub">Données issues de Notion</span>
       </div>
       <div class="footer-liens">
-        <a href="mailto:robin@duale.fr">robin@duale.fr</a>
         <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://projets.duale.fr" target="_blank" rel="noopener noreferrer">projets.duale.fr</a>
+        <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
+        <a href="https://cv-robin.duale.fr/fr/mentions-legales.html" target="_blank" rel="noopener noreferrer">Mentions légales</a>
       </div>
       <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
     </div>
@@ -528,9 +528,9 @@ function genererPageDetail(item, liste, prefixe) {
         <span class="footer-sub">Données issues de Notion</span>
       </div>
       <div class="footer-liens">
-        <a href="mailto:robin@duale.fr">robin@duale.fr</a>
         <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://projets.duale.fr" target="_blank" rel="noopener noreferrer">projets.duale.fr</a>
+        <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
+        <a href="https://cv-robin.duale.fr/fr/mentions-legales.html" target="_blank" rel="noopener noreferrer">Mentions légales</a>
       </div>
       <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
     </div>
