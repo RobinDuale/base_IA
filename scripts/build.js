@@ -3,6 +3,7 @@
 // Il est exécuté par GitHub Actions à chaque mise à jour de Notion.
 
 const { Client } = require("@notionhq/client");
+const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
@@ -11,6 +12,12 @@ const path = require("path");
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const NOTION_DATABASE_ID = "b6a3c72949e546f89c6dfc990689298e";
 const DIST_DIR = path.join(__dirname, "..", "dist");
+
+// Clé admin hashée (SHA-256). Changer ADMIN_PASSWORD dans les GitHub Secrets pour personnaliser.
+const ADMIN_HASH = crypto
+  .createHash("sha256")
+  .update(process.env.ADMIN_PASSWORD || "ia-robin-2026")
+  .digest("hex");
 
 if (!NOTION_API_KEY) {
   console.error("Erreur : la variable NOTION_API_KEY est manquante.");
@@ -150,7 +157,7 @@ function badgeNiveau(niveau) {
 }
 
 // Page d'accueil avec onglets Outils / LLMs
-function genererPageAccueil(outils, llms) {
+function genererPageAccueil(outils, llms, adminHash) {
   const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))];
   const tagsOutils = [...new Set(outils.flatMap((o) => o.tags ? o.tags.split(",").map((t) => t.trim()) : []).filter(Boolean))];
   const filtresUniques = [...new Set([...categories, ...tagsOutils])].sort();
@@ -227,7 +234,7 @@ function genererPageAccueil(outils, llms) {
       </div>
 
       <div class="barre-actions">
-        <button class="btn-reorganiser" id="btnReorganiser" onclick="toggleReorganisation()">Réorganiser</button>
+        <button class="btn-reorganiser admin-zone" id="btnReorganiser" onclick="toggleReorganisation()" style="display:none">Réorganiser</button>
         <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
         <button class="btn-annuler" id="btnAnnuler" onclick="annulerReorganisation()" style="display:none">Annuler</button>
       </div>
@@ -243,7 +250,7 @@ function genererPageAccueil(outils, llms) {
       </div>
 
       <div class="barre-actions">
-        <button class="btn-reorganiser" id="btnReorganiserLLM" onclick="toggleReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')">Réorganiser</button>
+        <button class="btn-reorganiser admin-zone" id="btnReorganiserLLM" onclick="toggleReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Réorganiser</button>
         <button class="btn-sauvegarder" id="btnSauvegarderLLM" onclick="sauvegarderOrdreGrille('grille-llms', 'btnReorganiserLLM', this)" style="display:none">Sauvegarder l'ordre</button>
         <button class="btn-annuler" id="btnAnnulerLLM" onclick="annulerReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Annuler</button>
       </div>
@@ -264,7 +271,8 @@ function genererPageAccueil(outils, llms) {
         <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
         <a href="/mentions-legales.html">Mentions légales</a>
       </div>
-      <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
+      <button class="btn-refresh admin-zone" onclick="rafraichirSite(this)" style="display:none">Mettre à jour le site</button>
+      <button onclick="ouvrirModalAdmin()" title="Administration" aria-label="Accès administration" style="background:none;border:none;cursor:pointer;color:#bbb;font-size:17px;padding:4px 6px;line-height:1;" onmouseover="this.style.color='#555'" onmouseout="this.style.color='#bbb'">⚙</button>
     </div>
   </footer>
 
@@ -423,12 +431,80 @@ function genererPageAccueil(outils, llms) {
       });
     });
   </script>
+
+  <div id="modal-admin" onclick="if(event.target===this)fermerModalAdmin()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:6px;padding:32px 36px;width:100%;max-width:340px;margin:16px;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.15);">
+      <button onclick="fermerModalAdmin()" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#bbb;line-height:1;">×</button>
+      <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:20px;">Administration · Base IA</p>
+      <div id="panel-login">
+        <label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#888;margin-bottom:6px;">Clé d'accès</label>
+        <input type="password" id="input-cle-admin" placeholder="••••••••" style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;font-family:monospace;outline:none;margin-bottom:8px;box-sizing:border-box;" onkeydown="if(event.key==='Enter')connecterAdmin()"/>
+        <div id="erreur-admin" style="display:none;color:#c0392b;font-size:13px;margin-bottom:8px;">Clé incorrecte.</div>
+        <button onclick="connecterAdmin()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Accéder</button>
+      </div>
+      <div id="panel-admin" style="display:none">
+        <p style="color:#27ae60;font-size:14px;margin-bottom:16px;">Mode admin actif.</p>
+        <button onclick="deconnecterAdmin()" style="width:100%;padding:10px;background:none;border:1px solid #e0d9cc;border-radius:3px;font-size:14px;cursor:pointer;color:#c0392b;">Se déconnecter</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const ADMIN_HASH = '${adminHash}';
+    async function sha256(msg) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    function getAdminCookie() {
+      return document.cookie.split(';').some(c => c.trim() === 'admin_duale=1');
+    }
+    function setAdminCookie() {
+      document.cookie = 'admin_duale=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
+    }
+    function deleteAdminCookie() {
+      document.cookie = 'admin_duale=; domain=.duale.fr; path=/; max-age=0';
+    }
+    function initAdminMode() {
+      if (getAdminCookie()) activerAdmin();
+    }
+    function activerAdmin() {
+      document.querySelectorAll('.admin-zone').forEach(el => el.style.display = '');
+    }
+    function ouvrirModalAdmin() {
+      const estAdmin = getAdminCookie();
+      document.getElementById('panel-login').style.display = estAdmin ? 'none' : '';
+      document.getElementById('panel-admin').style.display = estAdmin ? '' : 'none';
+      document.getElementById('erreur-admin').style.display = 'none';
+      if (!estAdmin) document.getElementById('input-cle-admin').value = '';
+      document.getElementById('modal-admin').style.display = 'flex';
+      if (!estAdmin) setTimeout(() => document.getElementById('input-cle-admin').focus(), 50);
+    }
+    function fermerModalAdmin() {
+      document.getElementById('modal-admin').style.display = 'none';
+    }
+    async function connecterAdmin() {
+      const hash = await sha256(document.getElementById('input-cle-admin').value);
+      if (hash === ADMIN_HASH) {
+        setAdminCookie();
+        document.getElementById('panel-login').style.display = 'none';
+        document.getElementById('panel-admin').style.display = '';
+        activerAdmin();
+      } else {
+        document.getElementById('erreur-admin').style.display = 'block';
+      }
+    }
+    function deconnecterAdmin() {
+      deleteAdminCookie();
+      document.querySelectorAll('.admin-zone').forEach(el => el.style.display = 'none');
+      fermerModalAdmin();
+    }
+    initAdminMode();
+  </script>
 </body>
 </html>`;
 }
 
 // Page détail (commune Outils et LLMs)
-function genererPageDetail(item, liste, prefixe) {
+function genererPageDetail(item, liste, prefixe, adminHash) {
   function section(titre, contenu) {
     if (!contenu) return "";
     return `
@@ -532,7 +608,8 @@ function genererPageDetail(item, liste, prefixe) {
         <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
         <a href="/mentions-legales.html">Mentions légales</a>
       </div>
-      <button class="btn-refresh" onclick="rafraichirSite(this)">Mettre à jour le site</button>
+      <button class="btn-refresh admin-zone" onclick="rafraichirSite(this)" style="display:none">Mettre à jour le site</button>
+      <button onclick="ouvrirModalAdmin()" title="Administration" aria-label="Accès administration" style="background:none;border:none;cursor:pointer;color:#bbb;font-size:17px;padding:4px 6px;line-height:1;" onmouseover="this.style.color='#555'" onmouseout="this.style.color='#bbb'">⚙</button>
     </div>
   </footer>
 
@@ -572,6 +649,74 @@ function genererPageDetail(item, liste, prefixe) {
           .catch(() => {});
       }, INTERVALLE);
     }
+  </script>
+
+  <div id="modal-admin" onclick="if(event.target===this)fermerModalAdmin()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:6px;padding:32px 36px;width:100%;max-width:340px;margin:16px;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.15);">
+      <button onclick="fermerModalAdmin()" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#bbb;line-height:1;">×</button>
+      <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:20px;">Administration · Base IA</p>
+      <div id="panel-login">
+        <label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#888;margin-bottom:6px;">Clé d'accès</label>
+        <input type="password" id="input-cle-admin" placeholder="••••••••" style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;font-family:monospace;outline:none;margin-bottom:8px;box-sizing:border-box;" onkeydown="if(event.key==='Enter')connecterAdmin()"/>
+        <div id="erreur-admin" style="display:none;color:#c0392b;font-size:13px;margin-bottom:8px;">Clé incorrecte.</div>
+        <button onclick="connecterAdmin()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Accéder</button>
+      </div>
+      <div id="panel-admin" style="display:none">
+        <p style="color:#27ae60;font-size:14px;margin-bottom:16px;">Mode admin actif.</p>
+        <button onclick="deconnecterAdmin()" style="width:100%;padding:10px;background:none;border:1px solid #e0d9cc;border-radius:3px;font-size:14px;cursor:pointer;color:#c0392b;">Se déconnecter</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const ADMIN_HASH = '${adminHash}';
+    async function sha256(msg) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    function getAdminCookie() {
+      return document.cookie.split(';').some(c => c.trim() === 'admin_duale=1');
+    }
+    function setAdminCookie() {
+      document.cookie = 'admin_duale=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
+    }
+    function deleteAdminCookie() {
+      document.cookie = 'admin_duale=; domain=.duale.fr; path=/; max-age=0';
+    }
+    function initAdminMode() {
+      if (getAdminCookie()) activerAdmin();
+    }
+    function activerAdmin() {
+      document.querySelectorAll('.admin-zone').forEach(el => el.style.display = '');
+    }
+    function ouvrirModalAdmin() {
+      const estAdmin = getAdminCookie();
+      document.getElementById('panel-login').style.display = estAdmin ? 'none' : '';
+      document.getElementById('panel-admin').style.display = estAdmin ? '' : 'none';
+      document.getElementById('erreur-admin').style.display = 'none';
+      if (!estAdmin) document.getElementById('input-cle-admin').value = '';
+      document.getElementById('modal-admin').style.display = 'flex';
+      if (!estAdmin) setTimeout(() => document.getElementById('input-cle-admin').focus(), 50);
+    }
+    function fermerModalAdmin() {
+      document.getElementById('modal-admin').style.display = 'none';
+    }
+    async function connecterAdmin() {
+      const hash = await sha256(document.getElementById('input-cle-admin').value);
+      if (hash === ADMIN_HASH) {
+        setAdminCookie();
+        document.getElementById('panel-login').style.display = 'none';
+        document.getElementById('panel-admin').style.display = '';
+        activerAdmin();
+      } else {
+        document.getElementById('erreur-admin').style.display = 'block';
+      }
+    }
+    function deconnecterAdmin() {
+      deleteAdminCookie();
+      document.querySelectorAll('.admin-zone').forEach(el => el.style.display = 'none');
+      fermerModalAdmin();
+    }
+    initAdminMode();
   </script>
 </body>
 </html>`;
@@ -661,14 +806,14 @@ async function main() {
       JSON.stringify({ built_at: new Date().toISOString() })
     );
 
-    fs.writeFileSync(path.join(DIST_DIR, "index.html"), genererPageAccueil(outils, llms));
+    fs.writeFileSync(path.join(DIST_DIR, "index.html"), genererPageAccueil(outils, llms, ADMIN_HASH));
     fs.writeFileSync(path.join(DIST_DIR, "mentions-legales.html"), genererMentionsLegales());
     console.log("Page d'accueil + mentions légales générées.");
 
     for (const outil of outils) {
       fs.writeFileSync(
         path.join(DIST_DIR, "outils", `${outil.slug}.html`),
-        genererPageDetail(outil, outils, "outils")
+        genererPageDetail(outil, outils, "outils", ADMIN_HASH)
       );
     }
     console.log(`${outils.length} pages outils générées.`);
@@ -676,7 +821,7 @@ async function main() {
     for (const llm of llms) {
       fs.writeFileSync(
         path.join(DIST_DIR, "llm", `${llm.slug}.html`),
-        genererPageDetail(llm, llms, "llm")
+        genererPageDetail(llm, llms, "llm", ADMIN_HASH)
       );
     }
     console.log(`${llms.length} pages LLMs générées.`);
