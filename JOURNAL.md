@@ -289,6 +289,7 @@ vice versa. C'est le mécanisme standard du SSO (Single Sign-On) sur le web.
 - [x] Ajouter Lovable, Microsoft Copilot dans la base
 - [x] Corriger fiche Netlify (modèle économique)
 - [x] Ajouter système d'authentification admin (boutons cachés, login token GitHub, cookie SSO .duale.fr)
+- [x] Sync automatique JOURNAL.md vers Notion (GitHub Actions + @tryfabric/martian)
 - [ ] Tester le cycle complet : modif Notion -> n8n -> GitHub Actions -> site mis à jour
 - [ ] Vérifier les credentials n8n après chaque mise à jour du workflow
 - [ ] Ajouter robots.txt et balises OG/Twitter Card (SEO)
