@@ -64,6 +64,11 @@ header h1 {
   color: var(--ink);
 }
 
+header h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
 header h1 em {
   color: var(--accent);
   font-style: normal;
@@ -210,23 +215,23 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 14px;
-  border: 1px solid var(--line);
+  padding: 7px 16px;
+  border: 1px solid var(--accent);
   border-radius: var(--rayon-pill);
-  background: transparent;
-  color: var(--muted);
+  background: var(--accent);
+  color: #fff;
   font-family: var(--font-mono);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
+  transition: background 0.15s, border-color 0.15s;
   margin-bottom: 8px;
 }
 
 .onglet-proposer:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  background: #1e3a9f;
+  border-color: #1e3a9f;
 }
 
 .onglet-proposer-plus {
