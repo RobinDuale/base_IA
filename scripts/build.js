@@ -74,12 +74,12 @@ async function recupererItems() {
         categorie: extraireTexte(p["Catégorie"]),
         niveau: extraireTexte(p["Niveau"]),
         priorite: extraireTexte(p["Priorité"]),
-        statut: extraireTexte(p["Statut d’apprentissage"]),
+        statut: extraireTexte(p["Statut d'apprentissage"]),
         description: extraireTexte(p["Description simple"]),
         avantages: extraireTexte(p["Avantages"]),
         limites: extraireTexte(p["Limites"]),
-        casUsage: extraireTexte(p["Cas d’usage"]),
-        casUsagePourMoi: extraireTexte(p["Cas d’usage pour moi"]),
+        casUsage: extraireTexte(p["Cas d'usage"]),
+        casUsagePourMoi: extraireTexte(p["Cas d'usage pour moi"]),
         alternatives: extraireTexte(p["Alternatives"]),
         modeleEconomique: extraireTexte(p["Modèle économique"]),
         quandPayer: extraireTexte(p["Quand payer"]),
@@ -252,37 +252,38 @@ function genererPageAccueil(outils, llms) {
     })
     .join("\n        ");
 
-  const cartesOutils = outils
-    .map(
-      (o) => `
-      <a class="carte" href="outils/${o.slug}.html" data-categorie="${o.categorie}" data-tags="${o.tags || ""}" data-notion-id="${o.id}">
-        <div class="carte-header">
-          <h2 class="carte-nom">${o.nom}</h2>
-          <div class="carte-badges">
-            ${badgeCategorie(o.categorie)}
-            ${badgeNiveau(o.niveau)}
-          </div>
-        </div>
-        ${o.description ? `<p class="carte-description">${o.description}</p>` : ""}
-      </a>`
-    )
-    .join("\n");
+  function genererCarte(item, prefixe, estLLM) {
+    const couleurCat = estLLM
+      ? "#8b5cf6"
+      : (COULEURS_CATEGORIE[item.categorie] || "#6b7280");
+    const tagsArray = item.tags ? item.tags.split(",").map(t => t.trim()).filter(Boolean) : [];
+    const tagsBadges = tagsArray.slice(0, 3).map(t => {
+      const c = COULEURS_TAG[t] || "#6b7280";
+      return `<span class="carte-tag" style="color:${c}">${t}</span>`;
+    }).join("");
+    const categorieLabel = estLLM ? "LLM" : (item.categorie || "");
+    const typeLabel = estLLM ? "Modele" : (item.type || "Outil");
 
-  const cartesLLMs = llms
-    .map(
-      (l) => `
-      <a class="carte" href="llm/${l.slug}.html" data-categorie="${l.categorie}" data-tags="${l.tags || ""}" data-notion-id="${l.id}">
-        <div class="carte-header">
-          <h2 class="carte-nom">${l.nom}</h2>
-          <div class="carte-badges">
-            <span class="badge" style="background:#8b5cf6">LLM</span>
-            ${badgeNiveau(l.niveau)}
-          </div>
+    return `
+    <a class="carte" href="${prefixe}/${item.slug}.html" data-categorie="${item.categorie}" data-tags="${item.tags || ""}" data-notion-id="${item.id}">
+      <div class="carte-accent" style="background:${couleurCat}"></div>
+      <div class="carte-body">
+        <div class="carte-head">
+          <div class="carte-cat">${categorieLabel}</div>
+          <div class="carte-type">${typeLabel}</div>
         </div>
-        ${l.description ? `<p class="carte-description">${l.description}</p>` : ""}
-      </a>`
-    )
-    .join("\n");
+        <h2 class="carte-nom">${item.nom}</h2>
+        ${item.description ? `<p class="carte-description">${item.description}</p>` : ""}
+        <div class="carte-foot">
+          <div class="carte-tags">${tagsBadges}</div>
+          <span class="carte-arrow">&#8594;</span>
+        </div>
+      </div>
+    </a>`;
+  }
+
+  const cartesOutils = outils.map(o => genererCarte(o, "outils", false)).join("\n");
+  const cartesLLMs = llms.map(l => genererCarte(l, "llm", true)).join("\n");
 
   const DESC_HOME = "Référence des meilleurs outils IA, No-Code et LLMs sélectionnés par Robin Dualé. Fiches détaillées, scénarios d'usage et modèles économiques.";
   const TITLE_HOME = "Base IA · Outils IA, No-Code et LLMs · Robin Dualé";
@@ -357,21 +358,46 @@ function genererPageAccueil(outils, llms) {
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
   ${GA_TAG}
 </head>
 <body>
   <header>
-    <h1>Base IA</h1>
-    <p class="sous-titre">Référence personnelle des outils IA, No-Code et LLMs par Robin Dualé</p>
+    <h1>Base <em>IA</em></h1>
   </header>
 
   <main>
-    <p style="color:var(--gris);font-size:0.95rem;margin-bottom:1rem;max-width:680px;line-height:1.7;">
-      Base IA répertorie les meilleurs outils d'intelligence artificielle, No-Code et LLMs avec des fiches détaillées : avantages, limites, modèle économique et scénarios concrets. Une ressource structurée pour choisir le bon outil et l'utiliser efficacement.
-    </p>
-    <p class="admin-zone" style="display:none;margin-bottom:1.5rem;">
+    <section class="hero">
+      <div class="hero-eyebrow">Mise a jour le ${new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}</div>
+      <h2>Une bibliotheque <em>vivante</em><br/>des outils IA &amp; No-Code.</h2>
+      <p class="hero-intro">
+        Recenses, testes et commentes a la main par Robin Duale. Chaque fiche pese les forces, les limites et le moment juste pour adopter -- ou laisser tomber.
+      </p>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="kpi-num">${outils.length}</div>
+          <div class="kpi-label">Outils references</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">${llms.length}</div>
+          <div class="kpi-label">Grands modeles</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">${categories.length}</div>
+          <div class="kpi-label">Categories</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">${tagsOutils.length}</div>
+          <div class="kpi-label">Cas d'usage</div>
+        </div>
+      </div>
+    </section>
+
+    <p class="admin-zone" style="display:none;margin-bottom:16px;">
       <button type="button" onclick="ouvrirModalProposition()" class="btn-reorganiser">+ Proposer un outil</button>
     </p>
     <div class="onglets">
@@ -795,20 +821,27 @@ function genererPageConfirmation() {
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"/>
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/styles.css"/>
   ${GA_TAG}
 </head>
 <body>
 <header>
-  <a class="retour" href="/">← Base IA</a>
-  <h1>Proposition confirmée</h1>
+  <h1>Base <em>IA</em></h1>
+  <a class="retour" href="/">&#8592; Retour a la base</a>
 </header>
+
 <main>
-  <div style="max-width:520px;margin:3rem auto;text-align:center;padding:0 1rem;">
-    <div style="width:64px;height:64px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;font-size:2rem;color:#fff;">✓</div>
-    <h2 style="font-size:1.4rem;margin-bottom:1rem;">Merci pour votre contribution !</h2>
-    <p style="color:var(--gris);line-height:1.7;margin-bottom:2rem;">Votre email a bien été confirmé. Robin va examiner votre proposition et vous recevrez un email si l'outil est validé et ajouté à la base.</p>
-    <a href="/" style="display:inline-block;background:#1a1712;color:#fff;padding:12px 28px;border-radius:3px;text-decoration:none;font-size:0.95rem;font-weight:500;">Retour à Base IA</a>
+  <div class="page-simple" style="text-align:center;padding-top:64px;">
+    <div style="width:56px;height:56px;background:#2a7256;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:1.5rem;color:#fff;font-weight:500;">&#10003;</div>
+    <div class="page-simple-eyebrow">Proposition recue</div>
+    <h1 class="page-simple-h1">Merci pour votre contribution&nbsp;!</h1>
+    <p style="font-size:18px;line-height:1.65;color:var(--ink);max-width:480px;margin:0 auto 32px;">
+      Votre email a bien ete confirme. Robin va examiner votre proposition -- vous recevrez un message si l'outil est valide et ajoute a la base.
+    </p>
+    <a href="/" class="fiche-action fiche-action--primary" style="font-weight:500;">Retour a Base IA &#8594;</a>
   </div>
 </main>
 <footer>
@@ -1041,36 +1074,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Page détail (commune Outils et LLMs)
 function genererPageDetail(item, liste, prefixe) {
-  function section(titre, contenu) {
+  function section(type, label, titre, contenu) {
     if (!contenu) return "";
     return `
-    <section class="section">
+    <section class="section" data-type="${type}">
+      <div class="section-eyebrow">${label}</div>
       <h2>${titre}</h2>
       <p>${contenu.replace(/\n/g, "<br/>")}</p>
     </section>`;
+  }
+
+  function sectionPair(s1, s2) {
+    if (!s1 && !s2) return "";
+    return `<div class="section-pair">${s1 || '<div></div>'}${s2 || '<div></div>'}</div>`;
   }
 
   function pointsCles(avantages, description) {
     const source = avantages || description || "";
     if (!source) return "";
     const lignes = source
-      .split("\n")
+      .split(/[\n.]/)
       .map((l) => l.replace(/^[-•*]\s*/, "").trim())
-      .filter((l) => l.length > 10)
+      .filter((l) => l.length > 15)
       .slice(0, 3);
     if (!lignes.length) return "";
     return `
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        ${lignes.map((l) => `<li style="color:var(--texte);font-size:0.95rem;">${l}</li>`).join("\n        ")}
+    <div class="keypoints">
+      <div class="keypoints-titre">Les ${lignes.length} points a retenir</div>
+      <ul class="keypoints-liste">
+        ${lignes.map((l, i) => `<li><span class="keypoints-num">0${i + 1}</span><span>${l}.</span></li>`).join("\n        ")}
       </ul>
-    </section>`;
+    </div>`;
   }
 
   const liensBarreLaterale = liste
-    .map((o) => `<a href="${o.slug}.html" class="${o.slug === item.slug ? "actif" : ""}">${o.nom}</a>`)
+    .map((o) => {
+      const couleur = o.type === "LLM" ? "#8b5cf6" : (COULEURS_CATEGORIE[o.categorie] || "#6b7280");
+      return `<a href="${o.slug}.html" class="${o.slug === item.slug ? "actif" : ""}">
+        <span class="nav-dot" style="background:${couleur}"></span>
+        <span>${o.nom}</span>
+      </a>`;
+    })
     .join("\n        ");
+
+  const catColor = item.type === "LLM" ? "#8b5cf6" : (COULEURS_CATEGORIE[item.categorie] || "#6b7280");
+  const catColorSoft = catColor + "14";
+  const categorieLabel = item.type === "LLM" ? "LLM" : (item.categorie || "Outil");
 
   const titrePage = item.type === "LLM" ? `${item.nom} -- LLM` : item.nom;
   const badgeType = item.type === "LLM"
@@ -1079,25 +1128,41 @@ function genererPageDetail(item, liste, prefixe) {
 
   const hasScenarios = item.scenarioSimple || item.scenarioIntermediaire || item.scenarioAvance;
 
-  const barreScenariosHtml = hasScenarios ? `
+  const specRows = [
+    ["Categorie", categorieLabel],
+    item.niveau ? ["Niveau", item.niveau] : null,
+    item.gratuite ? ["Gratuité", "Freemium"] : null,
+    item.lienOfficiel ? ["Site officiel", item.lienOfficiel.replace(/^https?:\/\//, "").replace(/\/$/, "")] : null,
+  ].filter(Boolean);
+
+  const specSheetHtml = `
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      ${specRows.map(([k, v]) => `<div class="spec-row"><span class="spec-key">${k}</span><span class="spec-val">${v}</span></div>`).join("")}
+    </div>`;
+
+  const barreScenariosHtml = `
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      ${hasScenarios ? `
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       ${item.scenarioSimple ? `
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">${item.scenarioSimple}</p>
       </div>` : ""}
       ${item.scenarioIntermediaire ? `
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">${item.scenarioIntermediaire}</p>
       </div>` : ""}
       ${item.scenarioAvance ? `
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">${item.scenarioAvance}</p>
       </div>` : ""}
-    </aside>` : "";
+      ` : ""}
+      ${specSheetHtml}
+    </aside>`;
 
   const typeLabel = item.type === "LLM" ? "LLM" : (item.categorie || "Outil IA");
   const titleDetail = `${item.nom} · ${typeLabel} · Base IA`;
@@ -1166,18 +1231,18 @@ function genererPageDetail(item, liste, prefixe) {
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   ${GA_TAG}
 </head>
-<body>
+<body style="--cat-color:${catColor};--cat-color-soft:${catColorSoft};">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>${item.nom}</h1>
-    <div class="badges">
-      ${badgeType}
-      ${badgeNiveau(item.niveau)}
-    </div>
-    ${item.lienOfficiel ? `<a class="lien-officiel" href="${item.lienOfficiel}" target="_blank" rel="noopener noreferrer">Site officiel →</a>` : ""}
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
@@ -1187,27 +1252,54 @@ function genererPageDetail(item, liste, prefixe) {
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">${item.type === "LLM" ? "Grand modele" : "Outil"} · ${categorieLabel}</div>
+        <h1>${item.nom}</h1>
+        <div class="badges">
+          <span class="badge-cat">${categorieLabel}</span>
+          ${item.niveau ? `<span class="badge-neutre">Niveau ${item.niveau}</span>` : ""}
+          ${item.gratuite ? `<span class="badge-gratuit">Freemium</span>` : ""}
+          <span class="badge-neutre">${item.type || "Outil"}</span>
+        </div>
+        ${item.description ? `<p class="fiche-lede">${item.description}</p>` : ""}
+        <div class="fiche-actions">
+          ${item.lienOfficiel ? `<a class="fiche-action fiche-action--primary" href="${item.lienOfficiel}" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>` : ""}
+          ${item.alternatives ? `<a class="fiche-action" href="#alternatives">Voir les alternatives</a>` : ""}
+        </div>
+      </div>
+
       ${item.tags ? `<div class="tags-fiche"><span class="tags-label"># tags</span>${item.tags.split(",").map(badgeTag).join("")}</div>` : ""}
+
       ${pointsCles(item.avantages, item.description)}
-      ${section(`A quoi sert ${item.nom} ?`, item.description)}
-      ${section(`Quel est le rôle de ${item.nom} dans l'écosystème IA ?`, item.roleEcosysteme)}
-      ${section(`Dans quels cas utiliser ${item.nom} ?`, item.quandUtiliser)}
-      ${section(`Ce que comprend la version gratuite de ${item.nom}`, item.gratuite)}
-      ${section(`Pourquoi utiliser ${item.nom} ? Les points forts`, item.avantages)}
-      ${section(`Quelles sont les limites de ${item.nom} ?`, item.limites)}
-      ${section(`Cas d’usage de ${item.nom}`, item.casUsage)}
-      ${section(`Comment j'utilise ${item.nom} dans mon contexte`, item.casUsagePourMoi)}
-      ${section(`Exemples concrets et workflows avec ${item.nom}`, item.exemplesWorkflows)}
-      ${section(`Avec quels outils ${item.nom} est-il complémentaire ?`, item.complementaireAvec)}
-      ${section(`Quel est le modèle économique de ${item.nom} ?`, item.modeleEconomique)}
-      ${section(`Quand passer à la version payante de ${item.nom} ?`, item.quandPayer)}
-      ${section(`Quelles alternatives à ${item.nom} ?`, item.alternatives)}
-      ${section(`Notes personnelles sur ${item.nom}`, item.notePersonnelles)}
-      ${item.lienOfficiel ? `
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="${item.lienOfficiel}" target="_blank" rel="noopener noreferrer">${item.lienOfficiel} →</a>
-    </section>` : ""}
+
+      ${section('intro', '&#9679; Presentation', `A quoi sert ${item.nom} ?`, item.description)}
+      ${section('intro', '&#9679; Presentation', `Son role dans l'ecosysteme IA`, item.roleEcosysteme)}
+
+      ${sectionPair(
+        section('usage', '&#9679; Usage', `Quand utiliser ${item.nom}`, item.quandUtiliser),
+        section('eco', '&#9679; Economique', `Ce que comprend la version gratuite`, item.gratuite)
+      )}
+
+      ${sectionPair(
+        section('fort', '&#9679; Points forts', `Pourquoi utiliser ${item.nom}`, item.avantages),
+        section('faible', '&#9679; Limites', `Les limites a connaitre`, item.limites)
+      )}
+
+      ${section('usage', '&#9679; Usage', `Cas d'usage concrets`, item.casUsage)}
+      ${section('usage', '&#9679; Usage', `Comment je l'utilise dans mon contexte`, item.casUsagePourMoi)}
+      ${section('usage', '&#9679; Usage', `Exemples et workflows avec ${item.nom}`, item.exemplesWorkflows)}
+      ${section('usage', '&#9679; Usage', `Avec quels outils ${item.nom} est-il complementaire ?`, item.complementaireAvec)}
+
+      ${sectionPair(
+        section('eco', '&#9679; Economique', `Modele economique de ${item.nom}`, item.modeleEconomique),
+        section('eco', '&#9679; Economique', `Quand passer a la version payante`, item.quandPayer)
+      )}
+
+      <div id="alternatives">
+        ${section('intro', '&#9679; Alternatives', `Quelles alternatives a ${item.nom} ?`, item.alternatives)}
+      </div>
+
+      ${section('notes', '&#9679; Carnet', `Notes personnelles sur ${item.nom}`, item.notePersonnelles)}
     </main>
 
     ${barreScenariosHtml}
@@ -1399,17 +1491,41 @@ function genererPagePositionnement({ slug, title, description, h1, intro, sectio
     ${schema}
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/styles.css"/>
   ${GA_TAG}
 </head>
 <body>
 <header>
-  <a class="retour" href="/">← Base IA</a>
-  <h1 style="font-size:1.6rem;">${h1}</h1>
+  <h1>Base <em>IA</em></h1>
+  <a class="retour" href="/">&#8592; Retour a la base</a>
 </header>
+
 <main>
-  <p style="color:var(--gris);font-size:0.95rem;margin-bottom:2rem;max-width:680px;line-height:1.7;">${intro}</p>
-  ${sections}
+  <article class="article-positionnement">
+    <div class="article-eyebrow">Repere · Lecture 6 min</div>
+    <h1 class="article-h1">${h1}</h1>
+    <p class="article-lede">${intro}</p>
+
+    <div class="article-meta">
+      <div class="article-meta-col">
+        <span class="article-meta-label">Auteur</span>
+        <span class="article-meta-val">Robin Duale</span>
+      </div>
+      <div class="article-meta-col">
+        <span class="article-meta-label">Publie</span>
+        <span class="article-meta-val">${new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
+      </div>
+      <div class="article-meta-col">
+        <span class="article-meta-label">Sujet</span>
+        <span class="article-meta-val">${h1.split(/[?:]/)[0].slice(0, 40)}</span>
+      </div>
+    </div>
+
+    ${sections}
+  </article>
 </main>
 ${footerHtml}
 </body>
@@ -1458,7 +1574,7 @@ function genererPagesPositionnement(outils, llms) {
   <section class="section" style="margin-bottom:1rem;">
     <h2>Comment utiliser ${o.nom} pour automatiser ?</h2>
     <p style="color:var(--gris);font-size:0.9rem;margin-bottom:0.75rem;">${o.description || ""}</p>
-    ${o.casUsage ? `<p><strong>Cas d’usage :</strong> ${o.casUsage.split("\n")[0]}</p>` : ""}
+    ${o.casUsage ? `<p><strong>Cas d'usage :</strong> ${o.casUsage.split("\n")[0]}</p>` : ""}
     <a href="${BASE_URL}/outils/${o.slug}.html" style="display:inline-block;margin-top:0.75rem;color:var(--bleu);font-size:0.9rem;">Fiche complète ${o.nom} →</a>
   </section>`).join("\n");
 
@@ -1594,39 +1710,46 @@ function genererMentionsLegales() {
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"/>
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png"/>
   <link rel="apple-touch-icon" sizes="48x48" href="/assets/favicon-48.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/styles.css"/>
   ${GA_TAG}
 </head>
 <body>
 <header>
-  <h1>Base IA</h1>
-  <p class="sous-titre">Outils IA &amp; No-Code · Robin Dualé</p>
+  <h1>Base <em>IA</em></h1>
+  <a href="/" class="retour">&#8592; Retour a la base</a>
 </header>
+
 <main>
-  <a href="/" class="retour">← Retour</a>
-  <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:1.5rem;">Mentions légales</h2>
+  <div class="page-simple">
+    <div class="page-simple-eyebrow">Cadre legal</div>
+    <h1 class="page-simple-h1">Mentions legales</h1>
 
-  <div class="section" style="margin-bottom:1rem;">
-    <h2>Éditeur</h2>
-    <p>Robin Dualé<br/>
-    Email : <a href="mailto:robin@duale.fr" style="color:var(--bleu);">robin@duale.fr</a><br/>
-    Site : <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer" style="color:var(--bleu);">cv-robin.duale.fr</a></p>
-  </div>
+    <div class="section">
+      <h2>Editeur</h2>
+      <p>Robin Duale<br/>
+      Email : <a href="mailto:robin@duale.fr">robin@duale.fr</a><br/>
+      Site : <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a></p>
+    </div>
 
-  <div class="section" style="margin-bottom:1rem;">
-    <h2>Hébergement</h2>
-    <p>GitHub Pages · GitHub, Inc. · 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, États-Unis<br/>
-    <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer" style="color:var(--bleu);">pages.github.com</a></p>
-  </div>
+    <div class="section">
+      <h2>Hebergement</h2>
+      <p>GitHub Pages · GitHub, Inc.<br/>
+      88 Colin P. Kelly Jr. St, San Francisco, CA 94107, Etats-Unis<br/>
+      <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">pages.github.com</a></p>
+    </div>
 
-  <div class="section" style="margin-bottom:1rem;">
-    <h2>Propriété intellectuelle</h2>
-    <p>La structure, la sélection et l'organisation des contenus de ce site sont la propriété de Robin Dualé. Les textes descriptifs sont principalement produits avec l'assistance d'outils d'IA. Toute reproduction de la structure ou de l'organisation sans autorisation est interdite.</p>
-  </div>
+    <div class="section">
+      <h2>Propriete intellectuelle</h2>
+      <p>La structure, la selection et l'organisation des contenus de ce site sont la propriete de Robin Duale. Les textes descriptifs sont principalement produits avec l'assistance d'outils d'IA. Toute reproduction de la structure ou de l'organisation sans autorisation est interdite.</p>
+    </div>
 
-  <div class="section" style="margin-bottom:1rem;">
-    <h2>Données personnelles &amp; RGPD</h2>
-    <p>Ce site ne collecte aucune donnée personnelle, ne dépose aucun cookie et n'utilise aucun outil d'analyse d'audience. Aucune information vous concernant n'est transmise à des tiers.</p>
+    <div class="section">
+      <h2>Donnees personnelles &amp; RGPD</h2>
+      <p>Ce site ne collecte aucune donnee personnelle, ne depose aucun cookie et n'utilise aucun outil d'analyse d'audience. Aucune information vous concernant n'est transmise a des tiers.</p>
+    </div>
   </div>
 </main>
 <footer>
