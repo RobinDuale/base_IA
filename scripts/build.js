@@ -1333,8 +1333,20 @@ function genererPageDetail(item, liste, prefixe) {
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">${item.type === "LLM" ? "Tous les LLMs" : "Tous les outils"}</p>
+      <div class="nav-recherche-wrap">
+        <input type="search" id="nav-recherche" class="nav-recherche" placeholder="Rechercher..." autocomplete="off" oninput="filtrerNav(this.value)"/>
+      </div>
       ${liensBarreLaterale}
     </nav>
+    <script>
+    function filtrerNav(q) {
+      var val = q.toLowerCase().trim();
+      document.querySelectorAll('.barre-laterale a').forEach(function(a) {
+        var nom = a.querySelector('span:last-child');
+        a.style.display = (!val || (nom && nom.textContent.toLowerCase().includes(val))) ? '' : 'none';
+      });
+    }
+    </script>
 
     <main class="fiche">
       <div class="fiche-hero">
