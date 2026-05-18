@@ -21,7 +21,7 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
 
-## 13 outils référencés
+## 14 outils référencés
 
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
 - [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
@@ -36,6 +36,7 @@ Productivité, Développement, Automatisation, Base de données, Scraping, Hébe
 - [Brevo](https://ia.duale.fr/outils/brevo.html) : Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automa
 - [hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
 - [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir d
+- [Zapier](https://ia.duale.fr/outils/zapier.html) : Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il p
 
 ## 6 LLMs référencés
 
