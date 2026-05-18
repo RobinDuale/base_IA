@@ -19,9 +19,9 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
+Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code, IA
 
-## 11 outils référencés
+## 12 outils référencés
 
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
 - [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
