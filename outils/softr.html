@@ -113,6 +113,9 @@
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les outils</p>
+      <div class="nav-recherche-wrap">
+        <input type="search" id="nav-recherche" class="nav-recherche" placeholder="Rechercher..." autocomplete="off" oninput="filtrerNav(this.value)"/>
+      </div>
       <a href="notion.html" class="">
         <span class="nav-dot" style="background:#eab308"></span>
         <span>Notion</span>
@@ -194,6 +197,15 @@
         <span>Zapier</span>
       </a>
     </nav>
+    <script>
+    function filtrerNav(q) {
+      var val = q.toLowerCase().trim();
+      document.querySelectorAll('.barre-laterale a').forEach(function(a) {
+        var nom = a.querySelector('span:last-child');
+        a.style.display = (!val || (nom && nom.textContent.toLowerCase().includes(val))) ? '' : 'none';
+      });
+    }
+    </script>
 
     <main class="fiche">
       <div class="fiche-hero">

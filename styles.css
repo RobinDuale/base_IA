@@ -558,6 +558,26 @@ main {
   padding: 0 24px 16px;
 }
 
+.nav-recherche-wrap {
+  padding: 0 16px 12px;
+}
+
+.nav-recherche {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--rayon-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+}
+
+.nav-recherche:focus {
+  border-color: var(--accent);
+}
+
 .barre-laterale a {
   display: block;
   padding: 9px 24px;
@@ -848,6 +868,7 @@ footer {
     padding: 12px;
   }
   .barre-laterale-titre { display: none; }
+  .nav-recherche-wrap { display: none; }
   .barre-laterale a {
     border-left: none;
     border: 1px solid var(--line);
