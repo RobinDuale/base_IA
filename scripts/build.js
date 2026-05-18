@@ -616,8 +616,6 @@ function genererPageAccueil(outils, llms) {
         <input type="url" id="prop-url" placeholder="https://..." style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;outline:none;margin-bottom:12px;box-sizing:border-box;"/>
         <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;color:#888;margin-bottom:5px;">Votre email <span style="color:#ef4444">*</span></label>
         <input type="email" id="prop-email" placeholder="votre@email.com" style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;outline:none;margin-bottom:12px;box-sizing:border-box;"/>
-        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;color:#888;margin-bottom:5px;">Description courte (optionnel)</label>
-        <textarea id="prop-description" placeholder="En quoi consiste cet outil ?" style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;outline:none;margin-bottom:8px;box-sizing:border-box;resize:vertical;min-height:70px;font-family:inherit;"></textarea>
         <div id="prop-erreur2" style="display:none;color:#dc2626;font-size:12px;margin-bottom:8px;"></div>
         <p style="font-size:11px;color:#aaa;margin-bottom:12px;">Un email de confirmation vous sera envoyé. Votre email n'est utilisé que pour cette proposition.</p>
         <button type="button" onclick="soumettreProposition()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Envoyer ma proposition →</button>
@@ -638,7 +636,7 @@ function genererPageAccueil(outils, llms) {
     function fermerModalProposition() { document.getElementById('modal-proposition').style.display = 'none'; }
     function propReset() {
       propShowStep('step1');
-      ['prop-nom','prop-url','prop-email','prop-description'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+      ['prop-nom','prop-url','prop-email'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
       document.getElementById('prop-bloc-gemini').style.display = 'none';
     }
     function propShowStep(step) {
@@ -680,7 +678,7 @@ function genererPageAccueil(outils, llms) {
       const outil = document.getElementById('prop-nom-hidden').value;
       const url = document.getElementById('prop-url').value.trim();
       const email = document.getElementById('prop-email').value.trim();
-      const description = document.getElementById('prop-description').value.trim();
+      const description = '';
       const errEl = document.getElementById('prop-erreur2');
       errEl.style.display = 'none';
       if (!url) { document.getElementById('prop-url').focus(); return; }
