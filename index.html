@@ -165,7 +165,11 @@
       </div>
     </section>
 
-    <div class="onglets">
+    <div class="barre-recherche">
+      <input type="search" id="recherche-global" class="champ-recherche" placeholder="Rechercher un outil ou un LLM..." oninput="filtrerGlobal()" autocomplete="off"/>
+    </div>
+
+    <div class="onglets" id="barre-onglets">
       <div class="onglets-gauche">
         <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
         <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
@@ -177,10 +181,6 @@
     </div>
 
     <div id="section-outils">
-      <div class="barre-recherche">
-        <input type="search" id="recherche-outils" class="champ-recherche" placeholder="Rechercher un outil..." oninput="filtrerOutils()" autocomplete="off"/>
-      </div>
-
       <div class="filtres">
         <button class="filtre actif" data-filtre="tous">Tous</button>
         <button class="filtre" data-filtre="Automatisation" style="--filtre-couleur:#f97316">Automatisation</button>
@@ -480,10 +480,6 @@
     </div>
 
     <div id="section-llms" style="display:none">
-      <div class="barre-recherche">
-        <input type="search" id="recherche-llms" class="champ-recherche" placeholder="Rechercher un LLM..." oninput="filtrerLLMs()" autocomplete="off"/>
-      </div>
-
       <div class="barre-actions">
         <button class="btn-reorganiser admin-zone" id="btnReorganiserLLM" onclick="toggleReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Réorganiser</button>
         <button class="btn-sauvegarder" id="btnSauvegarderLLM" onclick="sauvegarderOrdreGrille('grille-llms', 'btnReorganiserLLM', this)" style="display:none">Sauvegarder l'ordre</button>
@@ -613,6 +609,46 @@
       btn.classList.add('actif');
       document.getElementById('section-outils').style.display = nom === 'outils' ? '' : 'none';
       document.getElementById('section-llms').style.display = nom === 'llms' ? '' : 'none';
+      window._ongletActif = nom;
+    }
+
+    function filtrerGlobal() {
+      const query = document.getElementById('recherche-global').value.toLowerCase().trim();
+      const barreOnglets = document.getElementById('barre-onglets');
+
+      if (query) {
+        // Mode recherche : afficher les deux sections
+        barreOnglets.style.display = 'none';
+        document.getElementById('section-outils').style.display = '';
+        document.getElementById('section-llms').style.display = '';
+
+        // Filtrer les cartes outils
+        const filtreActif = document.querySelector('.filtre.actif')?.dataset.filtre || 'tous';
+        document.querySelectorAll('#section-outils .carte').forEach(carte => {
+          const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
+          const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
+          const matchQuery = nom.includes(query) || desc.includes(query);
+          const tags = (carte.dataset.tags || '').split(',').map(t => t.trim());
+          const matchFiltre = filtreActif === 'tous' || carte.dataset.categorie === filtreActif || tags.includes(filtreActif);
+          carte.style.display = matchQuery && matchFiltre ? '' : 'none';
+        });
+
+        // Filtrer les cartes LLMs
+        document.querySelectorAll('#section-llms .carte').forEach(carte => {
+          const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
+          const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
+          carte.style.display = nom.includes(query) || desc.includes(query) ? '' : 'none';
+        });
+      } else {
+        // Recherche vide : revenir à l'onglet actif
+        barreOnglets.style.display = '';
+        const ongletActif = window._ongletActif || 'outils';
+        document.getElementById('section-outils').style.display = ongletActif === 'outils' ? '' : 'none';
+        document.getElementById('section-llms').style.display = ongletActif === 'llms' ? '' : 'none';
+        // Réafficher toutes les cartes
+        document.querySelectorAll('.carte').forEach(c => c.style.display = '');
+        filtrerOutils();
+      }
     }
 
     function rafraichirSite(btn) {
@@ -720,7 +756,7 @@
 
   <script>
     function filtrerOutils() {
-      const query = document.getElementById("recherche-outils").value.toLowerCase().trim();
+      const query = (document.getElementById("recherche-global")?.value || "").toLowerCase().trim();
       const filtreActif = document.querySelector(".filtre.actif")?.dataset.filtre || "tous";
       document.querySelectorAll("#section-outils .carte").forEach((carte) => {
         const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
@@ -733,7 +769,7 @@
     }
 
     function filtrerLLMs() {
-      const query = document.getElementById("recherche-llms").value.toLowerCase().trim();
+      const query = (document.getElementById("recherche-global")?.value || "").toLowerCase().trim();
       document.querySelectorAll("#section-llms .carte").forEach((carte) => {
         const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
         const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
