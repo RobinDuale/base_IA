@@ -66,6 +66,7 @@
   <script>
   function loadGA() {
     if (window._gaLoaded) return;
+    if (document.cookie.split(';').some(function(c){return c.trim().startsWith('ga_exclude=1');})) return;
     window._gaLoaded = true;
     var s = document.createElement('script');
     s.async = true;
@@ -115,10 +116,6 @@
       <a href="claude.html" class="">
         <span class="nav-dot" style="background:#8b5cf6"></span>
         <span>Claude</span>
-      </a>
-        <a href="perplexity.html" class="">
-        <span class="nav-dot" style="background:#8b5cf6"></span>
-        <span>Perplexity</span>
       </a>
         <a href="chatgpt.html" class="">
         <span class="nav-dot" style="background:#8b5cf6"></span>
@@ -341,9 +338,11 @@
     }
     function setAdminCookie() {
       document.cookie = 'admin_duale=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
+      document.cookie = 'ga_exclude=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
     }
     function deleteAdminCookie() {
       document.cookie = 'admin_duale=; domain=.duale.fr; path=/; max-age=0';
+      document.cookie = 'ga_exclude=; domain=.duale.fr; path=/; max-age=0';
     }
     function initAdminMode() {
       if (getAdminCookie()) activerAdmin();

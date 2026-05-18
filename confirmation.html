@@ -15,6 +15,7 @@
   <script>
   function loadGA() {
     if (window._gaLoaded) return;
+    if (document.cookie.split(';').some(function(c){return c.trim().startsWith('ga_exclude=1');})) return;
     window._gaLoaded = true;
     var s = document.createElement('script');
     s.async = true;

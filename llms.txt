@@ -19,11 +19,12 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code, IA
+Productivité, IA, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
 
-## 17 outils référencés
+## 18 outils référencés
 
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
+- [Perplexity](https://ia.duale.fr/outils/perplexity.html) : Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables
 - [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
 - [n8n](https://ia.duale.fr/outils/n8n.html) : Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.
 - [Airtable](https://ia.duale.fr/outils/airtable.html) : Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle.
@@ -41,10 +42,9 @@ Productivité, Développement, Automatisation, Base de données, Scraping, Hébe
 - [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir d
 - [Zapier](https://ia.duale.fr/outils/zapier.html) : Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il p
 
-## 7 LLMs référencés
+## 6 LLMs référencés
 
 - [Claude](https://ia.duale.fr/llm/claude.html) : LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très lo
-- [Perplexity](https://ia.duale.fr/llm/perplexity.html) : Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables
 - [ChatGPT](https://ia.duale.fr/llm/chatgpt.html) : LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème tr
 - [Gemini](https://ia.duale.fr/llm/gemini.html) : LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre
 - [Microsoft Copilot](https://ia.duale.fr/llm/microsoft-copilot.html) : Assistant IA généraliste de Microsoft, propulsé par GPT-4o -- accessible gratuitement sur le web, dans Windows 11 et Edg

@@ -53,6 +53,7 @@
   <script>
   function loadGA() {
     if (window._gaLoaded) return;
+    if (document.cookie.split(';').some(function(c){return c.trim().startsWith('ga_exclude=1');})) return;
     window._gaLoaded = true;
     var s = document.createElement('script');
     s.async = true;
@@ -116,6 +117,13 @@
     </div>
 
     
+  <section class="section" style="margin-bottom:1rem;">
+    <h2>Comment utiliser Perplexity pour automatiser ?</h2>
+    <p style="color:var(--gris);font-size:0.9rem;margin-bottom:0.75rem;">Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
+    
+    <a href="https://ia.duale.fr/outils/perplexity.html" style="display:inline-block;margin-top:0.75rem;color:var(--bleu);font-size:0.9rem;">Fiche complète Perplexity →</a>
+  </section>
+
   <section class="section" style="margin-bottom:1rem;">
     <h2>Comment utiliser n8n pour automatiser ?</h2>
     <p style="color:var(--gris);font-size:0.9rem;margin-bottom:0.75rem;">Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.</p>

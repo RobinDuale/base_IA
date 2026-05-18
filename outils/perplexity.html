@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Perplexity · LLM · Base IA</title>
+  <title>Perplexity · IA · Base IA</title>
   <meta name="description" content="Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la ve..."/>
-  <link rel="canonical" href="https://ia.duale.fr/llm/perplexity.html"/>
-  <meta property="og:title" content="Perplexity · LLM · Base IA"/>
+  <link rel="canonical" href="https://ia.duale.fr/outils/perplexity.html"/>
+  <meta property="og:title" content="Perplexity · IA · Base IA"/>
   <meta property="og:description" content="Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la ve..."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://ia.duale.fr/llm/perplexity.html"/>
+  <meta property="og:url" content="https://ia.duale.fr/outils/perplexity.html"/>
   <meta property="og:image" content="https://ia.duale.fr/assets/og-default.png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
@@ -17,7 +17,7 @@
   <meta property="og:locale" content="fr_FR"/>
   <meta property="og:site_name" content="Base IA · Robin Dualé"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Perplexity · LLM · Base IA"/>
+  <meta name="twitter:title" content="Perplexity · IA · Base IA"/>
   <meta name="twitter:description" content="Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la ve..."/>
   <meta name="twitter:image" content="https://ia.duale.fr/assets/og-default.png"/>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"/>
@@ -33,7 +33,7 @@
       "@type": "BreadcrumbList",
       "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://ia.duale.fr/"},
-        {"@type": "ListItem", "position": 2, "name": "Perplexity", "item": "https://ia.duale.fr/llm/perplexity.html"}
+        {"@type": "ListItem", "position": 2, "name": "Perplexity", "item": "https://ia.duale.fr/outils/perplexity.html"}
       ]
     },
     {
@@ -41,7 +41,7 @@
       "@type": "SoftwareApplication",
       "name": "Perplexity",
       "description": "Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la ve...",
-      "applicationCategory": "AIApplication",
+      "applicationCategory": "WebApplication",
       "operatingSystem": "Web",
       "url": "https://www.perplexity.ai",
       "image": {
@@ -66,6 +66,7 @@
   <script>
   function loadGA() {
     if (window._gaLoaded) return;
+    if (document.cookie.split(';').some(function(c){return c.trim().startsWith('ga_exclude=1');})) return;
     window._gaLoaded = true;
     var s = document.createElement('script');
     s.async = true;
@@ -101,7 +102,7 @@
   })();
 </script>
 </head>
-<body style="--cat-color:#8b5cf6;--cat-color-soft:#8b5cf614;">
+<body style="--cat-color:#3b82f6;--cat-color-soft:#3b82f614;">
   <div class="cat-band"></div>
 
   <header>
@@ -111,46 +112,90 @@
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
-      <p class="barre-laterale-titre">Tous les LLMs</p>
-      <a href="claude.html" class="">
-        <span class="nav-dot" style="background:#8b5cf6"></span>
-        <span>Claude</span>
+      <p class="barre-laterale-titre">Tous les outils</p>
+      <a href="notion.html" class="">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Notion</span>
       </a>
         <a href="perplexity.html" class="actif">
-        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span class="nav-dot" style="background:#3b82f6"></span>
         <span>Perplexity</span>
       </a>
-        <a href="chatgpt.html" class="">
-        <span class="nav-dot" style="background:#8b5cf6"></span>
-        <span>ChatGPT</span>
+        <a href="github.html" class="">
+        <span class="nav-dot" style="background:#ef4444"></span>
+        <span>GitHub</span>
       </a>
-        <a href="gemini.html" class="">
-        <span class="nav-dot" style="background:#8b5cf6"></span>
-        <span>Gemini</span>
+        <a href="n8n.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>n8n</span>
       </a>
-        <a href="microsoft-copilot.html" class="">
+        <a href="airtable.html" class="">
         <span class="nav-dot" style="background:#8b5cf6"></span>
-        <span>Microsoft Copilot</span>
+        <span>Airtable</span>
       </a>
-        <a href="claude-code.html" class="">
-        <span class="nav-dot" style="background:#8b5cf6"></span>
-        <span>Claude Code</span>
+        <a href="apify.html" class="">
+        <span class="nav-dot" style="background:#a16207"></span>
+        <span>Apify</span>
       </a>
-        <a href="mistral.html" class="">
-        <span class="nav-dot" style="background:#8b5cf6"></span>
-        <span>Mistral</span>
+        <a href="netlify.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>Netlify</span>
+      </a>
+        <a href="make.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Make</span>
+      </a>
+        <a href="clay.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Clay</span>
+      </a>
+        <a href="lovable.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Lovable</span>
+      </a>
+        <a href="slack.html" class="">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Slack</span>
+      </a>
+        <a href="brevo.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Brevo</span>
+      </a>
+        <a href="concensus.html" class="">
+        <span class="nav-dot" style="background:#3b82f6"></span>
+        <span>concensus</span>
+      </a>
+        <a href="hostinger.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>hostinger</span>
+      </a>
+        <a href="manus.html" class="">
+        <span class="nav-dot" style="background:#3b82f6"></span>
+        <span>manus</span>
+      </a>
+        <a href="midjourney.html" class="">
+        <span class="nav-dot" style="background:#3b82f6"></span>
+        <span>midjourney</span>
+      </a>
+        <a href="softr.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Softr</span>
+      </a>
+        <a href="zapier.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Zapier</span>
       </a>
     </nav>
 
     <main class="fiche">
       <div class="fiche-hero">
-        <div class="fiche-eyebrow">Grand modele · LLM</div>
+        <div class="fiche-eyebrow">Outil · IA</div>
         <h1>Perplexity</h1>
         <div class="badges">
-          <span class="badge-cat">LLM</span>
+          <span class="badge-cat">IA</span>
           <span class="badge-neutre">Niveau Débutant</span>
           <span class="badge-gratuit">Freemium</span>
-          <span class="badge-neutre">LLM</span>
+          <span class="badge-neutre">Outil</span>
         </div>
         <p class="fiche-lede">Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
         <div class="fiche-actions">
@@ -260,7 +305,7 @@
       
     <div class="spec-sheet">
       <div class="spec-sheet-titre">En resume</div>
-      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">LLM</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">www.perplexity.ai</span></div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">IA</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">www.perplexity.ai</span></div>
     </div>
     </aside>
   </div>
@@ -341,9 +386,11 @@
     }
     function setAdminCookie() {
       document.cookie = 'admin_duale=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
+      document.cookie = 'ga_exclude=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
     }
     function deleteAdminCookie() {
       document.cookie = 'admin_duale=; domain=.duale.fr; path=/; max-age=0';
+      document.cookie = 'ga_exclude=; domain=.duale.fr; path=/; max-age=0';
     }
     function initAdminMode() {
       if (getAdminCookie()) activerAdmin();

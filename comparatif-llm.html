@@ -53,6 +53,7 @@
   <script>
   function loadGA() {
     if (window._gaLoaded) return;
+    if (document.cookie.split(';').some(function(c){return c.trim().startsWith('ga_exclude=1');})) return;
     window._gaLoaded = true;
     var s = document.createElement('script');
     s.async = true;
@@ -122,14 +123,6 @@
     <p><strong>Points forts :</strong> Fenêtre de contexte très large (200 000 tokens -- l'équivalent d'un livre entier). Excellent en raisonnement, analyse et rédaction soignée. Très fiable dans le suivi des instructions. Réponses nuancées et honnêtes. API puissante pour les développeurs.</p>
     <p style="margin-top:0.4rem;"><strong>Limites :</strong> Pas de recherche web native (sans outils tiers). Moins d'intégrations tierces que ChatGPT. Parfois plus prudent que nécessaire sur certains sujets.</p>
     <a href="https://ia.duale.fr/llm/claude.html" style="display:inline-block;margin-top:0.75rem;color:var(--bleu);font-size:0.9rem;">Fiche complète Claude →</a>
-  </section>
-
-  <section class="section" style="margin-bottom:1rem;">
-    <h2>Perplexity : Moteur de recherche IA qui combine LLM et recherche web en temps réel</h2>
-    <p style="color:var(--gris);font-size:0.9rem;margin-bottom:0.75rem;">Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
-    <p><strong>Points forts :</strong> Réponses sourcées et vérifiables -- chaque affirmation est liée à une source. Recherche web en temps réel. Interface épurée et rapide. Spaces pour organiser les recherches par thème. Pas d'hallucination sans source (ou presque).</p>
-    <p style="margin-top:0.4rem;"><strong>Limites :</strong> Pas un LLM généraliste : limité à la recherche et au Q&A. Moins performant que Claude ou ChatGPT pour la rédaction longue, le code ou les tâches créatives. Hallucinations possibles malgré les citations de sources.</p>
-    <a href="https://ia.duale.fr/llm/perplexity.html" style="display:inline-block;margin-top:0.75rem;color:var(--bleu);font-size:0.9rem;">Fiche complète Perplexity →</a>
   </section>
 
   <section class="section" style="margin-bottom:1rem;">
