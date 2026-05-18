@@ -21,7 +21,7 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
 
-## 12 outils référencés
+## 11 outils référencés
 
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
 - [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
@@ -34,7 +34,6 @@ Productivité, Développement, Automatisation, Base de données, Scraping, Hébe
 - [Lovable](https://ia.duale.fr/outils/lovable.html) : Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code
 - [Slack](https://ia.duale.fr/outils/slack.html) : Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel
 - [Brevo](https://ia.duale.fr/outils/brevo.html) : Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automa
-- [Supabase](https://ia.duale.fr/outils/supabase.html) : Supabase est une plateforme open-source qui fournit un backend complet pour vos applications web et mobiles, se position
 
 ## 6 LLMs référencés
 
