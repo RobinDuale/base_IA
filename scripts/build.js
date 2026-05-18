@@ -431,27 +431,29 @@ function genererPageAccueil(outils, llms) {
       </div>
     </section>
 
-    <div class="barre-recherche">
-      <input type="search" id="recherche-global" class="champ-recherche" placeholder="Rechercher un outil ou un LLM..." oninput="filtrerGlobal()" autocomplete="off"/>
-    </div>
-
-    <div class="onglets" id="barre-onglets">
-      <div class="onglets-gauche">
-        <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
-        <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
+    <div class="controls-sticky">
+      <div class="barre-recherche">
+        <input type="search" id="recherche-global" class="champ-recherche" placeholder="Rechercher un outil ou un LLM..." oninput="filtrerGlobal()" autocomplete="off"/>
       </div>
-      <button class="onglet-proposer" onclick="ouvrirModalProposition()">
-        <span class="onglet-proposer-plus">+</span>
-        Proposer un nouvel outil
-      </button>
-    </div>
 
-    <div id="section-outils">
-      <div class="filtres">
+      <div class="onglets" id="barre-onglets">
+        <div class="onglets-gauche">
+          <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
+          <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
+        </div>
+        <button class="onglet-proposer" onclick="ouvrirModalProposition()">
+          <span class="onglet-proposer-plus">+</span>
+          Proposer un nouvel outil
+        </button>
+      </div>
+
+      <div class="filtres" id="filtres-outils">
         <button class="filtre actif" data-filtre="tous">Tous</button>
         ${filtres}
       </div>
+    </div>
 
+    <div id="section-outils">
       <div class="barre-actions">
         <button class="btn-reorganiser admin-zone" id="btnReorganiser" onclick="toggleReorganisation()" style="display:none">Réorganiser</button>
         <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
@@ -498,6 +500,8 @@ function genererPageAccueil(outils, llms) {
       btn.classList.add('actif');
       document.getElementById('section-outils').style.display = nom === 'outils' ? '' : 'none';
       document.getElementById('section-llms').style.display = nom === 'llms' ? '' : 'none';
+      var fo = document.getElementById('filtres-outils');
+      if (fo) fo.style.display = nom === 'outils' ? '' : 'none';
       window._ongletActif = nom;
     }
 
@@ -534,6 +538,8 @@ function genererPageAccueil(outils, llms) {
         const ongletActif = window._ongletActif || 'outils';
         document.getElementById('section-outils').style.display = ongletActif === 'outils' ? '' : 'none';
         document.getElementById('section-llms').style.display = ongletActif === 'llms' ? '' : 'none';
+        var fo = document.getElementById('filtres-outils');
+        if (fo) fo.style.display = ongletActif === 'outils' ? '' : 'none';
         // Réafficher toutes les cartes
         document.querySelectorAll('.carte').forEach(c => c.style.display = '');
         filtrerOutils();
