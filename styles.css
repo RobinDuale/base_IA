@@ -177,11 +177,15 @@ main {
 /* --- Onglets --- */
 .onglets {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 0;
   margin-bottom: 32px;
   margin-top: 16px;
   border-bottom: 1px solid var(--line);
 }
+
+.onglets-gauche { display: flex; }
 
 .onglet {
   padding: 14px 0;
@@ -201,6 +205,36 @@ main {
 
 .onglet:hover { color: var(--ink); }
 .onglet.actif { color: var(--ink); border-bottom-color: var(--ink); }
+
+.onglet-proposer {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--rayon-pill);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  margin-bottom: 8px;
+}
+
+.onglet-proposer:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.onglet-proposer-plus {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: var(--font-body);
+  line-height: 1;
+}
 
 /* --- Barre de recherche --- */
 .barre-recherche {
