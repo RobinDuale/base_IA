@@ -669,7 +669,7 @@ function genererPageAccueil(outils, llms) {
           propShowStep('existe');
         } else {
           document.getElementById('prop-nom-hidden').value = nom;
-          if (data.description) {
+          if (data.description && data.isAiTool !== false) {
             document.getElementById('prop-desc-gemini').textContent = data.description;
             document.getElementById('prop-bloc-gemini').style.display = '';
           }
