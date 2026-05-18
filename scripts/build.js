@@ -428,10 +428,6 @@ function genererPageAccueil(outils, llms) {
           <div class="kpi-num">${categories.length}</div>
           <div class="kpi-label">Categories</div>
         </div>
-        <div class="kpi">
-          <div class="kpi-num">${tagsOutils.length}</div>
-          <div class="kpi-label">Cas d'usage</div>
-        </div>
       </div>
     </section>
 
