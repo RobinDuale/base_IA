@@ -89,7 +89,7 @@ async function recupererItems() {
         complementaireAvec: extraireTexte(p["Complémentaire avec"]),
         exemplesWorkflows: extraireTexte(p["Exemples & Workflows"]),
         quandUtiliser: extraireTexte(p["Quand utiliser cet outil"]),
-        roleEcosysteme: extraireTexte(p["Rôle dans l’écosystème"]),
+        roleEcosysteme: extraireTexte(p["Rôle dans l'écosystème"]),
         gratuite: extraireTexte(p["Gratuité"]),
         scenarioSimple: extraireTexte(p["Scénario simple"]),
         scenarioIntermediaire: extraireTexte(p["Scénario intermédiaire"]),
@@ -667,6 +667,7 @@ function genererPageAccueil(outils, llms) {
             document.getElementById('prop-desc-gemini').textContent = data.description;
             document.getElementById('prop-bloc-gemini').style.display = '';
           }
+          if (data.officialUrl) document.getElementById('prop-url').value = data.officialUrl;
           propShowStep('step2');
         }
       } catch(e) {

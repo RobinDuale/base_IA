@@ -350,6 +350,15 @@ Structure :
 - `Brevo API - Base IA` : Header Auth, `api-key: xkeysib-...`
 - `GitHub Token - Base IA` : Header Auth, `Authorization: Bearer ghp_...` (workflow 4 uniquement)
 
+**Pièges connus -- Workflow 4 Admin Validate :**
+- Les credentials NE sont PAS réinitialisés après `update_workflow` + `publish_workflow` via MCP. Pas besoin de reconfigurer après chaque mise à jour.
+- Le noeud "Trigger GitHub Actions" a `neverError: true` -- un 401 passe en vert sans faire échouer le workflow. Toujours vérifier les données de sortie de ce noeud dans les executions.
+- **Unicode apostrophes dans les noms de propriétés Notion :** certaines propriétés utilisent U+2019 (typographique `'`), d'autres U+0027 (ASCII `'`). Ça dépend de comment elles ont été créées dans Notion. Exemples dans ce projet :
+  - `Cas d'usage` -> U+2019 (typographique)
+  - `Rôle dans l'écosystème` -> U+0027 (ASCII)
+  Envoyer le mauvais caractère provoque une erreur Notion 400 "property does not exist". Dans les Code nodes n8n, utiliser `String.fromCharCode()` pour construire ces noms de façon fiable.
+- Gemini peut retourner des arrays pour des champs texte (avantages, limites...). Toujours normaliser avec `if (Array.isArray(s)) s = s.join('\n- ')` avant d'envoyer à Notion.
+
 ---
 
 ## Historique des décisions
@@ -387,3 +396,7 @@ Structure :
 | 2026-05-17 | Formulaire proposition d'outil : 4 workflows n8n créés (Check Tool, Submit Proposal, Confirm Email, Admin Validate) |
 | 2026-05-17 | Bouton "+ Proposer un outil" caché derrière admin-zone -- sera rendu public après tests complets |
 | 2026-05-17 | confirmation.html générée à chaque build -- page de succès après validation email visiteur |
+| 2026-05-18 | Débogage Admin Validate : 401 silencieux sur Trigger GitHub Actions (neverError:true) -- credentials vidés par MCP publish |
+| 2026-05-18 | Admin Validate enrichi : tags (multi_select), alternatives, complémentaire avec, exemples & workflows, quand utiliser, rôle dans l'écosystème, 3 scénarios générés par Gemini |
+| 2026-05-18 | Bug Unicode apostrophe : "Rôle dans l'écosystème" -> U+0027 (pas U+2019) -- corrigé dans n8n Parser Gemini et dans build.js |
+| 2026-05-18 | build.js : fix propriété "Rôle dans l'écosystème" avec U+0027 (retournait string vide silencieusement avec U+2019) |

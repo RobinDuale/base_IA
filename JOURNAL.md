@@ -406,10 +406,11 @@ et il se charge de l'envoi, de la délivrabilité, et des statistiques.
 - [x] Créer les 4 workflows n8n pour la proposition d'outil (check, submit, confirm, validate)
 - [x] Ajouter le formulaire de proposition d'outil sur la home (modale multi-étapes)
 - [x] Créer la page confirmation.html
+- [x] Déboguer le workflow Admin Validate : 401 silencieux, bug Unicode apostrophe, enrichissement Gemini complet
 - [ ] Rendre le bouton "Proposer un outil" public (retirer admin-zone) apres tests complets
 - [ ] Configurer WhatsApp CallMeBot dans le workflow 3 (noeud actuellement désactivé)
 - [ ] Créer une interface admin sur ia.duale.fr pour valider/rejeter les propositions sans appeler le webhook manuellement
-- [ ] 2e passe Gemini à la publication (enrichissement de fiche après validation admin)
+- [ ] Supprimer les doublons Supabase dans la base Notion Outils (créés lors des tests ratés)
 
 ---
 
@@ -497,3 +498,21 @@ Un email transactionnel est déclenché par une action de l'utilisateur (inscrip
 A l'opposé : les emails marketing (newsletters). Brevo (ex-Sendinblue) est un service
 d'envoi d'emails transactionnels, avec 300 emails/jour gratuits.
 On l'appelle via son API REST : destinataire, sujet, contenu HTML -- et il gère le reste.
+
+### L'encodage Unicode et les apostrophes invisibles
+Il existe plusieurs types d'apostrophes qui se ressemblent visuellement mais sont différents pour un ordinateur :
+- U+0027 : l'apostrophe ASCII standard `'` -- celle du clavier
+- U+2019 : l'apostrophe typographique `'` -- celle que les éditeurs de texte insèrent automatiquement
+
+Quand Notion crée une propriété via son interface web, il peut utiliser l'un ou l'autre.
+Si le code envoie U+2019 mais que Notion attend U+0027 (ou l'inverse), l'API répond "property does not exist"
+-- même si visuellement le nom semble identique. Pour déboguer : comparer les octets hexadécimaux.
+Solution fiable dans n8n : construire les noms de propriétés avec `String.fromCharCode(0x27)` etc.
+plutôt que de taper les caractères directement (l'éditeur n8n peut les convertir silencieusement).
+
+### Les erreurs silencieuses et neverError dans n8n
+Dans n8n, l'option `neverError: true` sur un noeud HTTP Request fait passer toutes les réponses
+en vert -- même les erreurs 401 (non autorisé) ou 500 (erreur serveur). Utile pour ne pas bloquer
+un workflow, mais dangereux si on ne vérifie pas les données de sortie du noeud dans les executions.
+Dans ce projet, le noeud "Trigger GitHub Actions" avait cette option : la validation semblait réussir
+en vert, mais GitHub Actions n'était jamais déclenché. Toujours vérifier le corps de la réponse.
