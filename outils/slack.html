@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,128 +72,195 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#eab308;--cat-color-soft:#eab30814;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>Slack</h1>
-    <div class="badges">
-      <span class="badge" style="background:#eab308">Productivité</span>
-      <span class="badge" style="background:#22c55e">Débutant</span>
-    </div>
-    <a class="lien-officiel" href="https://slack.com" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les outils</p>
-      <a href="notion.html" class="">Notion</a>
-        <a href="github.html" class="">GitHub</a>
-        <a href="n8n.html" class="">n8n</a>
-        <a href="airtable.html" class="">Airtable</a>
-        <a href="apify.html" class="">Apify</a>
-        <a href="netlify.html" class="">Netlify</a>
-        <a href="make.html" class="">Make</a>
-        <a href="clay.html" class="">Clay</a>
-        <a href="lovable.html" class="">Lovable</a>
-        <a href="slack.html" class="actif">Slack</a>
-        <a href="brevo.html" class="">Brevo</a>
-        <a href="hostinger.html" class="">hostinger</a>
-        <a href="softr.html" class="">Softr</a>
-        <a href="zapier.html" class="">Zapier</a>
+      <a href="notion.html" class="">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Notion</span>
+      </a>
+        <a href="github.html" class="">
+        <span class="nav-dot" style="background:#ef4444"></span>
+        <span>GitHub</span>
+      </a>
+        <a href="n8n.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>n8n</span>
+      </a>
+        <a href="airtable.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Airtable</span>
+      </a>
+        <a href="apify.html" class="">
+        <span class="nav-dot" style="background:#a16207"></span>
+        <span>Apify</span>
+      </a>
+        <a href="netlify.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>Netlify</span>
+      </a>
+        <a href="make.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Make</span>
+      </a>
+        <a href="clay.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Clay</span>
+      </a>
+        <a href="lovable.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Lovable</span>
+      </a>
+        <a href="slack.html" class="actif">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Slack</span>
+      </a>
+        <a href="brevo.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Brevo</span>
+      </a>
+        <a href="hostinger.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>hostinger</span>
+      </a>
+        <a href="softr.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Softr</span>
+      </a>
+        <a href="zapier.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Zapier</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Outil · Productivité</div>
+        <h1>Slack</h1>
+        <div class="badges">
+          <span class="badge-cat">Productivité</span>
+          <span class="badge-neutre">Niveau Débutant</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">Outil</span>
+        </div>
+        <p class="fiche-lede">Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel, l'intégration d'outils externes et la réception de notifications automatisées depuis des workflows.</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://slack.com" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#8b5cf6">Workflow</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">Organisation par canaux et fils de discussion. Plus de 2 500 intégrations disponibles. Webhooks entrants pour recevoir des notifications depuis n'importe quel outil. Recherche dans l'historique. Appels intégrés. Bots et automatisations natives.</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 3 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>Organisation par canaux et fils de discussion.</span></li>
+        <li><span class="keypoints-num">02</span><span>Plus de 2 500 intégrations disponibles.</span></li>
+        <li><span class="keypoints-num">03</span><span>Webhooks entrants pour recevoir des notifications depuis n'importe quel outil.</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert Slack ?</h2>
       <p>Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel, l'intégration d'outils externes et la réception de notifications automatisées depuis des workflows.</p>
     </section>
       
-      
-    <section class="section">
-      <h2>Dans quels cas utiliser Slack ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Quand utiliser Slack</h2>
       <p>Quand on travaille en équipe et qu'on veut centraliser les communications, éviter les emails et recevoir des notifications d'outils (GitHub, Notion, n8n, alertes métier) directement dans un canal dédié.</p>
     </section>
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de Slack</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>Messages illimités avec historique des 90 derniers jours. 10 intégrations d'applications. Appels audio et vidéo 1:1. Canaux publics et privés illimités. Suffisant pour un usage solo ou une petite équipe.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser Slack ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser Slack</h2>
       <p>Organisation par canaux et fils de discussion. Plus de 2 500 intégrations disponibles. Webhooks entrants pour recevoir des notifications depuis n'importe quel outil. Recherche dans l'historique. Appels intégrés. Bots et automatisations natives.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de Slack ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>Historique limité à 90 jours sur le plan gratuit. Peut devenir chronophage et source de distractions. Coût élevé à grande échelle (facturation par utilisateur). Moins adapté que Notion pour la documentation long terme.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Cas d’usage de Slack</h2>
-      <p>Communication d'équipe structurée par projets, réception de notifications automatiques depuis GitHub, n8n ou Make, alertes sur des événements métier, intégration de bots IA pour des résumés ou des actions.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Comment j'utilise Slack dans mon contexte</h2>
-      <p>Recevoir des notifications automatisées de workflows n8n (nouveau lead détecté, alerte veille, erreur de build), centraliser les alertes système et les updates de projets en cours.</p>
-    </section>
+    </section></div>
+
       
       
-    <section class="section">
-      <h2>Avec quels outils Slack est-il complémentaire ?</h2>
+      
+      
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils Slack est-il complementaire ?</h2>
       <p>n8n / Make (envoie des notifications Slack depuis des workflows automatisés), GitHub (alertes de build et de déploiement), Notion (updates de pages dans un canal Slack).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de Slack ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de Slack</h2>
       <p>Freemium. Plans payants : Pro (7.25$/utilisateur/mois), Business+ (12.50$/utilisateur/mois). Le coût scale avec la taille de l'équipe.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de Slack ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Quand l'historique à 90 jours devient insuffisant, qu'on a besoin de plus de 10 intégrations, ou qu'on utilise Slack comme outil de production critique pour une équipe.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à Slack ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a Slack ?</h2>
       <p>Microsoft Teams, Discord (moins formel), Google Chat, Mattermost (open source auto-hébergé)</p>
     </section>
+      </div>
+
       
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://slack.com" target="_blank" rel="noopener noreferrer">https://slack.com →</a>
-    </section>
     </main>
 
     
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">Créer des canaux dédiés par projet pour centraliser les échanges et éviter les emails -- notifications en temps réel, historique consultable, partage de fichiers intégré.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">n8n surveille les événements clés (nouveau prospect Airtable, build GitHub terminé, alerte Apify) -> formate un message structuré -> envoie une notification dans le bon canal Slack avec résumé actionnable.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">Claude analyse les messages du canal #support (sentiment, récurrence des problèmes) -> catégorise automatiquement -> crée des tickets priorisés dans Airtable -> envoie une synthèse quotidienne dans #digest -> Apify scrape des forums pour enrichir la base de réponses types.</p>
       </div>
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">Productivité</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">slack.com</span></div>
+    </div>
     </aside>
   </div>
 

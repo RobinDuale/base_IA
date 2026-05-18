@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,120 +72,163 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#8b5cf6;--cat-color-soft:#8b5cf614;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>ChatGPT</h1>
-    <div class="badges">
-      <span class="badge" style="background:#8b5cf6">LLM</span>
-      <span class="badge" style="background:#22c55e">Débutant</span>
-    </div>
-    <a class="lien-officiel" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les LLMs</p>
-      <a href="claude.html" class="">Claude</a>
-        <a href="perplexity.html" class="">Perplexity</a>
-        <a href="chatgpt.html" class="actif">ChatGPT</a>
-        <a href="gemini.html" class="">Gemini</a>
-        <a href="microsoft-copilot.html" class="">Microsoft Copilot</a>
-        <a href="claude-code.html" class="">Claude Code</a>
+      <a href="claude.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude</span>
+      </a>
+        <a href="perplexity.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Perplexity</span>
+      </a>
+        <a href="chatgpt.html" class="actif">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>ChatGPT</span>
+      </a>
+        <a href="gemini.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Gemini</span>
+      </a>
+        <a href="microsoft-copilot.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Microsoft Copilot</span>
+      </a>
+        <a href="claude-code.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude Code</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Grand modele · LLM</div>
+        <h1>ChatGPT</h1>
+        <div class="badges">
+          <span class="badge-cat">LLM</span>
+          <span class="badge-neutre">Niveau Débutant</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">LLM</span>
+        </div>
+        <p class="fiche-lede">LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème très riche : Custom GPTs, plugins, Canvas, DALL-E pour les images.</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#ec4899">IA</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">Interface la plus connue et la plus intuitive. Accès web natif (Bing). Custom GPTs et GPT Store. Vision (analyse d'images). Voice mode avancé. Mémoire persistante entre les conversations. Enorme communauté.</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 3 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>Interface la plus connue et la plus intuitive.</span></li>
+        <li><span class="keypoints-num">02</span><span>Accès web natif (Bing).</span></li>
+        <li><span class="keypoints-num">03</span><span>Custom GPTs et GPT Store.</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert ChatGPT ?</h2>
       <p>LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème très riche : Custom GPTs, plugins, Canvas, DALL-E pour les images.</p>
     </section>
       
-      
-    <section class="section">
-      <h2>Dans quels cas utiliser ChatGPT ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Quand utiliser ChatGPT</h2>
       <p>Pour un usage généraliste quotidien, surtout quand on a besoin de recherche web en temps réel, d'analyse d'images, de génération d'images, ou qu'on veut utiliser un Custom GPT spécialisé.</p>
     </section>
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de ChatGPT</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>Accès à GPT-4o mini (illimité) et GPT-4o (limité). Navigation web incluse. Génération d'images DALL-E limitée. Pas d'accès aux Custom GPTs avancés ni à la mémoire complète.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser ChatGPT ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser ChatGPT</h2>
       <p>Interface la plus connue et la plus intuitive. Accès web natif (Bing). Custom GPTs et GPT Store. Vision (analyse d'images). Voice mode avancé. Mémoire persistante entre les conversations. Enorme communauté.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de ChatGPT ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>Hallucinations plus fréquentes que Claude sur les tâches précises. Comportement moins prévisible sur des instructions complexes. API plus coûteuse à grande échelle. Données potentiellement utilisées pour l'entraînement.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Cas d’usage de ChatGPT</h2>
-      <p>Rédaction, code, analyse d'images, génération d'images (DALL-E), navigation web, Custom GPTs pour des cas métier spécifiques, voice mode pour dicter et interagir à l'oral.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Comment j'utilise ChatGPT dans mon contexte</h2>
-      <p>Recherche rapide sur des sujets actuels (web), génération de visuels, tester des Custom GPTs pour des cas d'usage business, interactions vocales.</p>
-    </section>
+    </section></div>
+
       
       
-    <section class="section">
-      <h2>Avec quels outils ChatGPT est-il complémentaire ?</h2>
+      
+      
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils ChatGPT est-il complementaire ?</h2>
       <p>n8n / Make (automatisation via API OpenAI), DALL-E (génération d'images intégrée), Zapier (intégrations no-code).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de ChatGPT ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de ChatGPT</h2>
       <p>Freemium. ChatGPT Plus à 20$/mois : GPT-4o illimité, DALL-E illimité, Custom GPTs, mémoire avancée. API OpenAI : GPT-4o mini ($0.15/M tokens), GPT-4o ($2.50/M).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de ChatGPT ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Dès qu'on utilise ChatGPT quotidiennement et qu'on atteint les limites GPT-4o, ou qu'on a besoin des Custom GPTs et de la génération d'images sans restriction.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à ChatGPT ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a ChatGPT ?</h2>
       <p>Claude (Anthropic), Gemini (Google), Mistral, Llama (Meta)</p>
     </section>
+      </div>
+
       
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">https://chatgpt.com →</a>
-    </section>
     </main>
 
     
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">Générer des variantes de textes marketing ou débloquer une rédaction difficile -- idéal pour les premières ébauches de contenu, les posts LinkedIn ou les descriptions produit.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">Clay enrichit une liste de prospects avec leurs spécificités sectorielles -> ChatGPT via API génère des messages de prospection personnalisés par segment -> n8n intègre ces messages dans une séquence email automatisée.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">ChatGPT analyse le sentiment de retours clients (emails, données Airtable) -> calcule un score de satisfaction prédictif -> n8n déclenche des alertes Slack si la tendance se dégrade -> Apify scrape les mentions publiques de la marque pour compléter l'analyse -> rapport consolidé dans Notion.</p>
       </div>
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">LLM</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">chatgpt.com</span></div>
+    </div>
     </aside>
   </div>
 

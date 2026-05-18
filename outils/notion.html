@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,140 +72,208 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#eab308;--cat-color-soft:#eab30814;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>Notion</h1>
-    <div class="badges">
-      <span class="badge" style="background:#eab308">Productivité</span>
-      <span class="badge" style="background:#22c55e">Débutant</span>
-    </div>
-    <a class="lien-officiel" href="https://www.notion.so" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les outils</p>
-      <a href="notion.html" class="actif">Notion</a>
-        <a href="github.html" class="">GitHub</a>
-        <a href="n8n.html" class="">n8n</a>
-        <a href="airtable.html" class="">Airtable</a>
-        <a href="apify.html" class="">Apify</a>
-        <a href="netlify.html" class="">Netlify</a>
-        <a href="make.html" class="">Make</a>
-        <a href="clay.html" class="">Clay</a>
-        <a href="lovable.html" class="">Lovable</a>
-        <a href="slack.html" class="">Slack</a>
-        <a href="brevo.html" class="">Brevo</a>
-        <a href="hostinger.html" class="">hostinger</a>
-        <a href="softr.html" class="">Softr</a>
-        <a href="zapier.html" class="">Zapier</a>
+      <a href="notion.html" class="actif">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Notion</span>
+      </a>
+        <a href="github.html" class="">
+        <span class="nav-dot" style="background:#ef4444"></span>
+        <span>GitHub</span>
+      </a>
+        <a href="n8n.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>n8n</span>
+      </a>
+        <a href="airtable.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Airtable</span>
+      </a>
+        <a href="apify.html" class="">
+        <span class="nav-dot" style="background:#a16207"></span>
+        <span>Apify</span>
+      </a>
+        <a href="netlify.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>Netlify</span>
+      </a>
+        <a href="make.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Make</span>
+      </a>
+        <a href="clay.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Clay</span>
+      </a>
+        <a href="lovable.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Lovable</span>
+      </a>
+        <a href="slack.html" class="">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Slack</span>
+      </a>
+        <a href="brevo.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Brevo</span>
+      </a>
+        <a href="hostinger.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>hostinger</span>
+      </a>
+        <a href="softr.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Softr</span>
+      </a>
+        <a href="zapier.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Zapier</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Outil · Productivité</div>
+        <h1>Notion</h1>
+        <div class="badges">
+          <span class="badge-cat">Productivité</span>
+          <span class="badge-neutre">Niveau Débutant</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">Outil</span>
+        </div>
+        <p class="fiche-lede">Workspace tout-en-un pour notes, documentation, bases de données et organisation.</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://www.notion.so" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#ec4899">IA</span><span class="tag-fiche" style="background:#8b5cf6">Workflow</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">Excellent pour centraliser l’information, très flexible, idéal pour construire une base de connaissance augmentée par IA, agréable à lire et organiser.</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 1 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>Excellent pour centraliser l’information, très flexible, idéal pour construire une base de connaissance augmentée par IA, agréable à lire et organiser.</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert Notion ?</h2>
       <p>Workspace tout-en-un pour notes, documentation, bases de données et organisation.</p>
     </section>
       
-    <section class="section">
-      <h2>Quel est le rôle de Notion dans l'écosystème IA ?</h2>
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
+      <h2>Son role dans l'ecosysteme IA</h2>
       <p>Cerveau central et documentation. Capitalise les connaissances, documente les workflows et sert de système de référence. C'est là où on explique et on archive -- pas là où on fait tourner des processus.</p>
     </section>
-      
-    <section class="section">
-      <h2>Dans quels cas utiliser Notion ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Quand utiliser Notion</h2>
       <p>Quand tu as besoin de documenter, organiser ta connaissance ou suivre des projets. Idéal pour les réflexions stratégiques, les notes longues, les processus expliqués et la construction d'une base de connaissance durable. Moins adapté pour gérer des données tabulaires ou des pipelines opérationnels.</p>
     </section>
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de Notion</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>Pages et blocs illimités en solo. Collaboration jusqu'à 10 invités. 5 Mo par fichier importé. Historique des modifications sur 7 jours. Bases de données illimitées. Notion AI non inclus (option payante séparée).</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser Notion ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser Notion</h2>
       <p>Excellent pour centraliser l’information, très flexible, idéal pour construire une base de connaissance augmentée par IA, agréable à lire et organiser.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de Notion ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>Moins adapté qu’Airtable pour les pipelines opérationnels complexes, le CRM avancé et les données très relationnelles.</p>
-    </section>
+    </section></div>
+
       
-    <section class="section">
-      <h2>Cas d’usage de Notion</h2>
-      <p>Second brain, documentation, gestion de connaissances, suivi de projets.</p>
-    </section>
       
-    <section class="section">
-      <h2>Comment j'utilise Notion dans mon contexte</h2>
-      <p>Construire un OS personnel IA & business : documentation des outils, workflows, apprentissages, cas d’usage, architecture système et projets liés à la reprise d’entreprise.</p>
-    </section>
       
-    <section class="section">
-      <h2>Exemples concrets et workflows avec Notion</h2>
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Exemples et workflows avec Notion</h2>
       <p>Workflow documentation système : chaque outil appris → fiche Notion structurée (description, cas d'usage, limites, notes). Workflow capitalisation : Apify collecte → Airtable structure → Make automatise → Notion documente et archive les apprentissages.</p>
     </section>
       
-    <section class="section">
-      <h2>Avec quels outils Notion est-il complémentaire ?</h2>
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils Notion est-il complementaire ?</h2>
       <p>Airtable (données opérationnelles et pipelines), Make / n8n (automatisation des synchronisations), Apify (collecte de données), ChatGPT (enrichissement et raisonnement).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de Notion ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de Notion</h2>
       <p>Freemium. Plans payants : Plus (18$/mois), Business (15$/utilisateur/mois), Enterprise. Le payant débloque la collaboration étendue, l'IA intégrée, l'historique illimité et les permissions avancées.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de Notion ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Quand la collaboration, l’IA ou les limites de stockage deviennent importantes.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à Notion ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a Notion ?</h2>
       <p>Coda, Obsidian, Confluence</p>
     </section>
+      </div>
+
       
-    <section class="section">
+    <section class="section" data-type="notes">
+      <div class="section-eyebrow">&#9679; Carnet</div>
       <h2>Notes personnelles sur Notion</h2>
       <p>Notion doit être utilisé comme système central de connaissance et de documentation. Idéal pour construire un 'second cerveau' IA/No-Code. Meilleur que Airtable pour la documentation, les réflexions, les workflows expliqués et les bases de connaissance longues. Architecture recommandée : Notion = cerveau/documentation ; Airtable = opérations/données vivantes ; Make/n8n = automatisation ; Apify = collecte ; ChatGPT = raisonnement.</p>
-    </section>
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://www.notion.so" target="_blank" rel="noopener noreferrer">https://www.notion.so →</a>
     </section>
     </main>
 
     
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">Centraliser toutes ses fiches outils dans une base de données Notion -- trier, filtrer et annoter sans code. Notion remplace les feuilles Excel dispersées et les notes perdues.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">Notion centralise la base d'outils IA -> n8n surveille les modifications toutes les heures -> déclenche GitHub Actions -> le site se reconstruit automatiquement. Notion devient le CMS sans code du site web.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">Claude analyse les fiches Notion (cas d'usage, limites) -> génère des recommandations de workflows multi-outils -> n8n pousse ces recommandations dans Notion -> GitHub Actions reconstruit le site -> Perplexity enrichit avec des benchmarks récents pour maintenir le contenu à jour.</p>
       </div>
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">Productivité</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">www.notion.so</span></div>
+    </div>
     </aside>
   </div>
 

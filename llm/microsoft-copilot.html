@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,128 +72,173 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#8b5cf6;--cat-color-soft:#8b5cf614;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>Microsoft Copilot</h1>
-    <div class="badges">
-      <span class="badge" style="background:#8b5cf6">LLM</span>
-      <span class="badge" style="background:#22c55e">Débutant</span>
-    </div>
-    <a class="lien-officiel" href="https://copilot.microsoft.com" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les LLMs</p>
-      <a href="claude.html" class="">Claude</a>
-        <a href="perplexity.html" class="">Perplexity</a>
-        <a href="chatgpt.html" class="">ChatGPT</a>
-        <a href="gemini.html" class="">Gemini</a>
-        <a href="microsoft-copilot.html" class="actif">Microsoft Copilot</a>
-        <a href="claude-code.html" class="">Claude Code</a>
+      <a href="claude.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude</span>
+      </a>
+        <a href="perplexity.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Perplexity</span>
+      </a>
+        <a href="chatgpt.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>ChatGPT</span>
+      </a>
+        <a href="gemini.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Gemini</span>
+      </a>
+        <a href="microsoft-copilot.html" class="actif">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Microsoft Copilot</span>
+      </a>
+        <a href="claude-code.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude Code</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Grand modele · LLM</div>
+        <h1>Microsoft Copilot</h1>
+        <div class="badges">
+          <span class="badge-cat">LLM</span>
+          <span class="badge-neutre">Niveau Débutant</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">LLM</span>
+        </div>
+        <p class="fiche-lede">Assistant IA généraliste de Microsoft, propulsé par GPT-4o -- accessible gratuitement sur le web, dans Windows 11 et Edge, et en version avancée intégrée à Microsoft 365 (Word, Excel, PowerPoint, Outlook, Teams).</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://copilot.microsoft.com" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#ec4899">IA</span><span class="tag-fiche" style="background:#8b5cf6">Workflow</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">Gratuit et sans compte requis pour un usage basique. Intégration native dans l'écosystème Microsoft (Windows, Office, Edge). Recherche web en temps réel intégrée avec sources citées. Génération d'images via DALL-E 3 incluse. La version M365 est très puissante pour automatiser les tâches dans Word, Excel, Outlook et Teams.</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 3 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>Gratuit et sans compte requis pour un usage basique.</span></li>
+        <li><span class="keypoints-num">02</span><span>Intégration native dans l'écosystème Microsoft (Windows, Office, Edge).</span></li>
+        <li><span class="keypoints-num">03</span><span>Recherche web en temps réel intégrée avec sources citées.</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert Microsoft Copilot ?</h2>
       <p>Assistant IA généraliste de Microsoft, propulsé par GPT-4o -- accessible gratuitement sur le web, dans Windows 11 et Edge, et en version avancée intégrée à Microsoft 365 (Word, Excel, PowerPoint, Outlook, Teams).</p>
     </section>
       
-    <section class="section">
-      <h2>Quel est le rôle de Microsoft Copilot dans l'écosystème IA ?</h2>
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
+      <h2>Son role dans l'ecosysteme IA</h2>
       <p>Assistant IA généraliste ancré dans l'écosystème Microsoft -- son avantage principal est l'intégration native dans les outils que des millions de professionnels utilisent déjà (Office, Teams, Windows), sans changer d'environnement de travail.</p>
     </section>
-      
-    <section class="section">
-      <h2>Dans quels cas utiliser Microsoft Copilot ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Quand utiliser Microsoft Copilot</h2>
       <p>Quand tu travailles dans l'écosystème Microsoft et veux de l'IA sans changer d'environnement. Ou pour une recherche web rapide avec sources dans Edge -- bonne alternative gratuite à Perplexity pour la veille.</p>
     </section>
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de Microsoft Copilot</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>Accès illimité sur copilot.microsoft.com sans compte Microsoft. Avec compte gratuit : historique des conversations et personnalisation. Génération d'images DALL-E 3 (limitée). Disponible dans Windows 11 et Microsoft Edge. Pas de limite de messages sur la version web.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser Microsoft Copilot ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser Microsoft Copilot</h2>
       <p>Gratuit et sans compte requis pour un usage basique. Intégration native dans l'écosystème Microsoft (Windows, Office, Edge). Recherche web en temps réel intégrée avec sources citées. Génération d'images via DALL-E 3 incluse. La version M365 est très puissante pour automatiser les tâches dans Word, Excel, Outlook et Teams.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de Microsoft Copilot ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>Moins performant que Claude ou ChatGPT sur des tâches complexes de raisonnement. La version M365 est chère (30$/mois par utilisateur, en plus de l'abonnement Office existant). Qualité variable selon les intégrations. Moins flexible que les APIs concurrentes pour les développeurs.</p>
-    </section>
+    </section></div>
+
       
-    <section class="section">
-      <h2>Cas d’usage de Microsoft Copilot</h2>
-      <p>Recherche web avec sources citées en temps réel. Rédaction et résumé de documents dans Word ou Outlook. Génération d'images. Compte-rendu automatique de réunions Teams. Analyse de données et graphiques dans Excel.</p>
-    </section>
       
-    <section class="section">
-      <h2>Comment j'utilise Microsoft Copilot dans mon contexte</h2>
-      <p>Résumer rapidement des fils d'emails Outlook. Utiliser la recherche web avec sources dans Edge sans ouvrir un autre onglet. Tester la génération d'images gratuitement via DALL-E 3.</p>
-    </section>
       
-    <section class="section">
-      <h2>Exemples concrets et workflows avec Microsoft Copilot</h2>
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Exemples et workflows avec Microsoft Copilot</h2>
       <p>Réunion Teams -> Copilot génère le compte-rendu automatiquement -> actions envoyées dans Outlook. Ou : données dans Excel -> Copilot analyse et génère des graphiques -> export en PowerPoint en un clic.</p>
     </section>
       
-    <section class="section">
-      <h2>Avec quels outils Microsoft Copilot est-il complémentaire ?</h2>
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils Microsoft Copilot est-il complementaire ?</h2>
       <p>Microsoft 365 (Word, Excel, PowerPoint, Outlook, Teams -- intégration native), Edge (assistant de navigation intégré), n8n (peut interagir avec l'API Microsoft Graph pour automatiser des tâches Office), Notion (alternative pour ceux hors écosystème Microsoft)</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de Microsoft Copilot ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de Microsoft Copilot</h2>
       <p>Freemium avec deux niveaux payants :<br/>- Gratuit : accès illimité sur copilot.microsoft.com, intégré dans Windows et Edge<br/>- Copilot Pro : 20$/mois -- accès prioritaire à GPT-4o, génération d'images illimitée, Copilot dans les apps Office<br/>- Microsoft 365 Copilot : 30$/mois par utilisateur -- intégration complète dans Word, Excel, PowerPoint, Outlook, Teams (nécessite un abonnement M365 existant)</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de Microsoft Copilot ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Rester sur le gratuit pour la recherche web et les tâches générales. Copilot Pro (20$/mois) si tu utilises intensivement la génération d'images ou veux l'accès prioritaire. M365 Copilot (30$/mois) uniquement si tu travailles quotidiennement dans les apps Office et veux automatiser les réunions Teams, la rédaction Word et l'analyse Excel.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à Microsoft Copilot ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a Microsoft Copilot ?</h2>
       <p>ChatGPT, Claude, Gemini, Perplexity</p>
     </section>
+      </div>
+
       
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://copilot.microsoft.com" target="_blank" rel="noopener noreferrer">https://copilot.microsoft.com →</a>
-    </section>
     </main>
 
     
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">Poser une question à Microsoft Copilot dans Edge ou Windows -- il répond avec des sources web récentes, comme Perplexity, mais intégré directement dans le navigateur ou l'OS sans ouvrir un autre onglet.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">Dans Outlook, Copilot rédige un résumé d'un long fil d'emails -> propose une réponse adaptée au ton de la conversation -> dans Teams, il génère un compte-rendu de réunion avec les points d'action identifiés.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">Copilot M365 analyse un fichier Excel de données commerciales -> génère des graphiques et identifie des tendances -> rédige un rapport Word avec les insights -> prépare les slides PowerPoint -> envoie un résumé par Outlook. Tout sans quitter l'écosystème Microsoft.</p>
       </div>
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">LLM</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">copilot.microsoft.com</span></div>
+    </div>
     </aside>
   </div>
 

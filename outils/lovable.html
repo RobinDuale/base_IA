@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,136 +72,205 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#22c55e;--cat-color-soft:#22c55e14;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>Lovable</h1>
-    <div class="badges">
-      <span class="badge" style="background:#22c55e">No-Code</span>
-      <span class="badge" style="background:#f97316">Intermédiaire</span>
-    </div>
-    <a class="lien-officiel" href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les outils</p>
-      <a href="notion.html" class="">Notion</a>
-        <a href="github.html" class="">GitHub</a>
-        <a href="n8n.html" class="">n8n</a>
-        <a href="airtable.html" class="">Airtable</a>
-        <a href="apify.html" class="">Apify</a>
-        <a href="netlify.html" class="">Netlify</a>
-        <a href="make.html" class="">Make</a>
-        <a href="clay.html" class="">Clay</a>
-        <a href="lovable.html" class="actif">Lovable</a>
-        <a href="slack.html" class="">Slack</a>
-        <a href="brevo.html" class="">Brevo</a>
-        <a href="hostinger.html" class="">hostinger</a>
-        <a href="softr.html" class="">Softr</a>
-        <a href="zapier.html" class="">Zapier</a>
+      <a href="notion.html" class="">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Notion</span>
+      </a>
+        <a href="github.html" class="">
+        <span class="nav-dot" style="background:#ef4444"></span>
+        <span>GitHub</span>
+      </a>
+        <a href="n8n.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>n8n</span>
+      </a>
+        <a href="airtable.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Airtable</span>
+      </a>
+        <a href="apify.html" class="">
+        <span class="nav-dot" style="background:#a16207"></span>
+        <span>Apify</span>
+      </a>
+        <a href="netlify.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>Netlify</span>
+      </a>
+        <a href="make.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Make</span>
+      </a>
+        <a href="clay.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Clay</span>
+      </a>
+        <a href="lovable.html" class="actif">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Lovable</span>
+      </a>
+        <a href="slack.html" class="">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Slack</span>
+      </a>
+        <a href="brevo.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Brevo</span>
+      </a>
+        <a href="hostinger.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>hostinger</span>
+      </a>
+        <a href="softr.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Softr</span>
+      </a>
+        <a href="zapier.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Zapier</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Outil · No-Code</div>
+        <h1>Lovable</h1>
+        <div class="badges">
+          <span class="badge-cat">No-Code</span>
+          <span class="badge-neutre">Niveau Intermédiaire</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">Outil</span>
+        </div>
+        <p class="fiche-lede">Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code frontend et backend complet, déployable en quelques minutes.</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#ec4899">IA</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">Génère des apps complètes (frontend + backend + base de données) en quelques minutes sans écrire une ligne de code. Déploiement public immédiat avec URL partageable. Synchronisation GitHub intégrée pour garder la main sur le code généré. Idéal pour prototyper rapidement ou valider une idée sans développeur.</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 3 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>Génère des apps complètes (frontend + backend + base de données) en quelques minutes sans écrire une ligne de code.</span></li>
+        <li><span class="keypoints-num">02</span><span>Déploiement public immédiat avec URL partageable.</span></li>
+        <li><span class="keypoints-num">03</span><span>Synchronisation GitHub intégrée pour garder la main sur le code généré.</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert Lovable ?</h2>
       <p>Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code frontend et backend complet, déployable en quelques minutes.</p>
     </section>
       
-    <section class="section">
-      <h2>Quel est le rôle de Lovable dans l'écosystème IA ?</h2>
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
+      <h2>Son role dans l'ecosysteme IA</h2>
       <p>Pont entre l'idée et le code -- Lovable génère la structure complète de l'application, que d'autres outils (GitHub, Netlify, Supabase) prennent ensuite en charge pour la faire vivre et évoluer en production.</p>
     </section>
-      
-    <section class="section">
-      <h2>Dans quels cas utiliser Lovable ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Quand utiliser Lovable</h2>
       <p>Quand tu as une idée d'application mais pas le temps ou les compétences pour tout coder. Pour valider rapidement un concept, créer un prototype fonctionnel ou construire des outils internes sans équipe technique.</p>
     </section>
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de Lovable</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>Génération d'applications avec crédits journaliers limités (~5 messages/jour). Déploiement public immédiat inclus. Connexion GitHub incluse. Suffisant pour tester l'outil et prototyper de petits projets.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser Lovable ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser Lovable</h2>
       <p>Génère des apps complètes (frontend + backend + base de données) en quelques minutes sans écrire une ligne de code. Déploiement public immédiat avec URL partageable. Synchronisation GitHub intégrée pour garder la main sur le code généré. Idéal pour prototyper rapidement ou valider une idée sans développeur.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de Lovable ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>Les apps générées peuvent être difficiles à maintenir à long terme sans compétences en développement. La personnalisation fine nécessite de modifier le code généré directement. Moins adapté aux projets complexes ou aux équipes avec des conventions de code strictes. Consommation de crédits rapide sur des projets ambitieux.</p>
-    </section>
+    </section></div>
+
       
-    <section class="section">
-      <h2>Cas d’usage de Lovable</h2>
-      <p>Créer un MVP en quelques heures pour valider un concept auprès d'utilisateurs réels. Prototyper une interface utilisateur avant de la confier à un développeur. Construire des outils internes (dashboards, formulaires, CRM léger) sans équipe technique.</p>
-    </section>
       
-    <section class="section">
-      <h2>Comment j'utilise Lovable dans mon contexte</h2>
-      <p>Prototyper rapidement de nouvelles idées de projets sans passer par le développement complet. Tester des interfaces avant d'investir dans un vrai développement. Créer de petits outils personnels pour automatiser des tâches ou visualiser des données.</p>
-    </section>
       
-    <section class="section">
-      <h2>Exemples concrets et workflows avec Lovable</h2>
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Exemples et workflows avec Lovable</h2>
       <p>Lovable génère une app -> sync GitHub -> Claude Code affine le code -> Netlify déploie avec domaine personnalisé. Ou : Lovable crée un formulaire de collecte -> Supabase stocke les données -> n8n déclenche des actions sur chaque nouveau lead.</p>
     </section>
       
-    <section class="section">
-      <h2>Avec quels outils Lovable est-il complémentaire ?</h2>
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils Lovable est-il complementaire ?</h2>
       <p>Supabase (base de données et authentification), GitHub (versioning du code généré), Netlify (déploiement alternatif), n8n (automatisations backend), Claude Code (affiner ou débugger le code généré)</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de Lovable ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de Lovable</h2>
       <p>Freemium -- version gratuite avec crédits limités, plans payants à partir de 20$/mois (Solo) avec plus de crédits et projets illimités.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de Lovable ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Quand tu crées plus de 1-2 projets par mois ou que tes projets dépassent la complexité couverte par les crédits gratuits. Le plan Solo (~20$/mois) est suffisant pour un usage individuel régulier.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à Lovable ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a Lovable ?</h2>
       <p>Bolt.new, v0 (Vercel), Replit Agent, Cursor (avec IA), GitHub Copilot Workspace</p>
     </section>
+      </div>
+
       
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://lovable.dev" target="_blank" rel="noopener noreferrer">https://lovable.dev →</a>
-    </section>
     </main>
 
     
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">Décrire une application en langage naturel (un outil de suivi de tâches avec login et tableau de bord) -> Lovable génère le code complet -> l'app est en ligne avec une URL publique en moins de 5 minutes, sans écrire une ligne de code.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">Lovable génère une app de collecte de leads -> synchronisation automatique avec GitHub -> Claude Code affine les styles et la logique métier -> Netlify déploie la version finale avec domaine personnalisé.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">Lovable crée un formulaire d'inscription connecté à Supabase (base de données) -> n8n surveille les nouvelles entrées -> Clay enrichit les nouveaux leads -> Claude rédige des emails de bienvenue personnalisés -> Airtable centralise le suivi commercial complet.</p>
       </div>
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">No-Code</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Intermédiaire</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">lovable.dev</span></div>
+    </div>
     </aside>
   </div>
 

@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,120 +72,163 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#8b5cf6;--cat-color-soft:#8b5cf614;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>Gemini</h1>
-    <div class="badges">
-      <span class="badge" style="background:#8b5cf6">LLM</span>
-      <span class="badge" style="background:#22c55e">Débutant</span>
-    </div>
-    <a class="lien-officiel" href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les LLMs</p>
-      <a href="claude.html" class="">Claude</a>
-        <a href="perplexity.html" class="">Perplexity</a>
-        <a href="chatgpt.html" class="">ChatGPT</a>
-        <a href="gemini.html" class="actif">Gemini</a>
-        <a href="microsoft-copilot.html" class="">Microsoft Copilot</a>
-        <a href="claude-code.html" class="">Claude Code</a>
+      <a href="claude.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude</span>
+      </a>
+        <a href="perplexity.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Perplexity</span>
+      </a>
+        <a href="chatgpt.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>ChatGPT</span>
+      </a>
+        <a href="gemini.html" class="actif">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Gemini</span>
+      </a>
+        <a href="microsoft-copilot.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Microsoft Copilot</span>
+      </a>
+        <a href="claude-code.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude Code</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Grand modele · LLM</div>
+        <h1>Gemini</h1>
+        <div class="badges">
+          <span class="badge-cat">LLM</span>
+          <span class="badge-neutre">Niveau Débutant</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">LLM</span>
+        </div>
+        <p class="fiche-lede">LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre de contexte de 1 million de tokens. Très fort en multimodal (texte, images, audio, vidéo).</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#ec4899">IA</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">Intégration native avec Google Workspace. Fenêtre de contexte de 1 million de tokens (la plus grande du marché). Recherche Google intégrée. Très fort en multimodal. Gemini Advanced inclus avec Google One AI Premium.</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 3 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>Intégration native avec Google Workspace.</span></li>
+        <li><span class="keypoints-num">02</span><span>Fenêtre de contexte de 1 million de tokens (la plus grande du marché).</span></li>
+        <li><span class="keypoints-num">03</span><span>Recherche Google intégrée.</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert Gemini ?</h2>
       <p>LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre de contexte de 1 million de tokens. Très fort en multimodal (texte, images, audio, vidéo).</p>
     </section>
       
-      
-    <section class="section">
-      <h2>Dans quels cas utiliser Gemini ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Quand utiliser Gemini</h2>
       <p>Quand on est dans l'écosystème Google et qu'on veut de l'IA directement dans Docs, Sheets ou Gmail. Ou quand on a besoin d'analyser de très longs documents (1M tokens) ou du contenu multimodal.</p>
     </section>
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de Gemini</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>Gemini 1.5 Flash illimité. Accès limité à Gemini 1.5 Pro. Intégration Workspace basique. Recherche Google intégrée dans les réponses.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser Gemini ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser Gemini</h2>
       <p>Intégration native avec Google Workspace. Fenêtre de contexte de 1 million de tokens (la plus grande du marché). Recherche Google intégrée. Très fort en multimodal. Gemini Advanced inclus avec Google One AI Premium.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de Gemini ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>Moins fiable que Claude sur le respect strict des instructions. Interface moins intuitive. Données potentiellement utilisées par Google. Moins de Custom GPTs / apps tierces que ChatGPT.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Cas d’usage de Gemini</h2>
-      <p>Analyse de très longs documents, assistance dans Google Workspace, recherche augmentée, traitement multimodal (images, vidéos, audio), résumé de réunions Google Meet.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Comment j'utilise Gemini dans mon contexte</h2>
-      <p>Utiliser l'IA directement dans Google Sheets pour analyser des données, résumer de longs rapports, ou interroger des fichiers Drive sans les copier-coller.</p>
-    </section>
+    </section></div>
+
       
       
-    <section class="section">
-      <h2>Avec quels outils Gemini est-il complémentaire ?</h2>
+      
+      
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils Gemini est-il complementaire ?</h2>
       <p>Google Workspace (Docs, Sheets, Gmail), Google Drive, n8n (via API Gemini).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de Gemini ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de Gemini</h2>
       <p>Freemium. Google One AI Premium (20$/mois) inclut Gemini Advanced et l'intégration Workspace complète. API : Gemini 1.5 Flash ($0.075/M tokens), Pro ($3.50/M).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de Gemini ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Si on utilise Google Workspace intensivement et qu'on veut l'IA intégrée dans Docs et Gmail, ou qu'on a besoin de Gemini 1.5 Pro pour des documents très longs.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à Gemini ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a Gemini ?</h2>
       <p>Claude (Anthropic), ChatGPT (OpenAI), Mistral</p>
     </section>
+      </div>
+
       
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">https://gemini.google.com →</a>
-    </section>
     </main>
 
     
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">Analyser un PDF de 100 pages ou une image complexe et extraire les informations clés structurées -- fenêtre contextuelle d'1 million de tokens là où d'autres LLMs sont limités.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">Apify scrape des pages produits concurrentes (texte + images) -> Gemini analyse le contenu multimodal -> génère des fiches comparatives structurées -> les données sont stockées dans Airtable pour analyse et aide à la décision.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">Gemini traite des rapports annuels PDF d'entreprises cibles -> extrait chiffres d'affaires, effectifs, orientations stratégiques -> Clay enrichit les contacts des décideurs identifiés -> Claude rédige des propositions personnalisées -> n8n orchestre le pipeline complet et notifie sur Slack.</p>
       </div>
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">LLM</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">gemini.google.com</span></div>
+    </div>
     </aside>
   </div>
 

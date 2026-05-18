@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,113 +72,179 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#f97316;--cat-color-soft:#f9731614;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>Brevo</h1>
-    <div class="badges">
-      <span class="badge" style="background:#f97316">Automatisation</span>
-      <span class="badge" style="background:#22c55e">Débutant</span>
-    </div>
-    <a class="lien-officiel" href="https://www.brevo.com" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les outils</p>
-      <a href="notion.html" class="">Notion</a>
-        <a href="github.html" class="">GitHub</a>
-        <a href="n8n.html" class="">n8n</a>
-        <a href="airtable.html" class="">Airtable</a>
-        <a href="apify.html" class="">Apify</a>
-        <a href="netlify.html" class="">Netlify</a>
-        <a href="make.html" class="">Make</a>
-        <a href="clay.html" class="">Clay</a>
-        <a href="lovable.html" class="">Lovable</a>
-        <a href="slack.html" class="">Slack</a>
-        <a href="brevo.html" class="actif">Brevo</a>
-        <a href="hostinger.html" class="">hostinger</a>
-        <a href="softr.html" class="">Softr</a>
-        <a href="zapier.html" class="">Zapier</a>
+      <a href="notion.html" class="">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Notion</span>
+      </a>
+        <a href="github.html" class="">
+        <span class="nav-dot" style="background:#ef4444"></span>
+        <span>GitHub</span>
+      </a>
+        <a href="n8n.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>n8n</span>
+      </a>
+        <a href="airtable.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Airtable</span>
+      </a>
+        <a href="apify.html" class="">
+        <span class="nav-dot" style="background:#a16207"></span>
+        <span>Apify</span>
+      </a>
+        <a href="netlify.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>Netlify</span>
+      </a>
+        <a href="make.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Make</span>
+      </a>
+        <a href="clay.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Clay</span>
+      </a>
+        <a href="lovable.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Lovable</span>
+      </a>
+        <a href="slack.html" class="">
+        <span class="nav-dot" style="background:#eab308"></span>
+        <span>Slack</span>
+      </a>
+        <a href="brevo.html" class="actif">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Brevo</span>
+      </a>
+        <a href="hostinger.html" class="">
+        <span class="nav-dot" style="background:#ec4899"></span>
+        <span>hostinger</span>
+      </a>
+        <a href="softr.html" class="">
+        <span class="nav-dot" style="background:#22c55e"></span>
+        <span>Softr</span>
+      </a>
+        <a href="zapier.html" class="">
+        <span class="nav-dot" style="background:#f97316"></span>
+        <span>Zapier</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Outil · Automatisation</div>
+        <h1>Brevo</h1>
+        <div class="badges">
+          <span class="badge-cat">Automatisation</span>
+          <span class="badge-neutre">Niveau Débutant</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">Outil</span>
+        </div>
+        <p class="fiche-lede">Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automatiques (confirmations, notifications, alertes) via API REST ou SMTP, avec 300 emails gratuits par jour sans carte bancaire.</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://www.brevo.com" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#8b5cf6">Workflow</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">300 emails/jour gratuits sans limite de contacts</li>
-        <li style="color:var(--texte);font-size:0.95rem;">API REST simple et bien documentée</li>
-        <li style="color:var(--texte);font-size:0.95rem;">Node natif dans n8n (aucune configuration complexe)</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 3 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>300 emails/jour gratuits sans limite de contacts.</span></li>
+        <li><span class="keypoints-num">02</span><span>API REST simple et bien documentée.</span></li>
+        <li><span class="keypoints-num">03</span><span>Node natif dans n8n (aucune configuration complexe).</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert Brevo ?</h2>
       <p>Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automatiques (confirmations, notifications, alertes) via API REST ou SMTP, avec 300 emails gratuits par jour sans carte bancaire.</p>
     </section>
       
-    <section class="section">
-      <h2>Quel est le rôle de Brevo dans l'écosystème IA ?</h2>
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
+      <h2>Son role dans l'ecosysteme IA</h2>
       <p>Brevo est la couche de communication email dans un écosystème No-Code / automatisation. Il se connecte à n8n pour envoyer des emails déclenchés par des événements : soumission de formulaire, validation de compte, publication de contenu.</p>
     </section>
-      
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de Brevo</h2>
+
+      <div class="section-pair"><div></div>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>300 emails transactionnels par jour, contacts illimités, accès API, SMTP, templates, analytics de base. Aucune carte bancaire requise.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser Brevo ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser Brevo</h2>
       <p>- 300 emails/jour gratuits sans limite de contacts<br/>- API REST simple et bien documentée<br/>- Node natif dans n8n (aucune configuration complexe)<br/>- SMTP disponible pour intégration dans tout langage<br/>- Templates d'emails avec éditeur visuel<br/>- Analytics : taux d'ouverture, clics, bounces<br/>- Domaine d'envoi personnalisé possible<br/>- Pas de carte bancaire pour le plan gratuit</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de Brevo ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>- Logo Brevo visible dans les emails du plan gratuit<br/>- 300 emails/jour max en gratuit<br/>- Fonctionnalités avancées réservées aux plans payants<br/>- Délivrabilité parfois inférieure aux solutions premium</p>
-    </section>
-      
-    <section class="section">
-      <h2>Cas d’usage de Brevo</h2>
-      <p>Envoi d'emails transactionnels automatiques : confirmation d'inscription, lien de validation d'email, notification de publication d'une fiche outil, alertes admin. Intégration dans des workflows n8n pour automatiser les communications.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Comment j'utilise Brevo dans mon contexte</h2>
-      <p>Utilisé dans le workflow de proposition d'outils sur ia.duale.fr : envoi du lien de validation d'email au visiteur, email de confirmation quand une fiche est publiée. Connecté à n8n via le node Brevo natif.</p>
-    </section>
+    </section></div>
+
       
       
-    <section class="section">
-      <h2>Avec quels outils Brevo est-il complémentaire ?</h2>
+      
+      
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils Brevo est-il complementaire ?</h2>
       <p>n8n (déclencheur et orchestrateur des emails), Notion (source de données), GitHub Actions (pipeline de déploiement)</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de Brevo ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de Brevo</h2>
       <p>Freemium. Plan gratuit : 300 emails/jour, contacts illimités, logo Brevo. Plans payants à partir de 9$/mois pour supprimer le logo et augmenter les volumes.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de Brevo ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Quand le volume dépasse 300 emails/jour ou pour supprimer le logo Brevo des emails.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à Brevo ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a Brevo ?</h2>
       <p>Resend (100 emails/jour gratuits, API moderne), Mailgun (5000 emails/mois gratuits 3 mois), SendGrid (100 emails/jour gratuits), Postmark (payant, excellente délivrabilité)</p>
     </section>
+      </div>
+
       
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://www.brevo.com" target="_blank" rel="noopener noreferrer">https://www.brevo.com →</a>
-    </section>
     </main>
 
     
+    <aside class="barre-scenarios">
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">Automatisation</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">www.brevo.com</span></div>
+    </div>
+    </aside>
   </div>
 
   <footer>

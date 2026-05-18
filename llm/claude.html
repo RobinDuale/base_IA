@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,120 +72,163 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#8b5cf6;--cat-color-soft:#8b5cf614;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>Claude</h1>
-    <div class="badges">
-      <span class="badge" style="background:#8b5cf6">LLM</span>
-      <span class="badge" style="background:#22c55e">Débutant</span>
-    </div>
-    <a class="lien-officiel" href="https://claude.ai" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les LLMs</p>
-      <a href="claude.html" class="actif">Claude</a>
-        <a href="perplexity.html" class="">Perplexity</a>
-        <a href="chatgpt.html" class="">ChatGPT</a>
-        <a href="gemini.html" class="">Gemini</a>
-        <a href="microsoft-copilot.html" class="">Microsoft Copilot</a>
-        <a href="claude-code.html" class="">Claude Code</a>
+      <a href="claude.html" class="actif">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude</span>
+      </a>
+        <a href="perplexity.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Perplexity</span>
+      </a>
+        <a href="chatgpt.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>ChatGPT</span>
+      </a>
+        <a href="gemini.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Gemini</span>
+      </a>
+        <a href="microsoft-copilot.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Microsoft Copilot</span>
+      </a>
+        <a href="claude-code.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude Code</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Grand modele · LLM</div>
+        <h1>Claude</h1>
+        <div class="badges">
+          <span class="badge-cat">LLM</span>
+          <span class="badge-neutre">Niveau Débutant</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">LLM</span>
+        </div>
+        <p class="fiche-lede">LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très longs documents. Disponible en trois niveaux : Haiku (rapide), Sonnet (équilibré), Opus (puissant).</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://claude.ai" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#ec4899">IA</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">Fenêtre de contexte très large (200 000 tokens -- l'équivalent d'un livre entier). Excellent en raisonnement, analyse et rédaction soignée. Très fiable dans le suivi des instructions. Réponses nuancées et honnêtes. API puissante pour les développeurs.</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 3 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>Fenêtre de contexte très large (200 000 tokens -- l'équivalent d'un livre entier).</span></li>
+        <li><span class="keypoints-num">02</span><span>Excellent en raisonnement, analyse et rédaction soignée.</span></li>
+        <li><span class="keypoints-num">03</span><span>Très fiable dans le suivi des instructions.</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert Claude ?</h2>
       <p>LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très longs documents. Disponible en trois niveaux : Haiku (rapide), Sonnet (équilibré), Opus (puissant).</p>
     </section>
       
-      
-    <section class="section">
-      <h2>Dans quels cas utiliser Claude ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Quand utiliser Claude</h2>
       <p>Pour les tâches qui demandent de la précision et de la fiabilité : analyse de documents longs, rédaction structurée, raisonnement complexe, code. Excellent quand on veut un modèle qui suit les instructions à la lettre sans dériver.</p>
     </section>
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de Claude</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>Accès à Claude Sonnet en conversation illimitée (avec limites de fréquence en cas d'usage intensif). Pas de Projects ni de mémoire persistante sur le plan gratuit. Pas d'accès à Claude Opus.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser Claude ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser Claude</h2>
       <p>Fenêtre de contexte très large (200 000 tokens -- l'équivalent d'un livre entier). Excellent en raisonnement, analyse et rédaction soignée. Très fiable dans le suivi des instructions. Réponses nuancées et honnêtes. API puissante pour les développeurs.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de Claude ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>Pas de recherche web native (sans outils tiers). Moins d'intégrations tierces que ChatGPT. Parfois plus prudent que nécessaire sur certains sujets.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Cas d’usage de Claude</h2>
-      <p>Analyse de contrats ou rapports longs, rédaction et reformulation, génération de code, raisonnement stratégique, synthèse documentaire, Q&A sur des fichiers uploadés.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Comment j'utilise Claude dans mon contexte</h2>
-      <p>Construire et affiner des workflows IA, analyser des documents business, rédiger des contenus structurés, coder sans environnement de dev, réfléchir à des stratégies complexes.</p>
-    </section>
+    </section></div>
+
       
       
-    <section class="section">
-      <h2>Avec quels outils Claude est-il complémentaire ?</h2>
+      
+      
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils Claude est-il complementaire ?</h2>
       <p>n8n / Make (automatiser des appels API Claude), Notion (documenter les outputs), Apify (fournir des données à analyser).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de Claude ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de Claude</h2>
       <p>Freemium. Claude.ai Pro à 20$/mois : accès à Opus, Projects, mémoire persistante, priorité serveur. API Anthropic : Haiku ($0.25/M tokens input), Sonnet ($3/M), Opus ($15/M).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de Claude ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Passer au Pro quand on utilise Claude quotidiennement et qu'on atteint les limites du gratuit, ou qu'on a besoin des Projects pour organiser ses conversations par contexte.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à Claude ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a Claude ?</h2>
       <p>ChatGPT (OpenAI), Gemini (Google), Mistral, Llama (Meta)</p>
     </section>
+      </div>
+
       
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://claude.ai" target="_blank" rel="noopener noreferrer">https://claude.ai →</a>
-    </section>
     </main>
 
     
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">Rédiger un email professionnel, résumer un long document ou générer des idées de contenu en quelques secondes -- le point d'entrée le plus accessible de l'IA générative.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">Exporter les données d'Airtable (prospects, statuts, notes) -> envoyer à Claude via n8n -> Claude génère un rapport de synthèse structuré en markdown -> n8n pousse le rapport dans Notion et notifie sur Slack.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">Apify scrape des avis clients et articles de presse sur un secteur -> Claude analyse et extrait des insights structurés -> Clay enrichit les entreprises identifiées comme opportunités -> n8n orchestre le pipeline -> résultats et plan d'action centralisés dans Notion.</p>
       </div>
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">LLM</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">claude.ai</span></div>
+    </div>
     </aside>
   </div>
 

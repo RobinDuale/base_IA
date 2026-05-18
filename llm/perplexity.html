@@ -59,6 +59,9 @@
     }
   ]
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../styles.css"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
@@ -69,120 +72,163 @@
     gtag('config', 'G-61ZR41S7J7');
   </script>
 </head>
-<body>
+<body style="--cat-color:#8b5cf6;--cat-color-soft:#8b5cf614;">
+  <div class="cat-band"></div>
+
   <header>
-    <a class="retour" href="../index.html">← Base IA</a>
-    <h1>Perplexity</h1>
-    <div class="badges">
-      <span class="badge" style="background:#8b5cf6">LLM</span>
-      <span class="badge" style="background:#22c55e">Débutant</span>
-    </div>
-    <a class="lien-officiel" href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer">Site officiel →</a>
+    <h1>Base <em>IA</em></h1>
+    <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
       <p class="barre-laterale-titre">Tous les LLMs</p>
-      <a href="claude.html" class="">Claude</a>
-        <a href="perplexity.html" class="actif">Perplexity</a>
-        <a href="chatgpt.html" class="">ChatGPT</a>
-        <a href="gemini.html" class="">Gemini</a>
-        <a href="microsoft-copilot.html" class="">Microsoft Copilot</a>
-        <a href="claude-code.html" class="">Claude Code</a>
+      <a href="claude.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude</span>
+      </a>
+        <a href="perplexity.html" class="actif">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Perplexity</span>
+      </a>
+        <a href="chatgpt.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>ChatGPT</span>
+      </a>
+        <a href="gemini.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Gemini</span>
+      </a>
+        <a href="microsoft-copilot.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Microsoft Copilot</span>
+      </a>
+        <a href="claude-code.html" class="">
+        <span class="nav-dot" style="background:#8b5cf6"></span>
+        <span>Claude Code</span>
+      </a>
     </nav>
 
     <main class="fiche">
+      <div class="fiche-hero">
+        <div class="fiche-eyebrow">Grand modele · LLM</div>
+        <h1>Perplexity</h1>
+        <div class="badges">
+          <span class="badge-cat">LLM</span>
+          <span class="badge-neutre">Niveau Débutant</span>
+          <span class="badge-gratuit">Freemium</span>
+          <span class="badge-neutre">LLM</span>
+        </div>
+        <p class="fiche-lede">Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
+        <div class="fiche-actions">
+          <a class="fiche-action fiche-action--primary" href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer">Site officiel &#8599;</a>
+          <a class="fiche-action" href="#alternatives">Voir les alternatives</a>
+        </div>
+      </div>
+
       <div class="tags-fiche"><span class="tags-label"># tags</span><span class="tag-fiche" style="background:#ec4899">IA</span><span class="tag-fiche" style="background:#22c55e">Veille</span></div>
+
       
-    <section class="section" style="border-color:var(--bleu);">
-      <h2>Points clés</h2>
-      <ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;">
-        <li style="color:var(--texte);font-size:0.95rem;">Réponses sourcées et vérifiables -- chaque affirmation est liée à une source. Recherche web en temps réel. Interface épurée et rapide. Spaces pour organiser les recherches par thème. Pas d'hallucination sans source (ou presque).</li>
+    <div class="keypoints">
+      <div class="keypoints-titre">Les 3 points a retenir</div>
+      <ul class="keypoints-liste">
+        <li><span class="keypoints-num">01</span><span>Réponses sourcées et vérifiables -- chaque affirmation est liée à une source.</span></li>
+        <li><span class="keypoints-num">02</span><span>Recherche web en temps réel.</span></li>
+        <li><span class="keypoints-num">03</span><span>Interface épurée et rapide.</span></li>
       </ul>
-    </section>
+    </div>
+
       
-    <section class="section">
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Presentation</div>
       <h2>A quoi sert Perplexity ?</h2>
       <p>Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
     </section>
       
-      
-    <section class="section">
-      <h2>Dans quels cas utiliser Perplexity ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Quand utiliser Perplexity</h2>
       <p>Quand on cherche une réponse factuelle et sourcée sur un sujet récent ou technique. Remplace avantageusement Google pour les questions complexes qui nécessitent une synthèse, pas juste une liste de liens.</p>
     </section>
-      
-    <section class="section">
-      <h2>Ce que comprend la version gratuite de Perplexity</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Ce que comprend la version gratuite</h2>
       <p>Recherches illimitées avec le modèle standard. Accès web en temps réel. 5 recherches Pro par jour (modèles avancés). Upload de fichiers non disponible en gratuit.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Pourquoi utiliser Perplexity ? Les points forts</h2>
+    </section></div>
+
+      <div class="section-pair">
+    <section class="section" data-type="fort">
+      <div class="section-eyebrow">&#9679; Points forts</div>
+      <h2>Pourquoi utiliser Perplexity</h2>
       <p>Réponses sourcées et vérifiables -- chaque affirmation est liée à une source. Recherche web en temps réel. Interface épurée et rapide. Spaces pour organiser les recherches par thème. Pas d'hallucination sans source (ou presque).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quelles sont les limites de Perplexity ?</h2>
+    <section class="section" data-type="faible">
+      <div class="section-eyebrow">&#9679; Limites</div>
+      <h2>Les limites a connaitre</h2>
       <p>Pas un LLM généraliste : limité à la recherche et au Q&A. Moins performant que Claude ou ChatGPT pour la rédaction longue, le code ou les tâches créatives. Hallucinations possibles malgré les citations de sources.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Cas d’usage de Perplexity</h2>
-      <p>Veille sectorielle, recherche factuelle rapide, synthèse d'actualité, Q&A sur des sujets récents, comparaisons de produits ou d'outils, suivi de marché.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Comment j'utilise Perplexity dans mon contexte</h2>
-      <p>Veille sur les outils IA/no-code, recherche rapide sur des entreprises cibles, synthèse d'informations sectorielles avant un RDV ou une prospection.</p>
-    </section>
+    </section></div>
+
       
       
-    <section class="section">
-      <h2>Avec quels outils Perplexity est-il complémentaire ?</h2>
+      
+      
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils Perplexity est-il complementaire ?</h2>
       <p>Notion (archiver les recherches), Airtable (structurer les données trouvées), n8n (automatiser des requêtes Perplexity via API).</p>
     </section>
-      
-    <section class="section">
-      <h2>Quel est le modèle économique de Perplexity ?</h2>
+
+      <div class="section-pair">
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Modele economique de Perplexity</h2>
       <p>Freemium. Perplexity Pro à 20$/mois : modèles avancés au choix (GPT-4o, Claude, Gemini), recherches illimitées, upload de fichiers, Spaces collaboratifs.</p>
     </section>
-      
-    <section class="section">
-      <h2>Quand passer à la version payante de Perplexity ?</h2>
+    <section class="section" data-type="eco">
+      <div class="section-eyebrow">&#9679; Economique</div>
+      <h2>Quand passer a la version payante</h2>
       <p>Si on fait de la veille régulière et qu'on veut accéder aux meilleurs modèles avec upload de fichiers. Le gratuit couvre largement un usage occasionnel.</p>
-    </section>
-      
-    <section class="section">
-      <h2>Quelles alternatives à Perplexity ?</h2>
+    </section></div>
+
+      <div id="alternatives">
+        
+    <section class="section" data-type="intro">
+      <div class="section-eyebrow">&#9679; Alternatives</div>
+      <h2>Quelles alternatives a Perplexity ?</h2>
       <p>ChatGPT avec web (OpenAI), Gemini (Google), You.com, Phind (focus dev)</p>
     </section>
+      </div>
+
       
-      
-    <section class="section section-lien">
-      <h2>Lien officiel</h2>
-      <a class="lien-officiel-section" href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer">https://www.perplexity.ai →</a>
-    </section>
     </main>
 
     
     <aside class="barre-scenarios">
-      <p class="barre-scenarios-titre">Scénarios d'usage</p>
+      
+      <p class="barre-scenarios-titre">Scenarios d'usage</p>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-simple">Débutant</h3>
+        <h3 class="scenario-niveau scenario-simple">Debutant</h3>
         <p class="scenario-texte">Rechercher des informations récentes sur un marché ou un concurrent avec sources citées et vérifiées -- zéro hallucination, réponses actualisées en temps réel contrairement aux LLMs à date de coupure fixe.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-intermediaire">Intermédiaire</h3>
+        <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
         <p class="scenario-texte">Configurer une veille quotidienne sur des thèmes définis (concurrents, régulation IA, nouveaux outils) -> Perplexity génère un résumé avec sources -> n8n l'envoie chaque matin dans Slack et le stocke dans Notion.</p>
       </div>
       
       <div class="scenario">
-        <h3 class="scenario-niveau scenario-avance">Avancé</h3>
+        <h3 class="scenario-niveau scenario-avance">Avance</h3>
         <p class="scenario-texte">Perplexity identifie des entreprises en croissance (levées, recrutements, actualités) -> Claude qualifie les signaux et les classe par pertinence -> Clay enrichit les décideurs identifiés -> Slack notifie l'équipe avec les leads priorisés et leur contexte -> Airtable trace les actions commerciales.</p>
       </div>
+      
+      
+    <div class="spec-sheet">
+      <div class="spec-sheet-titre">En resume</div>
+      <div class="spec-row"><span class="spec-key">Categorie</span><span class="spec-val">LLM</span></div><div class="spec-row"><span class="spec-key">Niveau</span><span class="spec-val">Débutant</span></div><div class="spec-row"><span class="spec-key">Gratuité</span><span class="spec-val">Freemium</span></div><div class="spec-row"><span class="spec-key">Site officiel</span><span class="spec-val">www.perplexity.ai</span></div>
+    </div>
     </aside>
   </div>
 
