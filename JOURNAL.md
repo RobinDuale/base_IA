@@ -371,6 +371,111 @@ et il se charge de l'envoi, de la délivrabilité, et des statistiques.
 
 ---
 
+### 2026-05-18 -- Refonte visuelle et améliorations UX
+
+#### 29. Refonte CSS complète
+
+Nouveau design du site basé sur des maquettes dans le dossier `Redisign/` :
+
+- Nouvelles polices de caractères :
+  - `Space Grotesk` (titres) -- moderne et lisible, avec ses ligatures optionnelles
+  - `Geist` (corps de texte) -- la police de Vercel, optimisée pour les interfaces
+  - `JetBrains Mono` (textes techniques, labels, KPIs) -- police monospace des IDE JetBrains
+- Nouvelles variables CSS : `--surface`, `--line`, `--accent-soft`, `--rayon-pill`
+- Le style passe d'un thème sombre technique à un thème clair editorial (blanc cassé, noir encre)
+- Les cartes, badges, boutons et titres ont tous été restyled pour correspondre à la nouvelle identité
+
+**Concept clé -- les variables CSS (`--ma-variable`) :**
+Plutôt que d'écrire une couleur ou une valeur en dur à 20 endroits différents, on la définit une
+fois en haut du fichier CSS (`--accent: #2c4fb4`) et on l'utilise partout (`color: var(--accent)`).
+Quand on veut changer la couleur principale du site, on modifie un seul endroit. C'est le principe
+"Don't Repeat Yourself" (DRY) appliqué au CSS.
+
+#### 30. Bandeau de consentement cookies
+
+La réglementation RGPD impose d'informer les visiteurs et d'obtenir leur consentement avant
+de charger des outils de tracking comme Google Analytics.
+
+**Ce qui a été mis en place :**
+- Bandeau discret en bas de page : "Ce site utilise Google Analytics. Accepter ?" avec boutons
+- Si accepté : le choix est sauvegardé dans `localStorage` (mémoire du navigateur) et GA4 se charge
+- Si refusé : pas de GA4 du tout -- le site fonctionne normalement mais sans analytics
+- Au prochain chargement : si l'utilisateur a déjà répondu, pas de bandeau
+- Code GA4 chargé dynamiquement en JS (pas dans le `<head>`) pour ne se déclencher qu'après accord
+
+**Concept clé -- `localStorage` :**
+Le navigateur dispose d'un stockage local (clé/valeur) qui persiste entre les sessions.
+Contrairement aux cookies, il n'est pas envoyé au serveur à chaque requête.
+Ici on stocke `cookie_consent = "accepted"` ou `"refused"` -- la prochaine fois que la page
+se charge, on lit cette valeur et on sait si l'utilisateur a déjà répondu.
+
+#### 31. Barre de contrôles sticky
+
+Quand on scrolle sur la page d'accueil, la barre contenant la recherche, les onglets et les
+filtres reste visible en haut de l'écran.
+
+**Implémentation :**
+- Nouveau wrapper `<div class="controls-sticky">` qui regroupe recherche + onglets + filtres
+- CSS : `position: sticky; top: 0; z-index: 100; background: var(--bg)`
+- La barre a une légère ombre (`box-shadow`) quand elle colle au haut de l'écran
+- Le fond blanc masque le contenu qui défile dessous
+
+**Concept clé -- `position: sticky` :**
+Un élément `sticky` se comporte comme un élément normal jusqu'à ce que le scroll l'amène
+au seuil `top: 0`, puis il reste fixé à cet endroit tout en restant dans son conteneur parent.
+C'est la solution moderne pour les barres de navigation "collantes" -- plus simple que `position: fixed`
+qui sort l'élément du flux et demande des compensations de marge.
+
+#### 32. Recherche unifiée Outils + LLMs
+
+Avant : deux champs de recherche séparés, un par onglet (on ne pouvait pas chercher dans les deux à la fois).
+
+Après : un seul champ de recherche global. Quand on tape, les deux sections (Outils et LLMs)
+s'affichent simultanément avec les résultats filtrés. Les onglets se masquent pendant la recherche.
+Quand on efface le texte, les onglets reviennent et on retrouve la vue normale.
+
+**Fonctionnement de `filtrerGlobal()` :**
+1. Lit le texte saisi
+2. Si texte non vide : masque les onglets, affiche les deux sections, filtre chaque carte
+3. Si texte vide : reaffiche les onglets, remet à zéro, applique `filtrerOutils()` normalement
+
+#### 33. Redesign du hero de la page d'accueil
+
+- Suppression du KPI "Cas d'usage" (24) -- redondant car les cas d'usage sont dans les fiches
+- Date de mise à jour déplacée : était en eyebrow au-dessus du titre, maintenant en italique
+  sous le titre, alignée à droite, très discrète (comme un filigrane de copyright)
+- Réduction des espacements verticaux pour un rendu moins aéré et plus dense
+
+#### 34. Gestion automatique Outil / LLM dans Admin Validate
+
+**Problème :** quand un visiteur proposait un outil comme Mistral, Claude, ou Llama, le workflow
+Admin Validate le créait toujours en tant qu'"Outil" dans Notion -- jamais en "LLM".
+
+**Solution :** Gemini reçoit maintenant dans son prompt l'instruction de détecter le type :
+"utilise LLM pour les modèles de langage comme Claude, ChatGPT, Gemini, Mistral, LLaMA, etc.,
+sinon Outil". La réponse JSON inclut un champ `type`, et le noeud Parser utilise cette valeur
+dynamiquement au lieu d'un `'Outil'` hardcodé.
+
+Mistral a aussi été corrigé manuellement dans Notion (Type Outil -> LLM).
+
+#### 35. Corrections textes utilisateur
+
+**Page confirmation.html :** le texte affiché après validation de l'email contenait du mauvais
+français ("Merci pour ta confirmation" -> "Votre adresse email a bien été confirmée") et utilisait
+le séparateur "--" en milieu de phrase. Reformulé en français correct et naturel.
+
+**Email Admin Validate :** l'email envoyé au visiteur dont l'outil est validé a été retravaillé
+pour être plus chaleureux et professionnel. Nouveau texte avec "Bonne nouvelle !" en ouverture
+et lien direct vers ia.duale.fr.
+
+#### 36. Bouton "Proposer un outil" rendu public
+
+Après les tests réussis des 4 workflows n8n, le bouton "+ Proposer un outil" a été sorti de
+la `admin-zone`. Il est maintenant visible et accessible à tous les visiteurs, au même niveau
+que les onglets Outils et LLMs.
+
+---
+
 ## Etapes à venir
 
 - [x] Vérifier que Node.js est installé -- version 24.14.1
@@ -407,10 +512,17 @@ et il se charge de l'envoi, de la délivrabilité, et des statistiques.
 - [x] Ajouter le formulaire de proposition d'outil sur la home (modale multi-étapes)
 - [x] Créer la page confirmation.html
 - [x] Déboguer le workflow Admin Validate : 401 silencieux, bug Unicode apostrophe, enrichissement Gemini complet
-- [ ] Rendre le bouton "Proposer un outil" public (retirer admin-zone) apres tests complets
+- [x] Bandeau cookie consent RGPD + chargement conditionnel GA4
+- [x] Refonte CSS complète (Space Grotesk, Geist, JetBrains Mono)
+- [x] Barre de contrôles sticky (recherche + onglets + filtres)
+- [x] Recherche unifiée Outils + LLMs (un seul champ global)
+- [x] Redesign hero (date sous titre, KPI Cas d'usage supprimé)
+- [x] Admin Validate : détection automatique Outil/LLM par Gemini
+- [x] Rendre le bouton "Proposer un outil" public
+- [x] Corriger classification Mistral (LLM, pas Outil)
 - [ ] Configurer WhatsApp CallMeBot dans le workflow 3 (noeud actuellement désactivé)
 - [ ] Créer une interface admin sur ia.duale.fr pour valider/rejeter les propositions sans appeler le webhook manuellement
-- [ ] Supprimer les doublons Supabase dans la base Notion Outils (créés lors des tests ratés)
+- [ ] Vérifier que les données GA4 remontent correctement dans la propriété "Base IA"
 
 ---
 

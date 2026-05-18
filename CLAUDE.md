@@ -282,10 +282,20 @@ Base_IA/
   - [x] Workflow 2 "Submit Proposal" : token + page Notion Propositions + email Brevo (ID: UkA7kAlie7yhJzSI)
   - [x] Workflow 3 "Confirm Email" : validation token + Gemini description préliminaire + redirect confirmation.html (ID: qLDdGsnfq8iCjP2P)
   - [x] Workflow 4 "Admin Validate" : Gemini fiche complète + page Notion Outils + GitHub rebuild + email visiteur (ID: 6dnXvN7rU8Udc99Q)
-  - [x] Bouton "+ Proposer un outil" caché derrière admin-zone en attendant les tests
+  - [x] Bouton "+ Proposer un outil" rendu public (onglet au même niveau que Outils/LLMs)
+- [x] Bandeau cookie consent GA : chargement conditionnel de GA4 après acceptation utilisateur (localStorage)
+- [x] Barre de contrôles sticky : recherche + onglets + filtres restent visibles au scroll (position:sticky)
+- [x] Recherche unifiée Outils + LLMs : un seul champ global filtre simultanément les deux sections
+- [x] Hero redesigné : date de mise à jour sous le titre (italic, droite), KPI "Cas d'usage" supprimé
+- [x] Refonte CSS complète (Space Grotesk + Geist + JetBrains Mono, nouvelles variables de couleur)
+- [x] Logo Base IA cliquable vers la home sur toutes les pages
+- [x] Mentions légales RGPD : collecte email (propositions) + cookies GA4 déclarés
+- [x] Admin Validate : détection automatique Type Outil/LLM par Gemini (champ `type` dans JSON)
+- [x] Correction texte confirmation.html (meilleur français, suppression "--", accents)
+- [x] Correction email Admin Validate (nouveau texte en meilleur français)
+- [x] Mistral corrigé : classé LLM dans Notion (était Outil par erreur)
 - [ ] Interface admin propositions : page ou section sur ia.duale.fr pour voir/valider/rejeter les propositions
 - [ ] WhatsApp CallMeBot : configurer dans workflow 3 (noeud désactivé -- numéro + apikey à obtenir sur callmebot.com)
-- [ ] Rendre le bouton "Proposer un outil" public (retirer admin-zone) une fois tout testé
 - [ ] Google Analytics GA4 : vérifier que les données remontent correctement dans la propriété "Base IA"
 
 ---
@@ -341,7 +351,7 @@ Structure :
 **Body :** `{"pageId": "notion-page-id", "action": "valider"}` ou `{"pageId": "...", "action": "rejeter"}`
 **Réponse :** `{"status": "ok", "message": "..."}`
 **Statut :** actif
-**Effet (valider) :** Gemini génère fiche complète -> page créée dans Notion Outils -> GitHub Actions rebuild -> email visiteur -> statut "Validée"
+**Effet (valider) :** Gemini génère fiche complète (avec détection automatique Type Outil/LLM) -> page créée dans Notion Outils -> GitHub Actions rebuild -> email visiteur -> statut "Validée"
 **Effet (rejeter) :** statut "Rejetée" dans Notion Propositions
 
 **Credentials communs aux 4 workflows :**
@@ -400,3 +410,13 @@ Structure :
 | 2026-05-18 | Admin Validate enrichi : tags (multi_select), alternatives, complémentaire avec, exemples & workflows, quand utiliser, rôle dans l'écosystème, 3 scénarios générés par Gemini |
 | 2026-05-18 | Bug Unicode apostrophe : "Rôle dans l'écosystème" -> U+0027 (pas U+2019) -- corrigé dans n8n Parser Gemini et dans build.js |
 | 2026-05-18 | build.js : fix propriété "Rôle dans l'écosystème" avec U+0027 (retournait string vide silencieusement avec U+2019) |
+| 2026-05-18 | Refonte CSS complète depuis Redisign/ : Space Grotesk + Geist + JetBrains Mono, nouvelles variables (--surface, --line, --accent-soft, --rayon-pill) |
+| 2026-05-18 | Bandeau cookie consent : GA4 chargé conditionnellement après acceptation (localStorage 'cookie_consent') |
+| 2026-05-18 | Barre controls-sticky : position:sticky top:0 z-index:100, regroupe recherche + onglets + filtres |
+| 2026-05-18 | Recherche unifiée : filtrerGlobal() sur un seul champ couvre Outils et LLMs simultanément, masque onglets pendant la recherche |
+| 2026-05-18 | Hero : KPI "Cas d'usage" supprimé, date de mise à jour repositionnée sous le h2 en italic droite (.hero-date) |
+| 2026-05-18 | Admin Validate : Gemini reçoit instructions pour détecter Outil vs LLM -- champ `type` ajouté au JSON, plus de valeur hardcodée |
+| 2026-05-18 | Mistral classé LLM dans Notion (était Outil) -- correction manuelle via MCP Notion |
+| 2026-05-18 | confirmation.html : texte reécrit en bon français (suppression "--", accents, reformulation) |
+| 2026-05-18 | Email Admin Validate : nouveau texte avec "Bonne nouvelle !", meilleur français, lien direct ia.duale.fr |
+| 2026-05-18 | Bouton "+ Proposer un outil" rendu public -- accessible à tous les visiteurs (plus derrière admin-zone) |

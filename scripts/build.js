@@ -158,6 +158,7 @@ const BASE_URL = "https://ia.duale.fr";
 const GA_TAG = `<script>
   function loadGA() {
     if (window._gaLoaded) return;
+    if (document.cookie.split(';').some(function(c){return c.trim().startsWith('ga_exclude=1');})) return;
     window._gaLoaded = true;
     var s = document.createElement('script');
     s.async = true;
@@ -838,9 +839,11 @@ function genererPageAccueil(outils, llms) {
     }
     function setAdminCookie() {
       document.cookie = 'admin_duale=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
+      document.cookie = 'ga_exclude=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
     }
     function deleteAdminCookie() {
       document.cookie = 'admin_duale=; domain=.duale.fr; path=/; max-age=0';
+      document.cookie = 'ga_exclude=; domain=.duale.fr; path=/; max-age=0';
     }
     function initAdminMode() {
       if (getAdminCookie()) activerAdmin();
@@ -1463,9 +1466,11 @@ function genererPageDetail(item, liste, prefixe) {
     }
     function setAdminCookie() {
       document.cookie = 'admin_duale=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
+      document.cookie = 'ga_exclude=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
     }
     function deleteAdminCookie() {
       document.cookie = 'admin_duale=; domain=.duale.fr; path=/; max-age=0';
+      document.cookie = 'ga_exclude=; domain=.duale.fr; path=/; max-age=0';
     }
     function initAdminMode() {
       if (getAdminCookie()) activerAdmin();
