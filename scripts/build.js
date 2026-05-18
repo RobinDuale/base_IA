@@ -409,8 +409,8 @@ function genererPageAccueil(outils, llms) {
 
   <main>
     <section class="hero">
-      <div class="hero-eyebrow">Mise a jour le ${new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}</div>
       <h2>Une bibliotheque <em>vivante</em><br/>des outils IA &amp; No-Code.</h2>
+      <p class="hero-date">Mis à jour le ${new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
       <p class="hero-intro">
         Claude pour coder, Gémini pour rédiger, n8n pour automatiser, Notion pour structurer. Une référence pratique des meilleurs outils IA et No-Code.<br/>
         Points forts, gratuité, modèle économique, forces, limites, scénario et cas d'usage concrets pour choisir le bon outil au bon moment.
