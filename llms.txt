@@ -19,9 +19,9 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
+Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code, IA
 
-## 14 outils référencés
+## 17 outils référencés
 
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
 - [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
@@ -34,7 +34,10 @@ Productivité, Développement, Automatisation, Base de données, Scraping, Hébe
 - [Lovable](https://ia.duale.fr/outils/lovable.html) : Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code
 - [Slack](https://ia.duale.fr/outils/slack.html) : Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel
 - [Brevo](https://ia.duale.fr/outils/brevo.html) : Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automa
+- [concensus](https://ia.duale.fr/outils/concensus.html) : Consensus est un moteur de recherche boosté à l'IA qui extrait et résume des preuves issues de publications scientifique
 - [hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
+- [manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériqu
+- [midjourney](https://ia.duale.fr/outils/midjourney.html) : Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle
 - [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir d
 - [Zapier](https://ia.duale.fr/outils/zapier.html) : Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il p
 
