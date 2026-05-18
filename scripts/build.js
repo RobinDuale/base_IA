@@ -1341,11 +1341,19 @@ function genererPageDetail(item, liste, prefixe) {
     <script>
     function filtrerNav(q) {
       var val = q.toLowerCase().trim();
+      sessionStorage.setItem('nav_recherche', val);
       document.querySelectorAll('.barre-laterale a').forEach(function(a) {
         var nom = a.querySelector('span:last-child');
         a.style.display = (!val || (nom && nom.textContent.toLowerCase().includes(val))) ? '' : 'none';
       });
     }
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = sessionStorage.getItem('nav_recherche') || '';
+      if (saved) {
+        var input = document.getElementById('nav-recherche');
+        if (input) { input.value = saved; filtrerNav(saved); }
+      }
+    });
     </script>
 
     <main class="fiche">
