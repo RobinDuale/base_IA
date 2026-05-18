@@ -367,7 +367,7 @@ function genererPageAccueil(outils, llms) {
 </head>
 <body>
   <header>
-    <h1>Base <em>IA</em></h1>
+    <h1><a href="/">Base <em>IA</em></a></h1>
   </header>
 
   <main>
@@ -833,7 +833,7 @@ function genererPageConfirmation() {
 </head>
 <body>
 <header>
-  <h1>Base <em>IA</em></h1>
+  <h1><a href="/">Base <em>IA</em></a></h1>
   <a class="retour" href="/">&#8592; Retour a la base</a>
 </header>
 
@@ -1245,7 +1245,7 @@ function genererPageDetail(item, liste, prefixe) {
   <div class="cat-band"></div>
 
   <header>
-    <h1>Base <em>IA</em></h1>
+    <h1><a href="../index.html">Base <em>IA</em></a></h1>
     <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
@@ -1503,7 +1503,7 @@ function genererPagePositionnement({ slug, title, description, h1, intro, sectio
 </head>
 <body>
 <header>
-  <h1>Base <em>IA</em></h1>
+  <h1><a href="/">Base <em>IA</em></a></h1>
   <a class="retour" href="/">&#8592; Retour a la base</a>
 </header>
 
@@ -1722,7 +1722,7 @@ function genererMentionsLegales() {
 </head>
 <body>
 <header>
-  <h1>Base <em>IA</em></h1>
+  <h1><a href="/">Base <em>IA</em></a></h1>
   <a href="/" class="retour">&#8592; Retour a la base</a>
 </header>
 
