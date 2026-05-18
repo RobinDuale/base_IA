@@ -21,7 +21,7 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 Productivité, IA, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
 
-## 21 outils référencés
+## 20 outils référencés
 
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
 - [Perplexity](https://ia.duale.fr/outils/perplexity.html) : Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables
