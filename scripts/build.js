@@ -155,14 +155,51 @@ function badgeNiveau(niveau) {
 
 const BASE_URL = "https://ia.duale.fr";
 
-const GA_TAG = `<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7"></script>
-  <script>
+const GA_TAG = `<script>
+  function loadGA() {
+    if (window._gaLoaded) return;
+    window._gaLoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-61ZR41S7J7';
+    document.head.appendChild(s);
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
     gtag('js', new Date());
     gtag('config', 'G-61ZR41S7J7');
-  </script>`;
+  }
+  function acceptCookies() {
+    localStorage.setItem('cookie_consent', 'accepted');
+    var b = document.getElementById('cookie-banner');
+    if (b) b.style.display = 'none';
+    loadGA();
+  }
+  function refuseCookies() {
+    localStorage.setItem('cookie_consent', 'refused');
+    var b = document.getElementById('cookie-banner');
+    if (b) b.style.display = 'none';
+  }
+  (function() {
+    var consent = localStorage.getItem('cookie_consent');
+    if (consent === 'accepted') {
+      loadGA();
+    } else if (consent === null) {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('cookie-banner');
+        if (b) b.style.display = 'flex';
+      });
+    }
+  })();
+</script>`;
+
+const COOKIE_BANNER = `<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:1200px;z-index:9999;background:var(--ink);padding:20px 56px;display:none;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;box-shadow:0 -4px 24px rgba(26,23,18,0.2);">
+  <p style="font-family:var(--font-body);font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;flex:1;margin:0;">Ce site utilise Google Analytics pour mesurer son audience de facon anonymisee. Acceptez-vous le depot de cookies analytiques ? <a href="/mentions-legales.html" style="color:#fff;text-decoration:underline;">En savoir plus</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="acceptCookies()" style="padding:9px 22px;background:var(--accent);color:#fff;font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:0.12em;border:none;border-radius:var(--rayon-pill);cursor:pointer;">Accepter</button>
+    <button onclick="refuseCookies()" style="padding:9px 22px;background:transparent;color:rgba(255,255,255,0.6);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:0.12em;border:1px solid rgba(255,255,255,0.25);border-radius:var(--rayon-pill);cursor:pointer;">Refuser</button>
+  </div>
+</div>`;
 const OG_IMAGE = `${BASE_URL}/assets/og-default.png`;
 const OG_IMAGE_ALT = "Base IA -- Référence des outils IA et No-Code par Robin Dualé";
 const SITE_NAME = "Base IA · Robin Dualé";
@@ -810,6 +847,7 @@ function genererPageAccueil(outils, llms) {
     }
     initAdminMode();
   </script>
+${COOKIE_BANNER}
 </body>
 </html>`;
 }
@@ -860,6 +898,7 @@ function genererPageConfirmation() {
     </div>
   </div>
 </footer>
+${COOKIE_BANNER}
 </body>
 </html>`;
 }
@@ -1072,6 +1111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+${COOKIE_BANNER}
 </body>
 </html>`;
 }
@@ -1432,6 +1472,7 @@ function genererPageDetail(item, liste, prefixe) {
     }
     initAdminMode();
   </script>
+${COOKIE_BANNER}
 </body>
 </html>`;
 }
@@ -1532,6 +1573,7 @@ function genererPagePositionnement({ slug, title, description, h1, intro, sectio
   </article>
 </main>
 ${footerHtml}
+${COOKIE_BANNER}
 </body>
 </html>`;
 }
@@ -1770,6 +1812,7 @@ function genererMentionsLegales() {
     </div>
   </div>
 </footer>
+${COOKIE_BANNER}
 </body>
 </html>`;
 }
