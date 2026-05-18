@@ -375,7 +375,8 @@ function genererPageAccueil(outils, llms) {
       <div class="hero-eyebrow">Mise a jour le ${new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}</div>
       <h2>Une bibliotheque <em>vivante</em><br/>des outils IA &amp; No-Code.</h2>
       <p class="hero-intro">
-        Recenses, testes et commentes a la main par Robin Duale. Chaque fiche pese les forces, les limites et le moment juste pour adopter -- ou laisser tomber.
+        Claude pour coder, Gémini pour rédiger, n8n pour automatiser, Notion pour structurer. Une référence pratique des meilleurs outils IA et No-Code.<br/>
+        Points forts, gratuité, modèle économique, forces, limites, scénario et cas d'usage concrets pour choisir le bon outil au bon moment.
       </p>
       <div class="kpis">
         <div class="kpi">
@@ -397,12 +398,15 @@ function genererPageAccueil(outils, llms) {
       </div>
     </section>
 
-    <p class="admin-zone" style="display:none;margin-bottom:16px;">
-      <button type="button" onclick="ouvrirModalProposition()" class="btn-reorganiser">+ Proposer un outil</button>
-    </p>
     <div class="onglets">
-      <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
-      <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
+      <div class="onglets-gauche">
+        <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
+        <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
+      </div>
+      <button class="onglet-proposer" onclick="ouvrirModalProposition()">
+        <span class="onglet-proposer-plus">+</span>
+        Proposer un nouvel outil
+      </button>
     </div>
 
     <div id="section-outils">
