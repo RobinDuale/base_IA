@@ -1752,7 +1752,8 @@ function genererMentionsLegales() {
 
     <div class="section">
       <h2>Donnees personnelles &amp; RGPD</h2>
-      <p>Ce site ne collecte aucune donnee personnelle, ne depose aucun cookie et n'utilise aucun outil d'analyse d'audience. Aucune information vous concernant n'est transmise a des tiers.</p>
+      <p>Ce site ne depose aucun cookie et n'utilise aucun outil de tracking publicitaire.</p>
+      <p style="margin-top:10px;">Dans le cadre du formulaire de proposition d'outil, une adresse email est collectee uniquement pour confirmer la soumission et vous notifier de la decision. Elle n'est pas utilisee a des fins commerciales ou transmise a des tiers. Vous pouvez demander sa suppression a tout moment en ecrivant a <a href="mailto:robin@duale.fr">robin@duale.fr</a>.</p>
     </div>
   </div>
 </main>
