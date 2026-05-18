@@ -35,12 +35,12 @@ Productivité, IA, Développement, Automatisation, Base de données, Scraping, H
 - [Lovable](https://ia.duale.fr/outils/lovable.html) : Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code
 - [Slack](https://ia.duale.fr/outils/slack.html) : Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel
 - [Brevo](https://ia.duale.fr/outils/brevo.html) : Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automa
-- [concensus](https://ia.duale.fr/outils/concensus.html) : Consensus est un moteur de recherche boosté à l'IA qui extrait et résume des preuves issues de publications scientifique
-- [hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
-- [manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériqu
-- [midjourney](https://ia.duale.fr/outils/midjourney.html) : Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle
+- [Concensus](https://ia.duale.fr/outils/concensus.html) : Consensus est un moteur de recherche boosté à l'IA qui extrait et résume des preuves issues de publications scientifique
+- [Hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
+- [Manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériqu
+- [Midjourney](https://ia.duale.fr/outils/midjourney.html) : Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle
 - [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir d
-- [supabase](https://ia.duale.fr/outils/supabase.html) : Supabase est une plateforme de développement open-source qui remplace Firebase en utilisant PostgreSQL comme moteur de b
+- [Supabase](https://ia.duale.fr/outils/supabase.html) : Supabase est une plateforme de développement open-source qui remplace Firebase en utilisant PostgreSQL comme moteur de b
 - [XCode](https://ia.duale.fr/outils/xcode.html) : Xcode est l'environnement de développement intégré (IDE) officiel d'Apple conçu pour créer des applications sur macOS, i
 - [Zapier](https://ia.duale.fr/outils/zapier.html) : Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il p
 
