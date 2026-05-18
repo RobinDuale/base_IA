@@ -21,7 +21,7 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 Productivité, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code, IA
 
-## 17 outils référencés
+## 18 outils référencés
 
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
 - [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
@@ -38,6 +38,7 @@ Productivité, Développement, Automatisation, Base de données, Scraping, Hébe
 - [hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
 - [manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériqu
 - [midjourney](https://ia.duale.fr/outils/midjourney.html) : Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle
+- [Mistral](https://ia.duale.fr/outils/mistral.html) : Mistral AI est une entreprise française développant des modèles de langage puissants et efficaces, accessibles via API o
 - [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir d
 - [Zapier](https://ia.duale.fr/outils/zapier.html) : Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il p
 
