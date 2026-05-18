@@ -550,6 +550,13 @@
         <div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:4px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:#92400e;"><strong id="prop-nom-existe"></strong> est déjà dans la base.</div>
         <button type="button" onclick="propReset()" style="width:100%;padding:9px;background:none;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;cursor:pointer;color:#555;">Proposer un autre outil</button>
       </div>
+      <div id="prop-notaitool" style="display:none;">
+        <div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:4px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:#92400e;">L'outil spécifié n'a pas été identifié comme un outil IA ou No-Code répertorié. Confirmer la demande ou fermer.</div>
+        <div style="display:flex;gap:8px;">
+          <button type="button" onclick="propConfirmerMalgre()" style="flex:1;padding:9px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;cursor:pointer;">Confirmer la demande</button>
+          <button type="button" onclick="fermerModalProposition()" style="flex:1;padding:9px;background:none;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;cursor:pointer;color:#555;">Fermer</button>
+        </div>
+      </div>
       <div id="prop-step2" style="display:none;">
         <div id="prop-bloc-gemini" style="display:none;background:#f0f9ff;border:1px solid #bae6fd;border-radius:4px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#0c4a6e;"><strong>Outil IA/No-Code confirmé.</strong> <span id="prop-desc-gemini"></span></div>
         <input type="hidden" id="prop-nom-hidden"/>
@@ -581,10 +588,11 @@
       document.getElementById('prop-bloc-gemini').style.display = 'none';
     }
     function propShowStep(step) {
-      ['step1','loading','existe','step2','succes'].forEach(s => {
+      ['step1','loading','existe','notaitool','step2','succes'].forEach(s => {
         document.getElementById('prop-' + s).style.display = s === step ? '' : 'none';
       });
     }
+    function propConfirmerMalgre() { propShowStep('step2'); }
     async function verifierOutil() {
       const nom = document.getElementById('prop-nom').value.trim();
       const errEl = document.getElementById('prop-erreur1');
@@ -607,7 +615,11 @@
             document.getElementById('prop-bloc-gemini').style.display = '';
           }
           if (data.officialUrl) document.getElementById('prop-url').value = data.officialUrl;
-          propShowStep('step2');
+          if (data.isAiTool === false) {
+            propShowStep('notaitool');
+          } else {
+            propShowStep('step2');
+          }
         }
       } catch(e) {
         propShowStep('step1');
