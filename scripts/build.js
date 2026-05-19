@@ -915,18 +915,20 @@ function genererPageAccueil(outils, llms) {
         const r = await fetch('https://api.github.com/user', {
           headers: { Authorization: 'token ' + val }
         });
-        if (r.ok) { validerAdmin(); return; }
+        if (r.ok) { validerAdmin(val); return; }
       } catch(e) {}
       errEl.style.display = 'block';
     }
-    function validerAdmin() {
+    function validerAdmin(token) {
       setAdminCookie();
+      if (token) sessionStorage.setItem('admin_token', token);
       document.getElementById('panel-login').style.display = 'none';
       document.getElementById('panel-admin').style.display = '';
       activerAdmin();
     }
     function deconnecterAdmin() {
       deleteAdminCookie();
+      sessionStorage.removeItem('admin_token');
       document.querySelectorAll('.admin-zone').forEach(el => el.style.display = 'none');
       fermerModalAdmin();
     }
@@ -1162,9 +1164,10 @@ async function agir(pageId, action, btn) {
   row.querySelectorAll('button').forEach(b => b.disabled = true);
   btn.textContent = action === 'valider' ? 'En cours...' : 'Rejet...';
   try {
+    const token = sessionStorage.getItem('admin_token') || '';
     const res = await fetch(N8N + '/admin-validate', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': token },
       body: JSON.stringify({ pageId, action })
     });
     if (!res.ok) throw new Error('Erreur ' + res.status);
@@ -1554,18 +1557,20 @@ function genererPageDetail(item, liste, prefixe) {
         const r = await fetch('https://api.github.com/user', {
           headers: { Authorization: 'token ' + val }
         });
-        if (r.ok) { validerAdmin(); return; }
+        if (r.ok) { validerAdmin(val); return; }
       } catch(e) {}
       errEl.style.display = 'block';
     }
-    function validerAdmin() {
+    function validerAdmin(token) {
       setAdminCookie();
+      if (token) sessionStorage.setItem('admin_token', token);
       document.getElementById('panel-login').style.display = 'none';
       document.getElementById('panel-admin').style.display = '';
       activerAdmin();
     }
     function deconnecterAdmin() {
       deleteAdminCookie();
+      sessionStorage.removeItem('admin_token');
       document.querySelectorAll('.admin-zone').forEach(el => el.style.display = 'none');
       fermerModalAdmin();
     }
