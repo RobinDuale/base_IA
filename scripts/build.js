@@ -921,14 +921,14 @@ function genererPageAccueil(outils, llms) {
     }
     function validerAdmin(token) {
       setAdminCookie();
-      if (token) sessionStorage.setItem('admin_token', token);
+      if (token) localStorage.setItem('admin_token', token);
       document.getElementById('panel-login').style.display = 'none';
       document.getElementById('panel-admin').style.display = '';
       activerAdmin();
     }
     function deconnecterAdmin() {
       deleteAdminCookie();
-      sessionStorage.removeItem('admin_token');
+      localStorage.removeItem('admin_token');
       document.querySelectorAll('.admin-zone').forEach(el => el.style.display = 'none');
       fermerModalAdmin();
     }
@@ -1164,7 +1164,7 @@ async function agir(pageId, action, btn) {
   row.querySelectorAll('button').forEach(b => b.disabled = true);
   btn.textContent = action === 'valider' ? 'En cours...' : 'Rejet...';
   try {
-    const token = sessionStorage.getItem('admin_token') || '';
+    const token = localStorage.getItem('admin_token') || '';
     const res = await fetch(N8N + '/admin-validate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Admin-Token': token },
@@ -1563,14 +1563,14 @@ function genererPageDetail(item, liste, prefixe) {
     }
     function validerAdmin(token) {
       setAdminCookie();
-      if (token) sessionStorage.setItem('admin_token', token);
+      if (token) localStorage.setItem('admin_token', token);
       document.getElementById('panel-login').style.display = 'none';
       document.getElementById('panel-admin').style.display = '';
       activerAdmin();
     }
     function deconnecterAdmin() {
       deleteAdminCookie();
-      sessionStorage.removeItem('admin_token');
+      localStorage.removeItem('admin_token');
       document.querySelectorAll('.admin-zone').forEach(el => el.style.display = 'none');
       fermerModalAdmin();
     }
