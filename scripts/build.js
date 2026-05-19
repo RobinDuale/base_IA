@@ -479,7 +479,7 @@ function genererPageAccueil(outils, llms) {
 </head>
 <body>
   <header>
-    <h1><a href="/">Base <em>IA</em></a></h1>
+    <h1><a href="/"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;opacity:0.75"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Base <em>IA</em></a></h1>
   </header>
 
   <main>
@@ -833,7 +833,7 @@ function genererPageConfirmation() {
 </head>
 <body>
 <header>
-  <h1><a href="/">Base <em>IA</em></a></h1>
+  <h1><a href="/"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;opacity:0.75"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Base <em>IA</em></a></h1>
   <a class="retour" href="/">&#8592; Retour a la base</a>
 </header>
 
@@ -1272,7 +1272,7 @@ function genererPageDetail(item, liste, prefixe) {
   <div class="cat-band"></div>
 
   <header>
-    <h1><a href="../index.html">Base <em>IA</em></a></h1>
+    <h1><a href="../index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;opacity:0.75"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Base <em>IA</em></a></h1>
     <a class="retour" href="../index.html">&#8592; Retour a la base</a>
   </header>
 
@@ -1547,7 +1547,7 @@ function genererPagePositionnement({ slug, title, description, h1, intro, sectio
 </head>
 <body>
 <header>
-  <h1><a href="/">Base <em>IA</em></a></h1>
+  <h1><a href="/"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;opacity:0.75"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Base <em>IA</em></a></h1>
   <a class="retour" href="/">&#8592; Retour a la base</a>
 </header>
 
@@ -1767,7 +1767,7 @@ function genererMentionsLegales() {
 </head>
 <body>
 <header>
-  <h1><a href="/">Base <em>IA</em></a></h1>
+  <h1><a href="/"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;opacity:0.75"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Base <em>IA</em></a></h1>
   <a href="/" class="retour">&#8592; Retour a la base</a>
 </header>
 
