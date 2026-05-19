@@ -356,12 +356,7 @@ ${llms.map((l) => urlEntry(`${BASE_URL}/llm/${l.slug}.html`, "monthly", "0.8")).
 
 // Page d'accueil avec grille unifiée filtrée par Catégorie
 function genererPageAccueil(outils, llms) {
-  const items = [...outils, ...llms].sort((a, b) => {
-    if (a.ordre === null && b.ordre === null) return a.nom.localeCompare(b.nom);
-    if (a.ordre === null) return 1;
-    if (b.ordre === null) return -1;
-    return a.ordre - b.ordre;
-  });
+  const items = [...outils, ...llms].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
   const CATS_NAVBAR = ["LLMs", "Productivité", "No-Code", "Créativité"];
   const catsDisponibles = [...new Set(items.map(i => i.categorie).filter(Boolean))];
   const hasCreativite = catsDisponibles.includes("Créativité");
@@ -1212,10 +1207,12 @@ function genererPageDetail(item, liste, prefixe) {
     </div>`;
   }
 
-  const liensBarreLaterale = liste
+  const listeSorted = [...liste].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+  const liensBarreLaterale = listeSorted
     .map((o) => {
-      const couleur = o.type === "LLM" ? "#8b5cf6" : (COULEURS_CATEGORIE[o.categorie] || "#6b7280");
-      return `<a href="${o.slug}.html" class="${o.slug === item.slug ? "actif" : ""}">
+      const couleur = COULEURS_CATEGORIE[o.categorie] || "#6b7280";
+      const href = o.type === "LLM" ? `/llm/${o.slug}.html` : `/outils/${o.slug}.html`;
+      return `<a href="${href}" class="${o.slug === item.slug ? "actif" : ""}">
         <span class="nav-dot" style="background:${couleur}"></span>
         <span>${o.nom}</span>
       </a>`;
@@ -1948,10 +1945,12 @@ async function main() {
     }
     console.log(`Page d'accueil, mentions légales, sitemap, llms.txt et ${pagesPositionnement.length} pages de positionnement générés.`);
 
+    const tousAlpha = [...tous].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+
     for (const outil of outils) {
       fs.writeFileSync(
         path.join(DIST_DIR, "outils", `${outil.slug}.html`),
-        genererPageDetail(outil, outils, "outils")
+        genererPageDetail(outil, tousAlpha, "outils")
       );
     }
     console.log(`${outils.length} pages outils générées.`);
@@ -1959,7 +1958,7 @@ async function main() {
     for (const llm of llms) {
       fs.writeFileSync(
         path.join(DIST_DIR, "llm", `${llm.slug}.html`),
-        genererPageDetail(llm, llms, "llm")
+        genererPageDetail(llm, tousAlpha, "llm")
       );
     }
     console.log(`${llms.length} pages LLMs générées.`);
