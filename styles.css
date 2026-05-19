@@ -1500,3 +1500,39 @@ footer {
     padding-right: 16px;
   }
 }
+
+/* --- Filtres tags --- */
+.tags-filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px 0 8px;
+}
+
+.filtre-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--tag-couleur, #6b7280);
+  color: var(--tag-couleur, #6b7280);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+  line-height: 1.4;
+}
+
+.filtre-tag:hover {
+  background: color-mix(in srgb, var(--tag-couleur, #6b7280) 10%, transparent);
+}
+
+.filtre-tag.actif {
+  background: var(--tag-couleur, #6b7280);
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .tags-filtres { gap: 5px; }
+  .filtre-tag { font-size: 11px; padding: 3px 8px; }
+}
