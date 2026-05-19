@@ -229,6 +229,10 @@ const COOKIE_BANNER = `<div id="cookie-banner" style="display:none;position:fixe
 const OG_IMAGE = `${BASE_URL}/assets/og-default.png`;
 const OG_IMAGE_ALT = "Base IA -- Référence des outils IA et No-Code par Robin Dualé";
 const SITE_NAME = "Base IA · Robin Dualé";
+const AUTHOR_NAME = "Robin Dualé";
+const AUTHOR_URL = "https://cv-robin.duale.fr";
+const DATE_PUBLISHED = "2026-05-16T00:00:00+02:00";
+const DATE_MODIFIED = new Date().toISOString().replace(/\.\d{3}Z$/, '+02:00');
 
 // Tronque une description pour les meta tags (130-155 chars)
 function descriptionMeta(texte, fallback) {
@@ -412,12 +416,14 @@ function genererPageAccueil(outils, llms) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>${TITLE_HOME}</title>
   <meta name="description" content="${DESC_HOME}"/>
+  <meta name="author" content="${AUTHOR_NAME}"/>
   <link rel="canonical" href="${BASE_URL}/"/>
   <meta property="og:title" content="${TITLE_HOME}"/>
   <meta property="og:description" content="${DESC_HOME}"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="${BASE_URL}/"/>
   <meta property="og:image" content="${OG_IMAGE}"/>
+  <meta property="og:image:secure_url" content="${OG_IMAGE}"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta property="og:image:alt" content="${OG_IMAGE_ALT}"/>
@@ -1266,17 +1272,22 @@ function genererPageDetail(item, liste, prefixe) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>${titleDetail}</title>
   <meta name="description" content="${descDetail}"/>
+  <meta name="author" content="${AUTHOR_NAME}"/>
   <link rel="canonical" href="${urlDetail}"/>
   <meta property="og:title" content="${titleDetail}"/>
   <meta property="og:description" content="${descDetail}"/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="${urlDetail}"/>
   <meta property="og:image" content="${OG_IMAGE}"/>
+  <meta property="og:image:secure_url" content="${OG_IMAGE}"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta property="og:image:alt" content="${OG_IMAGE_ALT}"/>
   <meta property="og:locale" content="fr_FR"/>
   <meta property="og:site_name" content="${SITE_NAME}"/>
+  <meta property="article:published_time" content="${DATE_PUBLISHED}"/>
+  <meta property="article:modified_time" content="${DATE_MODIFIED}"/>
+  <meta property="article:author" content="${AUTHOR_URL}"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="${titleDetail}"/>
   <meta name="twitter:description" content="${descDetail}"/>
@@ -1588,17 +1599,22 @@ function genererPagePositionnement({ slug, title, description, h1, intro, sectio
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>${title}</title>
   <meta name="description" content="${description}"/>
+  <meta name="author" content="${AUTHOR_NAME}"/>
   <link rel="canonical" href="${url}"/>
   <meta property="og:title" content="${title}"/>
   <meta property="og:description" content="${description}"/>
-  <meta property="og:type" content="website"/>
+  <meta property="og:type" content="article"/>
   <meta property="og:url" content="${url}"/>
   <meta property="og:image" content="${OG_IMAGE}"/>
+  <meta property="og:image:secure_url" content="${OG_IMAGE}"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta property="og:image:alt" content="${OG_IMAGE_ALT}"/>
   <meta property="og:locale" content="fr_FR"/>
   <meta property="og:site_name" content="${SITE_NAME}"/>
+  <meta property="article:published_time" content="${DATE_PUBLISHED}"/>
+  <meta property="article:modified_time" content="${DATE_MODIFIED}"/>
+  <meta property="article:author" content="${AUTHOR_URL}"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="${title}"/>
   <meta name="twitter:description" content="${description}"/>
@@ -1698,8 +1714,8 @@ function genererPagesPositionnement(outils, llms) {
 
   pages.push({
     slug: "comparatif-llm",
-    title: "Quel LLM choisir en 2026 ? Comparatif Claude, ChatGPT, Gemini · Base IA",
-    description: "Comparatif des meilleurs LLMs en 2026 : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot. Avantages, limites et cas d'usage pour choisir le bon modèle.",
+    title: "Comparatif LLMs 2026 : Claude, ChatGPT, Gemini · Base IA",
+    description: "Comparatif des meilleurs LLMs 2026 : Claude, ChatGPT, Gemini, Perplexity, Copilot. Avantages, limites et cas d'usage pour choisir le bon modèle.",
     h1: "Quel LLM choisir en 2026 ? Comparatif des modèles de langage",
     intro: "Les LLMs (Large Language Models) sont au coeur de la révolution IA. Claude, ChatGPT, Gemini, Perplexity et Microsoft Copilot ont chacun des forces distinctes selon l'usage : rédaction, code, recherche, automatisation. Ce comparatif vous aide à choisir le modèle adapté à votre contexte.",
     sections: sectionsLLMs + `
@@ -1711,10 +1727,15 @@ function genererPagesPositionnement(outils, llms) {
     schema: `{
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Comparatif LLMs 2026",
+      "@type": "Article",
+      "headline": "Comparatif LLMs 2026 : Claude, ChatGPT, Gemini, Perplexity, Copilot",
       "description": "Comparatif des meilleurs modèles de langage : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot.",
       "url": "${BASE_URL}/comparatif-llm.html",
-      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"}
+      "datePublished": "${DATE_PUBLISHED}",
+      "dateModified": "${DATE_MODIFIED}",
+      "inLanguage": "fr",
+      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"},
+      "publisher": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr"}
     }`,
   });
 
@@ -1730,8 +1751,8 @@ function genererPagesPositionnement(outils, llms) {
 
   pages.push({
     slug: "automatiser-avec-ia",
-    title: "Automatiser ses processus avec l'IA : outils et méthodes · Base IA",
-    description: "Guide des meilleurs outils pour automatiser ses processus métier avec l'IA : n8n, Make, Notion, Clay. Workflows concrets, cas d'usage et comparatif pour débutants et experts.",
+    title: "Automatiser avec l'IA : outils et méthodes 2026 · Base IA",
+    description: "Guide des outils pour automatiser avec l'IA : n8n, Make, Notion, Clay. Workflows concrets et cas d'usage pour débutants et experts.",
     h1: "Comment automatiser ses processus métier avec des outils IA ?",
     intro: "L'automatisation des tâches répétitives est l'un des gains les plus immédiats de l'IA. Des outils comme n8n, Make ou Clay permettent de connecter des services, traiter des données et déclencher des actions sans écrire une ligne de code. Voici les outils clés et comment les utiliser.",
     sections: sectionsAuto + `
@@ -1743,10 +1764,15 @@ function genererPagesPositionnement(outils, llms) {
     schema: `{
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Automatiser avec l'IA",
+      "@type": "Article",
+      "headline": "Automatiser avec l'IA : outils et méthodes 2026",
       "description": "Guide des meilleurs outils pour automatiser ses processus avec l'IA.",
       "url": "${BASE_URL}/automatiser-avec-ia.html",
-      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"}
+      "datePublished": "${DATE_PUBLISHED}",
+      "dateModified": "${DATE_MODIFIED}",
+      "inLanguage": "fr",
+      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"},
+      "publisher": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr"}
     }`,
   });
 
@@ -1762,8 +1788,8 @@ function genererPagesPositionnement(outils, llms) {
 
   pages.push({
     slug: "outils-no-code",
-    title: "Meilleurs outils No-Code en 2026 : créer sans coder · Base IA",
-    description: "Sélection des meilleurs outils No-Code en 2026 : Notion, Lovable, GitHub Pages, Netlify. Créez des applications, sites et bases de données sans écrire de code.",
+    title: "Outils No-Code 2026 : créer sans coder · Base IA",
+    description: "Sélection des meilleurs outils No-Code 2026 : Notion, Lovable, Netlify. Créez des applications et sites sans écrire de code. Comparatif et cas d'usage.",
     h1: "Les meilleurs outils No-Code en 2026 pour créer sans coder",
     intro: "Le No-Code démocratise la création d'applications, de sites web et de bases de données. En 2026, des outils comme Notion, Lovable ou Webflow permettent de construire des produits fonctionnels sans compétence technique. Voici la sélection des meilleurs outils No-Code selon les cas d'usage.",
     sections: sectionsNC + `
@@ -1775,10 +1801,15 @@ function genererPagesPositionnement(outils, llms) {
     schema: `{
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Outils No-Code 2026",
+      "@type": "Article",
+      "headline": "Outils No-Code 2026 : créer des applications sans coder",
       "description": "Sélection des meilleurs outils No-Code pour créer sans coder.",
       "url": "${BASE_URL}/outils-no-code.html",
-      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"}
+      "datePublished": "${DATE_PUBLISHED}",
+      "dateModified": "${DATE_MODIFIED}",
+      "inLanguage": "fr",
+      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"},
+      "publisher": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr"}
     }`,
   });
 
