@@ -71,7 +71,6 @@ async function recupererItems() {
         slug: slugifier(extraireTexte(p["Nom"])),
         nom: extraireTexte(p["Nom"]),
         type: extraireTexte(p["Type"]),
-        ordre: extraireTexte(p["Ordre"]),
         categorie: extraireTexte(p["Catégorie"]),
         niveau: extraireTexte(p["Niveau"]),
         priorite: extraireTexte(p["Priorité"]),
@@ -100,14 +99,6 @@ async function recupererItems() {
 
     curseur = reponse.has_more ? reponse.next_cursor : undefined;
   } while (curseur);
-
-  // Trier par Ordre (nulls en dernier, puis par nom)
-  items.sort((a, b) => {
-    if (a.ordre === null && b.ordre === null) return a.nom.localeCompare(b.nom);
-    if (a.ordre === null) return 1;
-    if (b.ordre === null) return -1;
-    return a.ordre - b.ordre;
-  });
 
   console.log(`${items.length} item(s) récupéré(s).`);
   return items;
