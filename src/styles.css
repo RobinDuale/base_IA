@@ -779,6 +779,15 @@ main {
   line-height: 1.6;
 }
 
+.scenario-liste {
+  margin: 0;
+  padding-left: 1.4em;
+  font-size: 17px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.scenario-liste li { margin-bottom: 4px; }
+
 /* --- Footer --- */
 footer {
   border-top: 1px solid var(--line);

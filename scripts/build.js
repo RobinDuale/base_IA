@@ -1207,9 +1207,25 @@ ${COOKIE_BANNER}
 // Page détail (commune Outils et LLMs)
 function genererPageDetail(item, liste, prefixe) {
   function renderContenu(contenu) {
+    // Listes numérotées : "1. A. 2. B." ou "1. A\n2. B"
+    const numInline = contenu.match(/\d+\.\s/g);
+    if (numInline && numInline.length >= 2) {
+      const items = contenu.split(/\d+\.\s+/).map(l => l.replace(/\.\s*$/, '').trim()).filter(l => l);
+      return `<ol>${items.map(l => `<li>${l}</li>`).join('')}</ol>`;
+    }
+    // Listes à tirets : "- A\n- B"
     const lignes = contenu.split('\n').map(l => l.replace(/^-\s*/, '').trim()).filter(l => l);
-    if (lignes.length <= 1) return `<p>${contenu}</p>`;
-    return `<ul>${lignes.map(l => `<li>${l}</li>`).join('')}</ul>`;
+    if (lignes.length >= 2) return `<ul>${lignes.map(l => `<li>${l}</li>`).join('')}</ul>`;
+    return `<p>${contenu}</p>`;
+  }
+
+  function renderScenario(contenu) {
+    const numInline = contenu.match(/\d+\.\s/g);
+    if (numInline && numInline.length >= 2) {
+      const items = contenu.split(/\d+\.\s+/).map(l => l.replace(/\.\s*$/, '').trim()).filter(l => l);
+      return `<ol class="scenario-liste">${items.map(l => `<li>${l}</li>`).join('')}</ol>`;
+    }
+    return `<p class="scenario-texte">${contenu}</p>`;
   }
 
   function section(type, label, titre, contenu) {
@@ -1286,17 +1302,17 @@ function genererPageDetail(item, liste, prefixe) {
       ${item.scenarioSimple ? `
       <div class="scenario">
         <h3 class="scenario-niveau scenario-simple">Debutant</h3>
-        <p class="scenario-texte">${item.scenarioSimple}</p>
+        ${renderScenario(item.scenarioSimple)}
       </div>` : ""}
       ${item.scenarioIntermediaire ? `
       <div class="scenario">
         <h3 class="scenario-niveau scenario-intermediaire">Intermediaire</h3>
-        <p class="scenario-texte">${item.scenarioIntermediaire}</p>
+        ${renderScenario(item.scenarioIntermediaire)}
       </div>` : ""}
       ${item.scenarioAvance ? `
       <div class="scenario">
         <h3 class="scenario-niveau scenario-avance">Avance</h3>
-        <p class="scenario-texte">${item.scenarioAvance}</p>
+        ${renderScenario(item.scenarioAvance)}
       </div>` : ""}
       ` : ""}
       ${specSheetHtml}
