@@ -364,10 +364,13 @@ function genererPageAccueil(outils, llms) {
     items.flatMap(i => i.tags ? i.tags.split(",").map(t => t.trim()).filter(Boolean) : [])
   )].sort((a, b) => a.localeCompare(b, 'fr'));
 
-  const tagButtons = allTags.map(tag => {
-    const couleur = COULEURS_TAG[tag] || "#6b7280";
-    return `<button class="filtre-tag" data-tag="${tag}" onclick="filtrerParTag(this)" style="--tag-couleur:${couleur}">${tag}</button>`;
-  }).join("\n        ");
+  const tagButtons = [
+    `<button class="filtre-tag actif" data-tag="" onclick="filtrerParTag(this)" style="--tag-couleur:#1a1712">Tous</button>`,
+    ...allTags.map(tag => {
+      const couleur = COULEURS_TAG[tag] || "#6b7280";
+      return `<button class="filtre-tag" data-tag="${tag}" onclick="filtrerParTag(this)" style="--tag-couleur:${couleur}">${tag}</button>`;
+    })
+  ].join("\n        ");
 
   function genererCarte(item) {
     const prefixe = item.type === "LLM" ? "llm" : "outils";
@@ -564,11 +567,11 @@ function genererPageAccueil(outils, llms) {
 
     function filtrerParTag(btn) {
       const tag = btn.dataset.tag;
-      if (window._tagActive === tag) {
+      document.querySelectorAll('.filtre-tag').forEach(b => b.classList.remove('actif'));
+      if (!tag || window._tagActive === tag) {
         window._tagActive = null;
-        btn.classList.remove('actif');
+        document.querySelector('.filtre-tag[data-tag=""]').classList.add('actif');
       } else {
-        document.querySelectorAll('.filtre-tag').forEach(b => b.classList.remove('actif'));
         window._tagActive = tag;
         btn.classList.add('actif');
       }
