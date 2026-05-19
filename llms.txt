@@ -19,10 +19,11 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-Productivité, Créativité, No-Code, LLMs, Automatisation
+LLMs, Productivité, Créativité, No-Code, Automatisation
 
-## 22 outils référencés
+## 23 outils référencés
 
+- [Anyscale](https://ia.duale.fr/outils/anyscale.html) : Plateforme unifiée pour le développement, le déploiement et la mise à l'échelle d'applications IA. Elle est construite s
 - [Motion](https://ia.duale.fr/outils/motion.html) : Motion est un assistant de productivité piloté par l'IA qui planifie automatiquement votre emploi du temps en intégrant
 - [HeyGen](https://ia.duale.fr/outils/heygen.html) : Plateforme leader de génération de vidéos par IA utilisant des avatars réalistes et la synthèse vocale pour transformer
 - [XCode](https://ia.duale.fr/outils/xcode.html) : Xcode est l'environnement de développement intégré (IDE) officiel d'Apple conçu pour créer des applications sur macOS, i
