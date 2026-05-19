@@ -21,7 +21,7 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 Productivité, IA, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
 
-## 20 outils référencés
+## 21 outils référencés
 
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
 - [Perplexity](https://ia.duale.fr/outils/perplexity.html) : Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables
@@ -36,6 +36,7 @@ Productivité, IA, Développement, Automatisation, Base de données, Scraping, H
 - [Slack](https://ia.duale.fr/outils/slack.html) : Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel
 - [Brevo](https://ia.duale.fr/outils/brevo.html) : Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automa
 - [Concensus](https://ia.duale.fr/outils/concensus.html) : Consensus est un moteur de recherche boosté à l'IA qui extrait et résume des preuves issues de publications scientifique
+- [Heygen](https://ia.duale.fr/outils/heygen.html) : HeyGen est une plateforme de génération de vidéos par IA permettant de créer des avatars numériques photoréalistes capab
 - [Hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
 - [Manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériqu
 - [Midjourney](https://ia.duale.fr/outils/midjourney.html) : Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle
