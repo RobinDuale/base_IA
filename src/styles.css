@@ -674,6 +674,15 @@ main {
   line-height: 1.65;
 }
 
+.section ul {
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.65;
+}
+.section ul li { margin-bottom: 4px; }
+
 /* --- Tags fiche --- */
 .tags-fiche {
   display: flex;

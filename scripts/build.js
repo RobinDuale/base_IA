@@ -1206,13 +1206,19 @@ ${COOKIE_BANNER}
 
 // Page détail (commune Outils et LLMs)
 function genererPageDetail(item, liste, prefixe) {
+  function renderContenu(contenu) {
+    const lignes = contenu.split('\n').map(l => l.replace(/^-\s*/, '').trim()).filter(l => l);
+    if (lignes.length <= 1) return `<p>${contenu}</p>`;
+    return `<ul>${lignes.map(l => `<li>${l}</li>`).join('')}</ul>`;
+  }
+
   function section(type, label, titre, contenu) {
     if (!contenu) return "";
     return `
     <section class="section" data-type="${type}">
       <div class="section-eyebrow">${label}</div>
       <h2>${titre}</h2>
-      <p>${contenu.replace(/\n/g, "<br/>")}</p>
+      ${renderContenu(contenu)}
     </section>`;
   }
 
