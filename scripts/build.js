@@ -116,13 +116,44 @@ async function recupererItems() {
 // --- Génération du HTML ---
 
 const COULEURS_TAG = {
-  CRM:          "#3b82f6",
-  Veille:       "#22c55e",
-  Prospection:  "#f97316",
-  Workflow:     "#8b5cf6",
-  Scraping:     "#d97706",
-  IA:           "#ec4899",
-  Hébergement:  "#14b8a6",
+  CRM:             "#3b82f6",
+  Veille:          "#22c55e",
+  Prospection:     "#f97316",
+  Workflow:        "#8b5cf6",
+  Scraping:        "#d97706",
+  IA:              "#ec4899",
+  Hébergement:     "#14b8a6",
+  Search:          "#6b7280",
+  Monitoring:      "#22c55e",
+  AI:              "#ec4899",
+  Agentic:         "#8b5cf6",
+  Research:        "#3b82f6",
+  Academic:        "#6b7280",
+  Image:           "#f97316",
+  "Generative AI": "#ec4899",
+  Video:           "#ef4444",
+  Avatar:          "#6b7280",
+  Automation:      "#f97316",
+  "Self-hosted":   "#a16207",
+  API:             "#3b82f6",
+  Data:            "#6b7280",
+  "App Builder":   "#8b5cf6",
+  Dev:             "#ef4444",
+  Database:        "#8b5cf6",
+  Backend:         "#6b7280",
+  Hosting:         "#14b8a6",
+  Deployment:      "#6b7280",
+  Website:         "#3b82f6",
+  Email:           "#3b82f6",
+  "Lead Gen":      "#f97316",
+  Enrichment:      "#eab308",
+  Collaboration:   "#22c55e",
+  Chat:            "#3b82f6",
+  Workspace:       "#8b5cf6",
+  Docs:            "#6b7280",
+  Repository:      "#a16207",
+  Apple:           "#6b7280",
+  "No-Code":       "#22c55e",
 };
 
 function badgeTag(tag) {
@@ -131,14 +162,16 @@ function badgeTag(tag) {
 }
 
 const COULEURS_CATEGORIE = {
-  IA: "#3b82f6",
-  "No-Code": "#22c55e",
-  Automatisation: "#f97316",
+  LLMs:            "#8b5cf6",
+  "No-Code":       "#22c55e",
+  Productivité:    "#eab308",
+  Créativité:      "#f97316",
+  IA:              "#3b82f6",
+  Automatisation:  "#f97316",
   "Base de données": "#8b5cf6",
-  Développement: "#ef4444",
-  Productivité: "#eab308",
-  Scraping: "#a16207",
-  Hébergement: "#ec4899",
+  Développement:   "#ef4444",
+  Scraping:        "#a16207",
+  Hébergement:     "#ec4899",
 };
 
 function badgeCategorie(categorie) {
@@ -321,38 +354,42 @@ ${llms.map((l) => urlEntry(`${BASE_URL}/llm/${l.slug}.html`, "monthly", "0.8")).
 </urlset>`;
 }
 
-// Page d'accueil avec onglets Outils / LLMs
+// Page d'accueil avec grille unifiée filtrée par Catégorie
 function genererPageAccueil(outils, llms) {
-  const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))];
-  const tagsOutils = [...new Set(outils.flatMap((o) => o.tags ? o.tags.split(",").map((t) => t.trim()) : []).filter(Boolean))];
-  const filtresUniques = [...new Set([...categories, ...tagsOutils])].sort();
-
-  const filtres = filtresUniques
-    .map((f) => {
-      const couleur = COULEURS_CATEGORIE[f] || COULEURS_TAG[f] || "#6b7280";
-      return `<button class="filtre" data-filtre="${f}" style="--filtre-couleur:${couleur}">${f}</button>`;
+  const items = [...outils, ...llms].sort((a, b) => {
+    if (a.ordre === null && b.ordre === null) return a.nom.localeCompare(b.nom);
+    if (a.ordre === null) return 1;
+    if (b.ordre === null) return -1;
+    return a.ordre - b.ordre;
+  });
+  const CATS_NAVBAR = ["LLMs", "Productivité", "No-Code", "Créativité"];
+  const catsDisponibles = [...new Set(items.map(i => i.categorie).filter(Boolean))];
+  const hasCreativite = catsDisponibles.includes("Créativité");
+  const nbLLMs = items.filter(i => i.categorie === "LLMs").length;
+  const catButtons = CATS_NAVBAR
+    .filter(cat => cat !== "Créativité" || hasCreativite)
+    .map(cat => {
+      const couleur = COULEURS_CATEGORIE[cat] || "#6b7280";
+      return `<button class="onglet" data-cat="${cat}" onclick="filtrerParCategorie(this)" style="--filtre-couleur:${couleur}">${cat}</button>`;
     })
     .join("\n        ");
 
-  function genererCarte(item, prefixe, estLLM) {
-    const couleurCat = estLLM
-      ? "#8b5cf6"
-      : (COULEURS_CATEGORIE[item.categorie] || "#6b7280");
+  function genererCarte(item) {
+    const prefixe = item.type === "LLM" ? "llm" : "outils";
+    const couleurCat = COULEURS_CATEGORIE[item.categorie] || "#6b7280";
     const tagsArray = item.tags ? item.tags.split(",").map(t => t.trim()).filter(Boolean) : [];
     const tagsBadges = tagsArray.slice(0, 3).map(t => {
       const c = COULEURS_TAG[t] || "#6b7280";
       return `<span class="carte-tag" style="color:${c}">${t}</span>`;
     }).join("");
-    const categorieLabel = estLLM ? "LLM" : (item.categorie || "");
-    const typeLabel = estLLM ? "Modele" : (item.type || "Outil");
 
     return `
     <a class="carte" href="${prefixe}/${item.slug}.html" data-categorie="${item.categorie}" data-tags="${item.tags || ""}" data-notion-id="${item.id}">
       <div class="carte-accent" style="background:${couleurCat}"></div>
       <div class="carte-body">
         <div class="carte-head">
-          <div class="carte-cat">${categorieLabel}</div>
-          <div class="carte-type">${typeLabel}</div>
+          <div class="carte-cat">${item.categorie || ""}</div>
+          <div class="carte-type">${item.type === "LLM" ? "LLM" : "Outil"}</div>
         </div>
         <h2 class="carte-nom">${item.nom}</h2>
         ${item.description ? `<p class="carte-description">${item.description}</p>` : ""}
@@ -364,8 +401,7 @@ function genererPageAccueil(outils, llms) {
     </a>`;
   }
 
-  const cartesOutils = outils.map(o => genererCarte(o, "outils", false)).join("\n");
-  const cartesLLMs = llms.map(l => genererCarte(l, "llm", true)).join("\n");
+  const cartesItems = items.map(i => genererCarte(i)).join("\n");
 
   const DESC_HOME = "Référence des meilleurs outils IA, No-Code et LLMs sélectionnés par Robin Dualé. Fiches détaillées, scénarios d'usage et modèles économiques.";
   const TITLE_HOME = "Base IA · Outils IA, No-Code et LLMs · Robin Dualé";
@@ -462,15 +498,15 @@ function genererPageAccueil(outils, llms) {
       </p>
       <div class="kpis">
         <div class="kpi">
-          <div class="kpi-num">${outils.length}</div>
+          <div class="kpi-num">${items.length - nbLLMs}</div>
           <div class="kpi-label">Outils references</div>
         </div>
         <div class="kpi">
-          <div class="kpi-num">${llms.length}</div>
+          <div class="kpi-num">${nbLLMs}</div>
           <div class="kpi-label">Grands modeles</div>
         </div>
         <div class="kpi">
-          <div class="kpi-num">${categories.length}</div>
+          <div class="kpi-num">${catsDisponibles.length}</div>
           <div class="kpi-label">Categories</div>
         </div>
       </div>
@@ -483,22 +519,17 @@ function genererPageAccueil(outils, llms) {
 
       <div class="onglets" id="barre-onglets">
         <div class="onglets-gauche">
-          <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
-          <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
+          <button class="onglet actif" data-cat="tous" onclick="filtrerParCategorie(this)">Tous</button>
+          ${catButtons}
         </div>
         <button class="onglet-proposer" onclick="ouvrirModalProposition()">
           <span class="onglet-proposer-plus">+</span>
           Proposer un nouvel outil
         </button>
       </div>
-
-      <div class="filtres" id="filtres-outils">
-        <button class="filtre actif" data-filtre="tous">Tous</button>
-        ${filtres}
-      </div>
     </div>
 
-    <div id="section-outils">
+    <div id="section-items">
       <div class="barre-actions">
         <button class="btn-reorganiser admin-zone" id="btnReorganiser" onclick="toggleReorganisation()" style="display:none">Réorganiser</button>
         <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
@@ -506,18 +537,7 @@ function genererPageAccueil(outils, llms) {
       </div>
 
       <div class="grille" id="grille">
-        ${cartesOutils}
-      </div>
-    </div>
-
-    <div id="section-llms" style="display:none">
-      <div class="barre-actions">
-        <button class="btn-reorganiser admin-zone" id="btnReorganiserLLM" onclick="toggleReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Réorganiser</button>
-        <button class="btn-sauvegarder" id="btnSauvegarderLLM" onclick="sauvegarderOrdreGrille('grille-llms', 'btnReorganiserLLM', this)" style="display:none">Sauvegarder l'ordre</button>
-        <button class="btn-annuler" id="btnAnnulerLLM" onclick="annulerReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Annuler</button>
-      </div>
-      <div class="grille" id="grille-llms">
-        ${cartesLLMs}
+        ${cartesItems}
       </div>
     </div>
   </main>
@@ -540,55 +560,29 @@ function genererPageAccueil(outils, llms) {
   </footer>
 
   <script>
-    function afficherOnglet(btn, nom) {
+    window._catActive = 'tous';
+
+    function filtrerParCategorie(btn) {
       document.querySelectorAll('.onglet').forEach(b => b.classList.remove('actif'));
       btn.classList.add('actif');
-      document.getElementById('section-outils').style.display = nom === 'outils' ? '' : 'none';
-      document.getElementById('section-llms').style.display = nom === 'llms' ? '' : 'none';
-      var fo = document.getElementById('filtres-outils');
-      if (fo) fo.style.display = nom === 'outils' ? '' : 'none';
-      window._ongletActif = nom;
+      window._catActive = btn.dataset.cat || 'tous';
+      appliquerFiltres();
     }
 
     function filtrerGlobal() {
-      const query = document.getElementById('recherche-global').value.toLowerCase().trim();
-      const barreOnglets = document.getElementById('barre-onglets');
+      appliquerFiltres();
+    }
 
-      if (query) {
-        // Mode recherche : afficher les deux sections
-        barreOnglets.style.display = 'none';
-        document.getElementById('section-outils').style.display = '';
-        document.getElementById('section-llms').style.display = '';
-
-        // Filtrer les cartes outils
-        const filtreActif = document.querySelector('.filtre.actif')?.dataset.filtre || 'tous';
-        document.querySelectorAll('#section-outils .carte').forEach(carte => {
-          const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
-          const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
-          const matchQuery = nom.includes(query) || desc.includes(query);
-          const tags = (carte.dataset.tags || '').split(',').map(t => t.trim());
-          const matchFiltre = filtreActif === 'tous' || carte.dataset.categorie === filtreActif || tags.includes(filtreActif);
-          carte.style.display = matchQuery && matchFiltre ? '' : 'none';
-        });
-
-        // Filtrer les cartes LLMs
-        document.querySelectorAll('#section-llms .carte').forEach(carte => {
-          const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
-          const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
-          carte.style.display = nom.includes(query) || desc.includes(query) ? '' : 'none';
-        });
-      } else {
-        // Recherche vide : revenir à l'onglet actif
-        barreOnglets.style.display = '';
-        const ongletActif = window._ongletActif || 'outils';
-        document.getElementById('section-outils').style.display = ongletActif === 'outils' ? '' : 'none';
-        document.getElementById('section-llms').style.display = ongletActif === 'llms' ? '' : 'none';
-        var fo = document.getElementById('filtres-outils');
-        if (fo) fo.style.display = ongletActif === 'outils' ? '' : 'none';
-        // Réafficher toutes les cartes
-        document.querySelectorAll('.carte').forEach(c => c.style.display = '');
-        filtrerOutils();
-      }
+    function appliquerFiltres() {
+      const query = (document.getElementById('recherche-global')?.value || '').toLowerCase().trim();
+      const cat = window._catActive || 'tous';
+      document.querySelectorAll('#grille .carte').forEach(carte => {
+        const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
+        const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
+        const matchQuery = !query || nom.includes(query) || desc.includes(query);
+        const matchCat = cat === 'tous' || carte.dataset.categorie === cat;
+        carte.style.display = matchQuery && matchCat ? '' : 'none';
+      });
     }
 
     function rafraichirSite(btn) {
@@ -695,53 +689,8 @@ function genererPageAccueil(outils, llms) {
   </script>
 
   <script>
-    function filtrerOutils() {
-      const query = (document.getElementById("recherche-global")?.value || "").toLowerCase().trim();
-      const filtreActif = document.querySelector(".filtre.actif")?.dataset.filtre || "tous";
-      document.querySelectorAll("#section-outils .carte").forEach((carte) => {
-        const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
-        const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
-        const matchQuery = !query || nom.includes(query) || desc.includes(query);
-        const tags = (carte.dataset.tags || "").split(",").map((t) => t.trim());
-        const matchFiltre = filtreActif === "tous" || carte.dataset.categorie === filtreActif || tags.includes(filtreActif);
-        carte.style.display = matchQuery && matchFiltre ? "" : "none";
-      });
-    }
-
-    function filtrerLLMs() {
-      const query = (document.getElementById("recherche-global")?.value || "").toLowerCase().trim();
-      document.querySelectorAll("#section-llms .carte").forEach((carte) => {
-        const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
-        const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
-        const match = !query || nom.includes(query) || desc.includes(query);
-        carte.style.display = match ? "" : "none";
-      });
-    }
-
-    document.querySelectorAll(".filtre").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".filtre").forEach((b) => {
-          b.classList.remove("actif");
-          b.style.borderColor = "";
-          b.style.color = "";
-        });
-        btn.classList.add("actif");
-        filtrerOutils();
-      });
-      btn.addEventListener("mouseenter", () => {
-        if (!btn.classList.contains("actif")) {
-          const couleur = getComputedStyle(btn).getPropertyValue("--filtre-couleur").trim();
-          btn.style.borderColor = couleur;
-          btn.style.color = couleur;
-        }
-      });
-      btn.addEventListener("mouseleave", () => {
-        if (!btn.classList.contains("actif")) {
-          btn.style.borderColor = "";
-          btn.style.color = "";
-        }
-      });
-    });
+    // Alias pour compatibilité boutons HTML réorganisation
+    function filtrerOutils() { appliquerFiltres(); }
   </script>
 
   <div id="modal-proposition" onclick="if(event.target===this)fermerModalProposition()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9998;align-items:center;justify-content:center;">
@@ -815,12 +764,14 @@ function genererPageAccueil(outils, llms) {
         if (!r.ok) throw new Error('Erreur serveur ' + r.status);
         const data = await r.json();
         if (data.exists) {
-          document.getElementById('prop-nom-existe').textContent = nom;
+          document.getElementById('prop-nom-existe').textContent = data.nomCorrige || nom;
           propShowStep('existe');
         } else {
-          document.getElementById('prop-nom-hidden').value = nom;
+          const nomFinal = data.nomCorrige || nom;
+          document.getElementById('prop-nom-hidden').value = nomFinal;
           if (data.description && data.isAiTool !== false) {
-            document.getElementById('prop-desc-gemini').textContent = data.description;
+            const correctionNote = (data.nomCorrige && data.nomCorrige !== nom) ? ' (nom corrigé : ' + data.nomCorrige + ')' : '';
+            document.getElementById('prop-desc-gemini').textContent = data.description + correctionNote;
             document.getElementById('prop-bloc-gemini').style.display = '';
           }
           if (data.officialUrl) document.getElementById('prop-url').value = data.officialUrl;
@@ -1741,7 +1692,7 @@ function genererPagesPositionnement(outils, llms) {
   });
 
   // Page 2 : Automatiser avec l'IA
-  const outilsAuto = outils.filter((o) => ["Automatisation", "IA", "No-Code"].includes(o.categorie) && o.description);
+  const outilsAuto = [...outils, ...llms].filter((o) => ["Productivité", "No-Code"].includes(o.categorie) && o.description);
   const sectionsAuto = outilsAuto.map((o) => `
   <section class="section" style="margin-bottom:1rem;">
     <h2>Comment utiliser ${o.nom} pour automatiser ?</h2>
@@ -1773,7 +1724,7 @@ function genererPagesPositionnement(outils, llms) {
   });
 
   // Page 3 : Outils No-Code
-  const outilsNC = outils.filter((o) => ["No-Code", "Développement", "Hébergement"].includes(o.categorie) && o.description);
+  const outilsNC = outils.filter((o) => ["No-Code"].includes(o.categorie) && o.description);
   const sectionsNC = outilsNC.map((o) => `
   <section class="section" style="margin-bottom:1rem;">
     <h2>${o.nom} : ${o.description ? o.description.split(".")[0] : o.categorie}</h2>
@@ -1972,7 +1923,7 @@ async function main() {
     console.log(`${outils.length} outil(s), ${llms.length} LLM(s).`);
 
     // Générer l'image OG avec les vrais chiffres
-    const categories = new Set(outils.map((o) => o.categorie).filter(Boolean));
+    const categories = new Set(tous.map((o) => o.categorie).filter(Boolean));
     const ogBuffer = await genererImageOG(outils.length, llms.length, categories.size);
     fs.writeFileSync(path.join(DIST_DIR, "assets", "og-default.png"), ogBuffer);
 
