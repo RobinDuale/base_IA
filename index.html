@@ -152,11 +152,11 @@
       </p>
       <div class="kpis">
         <div class="kpi">
-          <div class="kpi-num">21</div>
+          <div class="kpi-num">18</div>
           <div class="kpi-label">Outils references</div>
         </div>
         <div class="kpi">
-          <div class="kpi-num">6</div>
+          <div class="kpi-num">9</div>
           <div class="kpi-label">Grands modeles</div>
         </div>
         <div class="kpi">
@@ -173,60 +173,20 @@
 
       <div class="onglets" id="barre-onglets">
         <div class="onglets-gauche">
-          <button class="onglet actif" onclick="afficherOnglet(this, 'outils')">Outils</button>
-          <button class="onglet" onclick="afficherOnglet(this, 'llms')">LLMs</button>
+          <button class="onglet actif" data-cat="tous" onclick="filtrerParCategorie(this)">Tous</button>
+          <button class="onglet" data-cat="LLMs" onclick="filtrerParCategorie(this)" style="--filtre-couleur:#8b5cf6">LLMs</button>
+        <button class="onglet" data-cat="Productivité" onclick="filtrerParCategorie(this)" style="--filtre-couleur:#eab308">Productivité</button>
+        <button class="onglet" data-cat="No-Code" onclick="filtrerParCategorie(this)" style="--filtre-couleur:#22c55e">No-Code</button>
+        <button class="onglet" data-cat="Créativité" onclick="filtrerParCategorie(this)" style="--filtre-couleur:#f97316">Créativité</button>
         </div>
         <button class="onglet-proposer" onclick="ouvrirModalProposition()">
           <span class="onglet-proposer-plus">+</span>
           Proposer un nouvel outil
         </button>
       </div>
-
-      <div class="filtres" id="filtres-outils">
-        <button class="filtre actif" data-filtre="tous">Tous</button>
-        <button class="filtre" data-filtre="AI" style="--filtre-couleur:#6b7280">AI</button>
-        <button class="filtre" data-filtre="API" style="--filtre-couleur:#6b7280">API</button>
-        <button class="filtre" data-filtre="Academic" style="--filtre-couleur:#6b7280">Academic</button>
-        <button class="filtre" data-filtre="Agentic" style="--filtre-couleur:#6b7280">Agentic</button>
-        <button class="filtre" data-filtre="App Builder" style="--filtre-couleur:#6b7280">App Builder</button>
-        <button class="filtre" data-filtre="Apple" style="--filtre-couleur:#6b7280">Apple</button>
-        <button class="filtre" data-filtre="Automation" style="--filtre-couleur:#6b7280">Automation</button>
-        <button class="filtre" data-filtre="Automatisation" style="--filtre-couleur:#f97316">Automatisation</button>
-        <button class="filtre" data-filtre="Avatar" style="--filtre-couleur:#6b7280">Avatar</button>
-        <button class="filtre" data-filtre="Backend" style="--filtre-couleur:#6b7280">Backend</button>
-        <button class="filtre" data-filtre="CRM" style="--filtre-couleur:#3b82f6">CRM</button>
-        <button class="filtre" data-filtre="Chat" style="--filtre-couleur:#6b7280">Chat</button>
-        <button class="filtre" data-filtre="Collaboration" style="--filtre-couleur:#6b7280">Collaboration</button>
-        <button class="filtre" data-filtre="Créativité" style="--filtre-couleur:#6b7280">Créativité</button>
-        <button class="filtre" data-filtre="Data" style="--filtre-couleur:#6b7280">Data</button>
-        <button class="filtre" data-filtre="Database" style="--filtre-couleur:#6b7280">Database</button>
-        <button class="filtre" data-filtre="Deployment" style="--filtre-couleur:#6b7280">Deployment</button>
-        <button class="filtre" data-filtre="Dev" style="--filtre-couleur:#6b7280">Dev</button>
-        <button class="filtre" data-filtre="Docs" style="--filtre-couleur:#6b7280">Docs</button>
-        <button class="filtre" data-filtre="Email" style="--filtre-couleur:#6b7280">Email</button>
-        <button class="filtre" data-filtre="Enrichment" style="--filtre-couleur:#6b7280">Enrichment</button>
-        <button class="filtre" data-filtre="Generative AI" style="--filtre-couleur:#6b7280">Generative AI</button>
-        <button class="filtre" data-filtre="Hosting" style="--filtre-couleur:#6b7280">Hosting</button>
-        <button class="filtre" data-filtre="Image" style="--filtre-couleur:#6b7280">Image</button>
-        <button class="filtre" data-filtre="LLMs" style="--filtre-couleur:#6b7280">LLMs</button>
-        <button class="filtre" data-filtre="Lead Gen" style="--filtre-couleur:#6b7280">Lead Gen</button>
-        <button class="filtre" data-filtre="Monitoring" style="--filtre-couleur:#6b7280">Monitoring</button>
-        <button class="filtre" data-filtre="No-Code" style="--filtre-couleur:#22c55e">No-Code</button>
-        <button class="filtre" data-filtre="Productivité" style="--filtre-couleur:#eab308">Productivité</button>
-        <button class="filtre" data-filtre="Prospection" style="--filtre-couleur:#f97316">Prospection</button>
-        <button class="filtre" data-filtre="Repository" style="--filtre-couleur:#6b7280">Repository</button>
-        <button class="filtre" data-filtre="Research" style="--filtre-couleur:#6b7280">Research</button>
-        <button class="filtre" data-filtre="Scraping" style="--filtre-couleur:#a16207">Scraping</button>
-        <button class="filtre" data-filtre="Search" style="--filtre-couleur:#6b7280">Search</button>
-        <button class="filtre" data-filtre="Self-hosted" style="--filtre-couleur:#6b7280">Self-hosted</button>
-        <button class="filtre" data-filtre="Video" style="--filtre-couleur:#6b7280">Video</button>
-        <button class="filtre" data-filtre="Website" style="--filtre-couleur:#6b7280">Website</button>
-        <button class="filtre" data-filtre="Workflow" style="--filtre-couleur:#8b5cf6">Workflow</button>
-        <button class="filtre" data-filtre="Workspace" style="--filtre-couleur:#6b7280">Workspace</button>
-      </div>
     </div>
 
-    <div id="section-outils">
+    <div id="section-items">
       <div class="barre-actions">
         <button class="btn-reorganiser admin-zone" id="btnReorganiser" onclick="toggleReorganisation()" style="display:none">Réorganiser</button>
         <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
@@ -245,14 +205,30 @@
         <h2 class="carte-nom">Notion</h2>
         <p class="carte-description">Workspace tout-en-un pour notes, documentation, bases de données et organisation.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Workspace</span><span class="carte-tag" style="color:#6b7280">Docs</span><span class="carte-tag" style="color:#6b7280">Collaboration</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#8b5cf6">Workspace</span><span class="carte-tag" style="color:#6b7280">Docs</span><span class="carte-tag" style="color:#22c55e">Collaboration</span></div>
+          <span class="carte-arrow">&#8594;</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="carte" href="llm/claude.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3625b86a-8bb4-814d-a6c8-dbe83b3c1d59">
+      <div class="carte-accent" style="background:#8b5cf6"></div>
+      <div class="carte-body">
+        <div class="carte-head">
+          <div class="carte-cat">LLMs</div>
+          <div class="carte-type">LLM</div>
+        </div>
+        <h2 class="carte-nom">Claude</h2>
+        <p class="carte-description">LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très longs documents. Disponible en trois niveaux : Haiku (rapide), Sonnet (équilibré), Opus (puissant).</p>
+        <div class="carte-foot">
+          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
     </a>
 
     <a class="carte" href="outils/perplexity.html" data-categorie="LLMs" data-tags="Search, Monitoring, AI" data-notion-id="3625b86a-8bb4-81fe-b40c-ed6c161166fa">
-      <div class="carte-accent" style="background:#6b7280"></div>
+      <div class="carte-accent" style="background:#8b5cf6"></div>
       <div class="carte-body">
         <div class="carte-head">
           <div class="carte-cat">LLMs</div>
@@ -261,7 +237,7 @@
         <h2 class="carte-nom">Perplexity</h2>
         <p class="carte-description">Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables et citées. Excellent pour la veille, la recherche factuelle et remplacer Google sur les questions complexes.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Search</span><span class="carte-tag" style="color:#6b7280">Monitoring</span><span class="carte-tag" style="color:#6b7280">AI</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Search</span><span class="carte-tag" style="color:#22c55e">Monitoring</span><span class="carte-tag" style="color:#ec4899">AI</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -277,7 +253,7 @@
         <h2 class="carte-nom">GitHub</h2>
         <p class="carte-description">GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres développeurs et automatiser des tâches via GitHub Actions.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Dev</span><span class="carte-tag" style="color:#6b7280">Repository</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#ef4444">Dev</span><span class="carte-tag" style="color:#a16207">Repository</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -293,7 +269,23 @@
         <h2 class="carte-nom">n8n</h2>
         <p class="carte-description">Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Automation</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span><span class="carte-tag" style="color:#6b7280">Self-hosted</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#f97316">Automation</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span><span class="carte-tag" style="color:#a16207">Self-hosted</span></div>
+          <span class="carte-arrow">&#8594;</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="carte" href="llm/chatgpt.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3625b86a-8bb4-81fc-901a-dfe40c09dea4">
+      <div class="carte-accent" style="background:#8b5cf6"></div>
+      <div class="carte-body">
+        <div class="carte-head">
+          <div class="carte-cat">LLMs</div>
+          <div class="carte-type">LLM</div>
+        </div>
+        <h2 class="carte-nom">ChatGPT</h2>
+        <p class="carte-description">LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème très riche : Custom GPTs, plugins, Canvas, DALL-E pour les images.</p>
+        <div class="carte-foot">
+          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -309,7 +301,23 @@
         <h2 class="carte-nom">Airtable</h2>
         <p class="carte-description">Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle. Il permet de structurer des informations, créer des vues, suivre des processus et collaborer sans coder.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Database</span><span class="carte-tag" style="color:#3b82f6">CRM</span><span class="carte-tag" style="color:#6b7280">No-Code</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#8b5cf6">Database</span><span class="carte-tag" style="color:#3b82f6">CRM</span><span class="carte-tag" style="color:#22c55e">No-Code</span></div>
+          <span class="carte-arrow">&#8594;</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="carte" href="llm/gemini.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3625b86a-8bb4-818f-946b-ebb06a2a35b3">
+      <div class="carte-accent" style="background:#8b5cf6"></div>
+      <div class="carte-body">
+        <div class="carte-head">
+          <div class="carte-cat">LLMs</div>
+          <div class="carte-type">LLM</div>
+        </div>
+        <h2 class="carte-nom">Gemini</h2>
+        <p class="carte-description">LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre de contexte de 1 million de tokens. Très fort en multimodal (texte, images, audio, vidéo).</p>
+        <div class="carte-foot">
+          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -325,7 +333,23 @@
         <h2 class="carte-nom">Apify</h2>
         <p class="carte-description">Apify est une plateforme de scraping et d’automatisation qui permet de récupérer automatiquement des données sur Internet via des robots appelés Actors.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#d97706">Scraping</span><span class="carte-tag" style="color:#6b7280">Automation</span><span class="carte-tag" style="color:#6b7280">Data</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#d97706">Scraping</span><span class="carte-tag" style="color:#f97316">Automation</span><span class="carte-tag" style="color:#6b7280">Data</span></div>
+          <span class="carte-arrow">&#8594;</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="carte" href="llm/microsoft-copilot.html" data-categorie="LLMs" data-tags="IA, Workflow" data-notion-id="3635b86a-8bb4-81e5-b80b-de9ccb61e3ed">
+      <div class="carte-accent" style="background:#8b5cf6"></div>
+      <div class="carte-body">
+        <div class="carte-head">
+          <div class="carte-cat">LLMs</div>
+          <div class="carte-type">LLM</div>
+        </div>
+        <h2 class="carte-nom">Microsoft Copilot</h2>
+        <p class="carte-description">Assistant IA généraliste de Microsoft, propulsé par GPT-4o -- accessible gratuitement sur le web, dans Windows 11 et Edge, et en version avancée intégrée à Microsoft 365 (Word, Excel, PowerPoint, Outlook, Teams).</p>
+        <div class="carte-foot">
+          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -341,7 +365,23 @@
         <h2 class="carte-nom">Netlify</h2>
         <p class="carte-description">Netlify est une plateforme d’hébergement et de déploiement de sites web modernes et d’applications front-end.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Hosting</span><span class="carte-tag" style="color:#6b7280">Deployment</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#14b8a6">Hosting</span><span class="carte-tag" style="color:#6b7280">Deployment</span></div>
+          <span class="carte-arrow">&#8594;</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="carte" href="llm/claude-code.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3635b86a-8bb4-8195-b3b9-e219afb802ee">
+      <div class="carte-accent" style="background:#8b5cf6"></div>
+      <div class="carte-body">
+        <div class="carte-head">
+          <div class="carte-cat">LLMs</div>
+          <div class="carte-type">LLM</div>
+        </div>
+        <h2 class="carte-nom">Claude Code</h2>
+        <p class="carte-description">Outil de développement IA d'Anthropic intégré directement dans le terminal. Basé sur Claude, il comprend le contexte complet d'un projet, lit et modifie des fichiers, exécute des commandes et permet de coder, déboguer et déployer sans quitter la ligne de commande.</p>
+        <div class="carte-foot">
+          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -357,7 +397,7 @@
         <h2 class="carte-nom">Make</h2>
         <p class="carte-description">Plateforme no-code d’automatisation visuelle permettant de connecter des applications et créer des scénarios automatisés.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Automation</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span><span class="carte-tag" style="color:#6b7280">No-Code</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#f97316">Automation</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span><span class="carte-tag" style="color:#22c55e">No-Code</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -373,7 +413,7 @@
         <h2 class="carte-nom">Clay</h2>
         <p class="carte-description">Outil de prospection et d'enrichissement de données B2B qui connecte plus de 100 sources (LinkedIn, Apollo, Clearbit, Hunter...) pour construire des listes de leads qualifiées. Peut aussi scraper des sites web de façon ciblée pour extraire des données spécifiques sur des entreprises ou contacts, et automatiser l'outreach personnalisé grâce à l'IA.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Lead Gen</span><span class="carte-tag" style="color:#3b82f6">CRM</span><span class="carte-tag" style="color:#6b7280">Enrichment</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#f97316">Lead Gen</span><span class="carte-tag" style="color:#3b82f6">CRM</span><span class="carte-tag" style="color:#eab308">Enrichment</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -389,7 +429,7 @@
         <h2 class="carte-nom">Lovable</h2>
         <p class="carte-description">Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code frontend et backend complet, déployable en quelques minutes.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">App Builder</span><span class="carte-tag" style="color:#6b7280">AI</span><span class="carte-tag" style="color:#6b7280">Dev</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#8b5cf6">App Builder</span><span class="carte-tag" style="color:#ec4899">AI</span><span class="carte-tag" style="color:#ef4444">Dev</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -405,7 +445,7 @@
         <h2 class="carte-nom">Slack</h2>
         <p class="carte-description">Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel, l'intégration d'outils externes et la réception de notifications automatisées depuis des workflows.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Collaboration</span><span class="carte-tag" style="color:#6b7280">Chat</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#22c55e">Collaboration</span><span class="carte-tag" style="color:#3b82f6">Chat</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -421,14 +461,14 @@
         <h2 class="carte-nom">Brevo</h2>
         <p class="carte-description">Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automatiques (confirmations, notifications, alertes) via API REST ou SMTP, avec 300 emails gratuits par jour sans carte bancaire.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Email</span><span class="carte-tag" style="color:#3b82f6">CRM</span><span class="carte-tag" style="color:#6b7280">Automation</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#3b82f6">Email</span><span class="carte-tag" style="color:#3b82f6">CRM</span><span class="carte-tag" style="color:#f97316">Automation</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
     </a>
 
     <a class="carte" href="outils/concensus.html" data-categorie="LLMs" data-tags="Research, Academic, AI" data-notion-id="3645b86a-8bb4-8199-89fa-cee8d38f3e15">
-      <div class="carte-accent" style="background:#6b7280"></div>
+      <div class="carte-accent" style="background:#8b5cf6"></div>
       <div class="carte-body">
         <div class="carte-head">
           <div class="carte-cat">LLMs</div>
@@ -437,14 +477,14 @@
         <h2 class="carte-nom">Concensus</h2>
         <p class="carte-description">Consensus est un moteur de recherche boosté à l'IA qui extrait et résume des preuves issues de publications scientifiques indexées sur Semantic Scholar. Il permet aux utilisateurs de poser des questions complexes et d'obtenir des réponses basées uniquement sur des articles évalués par des pairs.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Research</span><span class="carte-tag" style="color:#6b7280">Academic</span><span class="carte-tag" style="color:#6b7280">AI</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#3b82f6">Research</span><span class="carte-tag" style="color:#6b7280">Academic</span><span class="carte-tag" style="color:#ec4899">AI</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
     </a>
 
     <a class="carte" href="outils/heygen.html" data-categorie="Créativité" data-tags="Video, Avatar, Generative AI" data-notion-id="3655b86a-8bb4-8123-ac9c-cae6265ec14d">
-      <div class="carte-accent" style="background:#6b7280"></div>
+      <div class="carte-accent" style="background:#f97316"></div>
       <div class="carte-body">
         <div class="carte-head">
           <div class="carte-cat">Créativité</div>
@@ -453,7 +493,7 @@
         <h2 class="carte-nom">Heygen</h2>
         <p class="carte-description">HeyGen est une plateforme de génération de vidéos par IA permettant de créer des avatars numériques photoréalistes capables de parler avec une synchronisation labiale naturelle dans plus de 40 langues, à partir de simples textes ou fichiers audio.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Video</span><span class="carte-tag" style="color:#6b7280">Avatar</span><span class="carte-tag" style="color:#6b7280">Generative AI</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#ef4444">Video</span><span class="carte-tag" style="color:#6b7280">Avatar</span><span class="carte-tag" style="color:#ec4899">Generative AI</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -469,14 +509,14 @@
         <h2 class="carte-nom">Hostinger</h2>
         <p class="carte-description">Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des solutions d'hébergement performantes. Elle permet aux débutants de créer et mettre en ligne un site professionnel rapidement sans aucune compétence en programmation.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Hosting</span><span class="carte-tag" style="color:#6b7280">Website</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#14b8a6">Hosting</span><span class="carte-tag" style="color:#3b82f6">Website</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
     </a>
 
     <a class="carte" href="outils/manus.html" data-categorie="LLMs" data-tags="Agentic, AI, Research" data-notion-id="3645b86a-8bb4-81c0-b7b5-cda1aa5c5367">
-      <div class="carte-accent" style="background:#6b7280"></div>
+      <div class="carte-accent" style="background:#8b5cf6"></div>
       <div class="carte-body">
         <div class="carte-head">
           <div class="carte-cat">LLMs</div>
@@ -485,14 +525,14 @@
         <h2 class="carte-nom">Manus</h2>
         <p class="carte-description">Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériques comme un humain. Il analyse vos instructions, planifie les étapes nécessaires, navigue sur le web et manipule des fichiers pour fournir des résultats finis plutôt que de simples suggestions.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Agentic</span><span class="carte-tag" style="color:#6b7280">AI</span><span class="carte-tag" style="color:#6b7280">Research</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#8b5cf6">Agentic</span><span class="carte-tag" style="color:#ec4899">AI</span><span class="carte-tag" style="color:#3b82f6">Research</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
     </a>
 
     <a class="carte" href="outils/midjourney.html" data-categorie="Créativité" data-tags="Image, Generative AI" data-notion-id="3645b86a-8bb4-81b1-911c-e5e074e0b27c">
-      <div class="carte-accent" style="background:#6b7280"></div>
+      <div class="carte-accent" style="background:#f97316"></div>
       <div class="carte-body">
         <div class="carte-head">
           <div class="carte-cat">Créativité</div>
@@ -501,7 +541,23 @@
         <h2 class="carte-nom">Midjourney</h2>
         <p class="carte-description">Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle ultra-performant. Il permet de transformer de simples descriptions textuelles (prompts) en visuels artistiques, photoréalistes ou conceptuels de haute qualité.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Image</span><span class="carte-tag" style="color:#6b7280">Generative AI</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#f97316">Image</span><span class="carte-tag" style="color:#ec4899">Generative AI</span></div>
+          <span class="carte-arrow">&#8594;</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="carte" href="llm/mistral.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3645b86a-8bb4-813d-aedc-e482550753fd">
+      <div class="carte-accent" style="background:#8b5cf6"></div>
+      <div class="carte-body">
+        <div class="carte-head">
+          <div class="carte-cat">LLMs</div>
+          <div class="carte-type">LLM</div>
+        </div>
+        <h2 class="carte-nom">Mistral</h2>
+        <p class="carte-description">Mistral AI est une entreprise française développant des modèles de langage puissants et efficaces, accessibles via API ou interface chat. Ces modèles sont conçus pour être performants, transparents et souvent plus légers que les standards du marché, facilitant leur intégration dans des applications variées.</p>
+        <div class="carte-foot">
+          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -533,7 +589,7 @@
         <h2 class="carte-nom">Supabase</h2>
         <p class="carte-description">Supabase est une plateforme de développement open-source qui remplace Firebase en utilisant PostgreSQL comme moteur de base de données. Elle fournit automatiquement une API instantanée, l'authentification des utilisateurs, le stockage de fichiers et des fonctions serveur (Edge Functions) pour construire des applications web et mobiles rapidement.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Database</span><span class="carte-tag" style="color:#6b7280">Backend</span><span class="carte-tag" style="color:#6b7280">API</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#8b5cf6">Database</span><span class="carte-tag" style="color:#6b7280">Backend</span><span class="carte-tag" style="color:#3b82f6">API</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -549,7 +605,7 @@
         <h2 class="carte-nom">XCode</h2>
         <p class="carte-description">Xcode est l'environnement de développement intégré (IDE) officiel d'Apple conçu pour créer des applications sur macOS, iOS, iPadOS, watchOS et tvOS. Il regroupe dans une interface unique tous les outils nécessaires pour écrire, tester, déboguer et publier des applications sur l'App Store.</p>
         <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#6b7280">Dev</span><span class="carte-tag" style="color:#6b7280">Apple</span></div>
+          <div class="carte-tags"><span class="carte-tag" style="color:#ef4444">Dev</span><span class="carte-tag" style="color:#6b7280">Apple</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -566,112 +622,6 @@
         <p class="carte-description">Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il permet de créer des flux de travail (Zaps) qui transfèrent automatiquement des données entre vos outils pour gagner du temps au quotidien.</p>
         <div class="carte-foot">
           <div class="carte-tags"><span class="carte-tag" style="color:#8b5cf6">Workflow</span><span class="carte-tag" style="color:#f97316">Prospection</span><span class="carte-tag" style="color:#3b82f6">CRM</span></div>
-          <span class="carte-arrow">&#8594;</span>
-        </div>
-      </div>
-    </a>
-      </div>
-    </div>
-
-    <div id="section-llms" style="display:none">
-      <div class="barre-actions">
-        <button class="btn-reorganiser admin-zone" id="btnReorganiserLLM" onclick="toggleReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Réorganiser</button>
-        <button class="btn-sauvegarder" id="btnSauvegarderLLM" onclick="sauvegarderOrdreGrille('grille-llms', 'btnReorganiserLLM', this)" style="display:none">Sauvegarder l'ordre</button>
-        <button class="btn-annuler" id="btnAnnulerLLM" onclick="annulerReorg('grille-llms', 'btnReorganiserLLM', 'btnSauvegarderLLM', 'btnAnnulerLLM')" style="display:none">Annuler</button>
-      </div>
-      <div class="grille" id="grille-llms">
-        
-    <a class="carte" href="llm/claude.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3625b86a-8bb4-814d-a6c8-dbe83b3c1d59">
-      <div class="carte-accent" style="background:#8b5cf6"></div>
-      <div class="carte-body">
-        <div class="carte-head">
-          <div class="carte-cat">LLM</div>
-          <div class="carte-type">Modele</div>
-        </div>
-        <h2 class="carte-nom">Claude</h2>
-        <p class="carte-description">LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très longs documents. Disponible en trois niveaux : Haiku (rapide), Sonnet (équilibré), Opus (puissant).</p>
-        <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
-          <span class="carte-arrow">&#8594;</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="carte" href="llm/chatgpt.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3625b86a-8bb4-81fc-901a-dfe40c09dea4">
-      <div class="carte-accent" style="background:#8b5cf6"></div>
-      <div class="carte-body">
-        <div class="carte-head">
-          <div class="carte-cat">LLM</div>
-          <div class="carte-type">Modele</div>
-        </div>
-        <h2 class="carte-nom">ChatGPT</h2>
-        <p class="carte-description">LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème très riche : Custom GPTs, plugins, Canvas, DALL-E pour les images.</p>
-        <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
-          <span class="carte-arrow">&#8594;</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="carte" href="llm/gemini.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3625b86a-8bb4-818f-946b-ebb06a2a35b3">
-      <div class="carte-accent" style="background:#8b5cf6"></div>
-      <div class="carte-body">
-        <div class="carte-head">
-          <div class="carte-cat">LLM</div>
-          <div class="carte-type">Modele</div>
-        </div>
-        <h2 class="carte-nom">Gemini</h2>
-        <p class="carte-description">LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre de contexte de 1 million de tokens. Très fort en multimodal (texte, images, audio, vidéo).</p>
-        <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
-          <span class="carte-arrow">&#8594;</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="carte" href="llm/microsoft-copilot.html" data-categorie="LLMs" data-tags="IA, Workflow" data-notion-id="3635b86a-8bb4-81e5-b80b-de9ccb61e3ed">
-      <div class="carte-accent" style="background:#8b5cf6"></div>
-      <div class="carte-body">
-        <div class="carte-head">
-          <div class="carte-cat">LLM</div>
-          <div class="carte-type">Modele</div>
-        </div>
-        <h2 class="carte-nom">Microsoft Copilot</h2>
-        <p class="carte-description">Assistant IA généraliste de Microsoft, propulsé par GPT-4o -- accessible gratuitement sur le web, dans Windows 11 et Edge, et en version avancée intégrée à Microsoft 365 (Word, Excel, PowerPoint, Outlook, Teams).</p>
-        <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span><span class="carte-tag" style="color:#8b5cf6">Workflow</span></div>
-          <span class="carte-arrow">&#8594;</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="carte" href="llm/claude-code.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3635b86a-8bb4-8195-b3b9-e219afb802ee">
-      <div class="carte-accent" style="background:#8b5cf6"></div>
-      <div class="carte-body">
-        <div class="carte-head">
-          <div class="carte-cat">LLM</div>
-          <div class="carte-type">Modele</div>
-        </div>
-        <h2 class="carte-nom">Claude Code</h2>
-        <p class="carte-description">Outil de développement IA d'Anthropic intégré directement dans le terminal. Basé sur Claude, il comprend le contexte complet d'un projet, lit et modifie des fichiers, exécute des commandes et permet de coder, déboguer et déployer sans quitter la ligne de commande.</p>
-        <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
-          <span class="carte-arrow">&#8594;</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="carte" href="llm/mistral.html" data-categorie="LLMs" data-tags="IA" data-notion-id="3645b86a-8bb4-813d-aedc-e482550753fd">
-      <div class="carte-accent" style="background:#8b5cf6"></div>
-      <div class="carte-body">
-        <div class="carte-head">
-          <div class="carte-cat">LLM</div>
-          <div class="carte-type">Modele</div>
-        </div>
-        <h2 class="carte-nom">Mistral</h2>
-        <p class="carte-description">Mistral AI est une entreprise française développant des modèles de langage puissants et efficaces, accessibles via API ou interface chat. Ces modèles sont conçus pour être performants, transparents et souvent plus légers que les standards du marché, facilitant leur intégration dans des applications variées.</p>
-        <div class="carte-foot">
-          <div class="carte-tags"><span class="carte-tag" style="color:#ec4899">IA</span></div>
           <span class="carte-arrow">&#8594;</span>
         </div>
       </div>
@@ -698,55 +648,29 @@
   </footer>
 
   <script>
-    function afficherOnglet(btn, nom) {
+    window._catActive = 'tous';
+
+    function filtrerParCategorie(btn) {
       document.querySelectorAll('.onglet').forEach(b => b.classList.remove('actif'));
       btn.classList.add('actif');
-      document.getElementById('section-outils').style.display = nom === 'outils' ? '' : 'none';
-      document.getElementById('section-llms').style.display = nom === 'llms' ? '' : 'none';
-      var fo = document.getElementById('filtres-outils');
-      if (fo) fo.style.display = nom === 'outils' ? '' : 'none';
-      window._ongletActif = nom;
+      window._catActive = btn.dataset.cat || 'tous';
+      appliquerFiltres();
     }
 
     function filtrerGlobal() {
-      const query = document.getElementById('recherche-global').value.toLowerCase().trim();
-      const barreOnglets = document.getElementById('barre-onglets');
+      appliquerFiltres();
+    }
 
-      if (query) {
-        // Mode recherche : afficher les deux sections
-        barreOnglets.style.display = 'none';
-        document.getElementById('section-outils').style.display = '';
-        document.getElementById('section-llms').style.display = '';
-
-        // Filtrer les cartes outils
-        const filtreActif = document.querySelector('.filtre.actif')?.dataset.filtre || 'tous';
-        document.querySelectorAll('#section-outils .carte').forEach(carte => {
-          const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
-          const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
-          const matchQuery = nom.includes(query) || desc.includes(query);
-          const tags = (carte.dataset.tags || '').split(',').map(t => t.trim());
-          const matchFiltre = filtreActif === 'tous' || carte.dataset.categorie === filtreActif || tags.includes(filtreActif);
-          carte.style.display = matchQuery && matchFiltre ? '' : 'none';
-        });
-
-        // Filtrer les cartes LLMs
-        document.querySelectorAll('#section-llms .carte').forEach(carte => {
-          const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
-          const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
-          carte.style.display = nom.includes(query) || desc.includes(query) ? '' : 'none';
-        });
-      } else {
-        // Recherche vide : revenir à l'onglet actif
-        barreOnglets.style.display = '';
-        const ongletActif = window._ongletActif || 'outils';
-        document.getElementById('section-outils').style.display = ongletActif === 'outils' ? '' : 'none';
-        document.getElementById('section-llms').style.display = ongletActif === 'llms' ? '' : 'none';
-        var fo = document.getElementById('filtres-outils');
-        if (fo) fo.style.display = ongletActif === 'outils' ? '' : 'none';
-        // Réafficher toutes les cartes
-        document.querySelectorAll('.carte').forEach(c => c.style.display = '');
-        filtrerOutils();
-      }
+    function appliquerFiltres() {
+      const query = (document.getElementById('recherche-global')?.value || '').toLowerCase().trim();
+      const cat = window._catActive || 'tous';
+      document.querySelectorAll('#grille .carte').forEach(carte => {
+        const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
+        const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
+        const matchQuery = !query || nom.includes(query) || desc.includes(query);
+        const matchCat = cat === 'tous' || carte.dataset.categorie === cat;
+        carte.style.display = matchQuery && matchCat ? '' : 'none';
+      });
     }
 
     function rafraichirSite(btn) {
@@ -853,53 +777,8 @@
   </script>
 
   <script>
-    function filtrerOutils() {
-      const query = (document.getElementById("recherche-global")?.value || "").toLowerCase().trim();
-      const filtreActif = document.querySelector(".filtre.actif")?.dataset.filtre || "tous";
-      document.querySelectorAll("#section-outils .carte").forEach((carte) => {
-        const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
-        const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
-        const matchQuery = !query || nom.includes(query) || desc.includes(query);
-        const tags = (carte.dataset.tags || "").split(",").map((t) => t.trim());
-        const matchFiltre = filtreActif === "tous" || carte.dataset.categorie === filtreActif || tags.includes(filtreActif);
-        carte.style.display = matchQuery && matchFiltre ? "" : "none";
-      });
-    }
-
-    function filtrerLLMs() {
-      const query = (document.getElementById("recherche-global")?.value || "").toLowerCase().trim();
-      document.querySelectorAll("#section-llms .carte").forEach((carte) => {
-        const nom = (carte.querySelector(".carte-nom")?.textContent || "").toLowerCase();
-        const desc = (carte.querySelector(".carte-description")?.textContent || "").toLowerCase();
-        const match = !query || nom.includes(query) || desc.includes(query);
-        carte.style.display = match ? "" : "none";
-      });
-    }
-
-    document.querySelectorAll(".filtre").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".filtre").forEach((b) => {
-          b.classList.remove("actif");
-          b.style.borderColor = "";
-          b.style.color = "";
-        });
-        btn.classList.add("actif");
-        filtrerOutils();
-      });
-      btn.addEventListener("mouseenter", () => {
-        if (!btn.classList.contains("actif")) {
-          const couleur = getComputedStyle(btn).getPropertyValue("--filtre-couleur").trim();
-          btn.style.borderColor = couleur;
-          btn.style.color = couleur;
-        }
-      });
-      btn.addEventListener("mouseleave", () => {
-        if (!btn.classList.contains("actif")) {
-          btn.style.borderColor = "";
-          btn.style.color = "";
-        }
-      });
-    });
+    // Alias pour compatibilité boutons HTML réorganisation
+    function filtrerOutils() { appliquerFiltres(); }
   </script>
 
   <div id="modal-proposition" onclick="if(event.target===this)fermerModalProposition()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9998;align-items:center;justify-content:center;">
@@ -973,12 +852,14 @@
         if (!r.ok) throw new Error('Erreur serveur ' + r.status);
         const data = await r.json();
         if (data.exists) {
-          document.getElementById('prop-nom-existe').textContent = nom;
+          document.getElementById('prop-nom-existe').textContent = data.nomCorrige || nom;
           propShowStep('existe');
         } else {
-          document.getElementById('prop-nom-hidden').value = nom;
+          const nomFinal = data.nomCorrige || nom;
+          document.getElementById('prop-nom-hidden').value = nomFinal;
           if (data.description && data.isAiTool !== false) {
-            document.getElementById('prop-desc-gemini').textContent = data.description;
+            const correctionNote = (data.nomCorrige && data.nomCorrige !== nom) ? ' (nom corrigé : ' + data.nomCorrige + ')' : '';
+            document.getElementById('prop-desc-gemini').textContent = data.description + correctionNote;
             document.getElementById('prop-bloc-gemini').style.display = '';
           }
           if (data.officialUrl) document.getElementById('prop-url').value = data.officialUrl;
