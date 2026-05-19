@@ -1539,6 +1539,30 @@ footer {
   color: #fff;
 }
 
+/* --- Maillage interne : outils complémentaires --- */
+.complementaires-liste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.complementaires-liste a.lien-complementaire,
+.complementaires-liste span {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--rayon-pill);
+  font-size: 14px;
+  color: var(--ink);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.complementaires-liste a.lien-complementaire:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 @media (max-width: 700px) {
   .tags-filtres { gap: 5px; }
   .filtre-tag { font-size: 11px; padding: 3px 8px; }

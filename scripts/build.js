@@ -1145,6 +1145,30 @@ function genererPageDetail(item, liste, prefixe) {
     return `<div class="section-pair">${s1 || '<div></div>'}${s2 || '<div></div>'}</div>`;
   }
 
+  function sectionComplementaires(contenu) {
+    if (!contenu) return "";
+    const slugIndex = {};
+    for (const t of liste) {
+      slugIndex[t.nom.toLowerCase().trim()] = t;
+    }
+    const noms = contenu.split(/[\n,]/).map(n => n.replace(/^[-•*]\s*/, '').trim()).filter(Boolean);
+    const liens = noms.map(nom => {
+      const match = slugIndex[nom.toLowerCase().trim()];
+      if (match) {
+        const href = match.type === 'LLM' ? `/llm/${match.slug}.html` : `/outils/${match.slug}.html`;
+        return `<a href="${href}" class="lien-complementaire">${nom}</a>`;
+      }
+      return `<span>${nom}</span>`;
+    });
+    if (!liens.length) return "";
+    return `
+    <section class="section" data-type="usage">
+      <div class="section-eyebrow">&#9679; Usage</div>
+      <h2>Avec quels outils ${item.nom} est-il complementaire ?</h2>
+      <div class="complementaires-liste">${liens.join('')}</div>
+    </section>`;
+  }
+
   function pointsCles(avantages, description) {
     const source = avantages || description || "";
     if (!source) return "";
@@ -1223,7 +1247,8 @@ function genererPageDetail(item, liste, prefixe) {
     </aside>`;
 
   const typeLabel = item.type === "LLM" ? "LLM" : (item.categorie || "Outil IA");
-  const titleDetail = `${item.nom} · ${typeLabel} · Base IA`;
+  const titleSuffix = item.type === "LLM" ? "avis, comparatif et fonctionnalités" : "avis, cas d'usage et prix";
+  const titleDetail = `${item.nom} : ${titleSuffix} · Base IA`;
   const descFallback = `Fiche complète sur ${item.nom} : avantages, limites, cas d'usage et scénarios. ${typeLabel} sélectionné dans la Base IA de Robin Dualé.`;
   const descDetail = descriptionMeta(item.description, descFallback);
   const urlDetail = `${BASE_URL}/${prefixe}/${item.slug}.html`;
@@ -1238,7 +1263,7 @@ function genererPageDetail(item, liste, prefixe) {
   <link rel="canonical" href="${urlDetail}"/>
   <meta property="og:title" content="${titleDetail}"/>
   <meta property="og:description" content="${descDetail}"/>
-  <meta property="og:type" content="website"/>
+  <meta property="og:type" content="article"/>
   <meta property="og:url" content="${urlDetail}"/>
   <meta property="og:image" content="${OG_IMAGE}"/>
   <meta property="og:image:width" content="1200"/>
@@ -1274,6 +1299,8 @@ function genererPageDetail(item, liste, prefixe) {
       "applicationCategory": "${item.type === "LLM" ? "AIApplication" : "WebApplication"}",
       "operatingSystem": "Web",
       ${item.lienOfficiel ? `"url": "${item.lienOfficiel}",` : ""}
+      "datePublished": "2026-05-16T00:00:00+02:00",
+      "dateModified": "${new Date().toISOString().replace(/\.\d{3}Z$/, '+02:00')}",
       "image": {
         "@type": "ImageObject",
         "url": "${OG_IMAGE}",
@@ -1286,7 +1313,18 @@ function genererPageDetail(item, liste, prefixe) {
         "url": "https://cv-robin.duale.fr",
         "sameAs": "https://www.linkedin.com/in/robinduale"
       }
-    }
+    }${(() => {
+  const faqPairs = [
+    item.quandUtiliser ? { q: `Quand utiliser ${item.nom} ?`, a: item.quandUtiliser } : null,
+    item.avantages    ? { q: `Quels sont les avantages de ${item.nom} ?`, a: item.avantages } : null,
+    item.limites      ? { q: `Quelles sont les limites de ${item.nom} ?`, a: item.limites } : null,
+    item.modeleEconomique ? { q: `Quel est le modèle économique de ${item.nom} ?`, a: item.modeleEconomique + (item.quandPayer ? ' ' + item.quandPayer : '') } : null,
+  ].filter(Boolean);
+  if (!faqPairs.length) return '';
+  const escape = s => s.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+  const items = faqPairs.map(p => `{"@type":"Question","name":"${escape(p.q)}","acceptedAnswer":{"@type":"Answer","text":"${escape(p.a)}"}}`).join(',');
+  return `,\n    {\n      "@context": "https://schema.org",\n      "@type": "FAQPage",\n      "mainEntity": [${items}]\n    }`;
+})()}
   ]
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -1358,7 +1396,7 @@ function genererPageDetail(item, liste, prefixe) {
       ${section('usage', '&#9679; Usage', `Cas d'usage concrets`, item.casUsage)}
       ${section('usage', '&#9679; Usage', `Comment je l'utilise dans mon contexte`, item.casUsagePourMoi)}
       ${section('usage', '&#9679; Usage', `Exemples et workflows avec ${item.nom}`, item.exemplesWorkflows)}
-      ${section('usage', '&#9679; Usage', `Avec quels outils ${item.nom} est-il complementaire ?`, item.complementaireAvec)}
+      ${sectionComplementaires(item.complementaireAvec)}
 
       ${sectionPair(
         section('eco', '&#9679; Economique', `Modele economique de ${item.nom}`, item.modeleEconomique),
