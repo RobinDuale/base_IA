@@ -19,10 +19,11 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-Créativité, Productivité, No-Code, LLMs, Automatisation
+Productivité, Créativité, No-Code, LLMs, Automatisation
 
-## 21 outils référencés
+## 22 outils référencés
 
+- [Motion](https://ia.duale.fr/outils/motion.html) : Motion est un assistant de productivité piloté par l'IA qui planifie automatiquement votre emploi du temps en intégrant
 - [HeyGen](https://ia.duale.fr/outils/heygen.html) : Plateforme leader de génération de vidéos par IA utilisant des avatars réalistes et la synthèse vocale pour transformer
 - [XCode](https://ia.duale.fr/outils/xcode.html) : Xcode est l'environnement de développement intégré (IDE) officiel d'Apple conçu pour créer des applications sur macOS, i
 - [Supabase](https://ia.duale.fr/outils/supabase.html) : Supabase est une plateforme de développement open-source qui remplace Firebase en utilisant PostgreSQL comme moteur de b
