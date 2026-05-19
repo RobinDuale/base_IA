@@ -19,7 +19,7 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-Productivité, IA, Développement, Automatisation, Base de données, Scraping, Hébergement, No-Code
+Productivité, LLMs, No-Code, Créativité, Automatisation
 
 ## 21 outils référencés
 
