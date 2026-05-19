@@ -105,11 +105,20 @@ function genererPageDetail(item, liste, prefixe) {
   }
 
   const listeSorted = [...liste].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+
+  const catsPresentes = new Set(listeSorted.map(o => o.type === 'LLM' ? 'LLMs' : (o.categorie || '')).filter(Boolean));
+  const ordreOnglets = ['LLMs', 'Productivité', 'No-Code', 'Créativité'];
+  const ongletsSidebar = ['Tous', ...ordreOnglets.filter(c => catsPresentes.has(c))];
+  const ongletsSidebarHtml = ongletsSidebar
+    .map(c => `<button class="nav-onglet${c === 'Tous' ? ' actif' : ''}" data-cat="${c}" onclick="filtrerSidebarCat('${c}')">${c.toUpperCase()}</button>`)
+    .join('');
+
   const liensBarreLaterale = listeSorted
     .map((o) => {
       const couleur = COULEURS_CATEGORIE[o.categorie] || "#6b7280";
       const href = o.type === "LLM" ? `/llm/${o.slug}.html` : `/outils/${o.slug}.html`;
-      return `<a href="${href}" class="${o.slug === item.slug ? "actif" : ""}">
+      const cat = o.type === 'LLM' ? 'LLMs' : (o.categorie || '');
+      return `<a href="${href}" class="${o.slug === item.slug ? "actif" : ""}" data-cat="${cat}">
         <span class="nav-dot" style="background:${couleur}"></span>
         <span>${o.nom}</span>
       </a>`;
@@ -265,19 +274,30 @@ function genererPageDetail(item, liste, prefixe) {
 
   <div class="mise-en-page">
     <nav class="barre-laterale">
-      <p class="barre-laterale-titre">${item.type === "LLM" ? "Tous les LLMs" : "Tous les outils"}</p>
+      <div class="nav-onglets-sidebar">${ongletsSidebarHtml}</div>
       <div class="nav-recherche-wrap">
         <input type="search" id="nav-recherche" class="nav-recherche" placeholder="Rechercher..." autocomplete="off" oninput="filtrerNav(this.value)"/>
       </div>
       ${liensBarreLaterale}
     </nav>
     <script>
+    var _navCatActive = 'Tous';
     function filtrerNav(q) {
       var val = q.toLowerCase().trim();
-      document.querySelectorAll('.barre-laterale a').forEach(function(a) {
+      document.querySelectorAll('.barre-laterale a[data-cat]').forEach(function(a) {
         var nom = a.querySelector('span:last-child');
-        a.style.display = (!val || (nom && nom.textContent.toLowerCase().includes(val))) ? '' : 'none';
+        var matchCat = _navCatActive === 'Tous' || a.dataset.cat === _navCatActive;
+        var matchSearch = !val || (nom && nom.textContent.toLowerCase().includes(val));
+        a.style.display = (matchCat && matchSearch) ? '' : 'none';
       });
+    }
+    function filtrerSidebarCat(cat) {
+      _navCatActive = cat;
+      document.querySelectorAll('.nav-onglet').forEach(function(btn) {
+        btn.classList.toggle('actif', btn.dataset.cat === cat);
+      });
+      var input = document.getElementById('nav-recherche');
+      filtrerNav(input ? input.value : '');
     }
     </script>
 
