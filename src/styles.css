@@ -866,6 +866,13 @@ footer {
   .grille { grid-template-columns: repeat(2, 1fr); }
   .fiche h1 { font-size: 44px; }
   .fiche-lede { font-size: 18px; }
+  .barre-scenarios { display: none; }
+  .controls-sticky {
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 @media (max-width: 600px) {
