@@ -187,7 +187,8 @@
     </div>
 
     <div class="tags-filtres" id="tags-filtres">
-      <button class="filtre-tag" data-tag="Academic" onclick="filtrerParTag(this)" style="--tag-couleur:#6b7280">Academic</button>
+      <button class="filtre-tag actif" data-tag="" onclick="filtrerParTag(this)" style="--tag-couleur:#1a1712">Tous</button>
+        <button class="filtre-tag" data-tag="Academic" onclick="filtrerParTag(this)" style="--tag-couleur:#6b7280">Academic</button>
         <button class="filtre-tag" data-tag="Agentic" onclick="filtrerParTag(this)" style="--tag-couleur:#8b5cf6">Agentic</button>
         <button class="filtre-tag" data-tag="AI" onclick="filtrerParTag(this)" style="--tag-couleur:#ec4899">AI</button>
         <button class="filtre-tag" data-tag="API" onclick="filtrerParTag(this)" style="--tag-couleur:#3b82f6">API</button>
@@ -709,11 +710,11 @@
 
     function filtrerParTag(btn) {
       const tag = btn.dataset.tag;
-      if (window._tagActive === tag) {
+      document.querySelectorAll('.filtre-tag').forEach(b => b.classList.remove('actif'));
+      if (!tag || window._tagActive === tag) {
         window._tagActive = null;
-        btn.classList.remove('actif');
+        document.querySelector('.filtre-tag[data-tag=""]').classList.add('actif');
       } else {
-        document.querySelectorAll('.filtre-tag').forEach(b => b.classList.remove('actif'));
         window._tagActive = tag;
         btn.classList.add('actif');
       }
