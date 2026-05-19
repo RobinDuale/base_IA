@@ -25,55 +25,55 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/notion.html</loc>
+    <loc>https://ia.duale.fr/outils/xcode.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/perplexity.html</loc>
+    <loc>https://ia.duale.fr/outils/supabase.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/github.html</loc>
+    <loc>https://ia.duale.fr/outils/midjourney.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/n8n.html</loc>
+    <loc>https://ia.duale.fr/outils/concensus.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/airtable.html</loc>
+    <loc>https://ia.duale.fr/outils/manus.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/apify.html</loc>
+    <loc>https://ia.duale.fr/outils/zapier.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/netlify.html</loc>
+    <loc>https://ia.duale.fr/outils/softr.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/make.html</loc>
+    <loc>https://ia.duale.fr/outils/hostinger.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/clay.html</loc>
+    <loc>https://ia.duale.fr/outils/brevo.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -91,79 +91,61 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/brevo.html</loc>
+    <loc>https://ia.duale.fr/outils/perplexity.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/concensus.html</loc>
+    <loc>https://ia.duale.fr/outils/clay.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/heygen.html</loc>
+    <loc>https://ia.duale.fr/outils/make.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/hostinger.html</loc>
+    <loc>https://ia.duale.fr/outils/n8n.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/manus.html</loc>
+    <loc>https://ia.duale.fr/outils/github.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/midjourney.html</loc>
+    <loc>https://ia.duale.fr/outils/netlify.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/softr.html</loc>
+    <loc>https://ia.duale.fr/outils/apify.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/supabase.html</loc>
+    <loc>https://ia.duale.fr/outils/notion.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/xcode.html</loc>
+    <loc>https://ia.duale.fr/outils/airtable.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/outils/zapier.html</loc>
-    <lastmod>2026-05-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://ia.duale.fr/llm/claude.html</loc>
-    <lastmod>2026-05-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://ia.duale.fr/llm/chatgpt.html</loc>
-    <lastmod>2026-05-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://ia.duale.fr/llm/gemini.html</loc>
+    <loc>https://ia.duale.fr/llm/mistral.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -181,7 +163,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ia.duale.fr/llm/mistral.html</loc>
+    <loc>https://ia.duale.fr/llm/claude.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ia.duale.fr/llm/gemini.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ia.duale.fr/llm/chatgpt.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

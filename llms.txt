@@ -19,40 +19,39 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-Productivité, LLMs, No-Code, Créativité, Automatisation
+Productivité, No-Code, Créativité, LLMs, Automatisation
 
-## 21 outils référencés
+## 20 outils référencés
 
-- [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
-- [Perplexity](https://ia.duale.fr/outils/perplexity.html) : Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables
-- [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
-- [n8n](https://ia.duale.fr/outils/n8n.html) : Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.
-- [Airtable](https://ia.duale.fr/outils/airtable.html) : Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle.
-- [Apify](https://ia.duale.fr/outils/apify.html) : Apify est une plateforme de scraping et d’automatisation qui permet de récupérer automatiquement des données sur Interne
-- [Netlify](https://ia.duale.fr/outils/netlify.html) : Netlify est une plateforme d’hébergement et de déploiement de sites web modernes et d’applications front-end.
-- [Make](https://ia.duale.fr/outils/make.html) : Plateforme no-code d’automatisation visuelle permettant de connecter des applications et créer des scénarios automatisés
-- [Clay](https://ia.duale.fr/outils/clay.html) : Outil de prospection et d'enrichissement de données B2B qui connecte plus de 100 sources (LinkedIn, Apollo, Clearbit, Hu
+- [XCode](https://ia.duale.fr/outils/xcode.html) : Xcode est l'environnement de développement intégré (IDE) officiel d'Apple conçu pour créer des applications sur macOS, i
+- [Supabase](https://ia.duale.fr/outils/supabase.html) : Supabase est une plateforme de développement open-source qui remplace Firebase en utilisant PostgreSQL comme moteur de b
+- [Midjourney](https://ia.duale.fr/outils/midjourney.html) : Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle
+- [Concensus](https://ia.duale.fr/outils/concensus.html) : Consensus est un moteur de recherche boosté à l'IA qui extrait et résume des preuves issues de publications scientifique
+- [Manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériqu
+- [Zapier](https://ia.duale.fr/outils/zapier.html) : Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il p
+- [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir d
+- [Hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
+- [Brevo](https://ia.duale.fr/outils/brevo.html) : Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automa
 - [Lovable](https://ia.duale.fr/outils/lovable.html) : Générateur d'applications web full-stack par IA -- tu décris ce que tu veux en langage naturel et l'outil génère le code
 - [Slack](https://ia.duale.fr/outils/slack.html) : Plateforme de messagerie professionnelle organisée en canaux thématiques. Permet la communication d'équipe en temps réel
-- [Brevo](https://ia.duale.fr/outils/brevo.html) : Brevo (ex-Sendinblue) est une plateforme d'emailing transactionnel et marketing. Elle permet d'envoyer des emails automa
-- [Concensus](https://ia.duale.fr/outils/concensus.html) : Consensus est un moteur de recherche boosté à l'IA qui extrait et résume des preuves issues de publications scientifique
-- [Heygen](https://ia.duale.fr/outils/heygen.html) : HeyGen est une plateforme de génération de vidéos par IA permettant de créer des avatars numériques photoréalistes capab
-- [Hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
-- [Manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériqu
-- [Midjourney](https://ia.duale.fr/outils/midjourney.html) : Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle
-- [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir d
-- [Supabase](https://ia.duale.fr/outils/supabase.html) : Supabase est une plateforme de développement open-source qui remplace Firebase en utilisant PostgreSQL comme moteur de b
-- [XCode](https://ia.duale.fr/outils/xcode.html) : Xcode est l'environnement de développement intégré (IDE) officiel d'Apple conçu pour créer des applications sur macOS, i
-- [Zapier](https://ia.duale.fr/outils/zapier.html) : Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il p
+- [Perplexity](https://ia.duale.fr/outils/perplexity.html) : Moteur de recherche IA qui combine LLM et recherche web en temps réel. Répond aux questions avec des sources vérifiables
+- [Clay](https://ia.duale.fr/outils/clay.html) : Outil de prospection et d'enrichissement de données B2B qui connecte plus de 100 sources (LinkedIn, Apollo, Clearbit, Hu
+- [Make](https://ia.duale.fr/outils/make.html) : Plateforme no-code d’automatisation visuelle permettant de connecter des applications et créer des scénarios automatisés
+- [n8n](https://ia.duale.fr/outils/n8n.html) : Plateforme d’automatisation open source permettant de connecter des applications et créer des workflows sans coder.
+- [GitHub](https://ia.duale.fr/outils/github.html) : GitHub est une plateforme qui héberge du code source et permet de versionner ses fichiers, collaborer avec d'autres déve
+- [Netlify](https://ia.duale.fr/outils/netlify.html) : Netlify est une plateforme d’hébergement et de déploiement de sites web modernes et d’applications front-end.
+- [Apify](https://ia.duale.fr/outils/apify.html) : Apify est une plateforme de scraping et d’automatisation qui permet de récupérer automatiquement des données sur Interne
+- [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
+- [Airtable](https://ia.duale.fr/outils/airtable.html) : Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle.
 
 ## 6 LLMs référencés
 
-- [Claude](https://ia.duale.fr/llm/claude.html) : LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très lo
-- [ChatGPT](https://ia.duale.fr/llm/chatgpt.html) : LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème tr
-- [Gemini](https://ia.duale.fr/llm/gemini.html) : LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre
+- [Mistral](https://ia.duale.fr/llm/mistral.html) : Mistral AI est une entreprise française développant des modèles de langage puissants et efficaces, accessibles via API o
 - [Microsoft Copilot](https://ia.duale.fr/llm/microsoft-copilot.html) : Assistant IA généraliste de Microsoft, propulsé par GPT-4o -- accessible gratuitement sur le web, dans Windows 11 et Edg
 - [Claude Code](https://ia.duale.fr/llm/claude-code.html) : Outil de développement IA d'Anthropic intégré directement dans le terminal. Basé sur Claude, il comprend le contexte com
-- [Mistral](https://ia.duale.fr/llm/mistral.html) : Mistral AI est une entreprise française développant des modèles de langage puissants et efficaces, accessibles via API o
+- [Claude](https://ia.duale.fr/llm/claude.html) : LLM d'Anthropic, connu pour son raisonnement rigoureux, son respect des instructions et sa capacité à traiter de très lo
+- [Gemini](https://ia.duale.fr/llm/gemini.html) : LLM de Google, nativement intégré à Google Workspace (Docs, Sheets, Gmail, Drive). Gemini 1.5 Pro dispose d'une fenêtre
+- [ChatGPT](https://ia.duale.fr/llm/chatgpt.html) : LLM d'OpenAI, le plus utilisé au monde. GPT-4o est le modèle phare avec vision, voix et accès web intégré. Ecosystème tr
 
 ## Pages du site
 
