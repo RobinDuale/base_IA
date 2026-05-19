@@ -675,7 +675,7 @@ function genererPageAccueil(outils, llms) {
       <div id="prop-succes" style="display:none;text-align:center;padding:1rem 0;">
         <div style="width:48px;height:48px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;color:#fff;">✓</div>
         <p style="font-weight:600;margin-bottom:0.5rem;">Proposition envoyée !</p>
-        <p style="color:#888;font-size:14px;">Vérifiez votre boite mail pour confirmer votre adresse.</p>
+        <p style="color:#888;font-size:14px;">Vérifiez votre boite mail pour confirmer votre proposition.</p>
       </div>
     </div>
   </div>
