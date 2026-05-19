@@ -208,9 +208,10 @@ async function agir(pageId, action, btn) {
   row.querySelectorAll('button').forEach(b => b.disabled = true);
   btn.textContent = action === 'valider' ? 'En cours...' : 'Rejet...';
   try {
+    const token = sessionStorage.getItem('admin_token') || '';
     const res = await fetch(N8N + '/admin-validate', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': token },
       body: JSON.stringify({ pageId, action })
     });
     if (!res.ok) throw new Error('Erreur ' + res.status);

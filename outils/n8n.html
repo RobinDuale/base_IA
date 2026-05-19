@@ -451,18 +451,20 @@
         const r = await fetch('https://api.github.com/user', {
           headers: { Authorization: 'token ' + val }
         });
-        if (r.ok) { validerAdmin(); return; }
+        if (r.ok) { validerAdmin(val); return; }
       } catch(e) {}
       errEl.style.display = 'block';
     }
-    function validerAdmin() {
+    function validerAdmin(token) {
       setAdminCookie();
+      if (token) sessionStorage.setItem('admin_token', token);
       document.getElementById('panel-login').style.display = 'none';
       document.getElementById('panel-admin').style.display = '';
       activerAdmin();
     }
     function deconnecterAdmin() {
       deleteAdminCookie();
+      sessionStorage.removeItem('admin_token');
       document.querySelectorAll('.admin-zone').forEach(el => el.style.display = 'none');
       fermerModalAdmin();
     }
