@@ -544,6 +544,12 @@ function genererPageAccueil(outils, llms) {
         <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
 
       </div>
+      <div class="footer-guides">
+        <span class="footer-guides-label">Guides</span>
+        <a href="/comparatif-llm.html">Comparatif LLMs 2026</a>
+        <a href="/automatiser-avec-ia.html">Automatiser avec l'IA</a>
+        <a href="/outils-no-code.html">Outils No-Code 2026</a>
+      </div>
       <div class="footer-liens">
         <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
@@ -1408,6 +1414,18 @@ function genererPageDetail(item, liste, prefixe) {
       </div>
 
       ${section('notes', '&#9679; Carnet', `Notes personnelles sur ${item.nom}`, item.notePersonnelles)}
+
+      ${(() => {
+        const liens = [];
+        if (item.type === 'LLM') liens.push({ titre: 'Comparatif LLMs 2026', href: '/comparatif-llm.html' });
+        if (['No-Code', 'Productivité'].includes(item.categorie)) liens.push({ titre: "Automatiser avec l'IA", href: '/automatiser-avec-ia.html' });
+        if (item.categorie === 'No-Code') liens.push({ titre: 'Outils No-Code 2026', href: '/outils-no-code.html' });
+        if (!liens.length) return '';
+        return `<div class="fiche-voir-aussi">
+          <span class="fiche-voir-aussi-label">Lire aussi</span>
+          ${liens.map(l => `<a href="${l.href}">${l.titre}</a>`).join('')}
+        </div>`;
+      })()}
     </main>
 
     ${barreScenariosHtml}
@@ -1649,6 +1667,24 @@ ${COOKIE_BANNER}
 function genererPagesPositionnement(outils, llms) {
   const pages = [];
 
+  const PAGES_POSITIONNEMENT = [
+    { titre: "Comparatif LLMs 2026", href: "/comparatif-llm.html" },
+    { titre: "Automatiser avec l'IA", href: "/automatiser-avec-ia.html" },
+    { titre: "Outils No-Code 2026", href: "/outils-no-code.html" },
+  ];
+
+  function voirAussi(slugCourant) {
+    const autres = PAGES_POSITIONNEMENT.filter(p => !p.href.includes(slugCourant));
+    return `
+  <section class="section voir-aussi" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line);">
+    <div class="section-eyebrow">&#9679; Sur Base IA</div>
+    <h2>Voir aussi</h2>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+      ${autres.map(p => `<a href="${p.href}" style="padding:6px 14px;border:1.5px solid var(--line);border-radius:999px;font-size:14px;color:var(--ink);transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--ink)'">${p.titre}</a>`).join('')}
+    </div>
+  </section>`;
+  }
+
   // Page 1 : Comparatif LLMs
   const llmsFiltres = llms.filter((l) => l.description);
   const sectionsLLMs = llmsFiltres.map((l) => `
@@ -1670,7 +1706,7 @@ function genererPagesPositionnement(outils, llms) {
   <section class="section" style="margin-top:1.5rem;">
     <h2>Comment choisir entre ces LLMs ?</h2>
     <p>Le choix d'un LLM dépend de trois critères principaux : la qualité du raisonnement (Claude et GPT-4o excellent), l'accès à l'information en temps réel (Perplexity et Copilot), et le budget (tous proposent une version gratuite). Pour un usage professionnel intensif, tester plusieurs modèles sur vos cas réels reste la meilleure approche.</p>
-  </section>`,
+  </section>` + voirAussi('comparatif-llm'),
     outils, llms,
     schema: `{
       "@context": "https://schema.org",
@@ -1702,7 +1738,7 @@ function genererPagesPositionnement(outils, llms) {
   <section class="section" style="margin-top:1.5rem;">
     <h2>Par où commencer pour automatiser avec l'IA ?</h2>
     <p>Commencez par identifier une tâche répétitive qui vous prend du temps : envoi d'emails, mise à jour de base de données, collecte d'informations. Choisissez ensuite l'outil adapté : Make pour les workflows visuels simples, n8n pour plus de flexibilité et d'hébergement autonome. Testez avec un workflow simple avant de passer à des automatisations complexes.</p>
-  </section>`,
+  </section>` + voirAussi('automatiser-avec-ia'),
     outils, llms,
     schema: `{
       "@context": "https://schema.org",
@@ -1734,7 +1770,7 @@ function genererPagesPositionnement(outils, llms) {
   <section class="section" style="margin-top:1.5rem;">
     <h2>No-Code ou Low-Code : quelle différence ?</h2>
     <p>Le No-Code (sans code) s'adresse aux non-développeurs qui veulent créer sans apprendre à programmer. Le Low-Code permet d'accélérer le développement en ajoutant du code là où les interfaces visuelles atteignent leurs limites. Pour débuter, le No-Code suffit pour 80 % des besoins courants : bases de données, sites vitrines, formulaires, automatisations simples.</p>
-  </section>`,
+  </section>` + voirAussi('outils-no-code'),
     outils, llms,
     schema: `{
       "@context": "https://schema.org",

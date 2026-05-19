@@ -1539,6 +1539,61 @@ footer {
   color: #fff;
 }
 
+/* --- Footer guides (pages de positionnement) --- */
+.footer-guides {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-guides-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.footer-guides a {
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.footer-guides a:hover { color: var(--ink); }
+
+/* --- Fiche : lien vers articles de positionnement --- */
+.fiche-voir-aussi {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.fiche-voir-aussi-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.fiche-voir-aussi a {
+  font-size: 13px;
+  color: var(--muted);
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--rayon-pill);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.fiche-voir-aussi a:hover { color: var(--ink); border-color: var(--ink); }
+
 /* --- Maillage interne : outils complémentaires --- */
 .complementaires-liste {
   display: flex;
