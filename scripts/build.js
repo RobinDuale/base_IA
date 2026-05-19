@@ -360,6 +360,15 @@ function genererPageAccueil(outils, llms) {
     })
     .join("\n        ");
 
+  const allTags = [...new Set(
+    items.flatMap(i => i.tags ? i.tags.split(",").map(t => t.trim()).filter(Boolean) : [])
+  )].sort((a, b) => a.localeCompare(b, 'fr'));
+
+  const tagButtons = allTags.map(tag => {
+    const couleur = COULEURS_TAG[tag] || "#6b7280";
+    return `<button class="filtre-tag" data-tag="${tag}" onclick="filtrerParTag(this)" style="--tag-couleur:${couleur}">${tag}</button>`;
+  }).join("\n        ");
+
   function genererCarte(item) {
     const prefixe = item.type === "LLM" ? "llm" : "outils";
     const couleurCat = COULEURS_CATEGORIE[item.categorie] || "#6b7280";
@@ -514,6 +523,10 @@ function genererPageAccueil(outils, llms) {
       </div>
     </div>
 
+    <div class="tags-filtres" id="tags-filtres">
+      ${tagButtons}
+    </div>
+
     <div id="section-items">
       <div class="grille" id="grille">
         ${cartesItems}
@@ -540,11 +553,25 @@ function genererPageAccueil(outils, llms) {
 
   <script>
     window._catActive = 'tous';
+    window._tagActive = null;
 
     function filtrerParCategorie(btn) {
       document.querySelectorAll('.onglet').forEach(b => b.classList.remove('actif'));
       btn.classList.add('actif');
       window._catActive = btn.dataset.cat || 'tous';
+      appliquerFiltres();
+    }
+
+    function filtrerParTag(btn) {
+      const tag = btn.dataset.tag;
+      if (window._tagActive === tag) {
+        window._tagActive = null;
+        btn.classList.remove('actif');
+      } else {
+        document.querySelectorAll('.filtre-tag').forEach(b => b.classList.remove('actif'));
+        window._tagActive = tag;
+        btn.classList.add('actif');
+      }
       appliquerFiltres();
     }
 
@@ -555,12 +582,15 @@ function genererPageAccueil(outils, llms) {
     function appliquerFiltres() {
       const query = (document.getElementById('recherche-global')?.value || '').toLowerCase().trim();
       const cat = window._catActive || 'tous';
+      const tag = window._tagActive || null;
       document.querySelectorAll('#grille .carte').forEach(carte => {
         const nom = (carte.querySelector('.carte-nom')?.textContent || '').toLowerCase();
         const desc = (carte.querySelector('.carte-description')?.textContent || '').toLowerCase();
+        const carteTags = (carte.dataset.tags || '').split(',').map(t => t.trim()).filter(Boolean);
         const matchQuery = !query || nom.includes(query) || desc.includes(query);
         const matchCat = cat === 'tous' || carte.dataset.categorie === cat;
-        carte.style.display = matchQuery && matchCat ? '' : 'none';
+        const matchTag = !tag || carteTags.includes(tag);
+        carte.style.display = matchQuery && matchCat && matchTag ? '' : 'none';
       });
     }
 
