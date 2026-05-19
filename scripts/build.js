@@ -360,9 +360,10 @@ function genererPageAccueil(outils, llms) {
     })
     .join("\n        ");
 
+  const TAGS_EXCLUS = new Set(["No-Code"]);
   const allTags = [...new Set(
     items.flatMap(i => i.tags ? i.tags.split(",").map(t => t.trim()).filter(Boolean) : [])
-  )].sort((a, b) => a.localeCompare(b, 'fr'));
+  )].filter(t => !TAGS_EXCLUS.has(t)).sort((a, b) => a.localeCompare(b, 'fr'));
 
   const tagButtons = [
     `<button class="filtre-tag actif" data-tag="" onclick="filtrerParTag(this)" style="--tag-couleur:#1a1712">Tous</button>`,
