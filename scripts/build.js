@@ -475,7 +475,6 @@ function genererPageAccueil(outils, llms) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
   ${GA_TAG}
 </head>
 <body>
@@ -525,12 +524,6 @@ function genererPageAccueil(outils, llms) {
     </div>
 
     <div id="section-items">
-      <div class="barre-actions">
-        <button class="btn-reorganiser admin-zone" id="btnReorganiser" onclick="toggleReorganisation()" style="display:none">Réorganiser</button>
-        <button class="btn-sauvegarder" id="btnSauvegarder" onclick="sauvegarderOrdre(this)" style="display:none">Sauvegarder l'ordre</button>
-        <button class="btn-annuler" id="btnAnnuler" onclick="annulerReorganisation()" style="display:none">Annuler</button>
-      </div>
-
       <div class="grille" id="grille">
         ${cartesItems}
       </div>
@@ -621,70 +614,6 @@ function genererPageAccueil(outils, llms) {
   </script>
 
   <script>
-    const sortables = {};
-    const ordresInitiaux = {};
-
-    function toggleReorg(grilleId, btnRId, btnSId, btnAId) {
-      const grille = document.getElementById(grilleId);
-      const btnR = document.getElementById(btnRId);
-      const btnS = document.getElementById(btnSId);
-      const btnA = document.getElementById(btnAId);
-      ordresInitiaux[grilleId] = Array.from(grille.children).map(c => c.dataset.notionId);
-      grille.classList.add("mode-reorganisation");
-      btnR.style.display = "none";
-      btnS.style.display = "";
-      btnA.style.display = "";
-      sortables[grilleId] = new Sortable(grille, { animation: 150, ghostClass: "carte-ghost", onEnd: () => {} });
-    }
-
-    function annulerReorg(grilleId, btnRId, btnSId, btnAId) {
-      desactiverReorg(grilleId, btnRId, btnSId, btnAId);
-      const grille = document.getElementById(grilleId);
-      (ordresInitiaux[grilleId] || []).forEach(id => {
-        const carte = grille.querySelector('[data-notion-id="' + id + '"]');
-        if (carte) grille.appendChild(carte);
-      });
-    }
-
-    function desactiverReorg(grilleId, btnRId, btnSId, btnAId) {
-      const grille = document.getElementById(grilleId);
-      document.getElementById(btnRId).style.display = "";
-      document.getElementById(btnSId).style.display = "none";
-      document.getElementById(btnAId).style.display = "none";
-      grille.classList.remove("mode-reorganisation");
-      if (sortables[grilleId]) { sortables[grilleId].destroy(); delete sortables[grilleId]; }
-    }
-
-    function sauvegarderOrdreGrille(grilleId, btnRId, btn) {
-      const grille = document.getElementById(grilleId);
-      const btnSId = btn.id;
-      const btnAId = btnSId.replace("Sauvegarder", "Annuler");
-      const ordre = Array.from(grille.children).map((carte, index) => ({ id: carte.dataset.notionId, ordre: index + 1 }));
-      btn.disabled = true;
-      btn.textContent = "Sauvegarde en cours...";
-      fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-reorder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ordre })
-      })
-        .then(() => {
-          btn.textContent = "Sauvegardé -- build en cours...";
-          desactiverReorg(grilleId, btnRId, btnSId, btnAId);
-          const btnR = document.getElementById(btnRId);
-          btnR.disabled = true;
-          attendreMiseAJour(btnR, new Date().toISOString());
-        })
-        .catch(() => { btn.textContent = "Erreur -- réessaie"; btn.disabled = false; });
-    }
-
-    // Alias pour la grille outils (compatibilité boutons HTML)
-    function toggleReorganisation() { toggleReorg('grille', 'btnReorganiser', 'btnSauvegarder', 'btnAnnuler'); }
-    function annulerReorganisation() { annulerReorg('grille', 'btnReorganiser', 'btnSauvegarder', 'btnAnnuler'); }
-    function sauvegarderOrdre(btn) { sauvegarderOrdreGrille('grille', 'btnReorganiser', btn); }
-  </script>
-
-  <script>
-    // Alias pour compatibilité boutons HTML réorganisation
     function filtrerOutils() { appliquerFiltres(); }
   </script>
 
