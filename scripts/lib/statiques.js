@@ -108,7 +108,7 @@ function genererPageConfirmation() {
     <div class="page-simple-eyebrow">Proposition recue</div>
     <h1 class="page-simple-h1">Merci pour votre contribution&nbsp;!</h1>
     <p style="font-size:18px;line-height:1.65;color:var(--ink);max-width:480px;margin:0 auto 32px;">
-      Votre adresse email a bien été confirmée. Robin va examiner votre proposition et vous recevrez un email si l'outil est validé et ajouté à la Base IA.
+      Celle-ci va être examinée et vous recevrez un email si l'outil est ajouté à la Base IA.
     </p>
     <a href="/" class="fiche-action fiche-action--primary" style="font-weight:500;">Retour à Base IA &#8594;</a>
   </div>
