@@ -19,9 +19,9 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-LLMs, Productivité, Créativité, No-Code, Automatisation
+Productivité, LLMs, Créativité, No-Code, Automatisation
 
-## 23 outils référencés
+## 24 outils référencés
 
 - [Anyscale](https://ia.duale.fr/outils/anyscale.html) : Une plateforme de calcul distribué basée sur Ray, conçue pour scaler, entraîner, servir et gérer des modèles d'IA (LLMs)
 - [Motion](https://ia.duale.fr/outils/motion.html) : Motion est un assistant de productivité piloté par l'IA qui planifie automatiquement votre emploi du temps en intégrant
