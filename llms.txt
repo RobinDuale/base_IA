@@ -19,10 +19,11 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 ## Catégories référencées
 
-LLMs, Productivité, Créativité, No-Code, Automatisation
+Productivité, LLMs, Créativité, No-Code, Automatisation
 
-## 23 outils référencés
+## 24 outils référencés
 
+- [Fireflies.ai](https://ia.duale.fr/outils/fireflies-ai.html) : Plateforme d'IA conversationnelle conçue pour transcrire, résumer et analyser les réunions en ligne. Elle s'intègre aux
 - [Anyscale](https://ia.duale.fr/outils/anyscale.html) : Une plateforme de calcul distribué basée sur Ray, conçue pour scaler, entraîner, servir et gérer des modèles d'IA (LLMs)
 - [Motion](https://ia.duale.fr/outils/motion.html) : Motion est un assistant de productivité piloté par l'IA qui planifie automatiquement votre emploi du temps en intégrant
 - [HeyGen](https://ia.duale.fr/outils/heygen.html) : Plateforme leader de génération de vidéos par IA utilisant des avatars réalistes et la synthèse vocale pour transformer
