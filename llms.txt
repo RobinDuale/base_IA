@@ -48,8 +48,9 @@ Productivité, LLMs, Créativité, No-Code, Automatisation
 - [Notion](https://ia.duale.fr/outils/notion.html) : Workspace tout-en-un pour notes, documentation, bases de données et organisation.
 - [Airtable](https://ia.duale.fr/outils/airtable.html) : Airtable est un outil no-code qui ressemble à un tableur, mais qui fonctionne comme une vraie base de données visuelle.
 
-## 6 LLMs référencés
+## 7 LLMs référencés
 
+- [Grok](https://ia.duale.fr/llm/grok.html) : Grok est un modèle de langage conversationnel développé par xAI, intégré à la plateforme X (Twitter). Il se distingue pa
 - [Mistral](https://ia.duale.fr/llm/mistral.html) : Mistral AI est une entreprise française développant des modèles de langage puissants et efficaces, accessibles via API o
 - [Microsoft Copilot](https://ia.duale.fr/llm/microsoft-copilot.html) : Assistant IA généraliste de Microsoft, propulsé par GPT-4o -- accessible gratuitement sur le web, dans Windows 11 et Edg
 - [Claude Code](https://ia.duale.fr/llm/claude-code.html) : Outil de développement IA d'Anthropic intégré directement dans le terminal. Basé sur Claude, il comprend le contexte com
