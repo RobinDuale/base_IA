@@ -21,7 +21,7 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 Productivité, LLMs, Créativité, No-Code, Automatisation
 
-## 24 outils référencés
+## 23 outils référencés
 
 - [Fireflies.ai](https://ia.duale.fr/outils/fireflies-ai.html) : Plateforme d'IA conversationnelle conçue pour transcrire, résumer et analyser les réunions en ligne. Elle s'intègre aux
 - [Anyscale](https://ia.duale.fr/outils/anyscale.html) : Une plateforme de calcul distribué basée sur Ray, conçue pour scaler, entraîner, servir et gérer des modèles d'IA (LLMs)
@@ -31,7 +31,6 @@ Productivité, LLMs, Créativité, No-Code, Automatisation
 - [Supabase](https://ia.duale.fr/outils/supabase.html) : Supabase est une plateforme de développement open-source qui remplace Firebase en utilisant PostgreSQL comme moteur de b
 - [Midjourney](https://ia.duale.fr/outils/midjourney.html) : Midjourney est un laboratoire de recherche indépendant qui propose un générateur d'images par intelligence artificielle
 - [Concensus](https://ia.duale.fr/outils/concensus.html) : Consensus est un moteur de recherche boosté à l'IA qui extrait et résume des preuves issues de publications scientifique
-- [Manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome capable d'exécuter des tâches complexes de bout en bout en manipulant des outils numériqu
 - [Zapier](https://ia.duale.fr/outils/zapier.html) : Zapier est une plateforme d'automatisation qui connecte vos applications web entre elles sans aucune ligne de code. Il p
 - [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir d
 - [Hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des so
