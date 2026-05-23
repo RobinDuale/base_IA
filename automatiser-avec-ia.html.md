@@ -4,6 +4,7 @@
 
 ## Fiches liées
 
+- [Gamma](https://ia.duale.fr/outils/gamma.html) : Plateforme de présentation générative utilisant l'IA pour créer des slides, des documents et des pages web à partir de prompts textuels, avec un éditeur intuitif par blocs.
 - [Manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome de nouvelle génération capable d'effectuer des tâches complexes de bout en bout, allant de la recherche web à la rédaction de rapports, l'analyse de 
 - [Fireflies.ai](https://ia.duale.fr/outils/fireflies-ai.html) : Plateforme d'IA conversationnelle conçue pour transcrire, résumer et analyser les réunions en ligne. Elle s'intègre aux principaux outils de visioconférence pour capturer automatiq
 - [Motion](https://ia.duale.fr/outils/motion.html) : Motion est un assistant de productivité piloté par l'IA qui planifie automatiquement votre emploi du temps en intégrant calendrier, gestionnaire de tâches et réunions. Il utilise d
