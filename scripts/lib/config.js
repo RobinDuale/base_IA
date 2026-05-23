@@ -5,7 +5,7 @@ const BASE_URL = "https://ia.duale.fr";
 // Code de vérification Google Search Console
 // A renseigner : GSC > Paramètres > Vérification de la propriété > Balise HTML
 // Exemple : "AbCdEfGhIjKlMnOpQrStUvWxYz1234567890"
-const GOOGLE_VERIFICATION = "";
+const GOOGLE_VERIFICATION = "GY-eFrajTaHMZl6gkHAbwr9a4DsVM3_EfMEDnv6hC_o";
 
 // Meta tag généré uniquement si le code est renseigné
 const META_GOOGLE = GOOGLE_VERIFICATION
