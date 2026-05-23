@@ -21,8 +21,9 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 Productivité, LLMs, Créativité, No-Code, Automatisation
 
-## 25 outils référencés
+## 26 outils référencés
 
+- [HubSpot](https://ia.duale.fr/outils/hubspot.html) : Plateforme CRM tout-en-un qui unifie les fonctions de marketing, de vente, de service client, de gestion de contenu (CMS
 - [Gamma](https://ia.duale.fr/outils/gamma.html) : Plateforme de présentation générative utilisant l'IA pour créer des slides, des documents et des pages web à partir de p
 - [Manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome de nouvelle génération capable d'effectuer des tâches complexes de bout en bout, allant d
 - [Fireflies.ai](https://ia.duale.fr/outils/fireflies-ai.html) : Plateforme d'IA conversationnelle conçue pour transcrire, résumer et analyser les réunions en ligne. Elle s'intègre aux
@@ -75,12 +76,13 @@ Productivité, LLMs, Créativité, No-Code, Automatisation
 ## Pages hubs catégories
 
 - [LLMs : choisir le bon modèle IA](https://ia.duale.fr/categories/llms.html) : 10 fiche(s) dans la catégorie LLMs
-- [Outils IA pour gagner en productivité](https://ia.duale.fr/categories/productivite.html) : 11 fiche(s) dans la catégorie Productivité
+- [Outils IA pour gagner en productivité](https://ia.duale.fr/categories/productivite.html) : 12 fiche(s) dans la catégorie Productivité
 - [Outils No-Code pour créer sans coder](https://ia.duale.fr/categories/no-code.html) : 8 fiche(s) dans la catégorie No-Code
 - [Outils IA pour créer des contenus](https://ia.duale.fr/categories/creativite.html) : 2 fiche(s) dans la catégorie Créativité
 
 ## Versions Markdown des outils
 
+- [HubSpot Markdown](https://ia.duale.fr/outils/hubspot.html.md) : version courte et structurée pour assistants IA
 - [Gamma Markdown](https://ia.duale.fr/outils/gamma.html.md) : version courte et structurée pour assistants IA
 - [Manus Markdown](https://ia.duale.fr/outils/manus.html.md) : version courte et structurée pour assistants IA
 - [Fireflies.ai Markdown](https://ia.duale.fr/outils/fireflies-ai.html.md) : version courte et structurée pour assistants IA
