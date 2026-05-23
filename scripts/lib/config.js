@@ -2,6 +2,19 @@
 
 const BASE_URL = "https://ia.duale.fr";
 
+// Code de vérification Google Search Console
+// A renseigner : GSC > Paramètres > Vérification de la propriété > Balise HTML
+// Exemple : "AbCdEfGhIjKlMnOpQrStUvWxYz1234567890"
+const GOOGLE_VERIFICATION = "";
+
+// Meta tag généré uniquement si le code est renseigné
+const META_GOOGLE = GOOGLE_VERIFICATION
+  ? `  <meta name="google-site-verification" content="${GOOGLE_VERIFICATION}"/>`
+  : "";
+
+// Meta robots index/follow (explicite -- meilleure pratique SEO)
+const META_ROBOTS_INDEX = `  <meta name="robots" content="index, follow"/>`;
+
 const OG_IMAGE = `${BASE_URL}/assets/og-default.png`;
 const OG_IMAGE_ALT = "Base IA -- Référence des outils IA et No-Code par Robin Dualé";
 const SITE_NAME = "Base IA · Robin Dualé";
@@ -113,6 +126,9 @@ const COOKIE_BANNER = `<div id="cookie-banner" style="display:none;position:fixe
 
 module.exports = {
   BASE_URL,
+  GOOGLE_VERIFICATION,
+  META_GOOGLE,
+  META_ROBOTS_INDEX,
   OG_IMAGE,
   OG_IMAGE_ALT,
   SITE_NAME,

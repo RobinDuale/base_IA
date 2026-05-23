@@ -1,7 +1,8 @@
 // positionnement.js -- Pages de positionnement SEO (comparatif-llm, automatiser-avec-ia, outils-no-code)
 
 const {
-  BASE_URL, OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, AUTHOR_NAME, AUTHOR_URL,
+  BASE_URL, META_GOOGLE, META_ROBOTS_INDEX,
+  OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, AUTHOR_NAME, AUTHOR_URL,
   DATE_PUBLISHED, DATE_MODIFIED, GA_TAG, COOKIE_BANNER,
 } = require("./config");
 
@@ -29,6 +30,8 @@ function genererPagePositionnement({ slug, title, description, h1, intro, sectio
   <title>${title}</title>
   <meta name="description" content="${description}"/>
   <meta name="author" content="${AUTHOR_NAME}"/>
+${META_ROBOTS_INDEX}
+${META_GOOGLE}
   <link rel="canonical" href="${url}"/>
   <meta property="og:title" content="${title}"/>
   <meta property="og:description" content="${description}"/>

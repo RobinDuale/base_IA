@@ -1,8 +1,9 @@
 // detail.js -- Génération des pages détail outil/LLM
 
 const {
-  BASE_URL, OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, AUTHOR_NAME, AUTHOR_URL,
-  DATE_PUBLISHED, DATE_MODIFIED, COULEURS_CATEGORIE, COULEURS_TAG,
+  BASE_URL, META_GOOGLE, META_ROBOTS_INDEX,
+  OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, AUTHOR_NAME, AUTHOR_URL,
+  DATE_MODIFIED, COULEURS_CATEGORIE, COULEURS_TAG,
   GA_TAG, COOKIE_BANNER,
 } = require("./config");
 const { descriptionMeta } = require("./utils");
@@ -129,6 +130,13 @@ function genererPageDetail(item, liste, prefixe) {
   const catColorSoft = catColor + "14";
   const categorieLabel = item.type === "LLM" ? "LLM" : (item.categorie || "Outil");
 
+  // datePublished : date de création Notion si disponible, sinon date de lancement du site
+  // Notion renvoie created_time en UTC (ex: "2026-05-21T10:30:00.000Z")
+  // On garde uniquement la date (YYYY-MM-DD) et on ajoute l'heure à minuit Paris (+02:00)
+  const datePublished = item.dateCreation
+    ? item.dateCreation.split("T")[0] + "T00:00:00+02:00"
+    : "2026-05-16T00:00:00+02:00";
+
   const titrePage = item.type === "LLM" ? `${item.nom} -- LLM` : item.nom;
   const badgeType = item.type === "LLM"
     ? `<span class="badge" style="background:#8b5cf6">LLM</span>`
@@ -187,6 +195,8 @@ function genererPageDetail(item, liste, prefixe) {
   <title>${titleDetail}</title>
   <meta name="description" content="${descDetail}"/>
   <meta name="author" content="${AUTHOR_NAME}"/>
+${META_ROBOTS_INDEX}
+${META_GOOGLE}
   <link rel="canonical" href="${urlDetail}"/>
   <meta property="og:title" content="${titleDetail}"/>
   <meta property="og:description" content="${descDetail}"/>
@@ -230,7 +240,7 @@ function genererPageDetail(item, liste, prefixe) {
       "applicationCategory": "${item.type === "LLM" ? "AIApplication" : "WebApplication"}",
       "operatingSystem": "Web",
       ${item.lienOfficiel ? `"url": "${item.lienOfficiel}",` : ""}
-      "datePublished": "2026-05-16T00:00:00+02:00",
+      "datePublished": "${datePublished}",
       "dateModified": "${new Date().toISOString().replace(/\.\d{3}Z$/, '+02:00')}",
       "image": {
         "@type": "ImageObject",

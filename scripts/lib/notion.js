@@ -34,6 +34,9 @@ async function recupererItems() {
       const p = page.properties;
       items.push({
         id: page.id,
+        // created_time : date de création réelle de la page Notion (format ISO UTC)
+        // Utilisé pour datePublished dans Schema.org -- plus fiable que la date hardcodée
+        dateCreation: page.created_time,
         slug: slugifier(extraireTexte(p["Nom"])),
         nom: extraireTexte(p["Nom"]),
         type: extraireTexte(p["Type"]),

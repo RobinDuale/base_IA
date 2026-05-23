@@ -1,7 +1,8 @@
 // accueil.js -- Génération de la page d'accueil (index.html)
 
 const {
-  BASE_URL, OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, AUTHOR_NAME,
+  BASE_URL, META_GOOGLE, META_ROBOTS_INDEX,
+  OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, AUTHOR_NAME,
   COULEURS_CATEGORIE, COULEURS_TAG, GA_TAG, COOKIE_BANNER,
 } = require("./config");
 
@@ -72,6 +73,8 @@ function genererPageAccueil(outils, llms) {
   <title>${TITLE_HOME}</title>
   <meta name="description" content="${DESC_HOME}"/>
   <meta name="author" content="${AUTHOR_NAME}"/>
+${META_ROBOTS_INDEX}
+${META_GOOGLE}
   <link rel="canonical" href="${BASE_URL}/"/>
   <meta property="og:title" content="${TITLE_HOME}"/>
   <meta property="og:description" content="${DESC_HOME}"/>
