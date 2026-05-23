@@ -21,7 +21,10 @@ const SITE_NAME = "Base IA · Robin Dualé";
 const AUTHOR_NAME = "Robin Dualé";
 const AUTHOR_URL = "https://cv-robin.duale.fr";
 const DATE_PUBLISHED = "2026-05-16T00:00:00+02:00";
-const DATE_MODIFIED = new Date().toISOString().replace(/\.\d{3}Z$/, '+02:00');
+// DATE_MODIFIED : date du build avec timezone Paris correcte (utilisée sur les pages statiques)
+// Les fiches outils utilisent last_edited_time Notion via formatDateParis() dans detail.js
+const { formatDateParis } = require("./utils");
+const DATE_MODIFIED = formatDateParis(new Date());
 
 const COULEURS_CATEGORIE = {
   LLMs:            "#8b5cf6",

@@ -6,7 +6,7 @@ const {
   DATE_MODIFIED, COULEURS_CATEGORIE, COULEURS_TAG,
   GA_TAG, COOKIE_BANNER,
 } = require("./config");
-const { descriptionMeta } = require("./utils");
+const { descriptionMeta, formatDateParis } = require("./utils");
 
 function badgeTag(tag) {
   const couleur = COULEURS_TAG[tag.trim()] || "#6b7280";
@@ -130,12 +130,11 @@ function genererPageDetail(item, liste, prefixe) {
   const catColorSoft = catColor + "14";
   const categorieLabel = item.type === "LLM" ? "LLM" : (item.categorie || "Outil");
 
-  // datePublished : date de création Notion si disponible, sinon date de lancement du site
-  // Notion renvoie created_time en UTC (ex: "2026-05-21T10:30:00.000Z")
-  // On garde uniquement la date (YYYY-MM-DD) et on ajoute l'heure à minuit Paris (+02:00)
-  const datePublished = item.dateCreation
-    ? item.dateCreation.split("T")[0] + "T00:00:00+02:00"
-    : "2026-05-16T00:00:00+02:00";
+  // datePublished / dateModified : dates réelles depuis Notion, formatées timezone Paris
+  // Format ISO 8601 complet obligatoire pour GSC : "2026-05-21T00:00:00+02:00"
+  // +02:00 en été (avr-oct), +01:00 en hiver (nov-mars)
+  const datePublished = formatDateParis(item.dateCreation);
+  const dateModified  = formatDateParis(item.dateModification);
 
   const titrePage = item.type === "LLM" ? `${item.nom} -- LLM` : item.nom;
   const badgeType = item.type === "LLM"
@@ -210,7 +209,7 @@ ${META_GOOGLE}
   <meta property="og:locale" content="fr_FR"/>
   <meta property="og:site_name" content="${SITE_NAME}"/>
   <meta property="article:published_time" content="${datePublished}"/>
-  <meta property="article:modified_time" content="${DATE_MODIFIED}"/>
+  <meta property="article:modified_time" content="${dateModified}"/>
   <meta property="article:author" content="${AUTHOR_URL}"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="${titleDetail}"/>
@@ -241,7 +240,7 @@ ${META_GOOGLE}
       "operatingSystem": "Web",
       ${item.lienOfficiel ? `"url": "${item.lienOfficiel}",` : ""}
       "datePublished": "${datePublished}",
-      "dateModified": "${new Date().toISOString().replace(/\.\d{3}Z$/, '+02:00')}",
+      "dateModified": "${dateModified}",
       "image": {
         "@type": "ImageObject",
         "url": "${OG_IMAGE}",

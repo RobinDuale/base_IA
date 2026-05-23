@@ -37,9 +37,25 @@ function descriptionMeta(texte, fallback) {
   return texte.length >= 80 ? texte : fallback;
 }
 
+// Formate une date ISO en format Schema.org avec timezone Paris correcte
+// Heure d'été (avr-oct) : +02:00 / Heure d'hiver (nov-mars) : +01:00
+// Exemple : "2026-05-21T00:00:00+02:00"
+// Accepte une string ISO (ex: Notion created_time) ou un objet Date
+function formatDateParis(source) {
+  const FALLBACK = "2026-05-16T00:00:00+02:00";
+  if (!source) return FALLBACK;
+  const d = (source instanceof Date) ? source : new Date(source);
+  if (isNaN(d.getTime())) return FALLBACK;
+  const mois = d.getUTCMonth() + 1; // 1-12
+  const offset = (mois >= 4 && mois <= 10) ? "+02:00" : "+01:00";
+  const datePart = d.toISOString().split("T")[0]; // "2026-05-21"
+  return `${datePart}T00:00:00${offset}`;
+}
+
 module.exports = {
   creerDossier,
   slugifier,
   extraireTexte,
   descriptionMeta,
+  formatDateParis,
 };
