@@ -4,20 +4,31 @@ const { BASE_URL } = require("./config");
 
 // Génère le sitemap.xml
 function genererSitemap(outils, llms) {
-  const date = new Date().toISOString().split("T")[0];
-  const urlEntry = (loc, freq, prio) => `  <url>
+  const buildDate = new Date().toISOString().split("T")[0];
+
+  // lastmod : date de modification réelle si disponible, sinon date du build
+  // Pour les fiches outils/LLMs : last_edited_time Notion (précis)
+  // Pour les pages statiques : date du build
+  const lastmod = (item) => {
+    const src = item && (item.dateModification || item.dateCreation);
+    if (!src) return buildDate;
+    return new Date(src).toISOString().split("T")[0];
+  };
+
+  const urlEntry = (loc, freq, prio, date = buildDate) => `  <url>
     <loc>${loc}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>${freq}</changefreq>
     <priority>${prio}</priority>
   </url>`;
+
   const slugsPositionnement = ["comparatif-llm", "automatiser-avec-ia", "outils-no-code"];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlEntry(`${BASE_URL}/`, "weekly", "1.0")}
 ${slugsPositionnement.map((s) => urlEntry(`${BASE_URL}/${s}.html`, "monthly", "0.9")).join("\n")}
-${outils.map((o) => urlEntry(`${BASE_URL}/outils/${o.slug}.html`, "monthly", "0.8")).join("\n")}
-${llms.map((l) => urlEntry(`${BASE_URL}/llm/${l.slug}.html`, "monthly", "0.8")).join("\n")}
+${outils.map((o) => urlEntry(`${BASE_URL}/outils/${o.slug}.html`, "monthly", "0.8", lastmod(o))).join("\n")}
+${llms.map((l) => urlEntry(`${BASE_URL}/llm/${l.slug}.html`, "monthly", "0.8", lastmod(l))).join("\n")}
 </urlset>`;
 }
 
