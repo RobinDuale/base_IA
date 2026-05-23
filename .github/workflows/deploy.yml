@@ -62,15 +62,22 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
 
-      # Etape 6 : notifier Bing via IndexNow (accélère l'indexation)
+      # Etape 6 : notifier Bing via IndexNow avec toutes les URLs du sitemap
+      # On lit le sitemap.xml généré pour envoyer chaque page (pas seulement la home)
       - name: Ping IndexNow
         run: |
+          URLS=$(node -e "
+            const fs = require('fs');
+            const xml = fs.readFileSync('dist/sitemap.xml', 'utf8');
+            const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+            console.log(JSON.stringify(urls));
+          ")
           curl -s -o /dev/null -w "IndexNow Bing: %{http_code}\n" \
             -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json; charset=utf-8" \
-            -d '{
-              "host": "ia.duale.fr",
-              "key": "fff05dc2d2973f558bcd5cf3cb8ceee8",
-              "keyLocation": "https://ia.duale.fr/fff05dc2d2973f558bcd5cf3cb8ceee8.txt",
-              "urlList": ["https://ia.duale.fr/"]
-            }'
+            -d "{
+              \"host\": \"ia.duale.fr\",
+              \"key\": \"fff05dc2d2973f558bcd5cf3cb8ceee8\",
+              \"keyLocation\": \"https://ia.duale.fr/fff05dc2d2973f558bcd5cf3cb8ceee8.txt\",
+              \"urlList\": $URLS
+            }"

@@ -19,9 +19,15 @@ async function recupererItems() {
   let curseur = undefined;
 
   do {
+    // Filtre : uniquement les items qui ont une description (évite les pages vides)
+    // Les pages sans description génèrent du "thin content" que Google refuse d'indexer
     const reponse = await notion.databases.query({
       database_id: NOTION_DATABASE_ID,
       start_cursor: curseur,
+      filter: {
+        property: "Description simple",
+        rich_text: { is_not_empty: true },
+      },
     });
 
     for (const page of reponse.results) {
