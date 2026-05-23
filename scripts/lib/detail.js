@@ -209,7 +209,7 @@ ${META_GOOGLE}
   <meta property="og:image:alt" content="${OG_IMAGE_ALT}"/>
   <meta property="og:locale" content="fr_FR"/>
   <meta property="og:site_name" content="${SITE_NAME}"/>
-  <meta property="article:published_time" content="${DATE_PUBLISHED}"/>
+  <meta property="article:published_time" content="${datePublished}"/>
   <meta property="article:modified_time" content="${DATE_MODIFIED}"/>
   <meta property="article:author" content="${AUTHOR_URL}"/>
   <meta name="twitter:card" content="summary_large_image"/>
