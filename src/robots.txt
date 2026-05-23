@@ -1,12 +1,23 @@
+# Règle générale : tout autorisé sauf admin et outils SEO commerciaux
 User-agent: *
 Allow: /
 Allow: /assets/
-
 Disallow: /admin/
+# Les fichiers .html.md sont réservés aux assistants IA -- pas aux moteurs de recherche classiques
+# Ils dupliquent le contenu HTML et ne doivent pas être indexés par Google/Bing
+Disallow: /*.html.md$
 
+# Googlebot : autorisé partout sauf .html.md (duplicate content)
 User-agent: Googlebot
 Allow: /
+Disallow: /*.html.md$
 
+# Bingbot : idem
+User-agent: Bingbot
+Allow: /
+Disallow: /*.html.md$
+
+# Assistants IA : accès complet incluant les versions Markdown
 User-agent: GPTBot
 Allow: /
 
@@ -25,6 +36,7 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+# Google-Extended (Gemini) : accès Markdown autorisé -- c'est un assistant IA, pas un moteur de recherche
 User-agent: Google-Extended
 Allow: /
 
@@ -40,9 +52,7 @@ Allow: /
 User-agent: Applebot
 Allow: /
 
-User-agent: Bingbot
-Allow: /
-
+# Outils SEO commerciaux : bloqués (évite le scraping des fiches)
 User-agent: AhrefsBot
 Disallow: /
 
