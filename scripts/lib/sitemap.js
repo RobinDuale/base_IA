@@ -3,7 +3,7 @@
 const { BASE_URL } = require("./config");
 
 // Génère le sitemap.xml
-function genererSitemap(outils, llms) {
+function genererSitemap(outils, llms, hubs = []) {
   const buildDate = new Date().toISOString().split("T")[0];
 
   // lastmod : date de modification réelle si disponible, sinon date du build
@@ -27,12 +27,13 @@ function genererSitemap(outils, llms) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlEntry(`${BASE_URL}/`, "weekly", "1.0")}
 ${slugsPositionnement.map((s) => urlEntry(`${BASE_URL}/${s}.html`, "monthly", "0.9")).join("\n")}
+${hubs.map((h) => urlEntry(`${BASE_URL}/categories/${h.slug}.html`, "weekly", "0.9")).join("\n")}
 ${outils.map((o) => urlEntry(`${BASE_URL}/outils/${o.slug}.html`, "monthly", "0.8", lastmod(o))).join("\n")}
 ${llms.map((l) => urlEntry(`${BASE_URL}/llm/${l.slug}.html`, "monthly", "0.8", lastmod(l))).join("\n")}
 </urlset>`;
 }
 
-function genererLLMsTxt(outils, llms) {
+function genererLLMsTxt(outils, llms, hubs = []) {
   const lignesOutils = outils
     .filter((o) => o.description)
     .map((o) => `- [${o.nom}](${BASE_URL}/outils/${o.slug}.html) : ${o.description.substring(0, 120).trimEnd()}`)
@@ -44,6 +45,16 @@ function genererLLMsTxt(outils, llms) {
     .join("\n");
 
   const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))].join(", ");
+
+  const markdownOutils = outils
+    .filter((o) => o.description)
+    .map((o) => `- [${o.nom} Markdown](${BASE_URL}/outils/${o.slug}.html.md) : version courte et structurée pour assistants IA`)
+    .join("\n");
+
+  const markdownLLMs = llms
+    .filter((l) => l.description)
+    .map((l) => `- [${l.nom} Markdown](${BASE_URL}/llm/${l.slug}.html.md) : version courte et structurée pour assistants IA`)
+    .join("\n");
 
   return `# Base IA -- Robin Duale · Référence des outils IA, No-Code et LLMs
 
@@ -79,11 +90,27 @@ ${lignesLLMs}
 ## Pages du site
 
 - [Accueil](${BASE_URL}/) : grille complète des outils et LLMs avec filtres par catégorie, tags et recherche
+- [Accueil Markdown](${BASE_URL}/index.html.md) : synthèse générale en Markdown
 - [Comparatif LLMs 2026](${BASE_URL}/comparatif-llm.html) : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot
+- [Comparatif LLMs 2026 Markdown](${BASE_URL}/comparatif-llm.html.md) : version Markdown du guide
 - [Automatiser avec l'IA](${BASE_URL}/automatiser-avec-ia.html) : outils et méthodes pour automatiser ses processus
+- [Automatiser avec l'IA Markdown](${BASE_URL}/automatiser-avec-ia.html.md) : version Markdown du guide
 - [Outils No-Code 2026](${BASE_URL}/outils-no-code.html) : créer des applications et sites sans coder
+- [Outils No-Code 2026 Markdown](${BASE_URL}/outils-no-code.html.md) : version Markdown du guide
 - [Mentions légales](${BASE_URL}/mentions-legales.html) : éditeur, hébergeur GitHub Pages, RGPD
 - [Sitemap](${BASE_URL}/sitemap.xml) : index complet de toutes les pages
+
+## Pages hubs catégories
+
+${hubs.map((h) => `- [${h.h1}](${BASE_URL}/categories/${h.slug}.html) : ${h.items.length} fiche(s) dans la catégorie ${h.categorie}`).join("\n")}
+
+## Versions Markdown des outils
+
+${markdownOutils}
+
+## Versions Markdown des LLMs
+
+${markdownLLMs}
 
 ## Informations techniques
 

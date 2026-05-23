@@ -6,7 +6,7 @@ const {
   DATE_MODIFIED, COULEURS_CATEGORIE, COULEURS_TAG,
   GA_TAG, COOKIE_BANNER,
 } = require("./config");
-const { descriptionMeta, formatDateParis } = require("./utils");
+const { descriptionMeta, formatDateParis, echapperJson } = require("./utils");
 
 function badgeTag(tag) {
   const couleur = COULEURS_TAG[tag.trim()] || "#6b7280";
@@ -239,6 +239,7 @@ ${META_GOOGLE}
       "applicationCategory": "${item.type === "LLM" ? "AIApplication" : "WebApplication"}",
       "operatingSystem": "Web",
       ${item.lienOfficiel ? `"url": "${item.lienOfficiel}",` : ""}
+      "mainEntityOfPage": "${urlDetail}",
       "datePublished": "${datePublished}",
       "dateModified": "${dateModified}",
       "image": {
@@ -261,8 +262,7 @@ ${META_GOOGLE}
     item.modeleEconomique ? { q: `Quel est le modèle économique de ${item.nom} ?`, a: item.modeleEconomique + (item.quandPayer ? ' ' + item.quandPayer : '') } : null,
   ].filter(Boolean);
   if (!faqPairs.length) return '';
-  const escape = s => s.replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
-  const items = faqPairs.map(p => `{"@type":"Question","name":"${escape(p.q)}","acceptedAnswer":{"@type":"Answer","text":"${escape(p.a)}"}}`).join(',');
+  const items = faqPairs.map(p => `{"@type":"Question","name":"${echapperJson(p.q)}","acceptedAnswer":{"@type":"Answer","text":"${echapperJson(p.a)}"}}`).join(',');
   return `,\n    {\n      "@context": "https://schema.org",\n      "@type": "FAQPage",\n      "mainEntity": [${items}]\n    }`;
 })()}
   ]

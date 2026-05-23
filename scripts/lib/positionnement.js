@@ -112,6 +112,26 @@ ${COOKIE_BANNER}
 </html>`;
 }
 
+function schemaArticle({ slug, headline, description }) {
+  const url = `${BASE_URL}/${slug}.html`;
+  return `{
+      "@context": "https://schema.org",
+      "@type": ["WebPage", "Article"],
+      "headline": "${headline}",
+      "description": "${description}",
+      "url": "${url}",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "${url}"
+      },
+      "datePublished": "${DATE_PUBLISHED}",
+      "dateModified": "${DATE_MODIFIED}",
+      "inLanguage": "fr",
+      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"},
+      "publisher": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr"}
+    }`;
+}
+
 function genererPagesPositionnement(outils, llms) {
   const pages = [];
 
@@ -156,19 +176,11 @@ function genererPagesPositionnement(outils, llms) {
     <p>Le choix d'un LLM dépend de trois critères principaux : la qualité du raisonnement (Claude et GPT-4o excellent), l'accès à l'information en temps réel (Perplexity et Copilot), et le budget (tous proposent une version gratuite). Pour un usage professionnel intensif, tester plusieurs modèles sur vos cas réels reste la meilleure approche.</p>
   </section>` + voirAussi('comparatif-llm'),
     outils, llms,
-    schema: `{
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "@type": "Article",
-      "headline": "Comparatif LLMs 2026 : Claude, ChatGPT, Gemini, Perplexity, Copilot",
-      "description": "Comparatif des meilleurs modèles de langage : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot.",
-      "url": "${BASE_URL}/comparatif-llm.html",
-      "datePublished": "${DATE_PUBLISHED}",
-      "dateModified": "${DATE_MODIFIED}",
-      "inLanguage": "fr",
-      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"},
-      "publisher": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr"}
-    }`,
+    schema: schemaArticle({
+      slug: "comparatif-llm",
+      headline: "Comparatif LLMs 2026 : Claude, ChatGPT, Gemini, Perplexity, Copilot",
+      description: "Comparatif des meilleurs modèles de langage : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot."
+    }),
   });
 
   // Page 2 : Automatiser avec l'IA
@@ -193,19 +205,11 @@ function genererPagesPositionnement(outils, llms) {
     <p>Commencez par identifier une tâche répétitive qui vous prend du temps : envoi d'emails, mise à jour de base de données, collecte d'informations. Choisissez ensuite l'outil adapté : Make pour les workflows visuels simples, n8n pour plus de flexibilité et d'hébergement autonome. Testez avec un workflow simple avant de passer à des automatisations complexes.</p>
   </section>` + voirAussi('automatiser-avec-ia'),
     outils, llms,
-    schema: `{
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "@type": "Article",
-      "headline": "Automatiser avec l'IA : outils et méthodes 2026",
-      "description": "Guide des meilleurs outils pour automatiser ses processus avec l'IA.",
-      "url": "${BASE_URL}/automatiser-avec-ia.html",
-      "datePublished": "${DATE_PUBLISHED}",
-      "dateModified": "${DATE_MODIFIED}",
-      "inLanguage": "fr",
-      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"},
-      "publisher": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr"}
-    }`,
+    schema: schemaArticle({
+      slug: "automatiser-avec-ia",
+      headline: "Automatiser avec l'IA : outils et méthodes 2026",
+      description: "Guide des meilleurs outils pour automatiser ses processus avec l'IA."
+    }),
   });
 
   // Page 3 : Outils No-Code
@@ -230,19 +234,11 @@ function genererPagesPositionnement(outils, llms) {
     <p>Le No-Code (sans code) s'adresse aux non-développeurs qui veulent créer sans apprendre à programmer. Le Low-Code permet d'accélérer le développement en ajoutant du code là où les interfaces visuelles atteignent leurs limites. Pour débuter, le No-Code suffit pour 80 % des besoins courants : bases de données, sites vitrines, formulaires, automatisations simples.</p>
   </section>` + voirAussi('outils-no-code'),
     outils, llms,
-    schema: `{
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "@type": "Article",
-      "headline": "Outils No-Code 2026 : créer des applications sans coder",
-      "description": "Sélection des meilleurs outils No-Code pour créer sans coder.",
-      "url": "${BASE_URL}/outils-no-code.html",
-      "datePublished": "${DATE_PUBLISHED}",
-      "dateModified": "${DATE_MODIFIED}",
-      "inLanguage": "fr",
-      "author": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr", "sameAs": "https://www.linkedin.com/in/robinduale"},
-      "publisher": {"@type": "Person", "name": "Robin Dualé", "url": "https://cv-robin.duale.fr"}
-    }`,
+    schema: schemaArticle({
+      slug: "outils-no-code",
+      headline: "Outils No-Code 2026 : créer des applications sans coder",
+      description: "Sélection des meilleurs outils No-Code pour créer sans coder."
+    }),
   });
 
   return pages.map((p) => ({ slug: p.slug, html: genererPagePositionnement(p) }));

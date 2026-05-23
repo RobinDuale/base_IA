@@ -61,6 +61,15 @@ function genererPageAccueil(outils, llms) {
   ].join("\n        ");
 
   const cartesItems = items.map(i => genererCarte(i)).join("\n");
+  const hubsCategories = [
+    { label: "LLMs", href: "/categories/llms.html" },
+    { label: "Productivité", href: "/categories/productivite.html" },
+    { label: "No-Code", href: "/categories/no-code.html" },
+    ...(hasCreativite ? [{ label: "Créativité", href: "/categories/creativite.html" }] : []),
+  ];
+  const hubsHtml = hubsCategories
+    .map((hub) => `<a href="${hub.href}">${hub.label}</a>`)
+    .join("");
 
   const DESC_HOME = "Référence des meilleurs outils IA, No-Code et LLMs sélectionnés par Robin Dualé. Fiches détaillées, scénarios d'usage et modèles économiques.";
   const TITLE_HOME = "Base IA · Outils IA, No-Code et LLMs · Robin Dualé";
@@ -200,6 +209,14 @@ ${META_GOOGLE}
         ${cartesItems}
       </div>
     </div>
+
+    <section class="section voir-aussi" style="margin-top:2rem;">
+      <div class="section-eyebrow">&#9679; Explorer</div>
+      <h2>Parcourir par catégorie</h2>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+        ${hubsHtml}
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -213,6 +230,7 @@ ${META_GOOGLE}
         <a href="/comparatif-llm.html">Comparatif LLMs 2026</a>
         <a href="/automatiser-avec-ia.html">Automatiser avec l'IA</a>
         <a href="/outils-no-code.html">Outils No-Code 2026</a>
+        <a href="/categories/productivite.html">Productivité IA</a>
       </div>
       <div class="footer-liens">
         <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>

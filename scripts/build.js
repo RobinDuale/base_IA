@@ -10,6 +10,12 @@ const { generateOGImage }          = require("./lib/og-image");
 const { genererPageAccueil }       = require("./lib/accueil");
 const { genererPageDetail }        = require("./lib/detail");
 const { genererPagesPositionnement } = require("./lib/positionnement");
+const { genererPagesHubs }         = require("./lib/hubs");
+const {
+  genererMarkdownDetail,
+  genererMarkdownAccueil,
+  genererMarkdownGuides,
+} = require("./lib/markdown");
 const {
   genererMentionsLegales,
   genererPageConfirmation,
@@ -26,6 +32,7 @@ async function main() {
     creerDossier(DIST_DIR);
     creerDossier(path.join(DIST_DIR, "outils"));
     creerDossier(path.join(DIST_DIR, "llm"));
+    creerDossier(path.join(DIST_DIR, "categories"));
 
     // Copier les fichiers statiques de base
     fs.copyFileSync(path.join(__dirname, "..", "CNAME"), path.join(DIST_DIR, "CNAME"));
@@ -52,6 +59,7 @@ async function main() {
 
     // Générer l'image OG avec les vrais chiffres
     const categories = new Set(tous.map((o) => o.categorie).filter(Boolean));
+    const hubs = genererPagesHubs(outils, llms);
     const ogBuffer = await generateOGImage(outils.length, llms.length, categories.size);
     fs.writeFileSync(path.join(DIST_DIR, "assets", "og-default.png"), ogBuffer);
 
@@ -67,16 +75,23 @@ async function main() {
 
     // Pages principales
     fs.writeFileSync(path.join(DIST_DIR, "index.html"),             genererPageAccueil(outils, llms));
+    fs.writeFileSync(path.join(DIST_DIR, "index.html.md"),          genererMarkdownAccueil(outils, llms));
     fs.writeFileSync(path.join(DIST_DIR, "mentions-legales.html"),  genererMentionsLegales());
     fs.writeFileSync(path.join(DIST_DIR, "confirmation.html"),      genererPageConfirmation());
     fs.writeFileSync(path.join(DIST_DIR, "admin-propositions.html"),genererAdminPropositions());
-    fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"),            genererSitemap(outils, llms));
-    fs.writeFileSync(path.join(DIST_DIR, "llms.txt"),               genererLLMsTxt(outils, llms));
+    fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"),            genererSitemap(outils, llms, hubs));
+    fs.writeFileSync(path.join(DIST_DIR, "llms.txt"),               genererLLMsTxt(outils, llms, hubs));
 
     // Pages de positionnement SEO
     const pagesPositionnement = genererPagesPositionnement(outils, llms);
     for (const page of pagesPositionnement) {
       fs.writeFileSync(path.join(DIST_DIR, `${page.slug}.html`), page.html);
+    }
+    for (const page of genererMarkdownGuides(outils, llms)) {
+      fs.writeFileSync(path.join(DIST_DIR, `${page.slug}.html.md`), page.markdown);
+    }
+    for (const hub of hubs) {
+      fs.writeFileSync(path.join(DIST_DIR, "categories", `${hub.slug}.html`), hub.html);
     }
     console.log(`Page d'accueil, mentions légales, sitemap, llms.txt et ${pagesPositionnement.length} pages de positionnement générés.`);
 
@@ -87,6 +102,10 @@ async function main() {
         path.join(DIST_DIR, "outils", `${outil.slug}.html`),
         genererPageDetail(outil, tousAlpha, "outils")
       );
+      fs.writeFileSync(
+        path.join(DIST_DIR, "outils", `${outil.slug}.html.md`),
+        genererMarkdownDetail(outil)
+      );
     }
     console.log(`${outils.length} pages outils générées.`);
 
@@ -95,6 +114,10 @@ async function main() {
       fs.writeFileSync(
         path.join(DIST_DIR, "llm", `${llm.slug}.html`),
         genererPageDetail(llm, tousAlpha, "llm")
+      );
+      fs.writeFileSync(
+        path.join(DIST_DIR, "llm", `${llm.slug}.html.md`),
+        genererMarkdownDetail(llm)
       );
     }
     console.log(`${llms.length} pages LLMs générées.`);

@@ -29,12 +29,37 @@ function extraireTexte(propriete) {
   return "";
 }
 
+function nettoyerEspaces(texte) {
+  return String(texte || "").replace(/\s+/g, " ").trim();
+}
+
+function tronquerPhrase(texte, limite) {
+  const propre = nettoyerEspaces(texte);
+  if (propre.length <= limite) return propre;
+  const coupe = propre.substring(0, limite + 1);
+  const dernierEspace = coupe.lastIndexOf(" ");
+  const sansMotCoupe = dernierEspace > 80 ? coupe.substring(0, dernierEspace) : propre.substring(0, limite);
+  return sansMotCoupe.replace(/[.,;:!?-]+$/g, "").trim();
+}
+
+function echapperHtml(texte) {
+  return String(texte || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function echapperJson(texte) {
+  return nettoyerEspaces(texte).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
+
 // Tronque une description pour les meta tags (130-155 chars)
 function descriptionMeta(texte, fallback) {
-  if (!texte) return fallback;
-  if (texte.length >= 130 && texte.length <= 155) return texte;
-  if (texte.length > 155) return texte.substring(0, 152) + "...";
-  return texte.length >= 80 ? texte : fallback;
+  const source = nettoyerEspaces(texte);
+  const secours = nettoyerEspaces(fallback);
+  const base = source.length >= 80 ? source : secours;
+  return tronquerPhrase(base, 155);
 }
 
 // Formate une date ISO en format Schema.org avec timezone Paris correcte
@@ -56,6 +81,10 @@ module.exports = {
   creerDossier,
   slugifier,
   extraireTexte,
+  nettoyerEspaces,
+  tronquerPhrase,
+  echapperHtml,
+  echapperJson,
   descriptionMeta,
   formatDateParis,
 };
