@@ -61,11 +61,59 @@ Productivité, LLMs, Créativité, No-Code, Automatisation
 ## Pages du site
 
 - [Accueil](https://ia.duale.fr/) : grille complète des outils et LLMs avec filtres par catégorie, tags et recherche
+- [Accueil Markdown](https://ia.duale.fr/index.html.md) : synthèse générale en Markdown
 - [Comparatif LLMs 2026](https://ia.duale.fr/comparatif-llm.html) : Claude, ChatGPT, Gemini, Perplexity, Microsoft Copilot
+- [Comparatif LLMs 2026 Markdown](https://ia.duale.fr/comparatif-llm.html.md) : version Markdown du guide
 - [Automatiser avec l'IA](https://ia.duale.fr/automatiser-avec-ia.html) : outils et méthodes pour automatiser ses processus
+- [Automatiser avec l'IA Markdown](https://ia.duale.fr/automatiser-avec-ia.html.md) : version Markdown du guide
 - [Outils No-Code 2026](https://ia.duale.fr/outils-no-code.html) : créer des applications et sites sans coder
+- [Outils No-Code 2026 Markdown](https://ia.duale.fr/outils-no-code.html.md) : version Markdown du guide
 - [Mentions légales](https://ia.duale.fr/mentions-legales.html) : éditeur, hébergeur GitHub Pages, RGPD
 - [Sitemap](https://ia.duale.fr/sitemap.xml) : index complet de toutes les pages
+
+## Pages hubs catégories
+
+- [LLMs : choisir le bon modèle IA](https://ia.duale.fr/categories/llms.html) : 10 fiche(s) dans la catégorie LLMs
+- [Outils IA pour gagner en productivité](https://ia.duale.fr/categories/productivite.html) : 10 fiche(s) dans la catégorie Productivité
+- [Outils No-Code pour créer sans coder](https://ia.duale.fr/categories/no-code.html) : 8 fiche(s) dans la catégorie No-Code
+- [Outils IA pour créer des contenus](https://ia.duale.fr/categories/creativite.html) : 2 fiche(s) dans la catégorie Créativité
+
+## Versions Markdown des outils
+
+- [Manus Markdown](https://ia.duale.fr/outils/manus.html.md) : version courte et structurée pour assistants IA
+- [Fireflies.ai Markdown](https://ia.duale.fr/outils/fireflies-ai.html.md) : version courte et structurée pour assistants IA
+- [Anyscale Markdown](https://ia.duale.fr/outils/anyscale.html.md) : version courte et structurée pour assistants IA
+- [Motion Markdown](https://ia.duale.fr/outils/motion.html.md) : version courte et structurée pour assistants IA
+- [HeyGen Markdown](https://ia.duale.fr/outils/heygen.html.md) : version courte et structurée pour assistants IA
+- [XCode Markdown](https://ia.duale.fr/outils/xcode.html.md) : version courte et structurée pour assistants IA
+- [Supabase Markdown](https://ia.duale.fr/outils/supabase.html.md) : version courte et structurée pour assistants IA
+- [Midjourney Markdown](https://ia.duale.fr/outils/midjourney.html.md) : version courte et structurée pour assistants IA
+- [Concensus Markdown](https://ia.duale.fr/outils/concensus.html.md) : version courte et structurée pour assistants IA
+- [Zapier Markdown](https://ia.duale.fr/outils/zapier.html.md) : version courte et structurée pour assistants IA
+- [Softr Markdown](https://ia.duale.fr/outils/softr.html.md) : version courte et structurée pour assistants IA
+- [Hostinger Markdown](https://ia.duale.fr/outils/hostinger.html.md) : version courte et structurée pour assistants IA
+- [Brevo Markdown](https://ia.duale.fr/outils/brevo.html.md) : version courte et structurée pour assistants IA
+- [Lovable Markdown](https://ia.duale.fr/outils/lovable.html.md) : version courte et structurée pour assistants IA
+- [Slack Markdown](https://ia.duale.fr/outils/slack.html.md) : version courte et structurée pour assistants IA
+- [Perplexity Markdown](https://ia.duale.fr/outils/perplexity.html.md) : version courte et structurée pour assistants IA
+- [Clay Markdown](https://ia.duale.fr/outils/clay.html.md) : version courte et structurée pour assistants IA
+- [Make Markdown](https://ia.duale.fr/outils/make.html.md) : version courte et structurée pour assistants IA
+- [n8n Markdown](https://ia.duale.fr/outils/n8n.html.md) : version courte et structurée pour assistants IA
+- [GitHub Markdown](https://ia.duale.fr/outils/github.html.md) : version courte et structurée pour assistants IA
+- [Netlify Markdown](https://ia.duale.fr/outils/netlify.html.md) : version courte et structurée pour assistants IA
+- [Apify Markdown](https://ia.duale.fr/outils/apify.html.md) : version courte et structurée pour assistants IA
+- [Notion Markdown](https://ia.duale.fr/outils/notion.html.md) : version courte et structurée pour assistants IA
+- [Airtable Markdown](https://ia.duale.fr/outils/airtable.html.md) : version courte et structurée pour assistants IA
+
+## Versions Markdown des LLMs
+
+- [Grok Markdown](https://ia.duale.fr/llm/grok.html.md) : version courte et structurée pour assistants IA
+- [Mistral Markdown](https://ia.duale.fr/llm/mistral.html.md) : version courte et structurée pour assistants IA
+- [Microsoft Copilot Markdown](https://ia.duale.fr/llm/microsoft-copilot.html.md) : version courte et structurée pour assistants IA
+- [Claude Code Markdown](https://ia.duale.fr/llm/claude-code.html.md) : version courte et structurée pour assistants IA
+- [Claude Markdown](https://ia.duale.fr/llm/claude.html.md) : version courte et structurée pour assistants IA
+- [Gemini Markdown](https://ia.duale.fr/llm/gemini.html.md) : version courte et structurée pour assistants IA
+- [ChatGPT Markdown](https://ia.duale.fr/llm/chatgpt.html.md) : version courte et structurée pour assistants IA
 
 ## Informations techniques
 
