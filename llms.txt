@@ -21,8 +21,16 @@ Base IA répond aux questions : quel outil IA choisir pour automatiser un workfl
 
 Productivité, LLMs, Créativité, No-Code, Automatisation
 
-## 27 outils référencés
+## 35 outils référencés
 
+- [Vellum](https://ia.duale.fr/outils/vellum.html) : Vellum est une plateforme de développement (LLMOps) conçue pour aider les équipes techniques à construire, tester, évalu
+- [LMSYS Chatbot Arena](https://ia.duale.fr/outils/lmsys-chatbot-arena.html) : Une plateforme de benchmarking participatif qui permet aux utilisateurs de tester, comparer et noter les performances de
+- [LMSYS Chatbot Arena](https://ia.duale.fr/outils/lmsys-chatbot-arena.html) : Une plateforme de benchmarking open-source pilotée par la communauté pour évaluer et classer les grands modèles de langa
+- [Veo](https://ia.duale.fr/outils/veo.html) : Veo est le modèle de génération vidéo haute définition de Google DeepMind, capable de créer des vidéos cinématographique
+- [ElevenLabs](https://ia.duale.fr/outils/elevenlabs.html) : Plateforme leader de synthèse vocale par IA générative, capable de cloner des voix et de générer des discours ultra-réal
+- [Leexi](https://ia.duale.fr/outils/leexi.html) : Leexi est une plateforme d'intelligence conversationnelle conçue pour analyser les appels commerciaux et les réunions en
+- [Stitch (Google)](https://ia.duale.fr/outils/stitch-google.html) : Stitch est une plateforme expérimentale proposée par Google permettant de créer facilement des applications Web interact
+- [Whimsical](https://ia.duale.fr/outils/whimsical.html) : Plateforme de collaboration visuelle tout-en-un permettant de créer des diagrammes, des wireframes, des cartes mentales
 - [V0](https://ia.duale.fr/outils/v0.html) : Une plateforme de génération d'interfaces utilisateur (UI) basée sur l'IA, développée par Vercel. Elle permet de générer
 - [HubSpot](https://ia.duale.fr/outils/hubspot.html) : Plateforme CRM tout-en-un qui unifie les fonctions de marketing, de vente, de service client, de gestion de contenu (CMS
 - [Gamma](https://ia.duale.fr/outils/gamma.html) : Plateforme de présentation générative utilisant l'IA pour créer des slides, des documents et des pages web à partir de p
@@ -76,13 +84,21 @@ Productivité, LLMs, Créativité, No-Code, Automatisation
 
 ## Pages hubs catégories
 
-- [LLMs : choisir le bon modèle IA](https://ia.duale.fr/categories/llms.html) : 10 fiche(s) dans la catégorie LLMs
-- [Outils IA pour gagner en productivité](https://ia.duale.fr/categories/productivite.html) : 13 fiche(s) dans la catégorie Productivité
-- [Outils No-Code pour créer sans coder](https://ia.duale.fr/categories/no-code.html) : 8 fiche(s) dans la catégorie No-Code
-- [Outils IA pour créer des contenus](https://ia.duale.fr/categories/creativite.html) : 2 fiche(s) dans la catégorie Créativité
+- [LLMs : choisir le bon modèle IA](https://ia.duale.fr/categories/llms.html) : 12 fiche(s) dans la catégorie LLMs
+- [Outils IA pour gagner en productivité](https://ia.duale.fr/categories/productivite.html) : 16 fiche(s) dans la catégorie Productivité
+- [Outils No-Code pour créer sans coder](https://ia.duale.fr/categories/no-code.html) : 9 fiche(s) dans la catégorie No-Code
+- [Outils IA pour créer des contenus](https://ia.duale.fr/categories/creativite.html) : 4 fiche(s) dans la catégorie Créativité
 
 ## Versions Markdown des outils
 
+- [Vellum Markdown](https://ia.duale.fr/outils/vellum.html.md) : version courte et structurée pour assistants IA
+- [LMSYS Chatbot Arena Markdown](https://ia.duale.fr/outils/lmsys-chatbot-arena.html.md) : version courte et structurée pour assistants IA
+- [LMSYS Chatbot Arena Markdown](https://ia.duale.fr/outils/lmsys-chatbot-arena.html.md) : version courte et structurée pour assistants IA
+- [Veo Markdown](https://ia.duale.fr/outils/veo.html.md) : version courte et structurée pour assistants IA
+- [ElevenLabs Markdown](https://ia.duale.fr/outils/elevenlabs.html.md) : version courte et structurée pour assistants IA
+- [Leexi Markdown](https://ia.duale.fr/outils/leexi.html.md) : version courte et structurée pour assistants IA
+- [Stitch (Google) Markdown](https://ia.duale.fr/outils/stitch-google.html.md) : version courte et structurée pour assistants IA
+- [Whimsical Markdown](https://ia.duale.fr/outils/whimsical.html.md) : version courte et structurée pour assistants IA
 - [V0 Markdown](https://ia.duale.fr/outils/v0.html.md) : version courte et structurée pour assistants IA
 - [HubSpot Markdown](https://ia.duale.fr/outils/hubspot.html.md) : version courte et structurée pour assistants IA
 - [Gamma Markdown](https://ia.duale.fr/outils/gamma.html.md) : version courte et structurée pour assistants IA

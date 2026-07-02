@@ -4,6 +4,10 @@
 
 ## Fiches liées
 
+- [Vellum](https://ia.duale.fr/outils/vellum.html) : Vellum est une plateforme de développement (LLMOps) conçue pour aider les équipes techniques à construire, tester, évaluer et déployer des applications basées sur des modèles de la
+- [Leexi](https://ia.duale.fr/outils/leexi.html) : Leexi est une plateforme d'intelligence conversationnelle conçue pour analyser les appels commerciaux et les réunions en visioconférence. Elle transcrit, résume et analyse automati
+- [Stitch (Google)](https://ia.duale.fr/outils/stitch-google.html) : Stitch est une plateforme expérimentale proposée par Google permettant de créer facilement des applications Web interactives et des expériences basées sur des composants UI réutili
+- [Whimsical](https://ia.duale.fr/outils/whimsical.html) : Plateforme de collaboration visuelle tout-en-un permettant de créer des diagrammes, des wireframes, des cartes mentales (mind maps) et des documents structurés au sein d'un espace 
 - [V0](https://ia.duale.fr/outils/v0.html) : Une plateforme de génération d'interfaces utilisateur (UI) basée sur l'IA, développée par Vercel. Elle permet de générer, itérer et déployer des composants React utilisant Tailwind
 - [HubSpot](https://ia.duale.fr/outils/hubspot.html) : Plateforme CRM tout-en-un qui unifie les fonctions de marketing, de vente, de service client, de gestion de contenu (CMS) et d'opérations. Elle permet de piloter la relation client
 - [Gamma](https://ia.duale.fr/outils/gamma.html) : Plateforme de présentation générative utilisant l'IA pour créer des slides, des documents et des pages web à partir de prompts textuels, avec un éditeur intuitif par blocs.

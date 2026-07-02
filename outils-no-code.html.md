@@ -4,6 +4,7 @@
 
 ## Fiches liées
 
+- [Stitch (Google)](https://ia.duale.fr/outils/stitch-google.html) : Stitch est une plateforme expérimentale proposée par Google permettant de créer facilement des applications Web interactives et des expériences basées sur des composants UI réutili
 - [Supabase](https://ia.duale.fr/outils/supabase.html) : Supabase est une plateforme de développement open-source qui remplace Firebase en utilisant PostgreSQL comme moteur de base de données. Elle fournit automatiquement une API instant
 - [Softr](https://ia.duale.fr/outils/softr.html) : Softr est une plateforme no-code qui permet de créer des applications web et des portails clients directement à partir de vos données. Il transforme vos bases de données, comme Air
 - [Hostinger](https://ia.duale.fr/outils/hostinger.html) : Hostinger est une plateforme d'hébergement web complète qui propose un créateur de site intuitif basé sur l'IA et des solutions d'hébergement performantes. Elle permet aux débutant
