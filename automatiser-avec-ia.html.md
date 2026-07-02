@@ -4,6 +4,7 @@
 
 ## Fiches liées
 
+- [V0](https://ia.duale.fr/outils/v0.html) : Une plateforme de génération d'interfaces utilisateur (UI) basée sur l'IA, développée par Vercel. Elle permet de générer, itérer et déployer des composants React utilisant Tailwind
 - [HubSpot](https://ia.duale.fr/outils/hubspot.html) : Plateforme CRM tout-en-un qui unifie les fonctions de marketing, de vente, de service client, de gestion de contenu (CMS) et d'opérations. Elle permet de piloter la relation client
 - [Gamma](https://ia.duale.fr/outils/gamma.html) : Plateforme de présentation générative utilisant l'IA pour créer des slides, des documents et des pages web à partir de prompts textuels, avec un éditeur intuitif par blocs.
 - [Manus](https://ia.duale.fr/outils/manus.html) : Manus est un agent IA autonome de nouvelle génération capable d'effectuer des tâches complexes de bout en bout, allant de la recherche web à la rédaction de rapports, l'analyse de 
