@@ -4,7 +4,7 @@
 
 ## Fiches liées
 
-- [Wispr Flow](https://ia.duale.fr/outils/wispr-flow.html) : Wispr Flow est un outil de dictée vocale boosté à l'IA qui permet de transformer la parole en texte structuré et professionnel dans n'importe quelle application ou navigateur, en s
+- [Whispr](https://ia.duale.fr/outils/whispr.html) : Whispr est une plateforme de gestion des opérations sur le terrain qui permet de numériser les processus métier complexes, de guider les employés via des instructions intelligentes
 - [Vellum](https://ia.duale.fr/outils/vellum.html) : Vellum est une plateforme de développement (LLMOps) conçue pour aider les équipes techniques à construire, tester, évaluer et déployer des applications basées sur des modèles de la
 - [Leexi](https://ia.duale.fr/outils/leexi.html) : Leexi est une plateforme d'intelligence conversationnelle conçue pour analyser les appels commerciaux et les réunions en visioconférence. Elle transcrit, résume et analyse automati
 - [Stitch (Google)](https://ia.duale.fr/outils/stitch-google.html) : Stitch est une plateforme expérimentale proposée par Google permettant de créer facilement des applications Web interactives et des expériences basées sur des composants UI réutili

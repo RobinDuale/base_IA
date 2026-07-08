@@ -20,7 +20,7 @@ Quand on veut de l'aide IA directement dans son environnement de développement,
 
 ## Pourquoi utiliser Claude Code
 
-Comprend tout le contexte du projet en lisant les fichiers directement. Peut modifier des fichiers, exécuter des commandes shell, lancer des tests. Très efficace pour les tâches multi-fichiers et les refactoring complexes. Support des MCPs (Model Context Protocol) pour se connecter à des outils externes (Notion, n8n, GitHub...).
+Comprend tout le contexte du projet en lisant les fichiers directement. Peut modifier des fichiers, exécuter des commandes shell, lancer des tests. Très efficace pour les tâches multi-fichiers et les refactoring complexes. Support des MCPs (Model Context Protocol) pour se connecter à des outils externes (Notion, n8n, GitHub, etc ...).
 
 
 ## Limites de Claude Code
