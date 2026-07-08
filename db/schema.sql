@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS outils (
     id                    TEXT PRIMARY KEY,       -- id de la page Notion
-    slug                  TEXT UNIQUE NOT NULL,
+    slug                  TEXT NOT NULL,           -- pas unique : deux fiches Notion peuvent partager un même nom (cas existant, ex. doublons non nettoyés) -- même comportement que le site statique (dernier écrit gagne)
     date_creation         TIMESTAMPTZ NOT NULL,
     date_modification     TIMESTAMPTZ NOT NULL,
 
