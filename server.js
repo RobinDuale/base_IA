@@ -90,7 +90,7 @@ app.get("/version.json", async (req, res) => {
   res.json({ built_at: new Date(c.builtAt).toISOString() });
 });
 
-app.get("/", async (req, res) => {
+app.get(["/", "/index.html"], async (req, res) => {
   const { outils, llms } = await getCache();
   res.type("html").send(genererPageAccueil(outils, llms));
 });
