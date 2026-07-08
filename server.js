@@ -1,9 +1,10 @@
-// server.js -- Serveur dynamique Base IA (lit Postgres au lieu de générer des fichiers statiques)
+// server.js -- Serveur dynamique Base IA (lit Notion, sert le site depuis un cache mémoire)
 // Réutilise tel quel les fonctions de scripts/lib/*.js -- elles sont pures (outils, llms) -> HTML.
+// Notion est la source unique : lue au démarrage et sur synchronisation explicite, jamais à la requête.
 
 const path = require("path");
 const express = require("express");
-const { recupererItems, remplacerItems } = require("./scripts/lib/db");
+const { recupererItems } = require("./scripts/lib/notion");
 const { generateOGImage } = require("./scripts/lib/og-image");
 const { genererPageAccueil } = require("./scripts/lib/accueil");
 const { genererPageDetail } = require("./scripts/lib/detail");
@@ -23,16 +24,17 @@ const { genererSitemap, genererLLMsTxt } = require("./scripts/lib/sitemap");
 
 const PORT = process.env.PORT || 3000;
 const INVALIDATE_TOKEN = process.env.INVALIDATE_TOKEN;
-const CACHE_TTL_MS = 60 * 1000; // filet de sécurité -- l'invalidation manuelle reste la voie principale de fraîcheur
 
 const app = express();
 app.use(express.json());
 
-// -- Cache mémoire : évite de retaper Postgres + reconstruire tous les templates à chaque requête --
+// -- Cache mémoire : Notion est lu UNIQUEMENT ici (au démarrage + sur synchronisation explicite),
+//    jamais à la requête d'un visiteur. Pas de TTL : le cache reste servi tel quel jusqu'à la
+//    prochaine synchronisation ("Mettre à jour" / validation d'une proposition). --
 let cache = null; // { outils, llms, hubs, pagesPositionnement, markdownGuides, ogImage, builtAt }
 
 async function construireCache() {
-  const tous = await recupererItems();
+  const tous = await recupererItems(); // lecture Notion
   const outils = tous.filter((i) => i.type !== "LLM");
   const llms = tous.filter((i) => i.type === "LLM");
   const hubs = genererPagesHubs(outils, llms);
@@ -46,44 +48,27 @@ async function construireCache() {
 }
 
 async function getCache() {
-  if (!cache || Date.now() - cache.builtAt > CACHE_TTL_MS) {
-    await construireCache();
-  }
+  // Construction paresseuse si le préchauffage au démarrage a échoué (Notion indisponible à ce moment).
+  if (!cache) await construireCache();
   return cache;
 }
 
-// -- Sync complète Notion -> Postgres -- appelée par n8n (bouton "Mettre à jour" + après validation d'une proposition) --
-// Chargement paresseux de notion.js : ce module exige NOTION_API_KEY et fait process.exit(1) si absent.
-// En lazy require, seul /internal/sync est affecté par une clé manquante -- pas tout le serveur.
-app.post("/internal/sync", async (req, res) => {
+// -- Rafraîchissement du site depuis Notion -- appelé par n8n (bouton "Mettre à jour" + après validation d'une proposition) --
+async function rafraichir(req, res) {
   if (!INVALIDATE_TOKEN || req.headers["x-invalidate-token"] !== INVALIDATE_TOKEN) {
     return res.status(401).json({ status: "error", message: "Non autorisé" });
   }
   try {
-    const { recupererItems: recupererItemsNotion } = require("./scripts/lib/notion");
-    const items = await recupererItemsNotion();
-    await remplacerItems(items);
     await construireCache();
-    res.json({ status: "ok", nbItems: items.length, builtAt: cache.builtAt });
+    res.json({ status: "ok", nbItems: cache.outils.length + cache.llms.length, builtAt: cache.builtAt });
   } catch (erreur) {
-    console.error("Erreur sync Notion -> Postgres :", erreur.message);
+    console.error("Erreur rafraîchissement depuis Notion :", erreur.message);
     res.status(500).json({ status: "error", message: erreur.message });
   }
-});
+}
 
-// -- Invalidation manuelle (sans repasser par Notion) -- rebuild le cache depuis Postgres tel quel --
-app.post("/internal/invalidate", async (req, res) => {
-  if (!INVALIDATE_TOKEN || req.headers["x-invalidate-token"] !== INVALIDATE_TOKEN) {
-    return res.status(401).json({ status: "error", message: "Non autorisé" });
-  }
-  try {
-    await construireCache();
-    res.json({ status: "ok", builtAt: cache.builtAt });
-  } catch (erreur) {
-    console.error("Erreur invalidation cache :", erreur.message);
-    res.status(500).json({ status: "error", message: erreur.message });
-  }
-});
+app.post("/internal/sync", rafraichir);
+app.post("/internal/invalidate", rafraichir); // alias historique -- même comportement
 
 app.get("/version.json", async (req, res) => {
   const c = await getCache();
@@ -167,5 +152,11 @@ app.use(express.static(path.join(__dirname, "src")));
 app.use("/assets", express.static(path.join(__dirname, "src", "assets")));
 
 app.listen(PORT, () => {
-  console.log(`Base IA (dynamique) en écoute sur le port ${PORT}`);
+  console.log(`Base IA (dynamique, source Notion) en écoute sur le port ${PORT}`);
+  // Préchauffage du cache au démarrage, pour que le premier visiteur ait une page prête.
+  // Si Notion est indisponible à ce moment, on ne bloque pas le démarrage : le cache sera
+  // construit à la première requête (getCache) ou à la prochaine synchronisation.
+  construireCache()
+    .then(() => console.log(`Cache initial construit depuis Notion (${cache.outils.length + cache.llms.length} items).`))
+    .catch((e) => console.error("Cache initial non construit (Notion indisponible ?) :", e.message));
 });

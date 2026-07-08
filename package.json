@@ -10,7 +10,6 @@
     "@notionhq/client": "^2.2.15",
     "@tryfabric/martian": "^1.2.4",
     "express": "^4.21.2",
-    "pg": "^8.13.1",
     "sharp": "^0.34.5"
   }
 }
