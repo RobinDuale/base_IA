@@ -1,0 +1,48 @@
+# docker-image.yml -- Build et publication de l'image Docker de l'app dynamique
+# Ne touche pas au pipeline GitHub Pages existant (deploy.yml) -- workflow séparé,
+# le temps de la transition vers le serveur dynamique (VPS + Postgres).
+
+name: Build et publication image Docker
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "server.js"
+      - "scripts/lib/**"
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - "Dockerfile"
+      - ".github/workflows/docker-image.yml"
+
+env:
+  REGISTRY: ghcr.io
+  # Doit être en minuscules (contrainte GHCR) -- le repo est RobinDuale/base_IA
+  IMAGE_NAME: robinduale/base_ia
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Connexion à GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build et push de l'image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
