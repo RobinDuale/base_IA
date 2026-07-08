@@ -46,3 +46,59 @@ jobs:
           context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      # Le projet "base-ia" est autonome (rattaché au réseau root_default en externe) --
+      # ce déploiement ne touche jamais aux autres services partagés du VPS (n8n, CRM, Postgres, Traefik).
+      - name: Redéployer le projet base-ia sur le VPS Hostinger
+        env:
+          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+        run: |
+          COMPOSE=$(cat <<'YAML'
+          services:
+            base-ia:
+              image: ghcr.io/robinduale/base_ia:latest
+              restart: always
+              environment:
+                - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/base_ia
+                - NOTION_API_KEY=${BASE_IA_NOTION_API_KEY}
+                - INVALIDATE_TOKEN=${BASE_IA_INVALIDATE_TOKEN}
+                - PORT=3000
+              labels:
+                - traefik.enable=true
+                - traefik.http.routers.base-ia.rule=Host(`ia.duale.fr`)
+                - traefik.http.routers.base-ia.tls=true
+                - traefik.http.routers.base-ia.entrypoints=web,websecure
+                - traefik.http.routers.base-ia.tls.certresolver=mytlschallenge
+                - traefik.http.services.base-ia.loadbalancer.server.port=3000
+              networks:
+                default:
+                  aliases:
+                    - base-ia
+
+          networks:
+            default:
+              name: root_default
+              external: true
+          YAML
+          )
+
+          ENVIRONMENT=$(cat <<VARS
+          POSTGRES_USER=${{ secrets.BASE_IA_POSTGRES_USER }}
+          POSTGRES_PASSWORD=${{ secrets.BASE_IA_POSTGRES_PASSWORD }}
+          BASE_IA_NOTION_API_KEY=${{ secrets.BASE_IA_NOTION_API_KEY }}
+          BASE_IA_INVALIDATE_TOKEN=${{ secrets.BASE_IA_INVALIDATE_TOKEN }}
+          VARS
+          )
+
+          PAYLOAD=$(jq -n --arg name "base-ia" --arg content "$COMPOSE" --arg env "$ENVIRONMENT" \
+            '{project_name: $name, content: $content, environment: $env}')
+
+          curl -sS -f -X POST \
+            -H "Authorization: Bearer $HOSTINGER_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            "https://developers.hostinger.com/api/vps/v1/virtual-machines/1161197/docker" \
+            -d "$PAYLOAD"
