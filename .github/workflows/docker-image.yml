@@ -63,7 +63,6 @@ jobs:
               image: ghcr.io/robinduale/base_ia:latest
               restart: always
               environment:
-                - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/base_ia
                 - NOTION_API_KEY=${BASE_IA_NOTION_API_KEY}
                 - INVALIDATE_TOKEN=${BASE_IA_INVALIDATE_TOKEN}
                 - PORT=3000
@@ -87,8 +86,6 @@ jobs:
           )
 
           ENVIRONMENT=$(cat <<VARS
-          POSTGRES_USER=${{ secrets.BASE_IA_POSTGRES_USER }}
-          POSTGRES_PASSWORD=${{ secrets.BASE_IA_POSTGRES_PASSWORD }}
           BASE_IA_NOTION_API_KEY=${{ secrets.BASE_IA_NOTION_API_KEY }}
           BASE_IA_INVALIDATE_TOKEN=${{ secrets.BASE_IA_INVALIDATE_TOKEN }}
           VARS
