@@ -2,19 +2,21 @@
 User-agent: *
 Allow: /
 Allow: /assets/
-Disallow: /admin/
+Disallow: /admin-propositions.html
 # Les fichiers .html.md sont réservés aux assistants IA -- pas aux moteurs de recherche classiques
 # Ils dupliquent le contenu HTML et ne doivent pas être indexés par Google/Bing
 Disallow: /*.html.md$
 
-# Googlebot : autorisé partout sauf .html.md (duplicate content)
+# Googlebot : autorisé partout sauf admin et .html.md (duplicate content)
 User-agent: Googlebot
 Allow: /
+Disallow: /admin-propositions.html
 Disallow: /*.html.md$
 
 # Bingbot : idem
 User-agent: Bingbot
 Allow: /
+Disallow: /admin-propositions.html
 Disallow: /*.html.md$
 
 # Assistants IA : accès complet incluant les versions Markdown
