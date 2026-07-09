@@ -1,0 +1,9 @@
+node_modules
+.env
+.env.production.local
+.git
+dist
+CLAUDE.md
+JOURNAL.md
+architecture.html
+Redisign
