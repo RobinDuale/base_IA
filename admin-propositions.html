@@ -188,7 +188,10 @@ function afficherPropositions() {
 
 async function chargerPropositions() {
   try {
-    const res = await fetch(N8N + '/admin-proposals');
+    const token = localStorage.getItem('admin_token') || '';
+    const res = await fetch(N8N + '/admin-proposals', {
+      headers: { 'X-Admin-Token': token }
+    });
     if (!res.ok) throw new Error('Erreur ' + res.status);
     const data = await res.json();
     toutesPropositions = data.proposals || [];
