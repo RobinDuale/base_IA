@@ -4,6 +4,7 @@
 
 ## Fiches liées
 
+- [Apollo.io](https://ia.duale.fr/outils/apollo-io.html) : Plateforme tout-en-un de sales intelligence et d'engagement commercial intégrant une base de données B2B massive, des outils d'automatisation d'emailing et des fonctionnalités de C
 - [Whispr](https://ia.duale.fr/outils/whispr.html) : Whispr est une plateforme de gestion des opérations sur le terrain qui permet de numériser les processus métier complexes, de guider les employés via des instructions intelligentes
 - [Vellum](https://ia.duale.fr/outils/vellum.html) : Vellum est une plateforme de développement (LLMOps) conçue pour aider les équipes techniques à construire, tester, évaluer et déployer des applications basées sur des modèles de la
 - [Leexi](https://ia.duale.fr/outils/leexi.html) : Leexi est une plateforme d'intelligence conversationnelle conçue pour analyser les appels commerciaux et les réunions en visioconférence. Elle transcrit, résume et analyse automati
