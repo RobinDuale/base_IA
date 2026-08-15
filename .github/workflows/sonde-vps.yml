@@ -1,0 +1,72 @@
+# Sonde exterieure du VPS srv1161197.hstgr.cloud
+#
+# Pourquoi elle existe : tout le dispositif de surveillance du VPS tourne sur le
+# VPS lui-meme. Si la machine s arrete, n8n s arrete avec elle et aucun mail ne
+# part. Une sonde qui vit ailleurs est le seul moyen de couvrir ce cas.
+#
+# Pourquoi dans ce depot : les minutes GitHub Actions sont illimitees sur un
+# depot public et plafonnees a 2000 par mois sur un depot prive, ce qu une
+# cadence de 15 minutes depasserait. Ce depot porte deja le deploiement vers
+# ce VPS, la sonde y est donc coherente.
+#
+# Comment l alerte arrive : un job en echec declenche la notification GitHub,
+# qui envoie un mail au proprietaire du depot. Aucun service tiers, aucun
+# compte a creer, aucun secret a deposer.
+#
+# Piege a connaitre : GitHub desactive les planifications d un depot public
+# reste sans activite pendant 60 jours. Ce depot recoit des deploiements
+# reguliers, mais si la sonde cessait de tourner, elle cesserait en silence.
+# Le rapport hebdomadaire de l agent admin VPS ne le verrait pas non plus.
+#
+# Projet : Agent admin systeme VPS, second cerveau de Robin Duale.
+
+name: Sonde exterieure VPS
+
+on:
+  schedule:
+    # Toutes les 15 minutes. GitHub decale les executions planifiees selon sa
+    # charge, la cadence reelle oscille entre 15 et 30 minutes. Suffisant pour
+    # detecter une machine morte, l objectif n etant pas la seconde pres.
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verifier que le VPS repond depuis l exterieur
+        run: |
+          set -u
+          echecs=0
+
+          verifier() {
+            nom="$1"; url="$2"; attendu="$3"
+            code=$(curl -s -o /dev/null -w '%{http_code}' \
+                     --max-time 20 --retry 2 --retry-delay 5 "$url" || echo 000)
+            if [ "$code" = "$attendu" ]; then
+              echo "OK    $nom repond $code"
+            else
+              echo "ECHEC $nom repond $code, attendu $attendu"
+              echecs=$((echecs + 1))
+            fi
+          }
+
+          # Traefik sert ces trois hotes. Si l un ne repond plus, soit la machine
+          # est tombee, soit le reverse proxy est casse : dans les deux cas le
+          # second cerveau est hors service et Robin doit le savoir.
+          verifier "Forgejo, depot du vault"  "https://git.duale.fr/" 200
+          verifier "Base IA"                  "https://ia.duale.fr/"  200
+          verifier "Portail Authelia"         "https://auth.srv1161197.hstgr.cloud/" 200
+
+          echo
+          if [ "$echecs" -gt 0 ]; then
+            echo "$echecs service(s) ne repondent pas depuis l exterieur."
+            echo "Causes possibles : machine arretee, Traefik casse, certificat"
+            echo "expire, ou pare-feu Hostinger modifie."
+            exit 1
+          fi
+          echo "Les trois services repondent, le VPS est joignable."
