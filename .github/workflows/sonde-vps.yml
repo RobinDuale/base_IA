@@ -13,6 +13,16 @@
 # qui envoie un mail au proprietaire du depot. Aucun service tiers, aucun
 # compte a creer, aucun secret a deposer.
 #
+# Pourquoi deux passes avant d alerter, ajoute le 2026-08-16 : la sonde cherche
+# une machine morte, pas un hoquet de routage. Le 16/08 a 04h05 UTC les trois
+# hotes ont echoue ensemble alors que la machine tournait depuis 2 jours sans
+# redemarrage, et repondait normalement une heure plus tard. La duree du run,
+# 3 min 33, correspond exactement a trois hotes epuisant leurs trois tentatives
+# a 20 s : aucune requete n avait recu de reponse, le runner n atteignait pas
+# la machine. Une seconde passe 8 minutes apres la premiere ecarte ce cas sans
+# rien couter, et retarde la detection d une vraie panne de 8 minutes au plus,
+# sur une cadence qui en vaut deja 15.
+#
 # Piege a connaitre : GitHub desactive les planifications d un depot public
 # reste sans activite pendant 60 jours. Ce depot recoit des deploiements
 # reguliers, mais si la sonde cessait de tourner, elle cesserait en silence.
@@ -36,17 +46,23 @@ permissions:
 jobs:
   verifier:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # Large parce qu une passe en echec dure 3 min 30 et qu il y en a deux,
+    # separees par 8 minutes d attente.
+    timeout-minutes: 20
     steps:
       - name: Verifier que le VPS repond depuis l exterieur
         run: |
           set -u
-          echecs=0
 
           verifier() {
             nom="$1"; url="$2"; attendu="$3"
+            # curl ecrit deja 000 quand la connexion echoue, et sort en erreur.
+            # Un `|| echo 000` ajouterait un second code au premier et
+            # afficherait 000000 dans le mail d alerte, seul endroit ou Robin
+            # lit ce diagnostic. Corrige le 2026-08-16.
             code=$(curl -s -o /dev/null -w '%{http_code}' \
-                     --max-time 20 --retry 2 --retry-delay 5 "$url" || echo 000)
+                     --max-time 20 --retry 2 --retry-delay 5 "$url") || true
+            [ -n "$code" ] || code=000
             if [ "$code" = "$attendu" ]; then
               echo "OK    $nom repond $code"
             else
@@ -58,15 +74,41 @@ jobs:
           # Traefik sert ces trois hotes. Si l un ne repond plus, soit la machine
           # est tombee, soit le reverse proxy est casse : dans les deux cas le
           # second cerveau est hors service et Robin doit le savoir.
-          verifier "Forgejo, depot du vault"  "https://git.duale.fr/" 200
-          verifier "Base IA"                  "https://ia.duale.fr/"  200
-          verifier "Portail Authelia"         "https://auth.srv1161197.hstgr.cloud/" 200
+          controler() {
+            echecs=0
+            verifier "Forgejo, depot du vault"  "https://git.duale.fr/" 200
+            verifier "Base IA"                  "https://ia.duale.fr/"  200
+            verifier "Portail Authelia"         "https://auth.srv1161197.hstgr.cloud/" 200
+          }
+
+          echo "Passe 1"
+          controler
+          if [ "$echecs" -eq 0 ]; then
+            echo
+            echo "Les trois services repondent, le VPS est joignable."
+            exit 0
+          fi
 
           echo
-          if [ "$echecs" -gt 0 ]; then
-            echo "$echecs service(s) ne repondent pas depuis l exterieur."
-            echo "Causes possibles : machine arretee, Traefik casse, certificat"
-            echo "expire, ou pare-feu Hostinger modifie."
-            exit 1
+          echo "$echecs service(s) muets a la passe 1. Seconde passe dans"
+          echo "8 minutes avant de conclure quoi que ce soit."
+          sleep 480
+
+          echo
+          echo "Passe 2"
+          controler
+          if [ "$echecs" -eq 0 ]; then
+            echo
+            echo "::warning::Incident passager : au moins un service etait muet, les trois repondaient de nouveau 8 minutes plus tard. Aucune alerte envoyee."
+            echo "Les trois services repondent a la seconde passe. L incident"
+            echo "s est resorbe seul, aucune alerte n est envoyee. La trace"
+            echo "reste dans l historique des runs si le cas se repete."
+            exit 0
           fi
-          echo "Les trois services repondent, le VPS est joignable."
+
+          echo
+          echo "$echecs service(s) ne repondent toujours pas 8 minutes apres la"
+          echo "premiere passe. La panne dure, ce n est plus un hoquet reseau."
+          echo "Causes possibles : machine arretee, Traefik casse, certificat"
+          echo "expire, ou pare-feu Hostinger modifie."
+          exit 1
