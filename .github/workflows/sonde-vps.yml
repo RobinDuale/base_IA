@@ -13,15 +13,34 @@
 # qui envoie un mail au proprietaire du depot. Aucun service tiers, aucun
 # compte a creer, aucun secret a deposer.
 #
-# Pourquoi deux passes avant d alerter, ajoute le 2026-08-16 : la sonde cherche
-# une machine morte, pas un hoquet de routage. Le 16/08 a 04h05 UTC les trois
-# hotes ont echoue ensemble alors que la machine tournait depuis 2 jours sans
-# redemarrage, et repondait normalement une heure plus tard. La duree du run,
-# 3 min 33, correspond exactement a trois hotes epuisant leurs trois tentatives
-# a 20 s : aucune requete n avait recu de reponse, le runner n atteignait pas
-# la machine. Une seconde passe 8 minutes apres la premiere ecarte ce cas sans
-# rien couter, et retarde la detection d une vraie panne de 8 minutes au plus,
-# sur une cadence qui en vaut deja 15.
+# Pourquoi deux passes sur deux runners distincts, revu le 2026-08-17 :
+#
+#   Une premiere version alertait des la premiere passe. Le 2026-08-16 a 04h05
+#   UTC les trois hotes ont echoue ensemble alors que la machine tournait
+#   depuis deux jours. Une seconde passe a ete ajoutee dans le meme job, huit
+#   minutes plus tard, pour ecarter le hoquet de routage.
+#
+#   Cette seconde passe n a rien ecarte du tout. Trois nouvelles alertes ont
+#   suivi en trente heures, 16/08 07h16, 16/08 17h51 et 17/08 06h07, et les
+#   deux passes ont echoue a l identique les trois fois. Diagnostic du
+#   2026-08-17 sur la machine : charge a 98 pour cent d inactivite, trafic
+#   entrant nominal, aucune erreur d interface, aucun paquet rejete, fail2ban a
+#   zero banni, pare-feu Hostinger en accept any sur 80 et 443, et Authelia qui
+#   servait des requetes pendant la fenetre exacte de l echec. Le VPS etait
+#   debout et joignable a chaque fois.
+#
+#   La cause est ailleurs. Deux passes dans le meme job tournent sur la meme
+#   machine virtuelle, donc derriere la meme adresse de sortie et le meme
+#   chemin reseau. Un chemin bloque le reste pour toute la duree du run, et
+#   attendre huit minutes ne le change pas. C est ce que les faits disaient :
+#   quatre echecs sur cinquante-sept passages, chaque fois integralement, et un
+#   autre runner joignait la machine vingt minutes plus tard.
+#
+#   La seconde passe tourne donc maintenant dans un job separe. GitHub lui
+#   attribue une machine virtuelle neuve, donc une autre adresse de sortie et
+#   un autre chemin. La sonde teste ainsi deux chemins independants au lieu de
+#   sonder deux fois le meme, et n alerte que si les deux echouent. Le temps de
+#   detection tombe de quinze minutes a environ trois.
 #
 # Piege a connaitre : GitHub desactive les planifications d un depot public
 # reste sans activite pendant 60 jours. Ce depot recoit des deploiements
@@ -35,8 +54,9 @@ name: Sonde exterieure VPS
 on:
   schedule:
     # Toutes les 15 minutes. GitHub decale les executions planifiees selon sa
-    # charge, la cadence reelle oscille entre 15 et 30 minutes. Suffisant pour
-    # detecter une machine morte, l objectif n etant pas la seconde pres.
+    # charge, la cadence reelle observee oscille entre 15 et 40 minutes.
+    # Suffisant pour detecter une machine morte, l objectif n etant pas la
+    # seconde pres.
     - cron: '*/15 * * * *'
   workflow_dispatch:
 
@@ -44,71 +64,63 @@ permissions:
   contents: read
 
 jobs:
-  verifier:
+  # Premiere passe. Ne fait jamais echouer le run a elle seule : son role est
+  # de dire si une seconde vue vaut la peine d etre demandee.
+  premier-chemin:
     runs-on: ubuntu-latest
-    # Large parce qu une passe en echec dure 3 min 30 et qu il y en a deux,
-    # separees par 8 minutes d attente.
-    timeout-minutes: 20
+    timeout-minutes: 6
+    outputs:
+      verdict: ${{ steps.controle.outputs.verdict }}
     steps:
-      - name: Verifier que le VPS repond depuis l exterieur
+      - uses: actions/checkout@v4
+
+      - name: Interroger le VPS depuis ce runner
+        id: controle
         run: |
-          set -u
-
-          verifier() {
-            nom="$1"; url="$2"; attendu="$3"
-            # curl ecrit deja 000 quand la connexion echoue, et sort en erreur.
-            # Un `|| echo 000` ajouterait un second code au premier et
-            # afficherait 000000 dans le mail d alerte, seul endroit ou Robin
-            # lit ce diagnostic. Corrige le 2026-08-16.
-            code=$(curl -s -o /dev/null -w '%{http_code}' \
-                     --max-time 20 --retry 2 --retry-delay 5 "$url") || true
-            [ -n "$code" ] || code=000
-            if [ "$code" = "$attendu" ]; then
-              echo "OK    $nom repond $code"
-            else
-              echo "ECHEC $nom repond $code, attendu $attendu"
-              echecs=$((echecs + 1))
-            fi
-          }
-
-          # Traefik sert ces trois hotes. Si l un ne repond plus, soit la machine
-          # est tombee, soit le reverse proxy est casse : dans les deux cas le
-          # second cerveau est hors service et Robin doit le savoir.
-          controler() {
-            echecs=0
-            verifier "Forgejo, depot du vault"  "https://git.duale.fr/" 200
-            verifier "Base IA"                  "https://ia.duale.fr/"  200
-            verifier "Portail Authelia"         "https://auth.srv1161197.hstgr.cloud/" 200
-          }
-
-          echo "Passe 1"
-          controler
-          if [ "$echecs" -eq 0 ]; then
+          if bash .github/scripts/sonde-vps.sh; then
+            echo "verdict=repond" >> "$GITHUB_OUTPUT"
             echo
             echo "Les trois services repondent, le VPS est joignable."
-            exit 0
-          fi
-
-          echo
-          echo "$echecs service(s) muets a la passe 1. Seconde passe dans"
-          echo "8 minutes avant de conclure quoi que ce soit."
-          sleep 480
-
-          echo
-          echo "Passe 2"
-          controler
-          if [ "$echecs" -eq 0 ]; then
+          else
+            echo "verdict=muet" >> "$GITHUB_OUTPUT"
             echo
-            echo "::warning::Incident passager : au moins un service etait muet, les trois repondaient de nouveau 8 minutes plus tard. Aucune alerte envoyee."
-            echo "Les trois services repondent a la seconde passe. L incident"
-            echo "s est resorbe seul, aucune alerte n est envoyee. La trace"
-            echo "reste dans l historique des runs si le cas se repete."
+            echo "Au moins un service est muet depuis ce runner. Un second"
+            echo "runner va verifier par un autre chemin avant de conclure."
+          fi
+
+  # Seconde passe, sur un runner neuf. C est ce changement de machine qui
+  # distingue une panne du VPS d un chemin reseau bloque, le premier cas
+  # echouant partout et le second seulement ici.
+  second-chemin:
+    needs: premier-chemin
+    if: needs.premier-chemin.outputs.verdict == 'muet'
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Confirmer depuis un autre runner
+        run: |
+          # L attribution d un runner neuf prend deja une trentaine de
+          # secondes. Ce delai porte la separation dans le temps a environ une
+          # minute et demie, de quoi laisser passer un redemarrage de
+          # conteneur, sans ramener le run a quinze minutes.
+          sleep 60
+
+          if bash .github/scripts/sonde-vps.sh; then
+            echo "::warning::Chemin reseau bloque, pas une panne du VPS : un runner ne joignait aucun des trois hotes, un second les joint tous. Aucune alerte envoyee."
+            echo
+            echo "Les trois services repondent depuis ce second runner. Le"
+            echo "premier n avait donc pas affaire a une machine tombee. La"
+            echo "trace reste dans l historique des runs, et les deux adresses"
+            echo "de sortie journalisees permettent de recouper les cas si le"
+            echo "phenomene se repete."
             exit 0
           fi
 
           echo
-          echo "$echecs service(s) ne repondent toujours pas 8 minutes apres la"
-          echo "premiere passe. La panne dure, ce n est plus un hoquet reseau."
+          echo "Deux runners distincts, deux chemins reseau distincts, aucun ne"
+          echo "joint le VPS. Ce n est plus un probleme de routage."
           echo "Causes possibles : machine arretee, Traefik casse, certificat"
           echo "expire, ou pare-feu Hostinger modifie."
           exit 1

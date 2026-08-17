@@ -1,0 +1,8 @@
+# Ce depot est edite depuis Windows, ou git convertit les fins de ligne en
+# CRLF a la sortie. Un script shell qui arrive avec des CRLF sur un runner
+# Ubuntu echoue des la premiere ligne, sur une erreur qui ne dit pas son nom
+# (`$'\r': command not found`). Les fichiers executes par bash sont donc
+# forces en LF des l ecriture.
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
