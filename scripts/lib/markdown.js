@@ -18,27 +18,30 @@ function urlItem(item) {
   return `${BASE_URL}/${prefixe}/${item.slug}.html`;
 }
 
+// Le Markdown n'est pas du HTML : il consomme les valeurs brutes de Notion, sinon
+// les entites d'echappement posees dans notion.js ressortiraient telles quelles.
 function genererMarkdownDetail(item) {
+  const b = item.brut || item;
   const type = item.type === "LLM" ? "LLM" : "Outil IA et No-Code";
-  return `# ${item.nom}
+  return `# ${b.nom}
 
-> ${nettoyerEspaces(item.description || `${item.nom} référencé dans Base IA.`)}
+> ${nettoyerEspaces(b.description || `${b.nom} référencé dans Base IA.`)}
 
 ## Résumé
 
-${ligne("Type", type)}${ligne("Catégorie", item.type === "LLM" ? "LLMs" : item.categorie)}${ligne("Niveau", item.niveau)}${ligne("Gratuité", item.gratuite)}${ligne("Site officiel", item.lienOfficiel)}${ligne("Tags", item.tags)}${ligne("Fiche HTML", urlItem(item))}
-${paragraphe(`Quand utiliser ${item.nom}`, item.quandUtiliser)}
-${paragraphe(`Pourquoi utiliser ${item.nom}`, item.avantages)}
-${paragraphe(`Limites de ${item.nom}`, item.limites)}
-${paragraphe(`Cas d'usage`, item.casUsage)}
-${paragraphe(`Exemples et workflows`, item.exemplesWorkflows)}
-${paragraphe(`Modèle économique`, item.modeleEconomique)}
-${paragraphe(`Quand payer`, item.quandPayer)}
-${paragraphe(`Alternatives`, item.alternatives)}
-${paragraphe(`Complémentaire avec`, item.complementaireAvec)}
-${paragraphe(`Scénario débutant`, item.scenarioSimple)}
-${paragraphe(`Scénario intermédiaire`, item.scenarioIntermediaire)}
-${paragraphe(`Scénario avancé`, item.scenarioAvance)}
+${ligne("Type", type)}${ligne("Catégorie", item.type === "LLM" ? "LLMs" : b.categorie)}${ligne("Niveau", b.niveau)}${ligne("Gratuité", b.gratuite)}${ligne("Site officiel", b.lienOfficiel)}${ligne("Tags", b.tags)}${ligne("Fiche HTML", urlItem(item))}
+${paragraphe(`Quand utiliser ${b.nom}`, b.quandUtiliser)}
+${paragraphe(`Pourquoi utiliser ${b.nom}`, b.avantages)}
+${paragraphe(`Limites de ${b.nom}`, b.limites)}
+${paragraphe(`Cas d'usage`, b.casUsage)}
+${paragraphe(`Exemples et workflows`, b.exemplesWorkflows)}
+${paragraphe(`Modèle économique`, b.modeleEconomique)}
+${paragraphe(`Quand payer`, b.quandPayer)}
+${paragraphe(`Alternatives`, b.alternatives)}
+${paragraphe(`Complémentaire avec`, b.complementaireAvec)}
+${paragraphe(`Scénario débutant`, b.scenarioSimple)}
+${paragraphe(`Scénario intermédiaire`, b.scenarioIntermediaire)}
+${paragraphe(`Scénario avancé`, b.scenarioAvance)}
 `;
 }
 
@@ -70,7 +73,7 @@ ${lignes}
 function genererMarkdownGuide(slug, titre, intro, items) {
   const lignes = items
     .filter((item) => item.description)
-    .map((item) => `- [${item.nom}](${urlItem(item)}) : ${nettoyerEspaces(item.description).substring(0, 180)}`)
+    .map((item) => { const b = item.brut || item; return `- [${b.nom}](${urlItem(item)}) : ${nettoyerEspaces(b.description).substring(0, 180)}`; })
     .join("\n");
 
   return `# ${titre}

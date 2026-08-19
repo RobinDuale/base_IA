@@ -173,13 +173,26 @@ function genererAdminPropositions() {
   <h1>Propositions d'outils</h1>
 </header>
 <main>
-  <div id="admin-guard" style="display:none;max-width:480px;margin:3rem auto;text-align:center;">
-    <p style="color:#dc2626;font-weight:600;">Accès réservé à l'admin.</p>
-    <a href="/" style="color:#888;font-size:0.9rem;">← Retour à l'accueil</a>
+  <!-- Connexion admin. Depuis le 2026-08-19 elle vit ici seulement : les pages
+       publiques ne portent plus ni champ de saisie de cle ni stockage de jeton. -->
+  <div id="admin-guard" style="display:none;max-width:360px;margin:3rem auto;">
+    <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:20px;text-align:center;">Administration · Base IA</p>
+    <label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#888;margin-bottom:6px;">Clé d'accès</label>
+    <input type="password" id="input-cle-admin" placeholder="••••••••" style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;font-family:monospace;outline:none;margin-bottom:8px;box-sizing:border-box;" onkeydown="if(event.key==='Enter')connecterAdmin()"/>
+    <div id="erreur-admin" style="display:none;color:#c0392b;font-size:13px;margin-bottom:8px;">Clé incorrecte.</div>
+    <button onclick="connecterAdmin()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Accéder</button>
+    <p style="text-align:center;margin-top:18px;"><a href="/" style="color:#888;font-size:0.9rem;">← Retour à l'accueil</a></p>
   </div>
 
   <div id="admin-content" style="display:none;">
     <div id="error-msg"></div>
+
+    <!-- Le bouton "Mettre a jour le site" a suivi la connexion : il n'a plus de
+         raison d'etre sur les pages que les visiteurs chargent. -->
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:1.25rem;">
+      <button id="btn-refresh" onclick="rafraichirSite(this)" style="padding:8px 16px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:0.85rem;cursor:pointer;">Mettre à jour le site</button>
+      <button onclick="deconnecterAdmin()" style="padding:8px 16px;background:none;border:1px solid #e0d9cc;border-radius:3px;font-size:0.85rem;cursor:pointer;color:#c0392b;">Se déconnecter</button>
+    </div>
 
     <div class="filter-tabs">
       <button class="filter-tab actif" onclick="filtrerStatut('tous', this)">Toutes</button>
@@ -246,7 +259,7 @@ function formatDate(iso) {
 
 function renderLigne(p) {
   const peutAgir = ['Email validé', 'Email valide', 'Reçue', 'En cours'].includes(p.statut);
-  return \`<tr data-statut="\${p.statut}" data-id="\${p.id}">
+  return \`<tr data-statut="\${escHtml(p.statut)}" data-id="\${escHtml(p.id)}">
     <td>
       <div class="prop-nom">\${escHtml(p.nom)}</div>
       <div class="prop-url">\${p.url ? \`<a href="\${escHtml(p.url)}" target="_blank" rel="noopener noreferrer">\${escHtml(p.url)}</a>\` : '-'}</div>
@@ -257,15 +270,15 @@ function renderLigne(p) {
     <td><div class="prop-desc">\${escHtml(p.description || '-')}</div></td>
     <td style="white-space:nowrap;">
       \${peutAgir ? \`
-        <button class="btn-valider" onclick="agir('\${p.id}', 'valider', this)">Valider</button>
-        <button class="btn-rejeter" onclick="agir('\${p.id}', 'rejeter', this)">Rejeter</button>
+        <button class="btn-valider" onclick="agir('\${escHtml(p.id)}', 'valider', this)">Valider</button>
+        <button class="btn-rejeter" onclick="agir('\${escHtml(p.id)}', 'rejeter', this)">Rejeter</button>
       \` : '-'}
     </td>
   </tr>\`;
 }
 
 function escHtml(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 function filtrerStatut(statut, btn) {
@@ -333,12 +346,81 @@ async function agir(pageId, action, btn) {
   }
 }
 
+function ouvrirAdmin() {
+  document.getElementById('admin-guard').style.display = 'none';
+  document.getElementById('admin-content').style.display = '';
+  chargerPropositions();
+}
+
+async function connecterAdmin() {
+  const val = document.getElementById('input-cle-admin').value.trim();
+  const errEl = document.getElementById('erreur-admin');
+  errEl.style.display = 'none';
+  if (!val) { errEl.style.display = 'block'; return; }
+  try {
+    const r = await fetch('https://api.github.com/user', { headers: { Authorization: 'token ' + val } });
+    if (r.ok) {
+      document.cookie = 'admin_duale=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
+      document.cookie = 'ga_exclude=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
+      localStorage.setItem('admin_token', val);
+      ouvrirAdmin();
+      return;
+    }
+  } catch(e) {}
+  errEl.style.display = 'block';
+}
+
+function deconnecterAdmin() {
+  document.cookie = 'admin_duale=; domain=.duale.fr; path=/; max-age=0';
+  document.cookie = 'ga_exclude=; domain=.duale.fr; path=/; max-age=0';
+  localStorage.removeItem('admin_token');
+  window.location.href = '/';
+}
+
+function rafraichirSite(btn) {
+  const cliqueLe = new Date().toISOString();
+  btn.disabled = true;
+  btn.textContent = 'Déclenchement en cours...';
+  fetch(N8N + '/base-ia-refresh')
+    .then(() => {
+      btn.textContent = 'Build lancé, vérification en cours...';
+      attendreMiseAJour(btn, cliqueLe);
+    })
+    .catch(() => {
+      btn.textContent = 'Erreur, réessaie dans un moment';
+      btn.disabled = false;
+    });
+}
+
+function attendreMiseAJour(btn, cliqueLe) {
+  const TIMEOUT = 5 * 60 * 1000;
+  const INTERVALLE = 10 * 1000;
+  const debut = Date.now();
+  const interval = setInterval(() => {
+    if (Date.now() - debut > TIMEOUT) {
+      clearInterval(interval);
+      btn.textContent = 'Délai dépassé, réessaie';
+      btn.disabled = false;
+      return;
+    }
+    fetch(window.location.origin + '/version.json?t=' + Date.now())
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.built_at > cliqueLe) {
+          clearInterval(interval);
+          btn.textContent = 'Site mis à jour !';
+          setTimeout(() => { btn.textContent = 'Mettre à jour le site'; btn.disabled = false; }, 4000);
+        }
+      })
+      .catch(() => {});
+  }, INTERVALLE);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  if (!isAdmin()) {
-    document.getElementById('admin-guard').style.display = '';
+  if (isAdmin() && localStorage.getItem('admin_token')) {
+    ouvrirAdmin();
   } else {
-    document.getElementById('admin-content').style.display = '';
-    chargerPropositions();
+    document.getElementById('admin-guard').style.display = '';
   }
 });
 </script>

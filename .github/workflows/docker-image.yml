@@ -51,8 +51,10 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      # Le projet "base-ia" est autonome (rattaché au réseau root_default en externe) --
-      # ce déploiement ne touche jamais aux autres services partagés du VPS (n8n, CRM, Postgres, Traefik).
+      # Le projet "base-ia" est autonome, rattaché au réseau cloisonné ia_public créé le
+      # 2026-08-15, qui ne porte que Traefik et ce site. Le conteneur ne joint donc ni
+      # Postgres ni n8n. Ce compose est la copie de celui qui tourne sur le VPS : le
+      # laisser sur root_default annulerait le cloisonnement au premier push.
       - name: Redéployer le projet base-ia sur le VPS Hostinger
         env:
           HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
@@ -74,13 +76,13 @@ jobs:
                 - traefik.http.routers.base-ia.tls.certresolver=mytlschallenge
                 - traefik.http.services.base-ia.loadbalancer.server.port=3000
               networks:
-                default:
+                ia_public:
                   aliases:
                     - base-ia
 
           networks:
-            default:
-              name: root_default
+            ia_public:
+              name: ia_public
               external: true
           YAML
           )

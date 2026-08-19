@@ -1,7 +1,7 @@
 // notion.js -- Récupération des données depuis Notion
 
 const { Client } = require("@notionhq/client");
-const { slugifier, extraireTexte } = require("./utils");
+const { slugifier, extraireTexte, echapperHtml } = require("./utils");
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const NOTION_DATABASE_ID = "b6a3c72949e546f89c6dfc990689298e";
@@ -32,13 +32,9 @@ async function recupererItems() {
 
     for (const page of reponse.results) {
       const p = page.properties;
-      items.push({
-        id: page.id,
-        // created_time / last_edited_time : dates réelles Notion (format ISO UTC)
-        // Utilisées pour datePublished et dateModified dans Schema.org
-        dateCreation:     page.created_time,
-        dateModification: page.last_edited_time,
-        slug: slugifier(extraireTexte(p["Nom"])),
+      // Les valeurs brutes servent aux sorties qui ne sont pas du HTML (Markdown,
+      // llms.txt) et au JSON-LD, qui porte son propre echappement.
+      const brut = {
         nom: extraireTexte(p["Nom"]),
         type: extraireTexte(p["Type"]),
         categorie: extraireTexte(p["Catégorie"]),
@@ -64,6 +60,25 @@ async function recupererItems() {
         scenarioSimple: extraireTexte(p["Scénario simple"]),
         scenarioIntermediaire: extraireTexte(p["Scénario intermédiaire"]),
         scenarioAvance: extraireTexte(p["Scénario avancé"]),
+      };
+
+      // Tout ce que les generateurs HTML interpolent passe par cet echappement, une
+      // fois pour toutes. C'est le point de passage unique choisi le 2026-08-19 :
+      // aucun module de rendu n'a donc a se souvenir d'echapper.
+      const echappe = {};
+      for (const [cle, valeur] of Object.entries(brut)) {
+        echappe[cle] = typeof valeur === "string" ? echapperHtml(valeur) : valeur;
+      }
+
+      items.push({
+        id: page.id,
+        // created_time / last_edited_time : dates réelles Notion (format ISO UTC)
+        // Utilisées pour datePublished et dateModified dans Schema.org
+        dateCreation:     page.created_time,
+        dateModification: page.last_edited_time,
+        slug: slugifier(brut.nom),
+        ...echappe,
+        brut,
       });
     }
 

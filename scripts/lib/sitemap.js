@@ -36,24 +36,24 @@ ${llms.map((l) => urlEntry(`${BASE_URL}/llm/${l.slug}.html`, "monthly", "0.8", l
 function genererLLMsTxt(outils, llms, hubs = []) {
   const lignesOutils = outils
     .filter((o) => o.description)
-    .map((o) => `- [${o.nom}](${BASE_URL}/outils/${o.slug}.html) : ${o.description.substring(0, 120).trimEnd()}`)
+    .map((o) => { const b = o.brut || o; return `- [${b.nom}](${BASE_URL}/outils/${o.slug}.html) : ${b.description.substring(0, 120).trimEnd()}`; })
     .join("\n");
 
   const lignesLLMs = llms
     .filter((l) => l.description)
-    .map((l) => `- [${l.nom}](${BASE_URL}/llm/${l.slug}.html) : ${l.description.substring(0, 120).trimEnd()}`)
+    .map((l) => { const b = l.brut || l; return `- [${b.nom}](${BASE_URL}/llm/${l.slug}.html) : ${b.description.substring(0, 120).trimEnd()}`; })
     .join("\n");
 
-  const categories = [...new Set(outils.map((o) => o.categorie).filter(Boolean))].join(", ");
+  const categories = [...new Set(outils.map((o) => (o.brut || o).categorie).filter(Boolean))].join(", ");
 
   const markdownOutils = outils
     .filter((o) => o.description)
-    .map((o) => `- [${o.nom} Markdown](${BASE_URL}/outils/${o.slug}.html.md) : version courte et structurée pour assistants IA`)
+    .map((o) => `- [${(o.brut || o).nom} Markdown](${BASE_URL}/outils/${o.slug}.html.md) : version courte et structurée pour assistants IA`)
     .join("\n");
 
   const markdownLLMs = llms
     .filter((l) => l.description)
-    .map((l) => `- [${l.nom} Markdown](${BASE_URL}/llm/${l.slug}.html.md) : version courte et structurée pour assistants IA`)
+    .map((l) => `- [${(l.brut || l).nom} Markdown](${BASE_URL}/llm/${l.slug}.html.md) : version courte et structurée pour assistants IA`)
     .join("\n");
 
   return `# Base IA -- Robin Duale · Référence des outils IA, No-Code et LLMs

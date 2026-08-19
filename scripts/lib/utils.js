@@ -42,16 +42,36 @@ function tronquerPhrase(texte, limite) {
   return sansMotCoupe.replace(/[.,;:!?-]+$/g, "").trim();
 }
 
+// Echappement HTML applique a tout le contenu venant de Notion, au moment ou les
+// items sont construits (voir notion.js). L'apostrophe est echappee elle aussi :
+// sans elle, un champ Notion sort d'un attribut ecrit en quotes simples, et de la
+// chaine JavaScript des gestionnaires onclick generes par detail.js.
 function echapperHtml(texte) {
   return String(texte || "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
+// Echappement pour les blocs JSON-LD, qui vivent dans un <script> et ne sont donc
+// pas proteges par l'echappement HTML. JSON.stringify traite guillemets, antislashs
+// et caracteres de controle ; les trois remplacements suivants neutralisent en plus
+// toute balise fermante, qui sortirait du script sans eux.
 function echapperJson(texte) {
-  return nettoyerEspaces(texte).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  return JSON.stringify(nettoyerEspaces(texte))
+    .slice(1, -1)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026");
+}
+
+// Ne laisse passer qu'une URL http ou https. Ferme les schemas javascript: et data:
+// dans les attributs href alimentes par le champ Notion "Lien officiel".
+function urlSure(url) {
+  const propre = String(url || "").trim();
+  return /^https?:\/\//i.test(propre) ? propre : "";
 }
 
 // Tronque une description pour les meta tags (130-155 chars)
@@ -85,6 +105,7 @@ module.exports = {
   tronquerPhrase,
   echapperHtml,
   echapperJson,
+  urlSure,
   descriptionMeta,
   formatDateParis,
 };

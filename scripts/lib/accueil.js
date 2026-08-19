@@ -237,9 +237,6 @@ ${META_GOOGLE}
         <a href="https://cv-robin.duale.fr" target="_blank" rel="noopener noreferrer">cv-robin.duale.fr</a>
         <a href="/mentions-legales.html">Mentions légales</a>
       </div>
-      <button class="btn-refresh admin-zone" onclick="rafraichirSite(this)" style="display:none">Mettre à jour le site</button>
-      <a class="admin-zone" href="/admin-propositions.html" style="display:none;font-size:0.82rem;color:#888;text-decoration:none;padding:4px 8px;border:1px solid #ddd;border-radius:3px;" onmouseover="this.style.color='#333'" onmouseout="this.style.color='#888'">Propositions</a>
-      <button onclick="ouvrirModalAdmin()" title="Administration" aria-label="Accès administration" style="background:none;border:none;cursor:pointer;color:#bbb;font-size:17px;padding:4px 6px;line-height:1;" onmouseover="this.style.color='#555'" onmouseout="this.style.color='#bbb'">⚙</button>
     </div>
   </footer>
 
@@ -286,44 +283,6 @@ ${META_GOOGLE}
       });
     }
 
-    function rafraichirSite(btn) {
-      const cliqueLe = new Date().toISOString();
-      btn.disabled = true;
-      btn.textContent = "Déclenchement en cours...";
-      fetch("https://n8n.srv1161197.hstgr.cloud/webhook/base-ia-refresh")
-        .then(() => {
-          btn.textContent = "Build lancé -- vérification en cours...";
-          attendreMiseAJour(btn, cliqueLe);
-        })
-        .catch(() => {
-          btn.textContent = "Erreur -- réessaie dans un moment";
-          btn.disabled = false;
-        });
-    }
-
-    function attendreMiseAJour(btn, cliqueLe) {
-      const TIMEOUT = 5 * 60 * 1000;
-      const INTERVALLE = 10 * 1000;
-      const debut = Date.now();
-      const interval = setInterval(() => {
-        if (Date.now() - debut > TIMEOUT) {
-          clearInterval(interval);
-          btn.textContent = "Délai dépassé -- réessaie";
-          btn.disabled = false;
-          return;
-        }
-        fetch(window.location.origin + "/version.json?t=" + Date.now())
-          .then((r) => r.json())
-          .then((data) => {
-            if (data.built_at > cliqueLe) {
-              clearInterval(interval);
-              btn.textContent = "Site mis à jour !";
-              setTimeout(() => { btn.textContent = "Mettre à jour le site"; btn.disabled = false; }, 4000);
-            }
-          })
-          .catch(() => {});
-      }, INTERVALLE);
-    }
   </script>
 
   <script>
@@ -451,79 +410,6 @@ ${META_GOOGLE}
     }
   </script>
 
-  <div id="modal-admin" onclick="if(event.target===this)fermerModalAdmin()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;">
-    <div style="background:#fff;border-radius:6px;padding:32px 36px;width:100%;max-width:340px;margin:16px;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.15);">
-      <button onclick="fermerModalAdmin()" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#bbb;line-height:1;">×</button>
-      <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:20px;">Administration · Base IA</p>
-      <div id="panel-login">
-        <label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#888;margin-bottom:6px;">Clé d'accès</label>
-        <input type="password" id="input-cle-admin" placeholder="••••••••" style="width:100%;padding:9px 12px;border:1px solid #d0c9bc;border-radius:3px;font-size:14px;font-family:monospace;outline:none;margin-bottom:8px;box-sizing:border-box;" onkeydown="if(event.key==='Enter')connecterAdmin()"/>
-        <div id="erreur-admin" style="display:none;color:#c0392b;font-size:13px;margin-bottom:8px;">Clé incorrecte.</div>
-        <button onclick="connecterAdmin()" style="width:100%;padding:10px;background:#1a1712;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;cursor:pointer;">Accéder</button>
-      </div>
-      <div id="panel-admin" style="display:none">
-        <p style="color:#27ae60;font-size:14px;margin-bottom:16px;">Mode admin actif.</p>
-        <button onclick="deconnecterAdmin()" style="width:100%;padding:10px;background:none;border:1px solid #e0d9cc;border-radius:3px;font-size:14px;cursor:pointer;color:#c0392b;">Se déconnecter</button>
-      </div>
-    </div>
-  </div>
-  <script>
-    function getAdminCookie() {
-      return document.cookie.split(';').some(c => c.trim() === 'admin_duale=1');
-    }
-    function setAdminCookie() {
-      document.cookie = 'admin_duale=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
-      document.cookie = 'ga_exclude=1; domain=.duale.fr; path=/; max-age=86400; SameSite=Lax';
-    }
-    function deleteAdminCookie() {
-      document.cookie = 'admin_duale=; domain=.duale.fr; path=/; max-age=0';
-      document.cookie = 'ga_exclude=; domain=.duale.fr; path=/; max-age=0';
-    }
-    function initAdminMode() {
-      if (getAdminCookie()) activerAdmin();
-    }
-    function activerAdmin() {
-      document.querySelectorAll('.admin-zone').forEach(el => el.style.display = '');
-    }
-    function ouvrirModalAdmin() {
-      const estAdmin = getAdminCookie();
-      document.getElementById('panel-login').style.display = estAdmin ? 'none' : '';
-      document.getElementById('panel-admin').style.display = estAdmin ? '' : 'none';
-      document.getElementById('erreur-admin').style.display = 'none';
-      if (!estAdmin) document.getElementById('input-cle-admin').value = '';
-      document.getElementById('modal-admin').style.display = 'flex';
-      if (!estAdmin) setTimeout(() => document.getElementById('input-cle-admin').focus(), 50);
-    }
-    function fermerModalAdmin() {
-      document.getElementById('modal-admin').style.display = 'none';
-    }
-    async function connecterAdmin() {
-      const val = document.getElementById('input-cle-admin').value.trim();
-      const errEl = document.getElementById('erreur-admin');
-      if (!val) { errEl.style.display = 'block'; return; }
-      try {
-        const r = await fetch('https://api.github.com/user', {
-          headers: { Authorization: 'token ' + val }
-        });
-        if (r.ok) { validerAdmin(val); return; }
-      } catch(e) {}
-      errEl.style.display = 'block';
-    }
-    function validerAdmin(token) {
-      setAdminCookie();
-      if (token) localStorage.setItem('admin_token', token);
-      document.getElementById('panel-login').style.display = 'none';
-      document.getElementById('panel-admin').style.display = '';
-      activerAdmin();
-    }
-    function deconnecterAdmin() {
-      deleteAdminCookie();
-      localStorage.removeItem('admin_token');
-      document.querySelectorAll('.admin-zone').forEach(el => el.style.display = 'none');
-      fermerModalAdmin();
-    }
-    initAdminMode();
-  </script>
 ${COOKIE_BANNER}
 </body>
 </html>`;
