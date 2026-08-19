@@ -381,7 +381,9 @@ function rafraichirSite(btn) {
   const cliqueLe = new Date().toISOString();
   btn.disabled = true;
   btn.textContent = 'Déclenchement en cours...';
-  fetch(N8N + '/base-ia-refresh')
+  // La cle admin part dans l en-tete : depuis le 2026-08-19, WF1 la verifie avant
+  // de synchroniser. Sans elle, le webhook repond mais ne declenche rien.
+  fetch(N8N + '/base-ia-refresh', { headers: { 'X-Admin-Token': localStorage.getItem('admin_token') || '' } })
     .then(() => {
       btn.textContent = 'Build lancé, vérification en cours...';
       attendreMiseAJour(btn, cliqueLe);
