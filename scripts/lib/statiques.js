@@ -65,7 +65,7 @@ function genererMentionsLegales() {
 <footer>
   <div class="footer-contenu">
     <div class="footer-gauche">
-      <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
+      <span class="footer-copy">© 2026 Robin Dualé</span>
     </div>
     <div class="footer-liens">
       <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -116,7 +116,7 @@ function genererPageConfirmation() {
 <footer>
   <div class="footer-contenu">
     <div class="footer-gauche">
-      <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
+      <span class="footer-copy">© 2026 Robin Dualé</span>
     </div>
     <div class="footer-liens">
       <a href="https://www.linkedin.com/in/robinduale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -226,7 +226,7 @@ function genererAdminPropositions() {
 <footer>
   <div class="footer-contenu">
     <div class="footer-gauche">
-      <span class="footer-copy">© 2026 Robin Dualé · <a href="https://duale.fr" target="_blank" rel="noopener noreferrer">duale.fr</a></span>
+      <span class="footer-copy">© 2026 Robin Dualé</span>
     </div>
     <div class="footer-liens">
       <a href="/">Accueil</a>
