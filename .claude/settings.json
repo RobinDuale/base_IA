@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "PowerShell(*)",
+      "mcp__76b2a156-82b0-486e-9ffc-8b6fd75a1f9f__*",
+      "mcp__793e605a-23c4-4fbf-bd73-5e690297168d__*"
+    ]
+  }
+}
