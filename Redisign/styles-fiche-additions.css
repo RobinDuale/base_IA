@@ -1,0 +1,313 @@
+/* --- AJOUTS pour la fiche (Passe 2)
+ * À AJOUTER À LA FIN du fichier src/styles.css existant (celui de la Passe 1).
+ * Ne pas remplacer le styles.css de la Passe 1 — juste appender ces règles.
+ */
+
+/* --- Hero de la fiche : eyebrow + h1 + lede --- */
+.fiche-hero {
+  margin-bottom: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.fiche-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fiche-eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cat-color, var(--accent));
+  display: inline-block;
+}
+
+.fiche h1 {
+  font-family: var(--font-title);
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+
+.fiche-lede {
+  font-size: 21px;
+  line-height: 1.55;
+  color: var(--ink);
+  font-weight: 400;
+  max-width: 720px;
+  margin-bottom: 18px;
+}
+
+.fiche-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.fiche-action {
+  padding: 9px 16px;
+  border-radius: var(--rayon-pill);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-size: 14px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+
+.fiche-action:hover {
+  border-color: var(--ink);
+}
+
+.fiche-action--primary {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+.fiche-action--primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* --- Bandeau coloré au-dessus de l'entête (couleur catégorie) --- */
+.cat-band {
+  height: 4px;
+  width: 100%;
+  background: var(--cat-color, var(--accent));
+}
+
+/* --- Points clés (callout en haut de la fiche) --- */
+.keypoints {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 14px 20px 16px;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.keypoints::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--cat-color, var(--accent));
+}
+
+.keypoints-titre {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cat-color, var(--accent));
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.keypoints-liste {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.keypoints-liste li {
+  display: flex;
+  gap: 14px;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.keypoints-num {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cat-color, var(--accent));
+  min-width: 22px;
+}
+
+/* --- Sections : couleur thématique par type --- */
+.section[data-type="intro"]   { border-top-color: #5b3aa8; }   /* violet */
+.section[data-type="fort"]    { border-top-color: #2a7256; }   /* vert */
+.section[data-type="faible"]  { border-top-color: #c0392b; }   /* rouge */
+.section[data-type="usage"]   { border-top-color: #2c4fb4; }   /* bleu */
+.section[data-type="eco"]     { border-top-color: #b56438; }   /* ambre */
+.section[data-type="notes"]   { border-top-color: #a82a8a; }   /* magenta */
+
+/* eyebrow coloré dans chaque section */
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.section[data-type="intro"]  .section-eyebrow { color: #5b3aa8; }
+.section[data-type="fort"]   .section-eyebrow { color: #2a7256; }
+.section[data-type="faible"] .section-eyebrow { color: #c0392b; }
+.section[data-type="usage"]  .section-eyebrow { color: #2c4fb4; }
+.section[data-type="eco"]    .section-eyebrow { color: #b56438; }
+.section[data-type="notes"]  .section-eyebrow { color: #a82a8a; }
+
+/* --- Sections en paire (2 colonnes côte à côte) --- */
+.section-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 800px) {
+  .section-pair { grid-template-columns: 1fr; }
+}
+
+/* --- Spec sheet (en bas de la colonne droite) --- */
+.spec-sheet {
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.spec-sheet-titre {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--line);
+  gap: 12px;
+}
+
+.spec-row:last-child { border-bottom: none; }
+
+.spec-key {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.spec-val {
+  color: var(--ink);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* --- Badges enrichis (catégorie + niveau + gratuité) --- */
+.badge-cat {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border-radius: var(--rayon-pill);
+  border: 1px solid currentColor;
+  color: var(--cat-color, var(--accent));
+  background: transparent;
+}
+
+.badge-neutre {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border-radius: var(--rayon-pill);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.badge-gratuit {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border-radius: var(--rayon-pill);
+  color: var(--ink);
+  background: var(--cat-color-soft, var(--accent-soft));
+}
+
+/* --- Nav latérale : dot coloré par catégorie --- */
+.barre-laterale a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+
+.barre-laterale a.actif .nav-dot,
+.barre-laterale a:hover .nav-dot {
+  opacity: 1;
+}
+
+/* --- Mobile fiche --- */
+@media (max-width: 600px) {
+  .fiche h1 { font-size: 40px; }
+  .fiche-lede { font-size: 18px; }
+  .keypoints-liste li { font-size: 16px; }
+  .section p { font-size: 16px; }
+  .scenario-texte { font-size: 16px; }
+}
